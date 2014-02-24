@@ -27,7 +27,7 @@
                             <outlet property="delegate" destination="ZIV-Ea-MId" id="reD-ah-mwX"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Feed" id="Mqs-XK-zNN"/>
+                    <tabBarItem key="tabBarItem" title="Feed" image="home-32.png" id="Mqs-XK-zNN"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZIR-Bp-402" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -71,7 +71,7 @@
                             <constraint firstAttribute="centerY" secondItem="tZ3-Hv-Q7E" secondAttribute="centerY" id="xLM-BA-nZb"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Want" image="first" id="u1e-5L-l1D"/>
+                    <tabBarItem key="tabBarItem" title="Want" image="star-32.png" id="u1e-5L-l1D"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qh2-T1-AhA" sceneMemberID="firstResponder"/>
             </objects>
@@ -90,7 +90,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" id="WDp-AV-nrb"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="user_male4-32.png" id="WDp-AV-nrb"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r5p-o0-MuC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -109,7 +109,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Camera" id="cTV-QM-q6B"/>
+                    <tabBarItem key="tabBarItem" title="Camera" image="integrated_webcam-32.png" id="cTV-QM-q6B"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFE-5f-VgK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -153,7 +153,7 @@
                             <constraint firstAttribute="centerY" secondItem="DcM-Fx-MKR" secondAttribute="centerY" id="lHZ-e8-ii2"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Discover" image="first" id="Z7h-1E-pvt"/>
+                    <tabBarItem key="tabBarItem" title="Discover" image="search-32.png" id="Z7h-1E-pvt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3qq-4t-Ow8" sceneMemberID="firstResponder"/>
             </objects>
@@ -183,7 +183,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
+        <image name="home-32.png" width="32" height="32"/>
+        <image name="integrated_webcam-32.png" width="32" height="32"/>
+        <image name="search-32.png" width="32" height="32"/>
+        <image name="star-32.png" width="32" height="32"/>
+        <image name="user_male4-32.png" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
