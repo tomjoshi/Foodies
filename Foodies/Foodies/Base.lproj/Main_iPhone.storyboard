@@ -109,7 +109,7 @@
             </objects>
             <point key="canvasLocation" x="653" y="1935"/>
         </scene>
-        <!--Camera View Controller - Camera-->
+        <!--Camera View Controller-->
         <scene sceneID="bip-ul-DJt">
             <objects>
                 <viewController id="au5-ON-E1O" customClass="CameraViewController" sceneMemberID="viewController">
@@ -122,7 +122,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJ0-zx-SLS">
-                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="88" width="320" height="320"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mN3-mH-BXQ">
@@ -155,7 +155,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Camera" image="integrated_webcam-32.png" id="cTV-QM-q6B"/>
+                    <navigationItem key="navigationItem" id="BY8-5G-u6c"/>
                     <connections>
                         <outlet property="imageView" destination="zJ0-zx-SLS" id="cec-3K-Edv"/>
                     </connections>
@@ -167,7 +167,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="653" y="1249"/>
+            <point key="canvasLocation" x="1179" y="1249"/>
         </scene>
         <!--Second View Controller - Second-->
         <scene sceneID="ot8-2e-RuS">
@@ -226,7 +226,7 @@
                     <connections>
                         <segue destination="ZIV-Ea-MId" kind="relationship" relationship="viewControllers" id="bqr-Z3-m0y"/>
                         <segue destination="QUy-BD-bpt" kind="relationship" relationship="viewControllers" id="NzE-ae-zHb"/>
-                        <segue destination="au5-ON-E1O" kind="relationship" relationship="viewControllers" id="wid-Qs-2Bw"/>
+                        <segue destination="Vu9-dA-1bX" kind="relationship" relationship="viewControllers" id="wid-Qs-2Bw"/>
                         <segue destination="CZ4-MO-1fc" kind="relationship" relationship="viewControllers" id="yjo-Sa-8Uh"/>
                         <segue destination="0De-Ro-a18" kind="relationship" relationship="viewControllers" id="U79-gN-9CK"/>
                     </connections>
@@ -234,6 +234,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="180"/>
+        </scene>
+        <!--Navigation Controller - Camera-->
+        <scene sceneID="TSd-TG-h7S">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Vu9-dA-1bX" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Camera" image="integrated_webcam-32.png" id="cTV-QM-q6B"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="obM-fO-MiJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="au5-ON-E1O" kind="relationship" relationship="rootViewController" id="VDR-CK-Iwc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Hf-Yk-a3w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="653" y="1249"/>
         </scene>
     </scenes>
     <resources>
