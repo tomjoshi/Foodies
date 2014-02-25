@@ -121,12 +121,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="INT-XF-oAG" customClass="CamPreviewView">
-                                <rect key="frame" x="0.0" y="87" width="320" height="320"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJ0-zx-SLS">
+                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mN3-mH-BXQ">
                                 <rect key="frame" x="135" y="447" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -134,7 +132,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="photoSnapped:" destination="au5-ON-E1O" eventType="touchUpInside" id="5Vb-oZ-Trj"/>
+                                    <action selector="useCamera:" destination="au5-ON-E1O" eventType="touchUpInside" id="kd5-oz-w5p"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ww-Lt-CFZ">
@@ -144,7 +142,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="albumTapped:" destination="au5-ON-E1O" eventType="touchUpInside" id="b7H-pi-qI5"/>
+                                    <action selector="useCameraRoll:" destination="au5-ON-E1O" eventType="touchUpInside" id="x12-gp-0qa"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcA-tj-q1G">
@@ -153,19 +151,13 @@
                                 <state key="normal" image="flash_light-100.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="flashToggle:" destination="au5-ON-E1O" eventType="touchUpInside" id="b5G-dD-rqu"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Camera" image="integrated_webcam-32.png" id="cTV-QM-q6B"/>
                     <connections>
-                        <outlet property="albumButton" destination="5Ww-Lt-CFZ" id="vbs-w8-hCc"/>
-                        <outlet property="flashButton" destination="GcA-tj-q1G" id="J8w-Y6-wxe"/>
-                        <outlet property="previewView" destination="INT-XF-oAG" id="nk8-qH-XVo"/>
-                        <outlet property="shutterButton" destination="mN3-mH-BXQ" id="0Ds-Ng-NYG"/>
+                        <outlet property="imageView" destination="zJ0-zx-SLS" id="cec-3K-Edv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFE-5f-VgK" userLabel="First Responder" sceneMemberID="firstResponder"/>
