@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5E26A462825B4BF6831418D7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 883104303B1C48AF812654FF /* libPods.a */; };
 		D12A6D9618C128800029EB6D /* CameraModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A6D9518C128800029EB6D /* CameraModeViewController.m */; };
+		D12A6D9918C12EB40029EB6D /* CustomCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A6D9818C12EB40029EB6D /* CustomCamera.m */; };
 		D13A51A818BBCA3700ADE71D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A718BBCA3700ADE71D /* AVFoundation.framework */; };
 		D13A51AA18BBCA5700ADE71D /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D13A51B518BCEF3200ADE71D /* CameraViewController.m */; };
@@ -46,6 +47,8 @@
 		883104303B1C48AF812654FF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12A6D9418C128800029EB6D /* CameraModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraModeViewController.h; sourceTree = "<group>"; };
 		D12A6D9518C128800029EB6D /* CameraModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraModeViewController.m; sourceTree = "<group>"; };
+		D12A6D9718C12EB40029EB6D /* CustomCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCamera.h; sourceTree = "<group>"; };
+		D12A6D9818C12EB40029EB6D /* CustomCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCamera.m; sourceTree = "<group>"; };
 		D13A51A718BBCA3700ADE71D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		D13A51B418BCEF3200ADE71D /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
@@ -148,6 +151,8 @@
 				D1B57DAA18C11D67007B3833 /* TabBarController.m */,
 				D12A6D9418C128800029EB6D /* CameraModeViewController.h */,
 				D12A6D9518C128800029EB6D /* CameraModeViewController.m */,
+				D12A6D9718C12EB40029EB6D /* CustomCamera.h */,
+				D12A6D9818C12EB40029EB6D /* CustomCamera.m */,
 				D13A51B418BCEF3200ADE71D /* CameraViewController.h */,
 				D13A51B518BCEF3200ADE71D /* CameraViewController.m */,
 				D183515C18BBAE5B00303868 /* FirstViewController.h */,
@@ -327,6 +332,7 @@
 				D183515518BBAE5B00303868 /* AppDelegate.m in Sources */,
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
 				D183515E18BBAE5B00303868 /* FirstViewController.m in Sources */,
+				D12A6D9918C12EB40029EB6D /* CustomCamera.m in Sources */,
 				D12A6D9618C128800029EB6D /* CameraModeViewController.m in Sources */,
 				D183515118BBAE5B00303868 /* main.m in Sources */,
 			);

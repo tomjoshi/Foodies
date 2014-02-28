@@ -41,6 +41,10 @@ install_resource()
       ;;
   esac
 }
+install_resource "DBCamera/DBCamera/Resources/DBCameraImages.xcassets"
+install_resource "DBCamera/DBCamera/Localizations/en.lproj"
+install_resource "DBCamera/DBCamera/Localizations/es.lproj"
+install_resource "DBCamera/DBCamera/Localizations/it.lproj"
 install_resource "FontAwesomeKit/FontAwesomeKit/FontAwesome.otf"
 install_resource "FontAwesomeKit/FontAwesomeKit/foundation-icons.ttf"
 install_resource "FontAwesomeKit/FontAwesomeKit/ionicons.ttf"

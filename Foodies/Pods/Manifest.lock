@@ -1,4 +1,5 @@
 PODS:
+  - DBCamera (1.0.1)
   - FontAwesomeKit (2.1.4):
     - FontAwesomeKit/Core
     - FontAwesomeKit/FontAwesome
@@ -16,9 +17,11 @@ PODS:
     - FontAwesomeKit/Core
 
 DEPENDENCIES:
+  - DBCamera (~> 1.0.1)
   - FontAwesomeKit (~> 2.1.0)
 
 SPEC CHECKSUMS:
+  DBCamera: 04fe8162ecdf58308307c717f7fd6ce9856d9684
   FontAwesomeKit: 082a427b37f26cd535b7f295cb686f8ab0da707e
 
 COCOAPODS: 0.29.0

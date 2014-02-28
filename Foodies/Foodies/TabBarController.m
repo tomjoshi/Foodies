@@ -8,8 +8,10 @@
 
 #import "TabBarController.h"
 #import <FontAwesomeKit.h>
+#import <DBCameraViewController.h>
 
-@interface TabBarController ()
+@interface TabBarController () <DBCameraViewControllerDelegate>
+@property (strong, nonatomic) NSArray *arrayOfVCs;
 
 @end
 
@@ -59,6 +61,11 @@
     [userIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *userIconImage = [userIcon imageWithSize:CGSizeMake(25, 25)];
     profileVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:userIconImage tag:1];
+    
+    UILongPressGestureRecognizer *touchDownCamera = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(takePhoto:)];
+    [self.tabBar addGestureRecognizer:touchDownCamera];
+    
+    self.arrayOfVCs = self.viewControllers;
 }
 
 
@@ -66,6 +73,32 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)takePhoto:(UILongPressGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"long press ended");
+        [self setViewControllers:self.arrayOfVCs animated:NO];
+    } else {
+        NSLog(@"long press started");
+        [self openCamera];
+    }
+    
+}
+
+- (void) openCamera
+{
+    DBCameraViewController *cameraVC = [DBCameraViewController initWithDelegate:self];
+    cameraVC.hidesBottomBarWhenPushed = NO;
+
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cameraVC];
+    [nav setNavigationBarHidden:YES];
+    nav.hidesBottomBarWhenPushed = NO;
+    nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    [self presentViewController:nav animated:YES completion:nil];
+    
+    [self setViewControllers:@[nav] animated:YES];
 }
 
 @end
