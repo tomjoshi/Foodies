@@ -13,6 +13,7 @@
 
 @property BOOL newMedia;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) UIImage *imagePassed;
 
 - (IBAction)flashTouched:(id)sender;
 - (IBAction)useCamera:(id)sender;

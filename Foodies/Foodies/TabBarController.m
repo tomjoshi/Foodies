@@ -9,12 +9,16 @@
 #import "TabBarController.h"
 #import <FontAwesomeKit.h>
 #import <DBCameraViewController.h>
+#import "CustomCamera.h"
+#import "CameraViewController.h"
 
 @interface TabBarController () <DBCameraViewControllerDelegate, UITabBarControllerDelegate>
-@property (strong, nonatomic) NSArray *arrayOfVCs;
+//@property (strong, nonatomic) NSArray *arrayOfVCs;
 @property (strong, nonatomic) UILongPressGestureRecognizer *touchDownCamera;
 @property (strong, nonatomic) UITapGestureRecognizer *regularTap;
 @property (nonatomic) CGFloat uiTabBarItemWidth;
+@property (strong, nonatomic) CustomCamera *camera;
+@property (strong, nonatomic) DBCameraViewController *cameraVC;
 
 @end
 
@@ -79,14 +83,14 @@
     
     
     self.touchDownCamera = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(takePhoto:)];
-    self.touchDownCamera.minimumPressDuration = 0.3;
+    self.touchDownCamera.minimumPressDuration = 0.5;
     [self.tabBar addGestureRecognizer:self.touchDownCamera];
     
     self.regularTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectViewController:)];
     [self.regularTap requireGestureRecognizerToFail:self.touchDownCamera];
     [self.tabBar addGestureRecognizer:self.regularTap];
     
-    self.arrayOfVCs = self.viewControllers;
+//    self.arrayOfVCs = self.viewControllers;
 }
 
 
@@ -104,8 +108,7 @@
     if (index == 2) {
         if (sender.state == UIGestureRecognizerStateEnded) {
             NSLog(@"long press ended");
-            UINavigationController *nav = (UINavigationController *)self.selectedViewController;
-            [nav popToRootViewControllerAnimated:NO];
+            [self.camera triggerAction];
         } else {
             NSLog(@"long press started");
             [self openCamera];
@@ -125,24 +128,32 @@
 
 - (void) openCamera
 {
-    DBCameraViewController *cameraVC = [DBCameraViewController initWithDelegate:self];
-    cameraVC.hidesBottomBarWhenPushed = NO;
-
-    
+    self.camera = [CustomCamera initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.camera buildInterface];
+    self.cameraVC = [[DBCameraViewController alloc] initWithDelegate:self cameraView:self.camera];
+    [self.cameraVC setUseCameraSegue:NO];
+    self.cameraVC.hidesBottomBarWhenPushed = NO;
     UINavigationController *nav = (UINavigationController *)self.selectedViewController;
     [nav setNavigationBarHidden:YES animated:NO];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.selectedViewController];
-//    [nav setNavigationBarHidden:YES];
-//    nav.hidesBottomBarWhenPushed = NO;
-    
-    [nav pushViewController:cameraVC animated:NO];
-    //nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//    [self presentViewController:nav animated:YES completion:nil];
-//    [self.navigationController pushViewController:nav animated:YES];
-//    [self setViewControllers:@[nav] animated:YES];
+    [nav pushViewController:self.cameraVC animated:NO];
+
 }
 
+#pragma mark - DBCameraViewControllerDelegate Methods
 
+- (void) captureImageDidFinish:(UIImage *)image withMetadata:(NSDictionary *)metadata
+{
+    UINavigationController *nav = (UINavigationController *)self.viewControllers[2];
+    CameraViewController *cameraTabVC = nav.viewControllers[0];
+    cameraTabVC.imagePassed = image;
+    [self.cameraVC.delegate dismissCamera];
+}
+
+- (void) dismissCamera
+{
+    UINavigationController *nav = (UINavigationController *)self.selectedViewController;
+    [nav popToRootViewControllerAnimated:NO];
+}
 
 
 @end
