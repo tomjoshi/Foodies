@@ -7,8 +7,10 @@
 //
 
 #import "CameraViewController.h"
+#import <DBCameraViewController.h>
+#import "CustomCamera.h"
 
-@interface CameraViewController ()
+@interface CameraViewController () <DBCameraViewControllerDelegate>
 
 @end
 
@@ -27,6 +29,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,21 +38,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)flashTouched:(id)sender {
+    UIViewController *vC = [[UIViewController alloc] init];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController pushViewController:vC animated:YES];
+}
+
 - (IBAction)useCamera:(id)sender {
-    if ([UIImagePickerController isSourceTypeAvailable:
-         UIImagePickerControllerSourceTypeCamera])
-    {
-        UIImagePickerController *imagePicker =
-        [[UIImagePickerController alloc] init];
-        imagePicker.delegate = self;
-        imagePicker.sourceType =
-        UIImagePickerControllerSourceTypeCamera;
-        imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
-        imagePicker.allowsEditing = NO;
-        [self presentViewController:imagePicker
-                           animated:YES completion:nil];
-        _newMedia = YES;
-    }
+//    if ([UIImagePickerController isSourceTypeAvailable:
+//         UIImagePickerControllerSourceTypeCamera])
+//    {
+//        UIImagePickerController *imagePicker =
+//        [[UIImagePickerController alloc] init];
+//        imagePicker.delegate = self;
+//        imagePicker.sourceType =
+//        UIImagePickerControllerSourceTypeCamera;
+//        imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
+//        imagePicker.allowsEditing = NO;
+//        [self presentViewController:imagePicker
+//                           animated:YES completion:nil];
+//        _newMedia = YES;
+//    }
+    
+    [self openCustomCamera:nil];
 }
 
 - (IBAction)useCameraRoll:(id)sender {
@@ -113,5 +124,39 @@ finishedSavingWithError:(NSError *)error
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - DBCameraViewControllerDelegate
+
+- (void) captureImageDidFinish:(UIImage *)image
+{
+    [self.imageView setImage:image];
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) openCameraWithoutSegue
+{
+    DBCameraViewController *cameraController = [DBCameraViewController initWithDelegate:self];
+    [cameraController setUseCameraSegue:NO];
+    cameraController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cameraController];
+    [nav setNavigationBarHidden:YES];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void) openCustomCamera:(id)sender
+{
+    CustomCamera *camera = [CustomCamera initWithFrame:[[UIScreen mainScreen] bounds]];
+    [camera buildInterface];
+    
+    DBCameraViewController *cameraController = [[DBCameraViewController alloc] initWithDelegate:self cameraView:camera];
+    [cameraController setUseCameraSegue:NO];
+    cameraController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
+    [self presentViewController:cameraController animated:YES completion:nil];
+}
+
+#pragma mark - IBAction Methods
+
+
 
 @end

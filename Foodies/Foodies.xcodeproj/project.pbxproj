@@ -13,6 +13,7 @@
 		D13A51A818BBCA3700ADE71D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A718BBCA3700ADE71D /* AVFoundation.framework */; };
 		D13A51AA18BBCA5700ADE71D /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D13A51B518BCEF3200ADE71D /* CameraViewController.m */; };
+		D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D144D6A018C5272D00C6755F /* FeedTableViewController.m */; };
 		D183514518BBAE5B00303868 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D183514418BBAE5B00303868 /* Foundation.framework */; };
 		D183514718BBAE5B00303868 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D183514618BBAE5B00303868 /* CoreGraphics.framework */; };
 		D183514918BBAE5B00303868 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D183514818BBAE5B00303868 /* UIKit.framework */; };
@@ -53,6 +54,8 @@
 		D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		D13A51B418BCEF3200ADE71D /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		D13A51B518BCEF3200ADE71D /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		D144D69F18C5272D00C6755F /* FeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewController.h; sourceTree = "<group>"; };
+		D144D6A018C5272D00C6755F /* FeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewController.m; sourceTree = "<group>"; };
 		D183514118BBAE5B00303868 /* Foodies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foodies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D183514418BBAE5B00303868 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D183514618BBAE5B00303868 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -157,6 +160,8 @@
 				D13A51B518BCEF3200ADE71D /* CameraViewController.m */,
 				D183515C18BBAE5B00303868 /* FirstViewController.h */,
 				D183515D18BBAE5B00303868 /* FirstViewController.m */,
+				D144D69F18C5272D00C6755F /* FeedTableViewController.h */,
+				D144D6A018C5272D00C6755F /* FeedTableViewController.m */,
 				D183515F18BBAE5B00303868 /* SecondViewController.h */,
 				D183516018BBAE5B00303868 /* SecondViewController.m */,
 				D183516218BBAE5B00303868 /* Images.xcassets */,
@@ -335,6 +340,7 @@
 				D12A6D9918C12EB40029EB6D /* CustomCamera.m in Sources */,
 				D12A6D9618C128800029EB6D /* CameraModeViewController.m in Sources */,
 				D183515118BBAE5B00303868 /* main.m in Sources */,
+				D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
