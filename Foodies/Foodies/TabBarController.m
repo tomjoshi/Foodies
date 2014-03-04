@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSArray *arrayOfVCs;
 @property (strong, nonatomic) UILongPressGestureRecognizer *touchDownCamera;
 @property (strong, nonatomic) UITapGestureRecognizer *regularTap;
+@property (nonatomic) CGFloat uiTabBarItemWidth;
 
 @end
 
@@ -34,6 +35,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.uiTabBarItemWidth = self.view.bounds.size.width/5;
     
     UIViewController *homeVC = self.viewControllers[0];
     FAKFontAwesome *homeIcon = [FAKFontAwesome homeIconWithSize:25];
@@ -77,6 +79,7 @@
     
     
     self.touchDownCamera = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(takePhoto:)];
+    self.touchDownCamera.minimumPressDuration = 0.3;
     [self.tabBar addGestureRecognizer:self.touchDownCamera];
     
     self.regularTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectViewController:)];
@@ -95,25 +98,29 @@
 
 - (void)takePhoto:(UILongPressGestureRecognizer *)sender
 {
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        NSLog(@"long press ended");
-        //        [self setViewControllers:self.arrayOfVCs animated:NO];
-        UINavigationController *nav = (UINavigationController *)self.selectedViewController;
-        [nav popToRootViewControllerAnimated:NO];
-    } else {
-        NSLog(@"long press started");
-        [self openCamera];
-    }
+    CGFloat touchX = [sender locationInView:self.tabBar].x;
+    NSInteger index = floor(touchX/self.uiTabBarItemWidth);
     
+    if (index == 2) {
+        if (sender.state == UIGestureRecognizerStateEnded) {
+            NSLog(@"long press ended");
+            UINavigationController *nav = (UINavigationController *)self.selectedViewController;
+            [nav popToRootViewControllerAnimated:NO];
+        } else {
+            NSLog(@"long press started");
+            [self openCamera];
+            // add swipe left for album
+            
+            // add swipe right for flash
+        }
+    }
 }
 
 - (void)selectViewController:(UITapGestureRecognizer *)sender
 {
-    NSLog(@"normal tap");
-    NSLog(@"%f %f", [sender locationInView:self.tabBar].x, [sender locationInView:self.tabBar].y);
-    
-    [self setSelectedIndex:3];
-    
+    CGFloat touchX = [sender locationInView:self.tabBar].x;
+    NSInteger index = floor(touchX/self.uiTabBarItemWidth);
+    [self setSelectedIndex:index];
 }
 
 - (void) openCamera
