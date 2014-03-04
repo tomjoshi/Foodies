@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface CameraViewController : UIViewController
-<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface CameraViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property BOOL newMedia;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
+- (IBAction)flashTouched:(id)sender;
 - (IBAction)useCamera:(id)sender;
 - (IBAction)useCameraRoll:(id)sender;
 @end
