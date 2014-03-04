@@ -32,6 +32,11 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.imageView.image = self.imagePassed;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

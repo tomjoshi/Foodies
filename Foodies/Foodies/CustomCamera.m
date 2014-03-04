@@ -10,7 +10,6 @@
 
 @interface CustomCamera ()
 
-@property (nonatomic, strong) UIButton *closeButton, *triggerButton;
 @property (nonatomic, strong) CALayer *focusBox, *exposeBox;
 
 @end
@@ -28,8 +27,6 @@
 
 - (void) buildInterface
 {
-    [self addSubview:self.triggerButton];
-    [self addSubview:self.closeButton];
     
     [self.previewLayer addSublayer:self.focusBox];
     [self.previewLayer addSublayer:self.exposeBox];
@@ -77,35 +74,6 @@
     [super draw:_exposeBox atPointOfInterest:point andRemove:remove];
 }
 
-#pragma mark - Buttons
-
-- (UIButton *) closeButton
-{
-    if ( !_closeButton ) {
-        _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_closeButton setBackgroundColor:[UIColor redColor]];
-        [_closeButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-        [_closeButton setFrame:(CGRect){ CGRectGetMidX(self.bounds) - 15, 17.5f, 30, 30 }];
-        [_closeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    return _closeButton;
-}
-
-- (UIButton *) triggerButton
-{
-    if ( !_triggerButton ) {
-        _triggerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_triggerButton setBackgroundColor:[UIColor whiteColor]];
-        [_triggerButton setImage:[UIImage imageNamed:@"trigger"] forState:UIControlStateNormal];
-        [_triggerButton setFrame:(CGRect){ CGRectGetMidX(self.bounds) - 35, CGRectGetMaxY(self.previewLayer.frame) - 70, 70, 70 }];
-        [_triggerButton.layer setCornerRadius:35.0f];
-        [_triggerButton addTarget:self action:@selector(triggerAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    return _triggerButton;
-}
-
 #pragma mark - Actions
 
 - (void) close
@@ -114,7 +82,7 @@
         [self.delegate closeCamera];
 }
 
-- (void) triggerAction:(UIButton *)button
+- (void) triggerAction
 {
     if ( [self.delegate respondsToSelector:@selector(cameraViewStartRecording)] ){
         [self.delegate cameraViewStartRecording];
