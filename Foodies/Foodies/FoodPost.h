@@ -17,4 +17,5 @@
 - (instancetype)init;
 - (NSNumber *)getNumberOfLikes;
 - (NSArray *)getComments;
+- (BOOL)isLiked;
 @end

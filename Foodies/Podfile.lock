@@ -1,27 +1,30 @@
 PODS:
   - DBCamera (1.0.1)
-  - FontAwesomeKit (2.1.4):
+  - FontAwesomeKit (2.1.5):
     - FontAwesomeKit/Core
     - FontAwesomeKit/FontAwesome
     - FontAwesomeKit/FoundationIcons
     - FontAwesomeKit/IonIcons
     - FontAwesomeKit/Zocial
-  - FontAwesomeKit/Core (2.1.4)
-  - FontAwesomeKit/FontAwesome (2.1.4):
+  - FontAwesomeKit/Core (2.1.5)
+  - FontAwesomeKit/FontAwesome (2.1.5):
     - FontAwesomeKit/Core
-  - FontAwesomeKit/FoundationIcons (2.1.4):
+  - FontAwesomeKit/FoundationIcons (2.1.5):
     - FontAwesomeKit/Core
-  - FontAwesomeKit/IonIcons (2.1.4):
+  - FontAwesomeKit/IonIcons (2.1.5):
     - FontAwesomeKit/Core
-  - FontAwesomeKit/Zocial (2.1.4):
+  - FontAwesomeKit/Zocial (2.1.5):
     - FontAwesomeKit/Core
+  - TTTAttributedLabel (1.8.1)
 
 DEPENDENCIES:
   - DBCamera (~> 1.0.1)
   - FontAwesomeKit (~> 2.1.0)
+  - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   DBCamera: 04fe8162ecdf58308307c717f7fd6ce9856d9684
-  FontAwesomeKit: 082a427b37f26cd535b7f295cb686f8ab0da707e
+  FontAwesomeKit: 7d935e100337d503bdaefde2ea16be740b81ed13
+  TTTAttributedLabel: 3a571d73e055f4a79c304240598e4bfd199238e4
 
 COCOAPODS: 0.29.0
