@@ -176,6 +176,15 @@
 			name = Image;
 			sourceTree = "<group>";
 		};
+		D110B00E18CA76B10077D25B /* Category Methods */ = {
+			isa = PBXGroup;
+			children = (
+				D110B00518CA5E070077D25B /* UIView+ResizeToFitSubviews.h */,
+				D110B00618CA5E070077D25B /* UIView+ResizeToFitSubviews.m */,
+			);
+			name = "Category Methods";
+			sourceTree = "<group>";
+		};
 		D183513818BBAE5B00303868 = {
 			isa = PBXGroup;
 			children = (
@@ -224,8 +233,7 @@
 				D183515D18BBAE5B00303868 /* FirstViewController.m */,
 				D183515F18BBAE5B00303868 /* SecondViewController.h */,
 				D183516018BBAE5B00303868 /* SecondViewController.m */,
-				D110B00518CA5E070077D25B /* UIView+ResizeToFitSubviews.h */,
-				D110B00618CA5E070077D25B /* UIView+ResizeToFitSubviews.m */,
+				D110B00E18CA76B10077D25B /* Category Methods */,
 				D110AFFE18CA4E0E0077D25B /* Model */,
 				D110AFF418CA43750077D25B /* Camera */,
 				D110AFF318CA43610077D25B /* Feed */,

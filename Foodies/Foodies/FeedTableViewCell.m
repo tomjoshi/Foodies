@@ -10,6 +10,7 @@
 #import "UIView+ResizeToFitSubviews.h"
 #import "Comment.h"
 #import "Foodie.h"
+#import <TTTAttributedLabel.h>
 
 @implementation FeedTableViewCell
 
@@ -35,6 +36,7 @@
     NSDate *postDate = [foodPost getDate];
     NSString *postAuthor = [foodPost.author getName];
     NSNumber *numberOfLikes = [foodPost getNumberOfLikes];
+    BOOL isLiked = [foodPost isLiked];
     NSArray *comments = [foodPost getComments];
     CGFloat cellWidth = self.bounds.size.width;
 //    UIImage *authorThumb = [foodPost.author getThumb];
@@ -61,27 +63,40 @@
     UIView *likeAndCommentContent = [[UIView alloc] initWithFrame:CGRectMake(0, cellWidth+40, cellWidth, 0)];
     
     // set likes
-    BOOL isLiked = NO;
-    if ([numberOfLikes integerValue] > 0) {
-        UILabel *likesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth, 21)];
+    CGFloat yPos = 0;
+    if (isLiked) {
+        UILabel *likesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yPos, cellWidth, 21)];
         likesLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
         [likeAndCommentContent addSubview:likesLabel];
-        isLiked = YES;
+        yPos = 21;
     }
     
     // set comments
     NSInteger commentIndex = 0;
-    CGFloat yPos;
-    if (isLiked) {
-        yPos = 21;
-    } else {
-        yPos = 0;
-    }
-    
-    while ([comments count] > 0 && commentIndex < [comments count]) {
-        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yPos, cellWidth, 21)];
+    while (commentIndex < [comments count]) {
+        TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(0, yPos, cellWidth, 21)];
+        
         Comment *commentForLabel = comments[commentIndex];
-        commentLabel.text = [NSString stringWithFormat:@"%@ says \"%@\"", [commentForLabel.commenter getName], commentForLabel.comment];
+        NSString *fullComment = [NSString stringWithFormat:@"%@ says \"%@\"", [commentForLabel.commenter getName], commentForLabel.comment];
+
+        [commentLabel setText:fullComment afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+            NSInteger nameLenght = [[commentForLabel.commenter getName] length];
+            
+            
+            
+        }]
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         [likeAndCommentContent addSubview:commentLabel];
         yPos += 21; // ideally is "+ commentLabel height"
         commentIndex += 1;
