@@ -74,29 +74,32 @@
     // set comments
     NSInteger commentIndex = 0;
     while (commentIndex < [comments count]) {
-        TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(0, yPos, cellWidth, 21)];
         
+//        TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(0, yPos, cellWidth, 21)];
+//        
+//        Comment *commentForLabel = comments[commentIndex];
+//        NSString *fullComment = [NSString stringWithFormat:@"%@ says \"%@\"", [commentForLabel.commenter getName], commentForLabel.comment];
+//
+//        [commentLabel setText:fullComment afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+//            NSInteger nameLenght = [[commentForLabel.commenter getName] length];
+//            
+//            
+//            
+//        }]
+        
+        
+        
+        
+       
+        
+        
+        
+        
+        
+        
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yPos, cellWidth, 21)];
         Comment *commentForLabel = comments[commentIndex];
-        NSString *fullComment = [NSString stringWithFormat:@"%@ says \"%@\"", [commentForLabel.commenter getName], commentForLabel.comment];
-
-        [commentLabel setText:fullComment afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-            NSInteger nameLenght = [[commentForLabel.commenter getName] length];
-            
-            
-            
-        }]
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        commentLabel.text = [NSString stringWithFormat:@"%@ says \"%@\"", [commentForLabel.commenter getName], commentForLabel.comment];
         [likeAndCommentContent addSubview:commentLabel];
         yPos += 21; // ideally is "+ commentLabel height"
         commentIndex += 1;
