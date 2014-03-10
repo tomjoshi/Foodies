@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_FontAwesomeKit_Zocial 1
 #define COCOAPODS_VERSION_PATCH_FontAwesomeKit_Zocial 5
 
+// PrettyTimestamp
+#define COCOAPODS_POD_AVAILABLE_PrettyTimestamp
+#define COCOAPODS_VERSION_MAJOR_PrettyTimestamp 1
+#define COCOAPODS_VERSION_MINOR_PrettyTimestamp 1
+#define COCOAPODS_VERSION_PATCH_PrettyTimestamp 0
+
 // TTTAttributedLabel
 #define COCOAPODS_POD_AVAILABLE_TTTAttributedLabel
 #define COCOAPODS_VERSION_MAJOR_TTTAttributedLabel 1
