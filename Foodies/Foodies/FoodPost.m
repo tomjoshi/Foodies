@@ -9,6 +9,8 @@
 #import "FoodPost.h"
 #import "Like.h"
 #import "Comment.h"
+#import <NSDate+PrettyTimestamp.h>
+
 
 @interface FoodPost()
 @property (strong, nonatomic) UIImage *postImage;
@@ -65,10 +67,7 @@
 
 - (NSString *)getFormattedTime
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    return [dateFormatter stringFromDate:self.postDate];
+    return [self.postDate prettyTimestampSinceNow];
 }
 
 @end
