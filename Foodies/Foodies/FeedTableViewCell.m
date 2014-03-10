@@ -91,31 +91,38 @@
     
     // set comments
     NSInteger commentIndex = 0;
-    UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
-    commentLabel.text = @"";
-    commentLabel.numberOfLines = 0;
+    CGFloat commentPadding = 2;
     while (commentIndex < [comments count]) {
+        // set one comment
         Comment *commentForLabel = comments[commentIndex];
-        commentLabel.text = [commentLabel.text stringByAppendingString:[NSString stringWithFormat:@"%@ says \"%@\"\n", [commentForLabel.commenter getName], commentForLabel.comment]];
+        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
+        commentLabel.numberOfLines = 0;
+        commentLabel.text = [NSString stringWithFormat:@"%@ says \"%@\"\n", [commentForLabel.commenter getName], commentForLabel.comment];
+        [commentLabel setFont:self.authorLabel.font];
+        [commentLabel sizeToFit];
+        [likeAndCommentContent addSubview:commentLabel];
+        
+        // update yPos
+        yPos += commentLabel.bounds.size.height + commentPadding;
+        
+        // update commentIndex
         commentIndex += 1;
     }
-    [commentLabel setFont:self.authorLabel.font];
-    [commentLabel sizeToFit];
-    [likeAndCommentContent addSubview:commentLabel];
     
     // update yPos
-    yPos += commentLabel.bounds.size.height;
+    yPos -= commentPadding;
     
     // set like, comment and more buttons
-    UIButton *likeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, yPos, 50, 30)];
+    CGFloat buttonTopPadding = 5;
+    UIButton *likeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, yPos + buttonTopPadding, 50, 30)];
     [likeButton setTitle:@"Like" forState:UIControlStateNormal];
     [likeButton setBackgroundColor:[UIColor grayColor]];
     [likeAndCommentContent addSubview:likeButton];
-    UIButton *commentButton = [[UIButton alloc] initWithFrame:CGRectMake(60, yPos, 100, 30)];
+    UIButton *commentButton = [[UIButton alloc] initWithFrame:CGRectMake(60, yPos + buttonTopPadding, 100, 30)];
     [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
     [commentButton setBackgroundColor:[UIColor grayColor]];
     [likeAndCommentContent addSubview:commentButton];
-    UIButton *moreButton = [[UIButton alloc] initWithFrame:CGRectMake(cellWidth-30, yPos, 30, 30)];
+    UIButton *moreButton = [[UIButton alloc] initWithFrame:CGRectMake(cellWidth-30, yPos + buttonTopPadding, 30, 30)];
     [moreButton setTitle:@"..." forState:UIControlStateNormal];
     [moreButton setBackgroundColor:[UIColor grayColor]];
     [likeAndCommentContent addSubview:moreButton];
