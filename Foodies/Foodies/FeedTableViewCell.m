@@ -11,6 +11,7 @@
 #import "Comment.h"
 #import "Foodie.h"
 #import <TTTAttributedLabel.h>
+#import <FontAwesomeKit.h>
 
 @implementation FeedTableViewCell
 
@@ -26,7 +27,7 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -39,30 +40,25 @@
     BOOL isLiked = [foodPost isLiked];
     NSArray *comments = [foodPost getComments];
     CGFloat cellWidth = self.bounds.size.width;
-//    UIImage *authorThumb = [foodPost.author getThumb];
+    //    UIImage *authorThumb = [foodPost.author getThumb];
     
     // set author label
+    if (!self.authorLabel) {
+        UILabel *authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth-70, 40)];
+        [self.contentView addSubview:authorLabel];
+    }
     [self.authorLabel setFrame:CGRectMake(0, 0, cellWidth-70, 40)];
     self.authorLabel.text = postAuthor;
-//    UILabel *authorNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth-70, 40)];
-//    authorNameLabel.text = postAuthor;
-//    [self.contentView addSubview:authorNameLabel];
     
     // set time label
+    if (!self.timeLabel) {
+        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(cellWidth-70, 0, 70, 40)];
+        [self.contentView addSubview:timeLabel];
+    }
     [self.timeLabel setFrame:CGRectMake(cellWidth-70, 0, 70, 40)];
     self.timeLabel.text = postFormattedTime;
-//    UILabel *dateCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(cellWidth-70, 0, 70, 40)];
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-//    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-//    dateCreatedLabel.text = [dateFormatter stringFromDate:postDate];
-//    [self.contentView addSubview:dateCreatedLabel];
     
     // set image
-//    [self.imageView setFrame:CGRectMake(0, 40, cellWidth, cellWidth)];
-//    NSLog(@"%f", self.imageView.frame.origin.x);
-//    [self.imageView setImage:postImage];
-//    self.imageView.clipsToBounds = YES;
     UIImageView *postImageView = [[UIImageView alloc] initWithImage:postImage];
     [postImageView setFrame:CGRectMake(0, 40, cellWidth, cellWidth)];
     postImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -74,45 +70,70 @@
     // set likes
     CGFloat yPos = 0;
     if (isLiked) {
-        UILabel *likesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yPos, cellWidth, 21)];
-        likesLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
-        [likeAndCommentContent addSubview:likesLabel];
+        // set likes icon
+        FAKFontAwesome *heartIcon = [FAKFontAwesome heartIconWithSize:15];
+        [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor redColor]];
+        UILabel *heartIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yPos, 20, 20)];
+        heartIconLabel.attributedText = [heartIcon attributedString];
+        [heartIconLabel setTextAlignment:NSTextAlignmentCenter];
+        [likeAndCommentContent addSubview:heartIconLabel];
+        
+        // set likes label
+        if (!self.likeLabel) {
+            UILabel *likeLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
+            [likeAndCommentContent addSubview:likeLabel];
+        }
+        [self.likeLabel setFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
+        self.likeLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
+        [self.likeLabel removeFromSuperview];
+        [likeAndCommentContent addSubview:self.likeLabel];
+
+        // update yPos
         yPos = 21;
     }
     
+    
     // set comments
     NSInteger commentIndex = 0;
+    UILabel *commentLabel;
+    
+    if ([comments count] > 0) {
+        // set comment icon
+        FAKFontAwesome *commentIcon = [FAKFontAwesome commentIconWithSize:15];
+        [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor]];
+        UILabel *commentIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yPos, 20, 20)];
+        commentIconLabel.attributedText = [commentIcon attributedString];
+        [commentIconLabel setTextAlignment:NSTextAlignmentCenter];
+        [likeAndCommentContent addSubview:commentIconLabel];
+        
+        // reset comment label
+        if (!self.commentLabel) {
+            commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
+            commentLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        }
+        self.commentLabel.text = @"";
+        [self.commentLabel setFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
+        self.commentLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    }
+    
     while (commentIndex < [comments count]) {
-        
-//        TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(0, yPos, cellWidth, 21)];
-//        
-//        Comment *commentForLabel = comments[commentIndex];
-//        NSString *fullComment = [NSString stringWithFormat:@"%@ says \"%@\"", [commentForLabel.commenter getName], commentForLabel.comment];
-//
-//        [commentLabel setText:fullComment afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
-//            NSInteger nameLenght = [[commentForLabel.commenter getName] length];
-//            
-//            
-//            
-//        }]
-        
-        
-        
-        
-       
-        
-        
-        
-        
-        
-        
-        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yPos, cellWidth, 21)];
         Comment *commentForLabel = comments[commentIndex];
-        commentLabel.text = [NSString stringWithFormat:@"%@ says \"%@\"", [commentForLabel.commenter getName], commentForLabel.comment];
-        [likeAndCommentContent addSubview:commentLabel];
-        yPos += 21; // ideally is "+ commentLabel height"
+        self.commentLabel.text = [self.commentLabel.text stringByAppendingString:[NSString stringWithFormat:@"%@ says \"%@\"\n", [commentForLabel.commenter getName], commentForLabel.comment]];
+        commentLabel.text = [commentLabel.text stringByAppendingString:[NSString stringWithFormat:@"%@ says \"%@\"\n", [commentForLabel.commenter getName], commentForLabel.comment]];
+        // update commentIndex
         commentIndex += 1;
     }
+    
+    // add to likeandcomment view
+    [self.commentLabel sizeToFit];
+    [commentLabel sizeToFit];
+    [likeAndCommentContent addSubview:commentLabel];
+    [self.commentLabel removeFromSuperview];
+    [likeAndCommentContent addSubview:self.commentLabel];
+    [likeAndCommentContent resizeToFitSubviews];
+    
+    // update yPos
+    yPos = likeAndCommentContent.frame.size.height;
     
     // set like, comment and more buttons
     UIButton *likeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, yPos, 50, 30)];
@@ -134,9 +155,8 @@
     
     // resize content view
     [self.contentView resizeToFitSubviews];
-
     
-
+    
 }
 
 

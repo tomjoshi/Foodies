@@ -94,6 +94,7 @@
     FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
     [cell configureWithFoodPost:postToShow];
     
+    NSLog(@"content view height %f", cell.contentView.bounds.size.height);
     return cell.contentView.bounds.size.height+30;
 }
 
