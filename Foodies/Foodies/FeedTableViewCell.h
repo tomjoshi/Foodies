@@ -12,8 +12,6 @@
 @interface FeedTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *likeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 
 - (void)configureWithFoodPost: (FoodPost *)foodPost;
 
