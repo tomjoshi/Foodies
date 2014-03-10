@@ -66,7 +66,6 @@
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    
     // i need to pass what goes into the cell. Like a FeedImage object or image id to pull from database.
     // but for now lets just init the foodpost here
     FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
@@ -94,7 +93,7 @@
     FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
     [cell configureWithFoodPost:postToShow];
     
-    return cell.contentView.bounds.size.height+30;
+    return cell.contentView.bounds.size.height;
 }
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
