@@ -33,6 +33,12 @@
 
 - (void)configureWithFoodPost:(FoodPost *)foodPost
 {
+    for (UIView *view in self.contentView.subviews) {
+        if (!(view == self.authorLabel || view == self.timeLabel)) {
+            [view removeFromSuperview];
+        }
+    }
+    
     UIImage *postImage = [foodPost getImage];
     NSString *postFormattedTime = [foodPost getFormattedTime];
     NSString *postAuthor = [foodPost.author getName];
@@ -40,6 +46,7 @@
     BOOL isLiked = [foodPost isLiked];
     NSArray *comments = [foodPost getComments];
     CGFloat cellWidth = self.bounds.size.width;
+    
 //    UIImage *authorThumb = [foodPost.author getThumb];
     
     // set author label
