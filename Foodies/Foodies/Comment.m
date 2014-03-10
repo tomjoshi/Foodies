@@ -14,7 +14,7 @@
     self = [super init];
     if (self) {
         _commenter = [[Foodie alloc] init];
-        _comment = @"It looks so good!";
+        _comment = @"It looks so good! Where did you get it?";
     }
     return self;
 }
