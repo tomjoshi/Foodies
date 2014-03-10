@@ -33,7 +33,7 @@
 - (void)configureWithFoodPost:(FoodPost *)foodPost
 {
     UIImage *postImage = [foodPost getImage];
-    NSDate *postDate = [foodPost getDate];
+    NSString *postFormattedTime = [foodPost getFormattedTime];
     NSString *postAuthor = [foodPost.author getName];
     NSNumber *numberOfLikes = [foodPost getNumberOfLikes];
     BOOL isLiked = [foodPost isLiked];
@@ -42,17 +42,21 @@
 //    UIImage *authorThumb = [foodPost.author getThumb];
     
     // set author label
-    UILabel *authorNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth-70, 40)];
-    authorNameLabel.text = postAuthor;
-    [self.contentView addSubview:authorNameLabel];
+    [self.authorLabel setFrame:CGRectMake(0, 0, cellWidth-70, 40)];
+    self.authorLabel.text = postAuthor;
+//    UILabel *authorNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cellWidth-70, 40)];
+//    authorNameLabel.text = postAuthor;
+//    [self.contentView addSubview:authorNameLabel];
     
     // set time label
-    UILabel *dateCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(cellWidth-70, 0, 70, 40)];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    dateCreatedLabel.text = [dateFormatter stringFromDate:postDate];
-    [self.contentView addSubview:dateCreatedLabel];
+    [self.timeLabel setFrame:CGRectMake(cellWidth-70, 0, 70, 40)];
+    self.timeLabel.text = postFormattedTime;
+//    UILabel *dateCreatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(cellWidth-70, 0, 70, 40)];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+//    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+//    dateCreatedLabel.text = [dateFormatter stringFromDate:postDate];
+//    [self.contentView addSubview:dateCreatedLabel];
     
     // set image
     UIImageView *postImageView = [[UIImageView alloc] initWithImage:postImage];

@@ -10,6 +10,8 @@
 #import "FoodPost.h"
 
 @interface FeedTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *authorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 - (void)configureWithFoodPost: (FoodPost *)foodPost;
 
