@@ -59,8 +59,13 @@
 //    [self.contentView addSubview:dateCreatedLabel];
     
     // set image
+//    [self.imageView setFrame:CGRectMake(0, 40, cellWidth, cellWidth)];
+//    NSLog(@"%f", self.imageView.frame.origin.x);
+//    [self.imageView setImage:postImage];
+//    self.imageView.clipsToBounds = YES;
     UIImageView *postImageView = [[UIImageView alloc] initWithImage:postImage];
     [postImageView setFrame:CGRectMake(0, 40, cellWidth, cellWidth)];
+    postImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:postImageView];
     
     // set a subview for likes and comments
