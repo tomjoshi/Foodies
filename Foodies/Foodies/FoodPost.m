@@ -63,4 +63,12 @@
     return NO;
 }
 
+- (NSString *)getFormattedTime
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    return [dateFormatter stringFromDate:self.postDate];
+}
+
 @end

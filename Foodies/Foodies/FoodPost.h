@@ -14,6 +14,7 @@
 
 - (UIImage *)getImage;
 - (NSDate *)getDate;
+- (NSString *)getFormattedTime;
 - (instancetype)init;
 - (NSNumber *)getNumberOfLikes;
 - (NSArray *)getComments;
