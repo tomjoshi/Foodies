@@ -93,6 +93,7 @@
     NSInteger commentIndex = 0;
     CGFloat commentPadding = 2;
     while (commentIndex < [comments count]) {
+        
         // set one comment
         Comment *commentForLabel = comments[commentIndex];
         UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];

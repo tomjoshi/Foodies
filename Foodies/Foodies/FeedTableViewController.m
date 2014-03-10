@@ -88,8 +88,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    FeedTableViewCell *cell = [[FeedTableViewCell alloc] init];
+    FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedCell"];
     FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
     [cell configureWithFoodPost:postToShow];
     
