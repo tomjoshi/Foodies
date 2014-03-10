@@ -73,6 +73,7 @@
         // set number of likes
         UILabel *likesLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
         likesLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
+        [likesLabel setFont:self.authorLabel.font];
         [likeAndCommentContent addSubview:likesLabel];
         yPos = 21;
     }
@@ -93,13 +94,12 @@
     UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
     commentLabel.text = @"";
     commentLabel.numberOfLines = 0;
-    
     while (commentIndex < [comments count]) {
         Comment *commentForLabel = comments[commentIndex];
         commentLabel.text = [commentLabel.text stringByAppendingString:[NSString stringWithFormat:@"%@ says \"%@\"\n", [commentForLabel.commenter getName], commentForLabel.comment]];
         commentIndex += 1;
     }
-    
+    [commentLabel setFont:self.authorLabel.font];
     [commentLabel sizeToFit];
     [likeAndCommentContent addSubview:commentLabel];
     
