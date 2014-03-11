@@ -50,14 +50,16 @@
     CGFloat cellWidth = self.bounds.size.width;
     CGFloat iconWidth = 10;
     CGFloat sidePadding = 5;
-    CGFloat likesAndCommentsViewTopPadding = 3;
-    CGFloat commentsTopPadding = 3;
-    CGFloat heartIconTopPadding = 3;
+    CGFloat likesAndCommentsViewTopPadding = 7;
+    CGFloat commentsTopPadding = 0;
+    CGFloat heartIconTopPadding = 0;
     CGFloat commentIconTopPadding = 0;
     CGFloat buttonTopPadding = 5;
     CGFloat buttonSidePadding = 5;
     CGFloat commentTopPadding = 1;
-    
+    NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName, (id)kCTFontAttributeName, nil];
+    NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor blueColor],[NSNumber numberWithInt:kCTUnderlineStyleNone], [UIFont fontWithName:@"HelveticaNeue" size:14],nil];
+    NSDictionary *linkAttributes = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
     
     // set author label
     [self.authorLabel setFrame:CGRectMake(sidePadding, 0, cellWidth-70-2*sidePadding, 40)];
@@ -79,19 +81,24 @@
     // set likes
     CGFloat yPos = 0;
     if (isLiked) {
-        // set number of likes
-        UILabel *likesLabel = [[UILabel alloc] initWithFrame:CGRectMake(iconWidth+sidePadding*2, 0, cellWidth-iconWidth-3*sidePadding, 0)];
-        likesLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
-        [likesLabel setFont:self.authorLabel.font];
-        [likesLabel sizeToFit];
-        [likeAndCommentContent addSubview:likesLabel];
-        
         // set heart icon
         FAKFontAwesome *heartIcon = [FAKFontAwesome heartIconWithSize:iconWidth];
         [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor redColor]];
-        UILabel *heartIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(sidePadding, 0+heartIconTopPadding, iconWidth, iconWidth)];
+        UILabel *heartIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(sidePadding, yPos+heartIconTopPadding, iconWidth, iconWidth)];
         [heartIconLabel setAttributedText:[heartIcon attributedString]];
         [likeAndCommentContent addSubview:heartIconLabel];
+        
+        // set number of likes
+        TTTAttributedLabel *likesLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(iconWidth+sidePadding*2, yPos, cellWidth-iconWidth-3*sidePadding, 0)];
+        [likesLabel setFont:self.authorLabel.font];
+        likesLabel.linkAttributes = linkAttributes;
+        likesLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
+        likesLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+        likesLabel.delegate = self;
+        [likesLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [likesLabel.text length])];
+        [likesLabel sizeToFit];
+        [likeAndCommentContent addSubview:likesLabel];
+        
         
         // update yPos
         yPos = likesLabel.bounds.size.height;
@@ -109,12 +116,8 @@
         [likeAndCommentContent addSubview:commentIconLabel];
     }
     
-    // set comment variables
+    // set comment index
     NSInteger commentIndex = 0;
-    NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName, (id)kCTFontAttributeName, nil];
-    NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor blueColor],[NSNumber numberWithInt:kCTUnderlineStyleNone], [UIFont fontWithName:@"HelveticaNeue" size:14],nil];
-    NSDictionary *linkAttributes = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
-    
     
     while (commentIndex < [comments count]) {
         
