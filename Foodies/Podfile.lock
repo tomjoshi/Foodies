@@ -16,7 +16,7 @@ PODS:
   - FontAwesomeKit/Zocial (2.1.5):
     - FontAwesomeKit/Core
   - PrettyTimestamp (1.1)
-  - TTTAttributedLabel (1.8.1)
+  - TTTAttributedLabel (1.9.0)
 
 DEPENDENCIES:
   - DBCamera (~> 1.0.1)
@@ -28,6 +28,6 @@ SPEC CHECKSUMS:
   DBCamera: 04fe8162ecdf58308307c717f7fd6ce9856d9684
   FontAwesomeKit: 7d935e100337d503bdaefde2ea16be740b81ed13
   PrettyTimestamp: 05ded9a97fd0f6f3e94fe2a4d87d527cf7577507
-  TTTAttributedLabel: 3a571d73e055f4a79c304240598e4bfd199238e4
+  TTTAttributedLabel: 290be3d7e235843755b43d92f7c71287325f389c
 
 COCOAPODS: 0.29.0
