@@ -103,9 +103,12 @@
         
         // set one comment
         Comment *commentForLabel = comments[commentIndex];
-        UILabel *commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
+        TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
         commentLabel.numberOfLines = 0;
         commentLabel.text = [NSString stringWithFormat:@"%@ says \"%@\"\n", [commentForLabel.commenter getName], commentForLabel.comment];
+        commentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+        [commentLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [[commentForLabel.commenter getName] length])];
+        
         [commentLabel setFont:self.authorLabel.font];
         [commentLabel sizeToFit];
         [likeAndCommentContent addSubview:commentLabel];
