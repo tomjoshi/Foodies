@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "FoodPost.h"
+#import <TTTAttributedLabel.h>
 
-@interface FeedTableViewCell : UITableViewCell
+@interface FeedTableViewCell : UITableViewCell <TTTAttributedLabelDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
