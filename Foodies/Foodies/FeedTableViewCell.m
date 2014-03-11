@@ -11,6 +11,7 @@
 #import "Comment.h"
 #import "Foodie.h"
 #import <FontAwesomeKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @implementation FeedTableViewCell
 
@@ -59,6 +60,7 @@
     CGFloat commentIconTopPadding = 0;
     CGFloat buttonTopPadding = 5;
     CGFloat buttonSidePadding = 5;
+    CGFloat buttonRadius = 2;
     CGFloat commentTopPadding = 1;
     NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName, (id)kCTFontAttributeName, nil];
     NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor blueColor],[NSNumber numberWithInt:kCTUnderlineStyleNone], [UIFont fontWithName:@"HelveticaNeue" size:14],nil];
@@ -158,20 +160,24 @@
     // set like button
     [self.likeButton setFrame:CGRectMake(sidePadding, yPos + buttonTopPadding, self.likeButton.frame.size.width, self.likeButton.frame.size.height)];
     UIButton *likeButton = self.likeButton;
+    likeButton.layer.cornerRadius = buttonRadius;
+    likeButton.clipsToBounds = YES;
     [likeButton removeFromSuperview];
     [likeAndCommentContent addSubview:likeButton];
     
     // set comment button
     [self.commentButton setFrame:CGRectMake(sidePadding+self.likeButton.frame.size.width+buttonSidePadding, yPos + buttonTopPadding,  self.commentButton.frame.size.width, self.commentButton.frame.size.height)];
     UIButton *commentButton = self.commentButton;
-    [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
+    commentButton.layer.cornerRadius = buttonRadius;
+    commentButton.clipsToBounds = YES;
     [commentButton removeFromSuperview];
     [likeAndCommentContent addSubview:commentButton];
     
     // set more button
     [self.moreButton setFrame:CGRectMake(cellWidth-self.moreButton.frame.size.width-sidePadding, yPos + buttonTopPadding, self.moreButton.frame.size.width, self.moreButton.frame.size.height)];
     UIButton *moreButton = self.moreButton;
-    [moreButton setTitle:@"..." forState:UIControlStateNormal];
+    moreButton.layer.cornerRadius = buttonRadius;
+    moreButton.clipsToBounds = YES;
     [moreButton removeFromSuperview];
     [likeAndCommentContent addSubview:moreButton];
     
