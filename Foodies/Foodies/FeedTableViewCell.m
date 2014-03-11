@@ -48,8 +48,11 @@
     
     // setup variables
     CGFloat cellWidth = self.bounds.size.width;
+    CGFloat headerHeight = 40;
+    CGFloat timeLabelWidth = 80;
     CGFloat iconWidth = 10;
-    CGFloat sidePadding = 5;
+    CGFloat sidePadding = 10;
+    CGFloat iconSidePadding = 5;
     CGFloat likesAndCommentsViewTopPadding = 7;
     CGFloat commentsTopPadding = 0;
     CGFloat heartIconTopPadding = 0;
@@ -62,21 +65,21 @@
     NSDictionary *linkAttributes = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
     
     // set author label
-    [self.authorLabel setFrame:CGRectMake(sidePadding, 0, cellWidth-70-2*sidePadding, 40)];
+    [self.authorLabel setFrame:CGRectMake(sidePadding, 0, cellWidth-timeLabelWidth-2*sidePadding, headerHeight)];
     self.authorLabel.text = postAuthor;
     
     // set time label
-    [self.timeLabel setFrame:CGRectMake(cellWidth-70+sidePadding, 0, 70-2*sidePadding, 40)];
+    [self.timeLabel setFrame:CGRectMake(cellWidth-timeLabelWidth-sidePadding, 0, timeLabelWidth, headerHeight)];
     self.timeLabel.text = postFormattedTime;
     
     // set image
     UIImageView *postImageView = [[UIImageView alloc] initWithImage:postImage];
-    [postImageView setFrame:CGRectMake(0, 40, cellWidth, cellWidth)];
+    [postImageView setFrame:CGRectMake(0, headerHeight, cellWidth, cellWidth)];
     postImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:postImageView];
     
     // set a subview for likes and comments
-    UIView *likeAndCommentContent = [[UIView alloc] initWithFrame:CGRectMake(0, cellWidth+40+likesAndCommentsViewTopPadding, cellWidth, 0)];
+    UIView *likeAndCommentContent = [[UIView alloc] initWithFrame:CGRectMake(0, cellWidth+headerHeight+likesAndCommentsViewTopPadding, cellWidth, 0)];
     
     // set likes
     CGFloat yPos = 0;
@@ -89,7 +92,7 @@
         [likeAndCommentContent addSubview:heartIconLabel];
         
         // set number of likes
-        TTTAttributedLabel *likesLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(iconWidth+sidePadding*2, yPos, cellWidth-iconWidth-3*sidePadding, 0)];
+        TTTAttributedLabel *likesLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(iconWidth+sidePadding+iconSidePadding, yPos, cellWidth-(iconWidth+2*sidePadding+iconSidePadding), 0)];
         [likesLabel setFont:self.authorLabel.font];
         likesLabel.linkAttributes = linkAttributes;
         likesLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
@@ -123,7 +126,7 @@
         
         // set one comment
         Comment *commentForLabel = comments[commentIndex];
-        TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(iconWidth+2*sidePadding, yPos, cellWidth-iconWidth-3*sidePadding, 21)];
+        TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(iconWidth+sidePadding+iconSidePadding, yPos, cellWidth-(iconWidth+2*sidePadding+iconSidePadding), 0)];
         [commentLabel setFont:self.authorLabel.font];
         commentLabel.numberOfLines = 0;
         commentLabel.lineBreakMode = NSLineBreakByWordWrapping;
