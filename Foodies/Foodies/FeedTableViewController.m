@@ -92,7 +92,7 @@
     FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
     [cell configureWithFoodPost:postToShow];
     
-    return cell.contentView.bounds.size.height;
+    return cell.contentView.bounds.size.height+20;
 }
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath

@@ -44,16 +44,26 @@
     NSNumber *numberOfLikes = [foodPost getNumberOfLikes];
     BOOL isLiked = [foodPost isLiked];
     NSArray *comments = [foodPost getComments];
-    CGFloat cellWidth = self.bounds.size.width;
+    //    UIImage *authorThumb = [foodPost.author getThumb];
     
-//    UIImage *authorThumb = [foodPost.author getThumb];
+    // setup variables
+    CGFloat cellWidth = self.bounds.size.width;
+    CGFloat iconWidth = 10;
+    CGFloat sidePadding = 5;
+    CGFloat likesAndCommentsViewTopPadding = 3;
+    CGFloat commentsTopPadding = 3;
+    CGFloat heartIconTopPadding = 3;
+    CGFloat commentIconTopPadding = 0;
+    CGFloat buttonTopPadding = 5;
+    CGFloat commentTopPadding = 1;
+    
     
     // set author label
-    [self.authorLabel setFrame:CGRectMake(0, 0, cellWidth-70, 40)];
+    [self.authorLabel setFrame:CGRectMake(sidePadding, 0, cellWidth-70-2*sidePadding, 40)];
     self.authorLabel.text = postAuthor;
     
     // set time label
-    [self.timeLabel setFrame:CGRectMake(cellWidth-70, 0, 70, 40)];
+    [self.timeLabel setFrame:CGRectMake(cellWidth-70+sidePadding, 0, 70-2*sidePadding, 40)];
     self.timeLabel.text = postFormattedTime;
     
     // set image
@@ -63,41 +73,43 @@
     [self.contentView addSubview:postImageView];
     
     // set a subview for likes and comments
-    UIView *likeAndCommentContent = [[UIView alloc] initWithFrame:CGRectMake(0, cellWidth+40, cellWidth, 0)];
+    UIView *likeAndCommentContent = [[UIView alloc] initWithFrame:CGRectMake(0, cellWidth+40+likesAndCommentsViewTopPadding, cellWidth, 0)];
     
     // set likes
     CGFloat yPos = 0;
     if (isLiked) {
-        // set heart icon
-        FAKFontAwesome *heartIcon = [FAKFontAwesome heartIconWithSize:10];
-        [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor redColor]];
-        UILabel *heartIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yPos, 25, 21)];
-        [heartIconLabel setAttributedText:[heartIcon attributedString]];
-        [heartIconLabel setTextAlignment:NSTextAlignmentCenter];
-        [likeAndCommentContent addSubview:heartIconLabel];
-        
         // set number of likes
-        UILabel *likesLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
+        UILabel *likesLabel = [[UILabel alloc] initWithFrame:CGRectMake(iconWidth+sidePadding*2, 0, cellWidth-iconWidth-3*sidePadding, 0)];
         likesLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
         [likesLabel setFont:self.authorLabel.font];
+        [likesLabel sizeToFit];
         [likeAndCommentContent addSubview:likesLabel];
-        yPos = 21;
+        
+        // set heart icon
+        FAKFontAwesome *heartIcon = [FAKFontAwesome heartIconWithSize:iconWidth];
+        [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor redColor]];
+        UILabel *heartIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(sidePadding, 0+heartIconTopPadding, iconWidth, iconWidth)];
+        [heartIconLabel setAttributedText:[heartIcon attributedString]];
+        [likeAndCommentContent addSubview:heartIconLabel];
+        
+        // update yPos
+        yPos = likesLabel.bounds.size.height;
     }
     
+    // add commentsTopPadding to yPos
+    yPos += commentsTopPadding;
     
     // set comment icon if needed
     if ([comments count] > 0) {
         FAKFontAwesome *commentIcon = [FAKFontAwesome commentIconWithSize:10];
         [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor]];
-        UILabel *commentIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, yPos, 25, 21)];
+        UILabel *commentIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(sidePadding, yPos+commentIconTopPadding, iconWidth, iconWidth)];
         [commentIconLabel setAttributedText:[commentIcon attributedString]];
-        [commentIconLabel setTextAlignment:NSTextAlignmentCenter];
         [likeAndCommentContent addSubview:commentIconLabel];
     }
     
     // set comment variables
     NSInteger commentIndex = 0;
-    CGFloat commentPadding = 2;
     NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName, (id)kCTFontAttributeName, nil];
     NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor blueColor],[NSNumber numberWithInt:kCTUnderlineStyleNone], [UIFont fontWithName:@"HelveticaNeue" size:14],nil];
     NSDictionary *linkAttributes = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
@@ -107,7 +119,7 @@
         
         // set one comment
         Comment *commentForLabel = comments[commentIndex];
-        TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
+        TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(iconWidth+2*sidePadding, yPos, cellWidth-iconWidth-3*sidePadding, 21)];
         [commentLabel setFont:self.authorLabel.font];
         commentLabel.numberOfLines = 0;
         commentLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -120,29 +132,32 @@
         [commentLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [[commentForLabel.commenter getName] length])];
         
         [commentLabel sizeToFit];
+        
+        // add 1 more point to the height so the bold text fits.
+        [commentLabel setFrame:CGRectMake(commentLabel.frame.origin.x, commentLabel.frame.origin.y, commentLabel.frame.size.width, commentLabel.frame.size.height+1)];
+        
         [likeAndCommentContent addSubview:commentLabel];
         
         // update yPos
-        yPos += commentLabel.bounds.size.height + commentPadding;
+        yPos += commentLabel.bounds.size.height + commentTopPadding;
         
         // update commentIndex
         commentIndex += 1;
     }
     
     // update yPos
-    yPos -= commentPadding;
+    yPos -= commentTopPadding;
     
     // set like, comment and more buttons
-    CGFloat buttonTopPadding = 5;
-    UIButton *likeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, yPos + buttonTopPadding, 50, 30)];
+    UIButton *likeButton = [[UIButton alloc] initWithFrame:CGRectMake(sidePadding, yPos + buttonTopPadding, 50, 30)];
     [likeButton setTitle:@"Like" forState:UIControlStateNormal];
     [likeButton setBackgroundColor:[UIColor grayColor]];
     [likeAndCommentContent addSubview:likeButton];
-    UIButton *commentButton = [[UIButton alloc] initWithFrame:CGRectMake(60, yPos + buttonTopPadding, 100, 30)];
+    UIButton *commentButton = [[UIButton alloc] initWithFrame:CGRectMake(60+sidePadding, yPos + buttonTopPadding, 100, 30)];
     [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
     [commentButton setBackgroundColor:[UIColor grayColor]];
     [likeAndCommentContent addSubview:commentButton];
-    UIButton *moreButton = [[UIButton alloc] initWithFrame:CGRectMake(cellWidth-30, yPos + buttonTopPadding, 30, 30)];
+    UIButton *moreButton = [[UIButton alloc] initWithFrame:CGRectMake(cellWidth-30-sidePadding, yPos + buttonTopPadding, 30, 30)];
     [moreButton setTitle:@"..." forState:UIControlStateNormal];
     [moreButton setBackgroundColor:[UIColor grayColor]];
     [likeAndCommentContent addSubview:moreButton];
