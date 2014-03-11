@@ -55,6 +55,7 @@
     CGFloat heartIconTopPadding = 3;
     CGFloat commentIconTopPadding = 0;
     CGFloat buttonTopPadding = 5;
+    CGFloat buttonSidePadding = 5;
     CGFloat commentTopPadding = 1;
     
     
@@ -148,18 +149,24 @@
     // update yPos
     yPos -= commentTopPadding;
     
-    // set like, comment and more buttons
-    UIButton *likeButton = [[UIButton alloc] initWithFrame:CGRectMake(sidePadding, yPos + buttonTopPadding, 50, 30)];
-    [likeButton setTitle:@"Like" forState:UIControlStateNormal];
-    [likeButton setBackgroundColor:[UIColor grayColor]];
+    // set like button
+    [self.likeButton setFrame:CGRectMake(sidePadding, yPos + buttonTopPadding, self.likeButton.frame.size.width, self.likeButton.frame.size.height)];
+    UIButton *likeButton = self.likeButton;
+    [likeButton removeFromSuperview];
     [likeAndCommentContent addSubview:likeButton];
-    UIButton *commentButton = [[UIButton alloc] initWithFrame:CGRectMake(60+sidePadding, yPos + buttonTopPadding, 100, 30)];
+    
+    // set comment button
+    [self.commentButton setFrame:CGRectMake(sidePadding+self.likeButton.frame.size.width+buttonSidePadding, yPos + buttonTopPadding,  self.commentButton.frame.size.width, self.commentButton.frame.size.height)];
+    UIButton *commentButton = self.commentButton;
     [commentButton setTitle:@"Comment" forState:UIControlStateNormal];
-    [commentButton setBackgroundColor:[UIColor grayColor]];
+    [commentButton removeFromSuperview];
     [likeAndCommentContent addSubview:commentButton];
-    UIButton *moreButton = [[UIButton alloc] initWithFrame:CGRectMake(cellWidth-30-sidePadding, yPos + buttonTopPadding, 30, 30)];
+    
+    // set more button
+    [self.moreButton setFrame:CGRectMake(cellWidth-self.moreButton.frame.size.width-sidePadding, yPos + buttonTopPadding, self.moreButton.frame.size.width, self.moreButton.frame.size.height)];
+    UIButton *moreButton = self.moreButton;
     [moreButton setTitle:@"..." forState:UIControlStateNormal];
-    [moreButton setBackgroundColor:[UIColor grayColor]];
+    [moreButton removeFromSuperview];
     [likeAndCommentContent addSubview:moreButton];
     
     // add like and comment subview
