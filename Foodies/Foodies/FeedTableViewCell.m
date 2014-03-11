@@ -10,7 +10,6 @@
 #import "UIView+ResizeToFitSubviews.h"
 #import "Comment.h"
 #import "Foodie.h"
-#import <TTTAttributedLabel.h>
 #import <FontAwesomeKit.h>
 
 @implementation FeedTableViewCell
@@ -96,20 +95,30 @@
         [likeAndCommentContent addSubview:commentIconLabel];
     }
     
-    // set comments
+    // set comment variables
     NSInteger commentIndex = 0;
     CGFloat commentPadding = 2;
+    NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName, (id)kCTFontAttributeName, nil];
+    NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor blueColor],[NSNumber numberWithInt:kCTUnderlineStyleNone], [UIFont fontWithName:@"HelveticaNeue" size:14],nil];
+    NSDictionary *linkAttributes = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+    
+    
     while (commentIndex < [comments count]) {
         
         // set one comment
         Comment *commentForLabel = comments[commentIndex];
         TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(25, yPos, cellWidth-25, 21)];
+        [commentLabel setFont:self.authorLabel.font];
         commentLabel.numberOfLines = 0;
-        commentLabel.text = [NSString stringWithFormat:@"%@ says \"%@\"\n", [commentForLabel.commenter getName], commentForLabel.comment];
+        commentLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        commentLabel.linkAttributes = linkAttributes;
+        commentLabel.text = [NSString stringWithFormat:@"%@ %@", [commentForLabel.commenter getName], commentForLabel.comment];
+        
+        // making the link
         commentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+        commentLabel.delegate = self;
         [commentLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [[commentForLabel.commenter getName] length])];
         
-        [commentLabel setFont:self.authorLabel.font];
         [commentLabel sizeToFit];
         [likeAndCommentContent addSubview:commentLabel];
         
