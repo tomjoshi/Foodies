@@ -10,8 +10,14 @@
 #import <DBCameraViewController.h>
 #import "CustomCamera.h"
 
-@interface CameraViewController () <DBCameraViewControllerDelegate>
+@interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
+@property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
+@property (weak, nonatomic) IBOutlet UILabel *instructionLabel;
+@property (weak, nonatomic) IBOutlet UIView *scrollHandle;
+@property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 
+- (void)layoutCameraView;
 @end
 
 @implementation CameraViewController
@@ -29,6 +35,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self layoutCameraView];
     
 }
 
@@ -42,6 +49,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)layoutCameraView
+{
+    self.albumCollectionView.delegate = self;
+    self.albumCollectionView.dataSource = self;
+    self.mainScrollView.delegate = self;
+    
+    CGFloat screenWidth = self.view.bounds.size.width;
+    CGFloat screenHeight = self.view.bounds.size.height;
+    
+    [self.mainScrollView setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+    [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight*2)];
+    
+}
+
+
 
 - (IBAction)flashTouched:(id)sender {
     UIViewController *vC = [[UIViewController alloc] init];
@@ -160,8 +183,18 @@ finishedSavingWithError:(NSError *)error
     [self presentViewController:cameraController animated:YES completion:nil];
 }
 
-#pragma mark - IBAction Methods
+#pragma mark - UICollectionView Delegate + Datasource methods
 
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = [self.albumCollectionView dequeueReusableCellWithReuseIdentifier:@"photoCell" forIndexPath:indexPath];
+    return cell;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 40;
+}
 
 
 @end
