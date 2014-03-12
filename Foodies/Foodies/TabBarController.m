@@ -134,7 +134,7 @@
     [self.cameraVC setUseCameraSegue:NO];
     self.cameraVC.hidesBottomBarWhenPushed = NO;
     UINavigationController *nav = (UINavigationController *)self.selectedViewController;
-    [nav setNavigationBarHidden:YES animated:NO];
+    [nav setNavigationBarHidden:YES animated:YES];
     [nav pushViewController:self.cameraVC animated:NO];
 
 }
@@ -153,6 +153,7 @@
 {
     UINavigationController *nav = (UINavigationController *)self.selectedViewController;
     [nav popToRootViewControllerAnimated:NO];
+    [nav setNavigationBarHidden:NO animated:YES];
 }
 
 
