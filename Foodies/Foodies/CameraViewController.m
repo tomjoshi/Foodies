@@ -59,17 +59,17 @@
     
     CGFloat screenWidth = self.view.bounds.size.width;
     CGFloat screenHeight = self.view.bounds.size.height;
+    CGFloat tabBarHeight = [[[super tabBarController] tabBar] frame].size.height;
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.mainScrollView setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
     [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight+screenWidth)];
     
-    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40+49))];
+    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40+tabBarHeight))];
     
 }
 
 - (IBAction)nextTapped:(id)sender {
     
-    NSLog(@"%f", [[[super tabBarController] tabBar] frame].size.height);
 }
 
 
