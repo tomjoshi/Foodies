@@ -9,6 +9,8 @@
 #import "CameraViewController.h"
 #import <DBCameraViewController.h>
 #import "CustomCamera.h"
+#import "albumThumbCollectionViewCell.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
@@ -16,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *instructionLabel;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandle;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
+@property (nonatomic, strong) NSArray *assets;
 
 - (void)layoutCameraView;
 - (IBAction)nextTapped:(id)sender;
@@ -53,6 +56,31 @@
 
 - (void)layoutCameraView
 {
+    _assets = [@[] mutableCopy];
+    __block NSMutableArray *tmpAssets = [@[] mutableCopy];
+    // 1
+    ALAssetsLibrary *assetsLibrary = [self defaultAssetsLibrary];
+    // 2
+    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+            if(result)
+            {
+                // 3
+                [tmpAssets addObject:result];
+            }
+        }];
+        
+        // 4
+        //NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+        //self.assets = [tmpAssets sortedArrayUsingDescriptors:@[sort]];
+        self.assets = tmpAssets;
+        
+        // 5
+        [self.albumCollectionView reloadData];
+    } failureBlock:^(NSError *error) {
+        NSLog(@"Error loading images %@", error);
+    }];
+    
     self.albumCollectionView.delegate = self;
     self.albumCollectionView.dataSource = self;
     self.mainScrollView.delegate = self;
@@ -195,13 +223,18 @@ finishedSavingWithError:(NSError *)error
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [self.albumCollectionView dequeueReusableCellWithReuseIdentifier:@"photoCell" forIndexPath:indexPath];
+    albumThumbCollectionViewCell *cell = (albumThumbCollectionViewCell *)[self.albumCollectionView dequeueReusableCellWithReuseIdentifier:@"photoCell" forIndexPath:indexPath];
+    
+    ALAsset *asset = self.assets[indexPath.row];
+    [cell setAsset:asset];
+    cell.backgroundColor = [UIColor redColor];
+    
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 40;
+    return [self.assets count];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -210,6 +243,16 @@ finishedSavingWithError:(NSError *)error
     CGFloat screenHeight = self.view.bounds.size.height;
     
     [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40+49)+self.mainScrollView.contentOffset.y)];
+}
+
+- (ALAssetsLibrary *)defaultAssetsLibrary
+{
+    static dispatch_once_t pred = 0;
+    static ALAssetsLibrary *library = nil;
+    dispatch_once(&pred, ^{
+        library = [[ALAssetsLibrary alloc] init];
+    });
+    return library;
 }
 
 @end
