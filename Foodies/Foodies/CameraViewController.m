@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 
 - (void)layoutCameraView;
+- (IBAction)nextTapped:(id)sender;
 @end
 
 @implementation CameraViewController
@@ -58,10 +59,17 @@
     
     CGFloat screenWidth = self.view.bounds.size.width;
     CGFloat screenHeight = self.view.bounds.size.height;
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.mainScrollView setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
-    [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight*2)];
+    [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight+screenWidth)];
     
+    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40+49))];
+    
+}
+
+- (IBAction)nextTapped:(id)sender {
+    
+    NSLog(@"%f", [[[super tabBarController] tabBar] frame].size.height);
 }
 
 
@@ -196,5 +204,12 @@ finishedSavingWithError:(NSError *)error
     return 40;
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat screenWidth = self.view.bounds.size.width;
+    CGFloat screenHeight = self.view.bounds.size.height;
+    
+    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40+49)+self.mainScrollView.contentOffset.y)];
+}
 
 @end
