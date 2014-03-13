@@ -92,7 +92,10 @@
     [self.mainScrollView setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
     [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight+screenWidth)];
     
-    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40+tabBarHeight))];
+    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40))];
+    
+    UIEdgeInsets albumInset = UIEdgeInsetsMake(self.albumCollectionView.contentInset.top, 0, tabBarHeight, 0);
+    [self.albumCollectionView setContentInset:albumInset];
     
 }
 
@@ -242,7 +245,8 @@ finishedSavingWithError:(NSError *)error
     CGFloat screenWidth = self.view.bounds.size.width;
     CGFloat screenHeight = self.view.bounds.size.height;
     
-    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40+49)+self.mainScrollView.contentOffset.y)];
+    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40)+self.mainScrollView.contentOffset.y)];
+    
 }
 
 - (ALAssetsLibrary *)defaultAssetsLibrary
