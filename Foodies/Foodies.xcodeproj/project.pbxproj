@@ -37,6 +37,7 @@
 		D183516C18BBAE5C00303868 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D183514818BBAE5B00303868 /* UIKit.framework */; };
 		D183517418BBAE5C00303868 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D183517218BBAE5C00303868 /* InfoPlist.strings */; };
 		D183517618BBAE5C00303868 /* FoodiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D183517518BBAE5C00303868 /* FoodiesTests.m */; };
+		D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */; };
 		D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B57DAA18C11D67007B3833 /* TabBarController.m */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +99,8 @@
 		D183517118BBAE5C00303868 /* FoodiesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodiesTests-Info.plist"; sourceTree = "<group>"; };
 		D183517318BBAE5C00303868 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D183517518BBAE5C00303868 /* FoodiesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodiesTests.m; sourceTree = "<group>"; };
+		D1ABE1C918D22FD300254A84 /* albumThumbCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = albumThumbCollectionViewCell.h; sourceTree = "<group>"; };
+		D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = albumThumbCollectionViewCell.m; sourceTree = "<group>"; };
 		D1B57DA918C11D67007B3833 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		D1B57DAA18C11D67007B3833 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,6 +152,8 @@
 				D12A6D9818C12EB40029EB6D /* CustomCamera.m */,
 				D13A51B418BCEF3200ADE71D /* CameraViewController.h */,
 				D13A51B518BCEF3200ADE71D /* CameraViewController.m */,
+				D1ABE1C918D22FD300254A84 /* albumThumbCollectionViewCell.h */,
+				D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */,
+				D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */,
 				D183516118BBAE5B00303868 /* SecondViewController.m in Sources */,
 				D183515518BBAE5B00303868 /* AppDelegate.m in Sources */,
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
