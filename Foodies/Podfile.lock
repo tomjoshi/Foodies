@@ -1,4 +1,5 @@
 PODS:
+  - ALAssetsLibrary-CustomPhotoAlbum (1.1.5)
   - DBCamera (1.0.1)
   - FontAwesomeKit (2.1.5):
     - FontAwesomeKit/Core
@@ -21,6 +22,7 @@ PODS:
   - TTTAttributedLabel (1.9.1)
 
 DEPENDENCIES:
+  - ALAssetsLibrary-CustomPhotoAlbum
   - DBCamera (~> 1.0.1)
   - FontAwesomeKit (~> 2.1.0)
   - Foursquare-API-v2 (~> 1.4.4)
@@ -29,6 +31,7 @@ DEPENDENCIES:
   - TTTAttributedLabel
 
 SPEC CHECKSUMS:
+  ALAssetsLibrary-CustomPhotoAlbum: 1a60eddafc065a5f1e05786f7850448d8cf2cbf5
   DBCamera: 04fe8162ecdf58308307c717f7fd6ce9856d9684
   FontAwesomeKit: 7d935e100337d503bdaefde2ea16be740b81ed13
   Foursquare-API-v2: cb5609c318903a4d80a58d7d476298362e889a9b

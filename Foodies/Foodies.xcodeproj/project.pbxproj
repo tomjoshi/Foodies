@@ -42,6 +42,7 @@
 		D1BD1A8518D3575B00256BC2 /* LocationPickerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1A8418D3575B00256BC2 /* LocationPickerTableViewController.m */; };
 		D1BD1A8A18D35E1A00256BC2 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1A8718D35E1A00256BC2 /* Location.m */; };
 		D1BD1A8B18D35E1A00256BC2 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1A8918D35E1A00256BC2 /* Venue.m */; };
+		D1BD1B1318D36F3900256BC2 /* PostFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,8 @@
 		D1BD1A8718D35E1A00256BC2 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		D1BD1A8818D35E1A00256BC2 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
 		D1BD1A8918D35E1A00256BC2 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		D1BD1B1118D36F3900256BC2 /* PostFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostFormTableViewController.h; sourceTree = "<group>"; };
+		D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostFormTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +166,8 @@
 				D13A51B518BCEF3200ADE71D /* CameraViewController.m */,
 				D1ABE1C918D22FD300254A84 /* albumThumbCollectionViewCell.h */,
 				D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */,
+				D1BD1B1118D36F3900256BC2 /* PostFormTableViewController.h */,
+				D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */,
 				D1BD1A8318D3575B00256BC2 /* LocationPickerTableViewController.h */,
 				D1BD1A8418D3575B00256BC2 /* LocationPickerTableViewController.m */,
 			);
@@ -427,6 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */,
+				D1BD1B1318D36F3900256BC2 /* PostFormTableViewController.m in Sources */,
 				D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */,
 				D183516118BBAE5B00303868 /* SecondViewController.m in Sources */,
 				D183515518BBAE5B00303868 /* AppDelegate.m in Sources */,
