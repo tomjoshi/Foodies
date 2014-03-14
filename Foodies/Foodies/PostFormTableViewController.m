@@ -8,8 +8,10 @@
 
 #import "PostFormTableViewController.h"
 #import "LocationPickerTableViewController.h"
+#import "LocationPickerDelegate.h"
 
-@interface PostFormTableViewController ()
+@interface PostFormTableViewController () <LocationPickerDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 
 @end
 
@@ -58,6 +60,7 @@
     if ([segue.identifier isEqual:@"locationSegue"]) {
         UINavigationController *segueNC = segue.destinationViewController;
         LocationPickerTableViewController *segueVC = segueNC.viewControllers[0];
+        segueVC.delegate = self;
         segueVC.latPassed = self.assetRepPassed.metadata[@"{GPS}"][@"Latitude"];
         segueVC.lngPassed = self.assetRepPassed.metadata[@"{GPS}"][@"Longitude"];
         if ([self.assetRepPassed.metadata[@"{GPS}"][@"LatitudeRef"] isEqualToString:@"S"]) {
@@ -66,6 +69,13 @@
         if ([self.assetRepPassed.metadata[@"{GPS}"][@"LongitudeRef"] isEqualToString:@"W"]) {
             segueVC.lngPassed = @(-[segueVC.lngPassed floatValue]);
         }
+    }
+}
+
+- (void)submitVenue:(Venue *)venue
+{
+    if (venue) {
+        self.locationLabel.text = venue.name;
     }
 }
 

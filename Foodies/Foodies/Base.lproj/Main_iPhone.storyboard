@@ -205,6 +205,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="sDp-jX-gcQ"/>
+                    <connections>
+                        <outlet property="locationLabel" destination="d7w-VM-QzA" id="G9C-Ql-lB0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IFI-CF-QTe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
