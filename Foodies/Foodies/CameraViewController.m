@@ -24,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *instructionLabel;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandle;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
-@property (strong, nonatomic) ALAssetRepresentation *previewImageRep;
+@property (strong, nonatomic) ALAsset *previewImageAsset;
 @property (nonatomic, strong) NSArray *assets;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic) NSInteger imageCounter;
@@ -58,9 +58,9 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    if (self.previewImageRep) {
+    if (self.previewImageAsset) {
         NSLog(@"album image picked");
-        [self.previewImageView setImage:[UIImage imageWithCGImage:[self.previewImageRep fullScreenImage] scale:[self.previewImageRep scale] orientation:0]];
+        [self.previewImageView setImage:[UIImage imageWithCGImage:[[self.previewImageAsset defaultRepresentation] fullScreenImage] scale:[[self.previewImageAsset defaultRepresentation] scale] orientation:0]];
     } else if (self.imagePassed) {
         NSLog(@"new image");
         [self.previewImageView setImage:self.imagePassed];
@@ -150,7 +150,7 @@ finishedSavingWithError:(NSError *)error
     ALAsset *asset = self.assets[indexPath.row];
     ALAssetRepresentation *defaultRep = [asset defaultRepresentation];
     [self.previewImageView setImage:[UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0]];
-    self.previewImageRep = defaultRep;
+    self.previewImageAsset = asset;
     
     [UIView animateWithDuration:.3 animations:^{
         [self.mainScrollView setContentOffset:CGPointZero];
@@ -192,7 +192,7 @@ finishedSavingWithError:(NSError *)error
 - (IBAction)cancelTapped:(id)sender {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.previewImageView setImage:nil];
-    self.previewImageRep = nil;
+    self.previewImageAsset = nil;
 }
 
 - (ALAssetsLibrary *)defaultAssetsLibrary
@@ -221,13 +221,13 @@ finishedSavingWithError:(NSError *)error
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     PostFormTableViewController *segueVC = segue.destinationViewController;
-    segueVC.assetRepPassed = self.previewImageRep;
+    segueVC.assetPassed = self.previewImageAsset;
 }
 
 #pragma mark - Controller Methods
-- (void)clearPreviewImageRep
+- (void)clearPreviewImageAsset
 {
-    self.previewImageRep = nil;
+    self.previewImageAsset = nil;
 }
 
 #pragma mark - CLLocation Delegate Methods
@@ -248,7 +248,7 @@ finishedSavingWithError:(NSError *)error
         NSLog(@"image saved");
         [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
             NSLog(@"asset found");
-            self.previewImageRep = [asset defaultRepresentation];
+            self.previewImageAsset = asset;
             self.assets = [@[asset] arrayByAddingObjectsFromArray:self.assets];
             [self.albumCollectionView reloadData];
         } failureBlock:^(NSError *error) {

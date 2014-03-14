@@ -13,5 +13,5 @@
 @property BOOL newMedia;
 @property (strong, nonatomic) UIImage *imagePassed;
 
-- (void)clearPreviewImageRep;
+- (void)clearPreviewImageAsset;
 @end

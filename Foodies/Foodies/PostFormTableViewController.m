@@ -12,6 +12,7 @@
 
 @interface PostFormTableViewController () <LocationPickerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageThumb;
 
 @end
 
@@ -35,7 +36,8 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    NSLog(@"%@", self.assetRepPassed);
+    [self.imageThumb setImage:[UIImage imageWithCGImage:[self.assetPassed thumbnail]]];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,12 +63,12 @@
         UINavigationController *segueNC = segue.destinationViewController;
         LocationPickerTableViewController *segueVC = segueNC.viewControllers[0];
         segueVC.delegate = self;
-        segueVC.latPassed = self.assetRepPassed.metadata[@"{GPS}"][@"Latitude"];
-        segueVC.lngPassed = self.assetRepPassed.metadata[@"{GPS}"][@"Longitude"];
-        if ([self.assetRepPassed.metadata[@"{GPS}"][@"LatitudeRef"] isEqualToString:@"S"]) {
+        segueVC.latPassed = [self.assetPassed defaultRepresentation].metadata[@"{GPS}"][@"Latitude"];
+        segueVC.lngPassed = [self.assetPassed defaultRepresentation].metadata[@"{GPS}"][@"Longitude"];
+        if ([[self.assetPassed defaultRepresentation].metadata[@"{GPS}"][@"LatitudeRef"] isEqualToString:@"S"]) {
             segueVC.latPassed = @(-[segueVC.latPassed floatValue]);
         }
-        if ([self.assetRepPassed.metadata[@"{GPS}"][@"LongitudeRef"] isEqualToString:@"W"]) {
+        if ([[self.assetPassed defaultRepresentation].metadata[@"{GPS}"][@"LongitudeRef"] isEqualToString:@"W"]) {
             segueVC.lngPassed = @(-[segueVC.lngPassed floatValue]);
         }
     }
