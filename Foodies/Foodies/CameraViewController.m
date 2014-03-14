@@ -15,6 +15,7 @@
 #import "PostFormTableViewController.h"
 #import "NSMutableDictionary+ImageMetadata.h"
 #import <CoreLocation/CoreLocation.h>
+#import <ImageIO/CGImageProperties.h>
 
 @interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
@@ -25,7 +26,7 @@
 @property (strong, nonatomic) ALAssetRepresentation *previewImageRep;
 @property (nonatomic, strong) NSArray *assets;
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) ALAssetRepresentation *repForGPS;
+@property (nonatomic) NSInteger imageCounter;
 
 - (void)layoutCameraView;
 - (IBAction)nextTapped:(id)sender;
@@ -56,38 +57,20 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     if (self.previewImageRep) {
+        NSLog(@"album image picked");
         [self.previewImageView setImage:[UIImage imageWithCGImage:[self.previewImageRep fullScreenImage] scale:[self.previewImageRep scale] orientation:0]];
     } else if (self.imagePassed) {
-        __block ALAssetsLibrary *assetsLibrary = [self defaultAssetsLibrary];
+        NSLog(@"new image");
         [self.previewImageView setImage:self.imagePassed];
+        self.imagePassed = nil;
         
-        // save image as an alasset
-        [assetsLibrary saveImage:self.imagePassed toAlbum:nil completion:^(NSURL *assetURL, NSError *error) {
-            NSLog(@"image saved");
-            // reload collection view
-            [self.albumCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-            [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
-                NSLog(@"asset found");
-                
-                // find current location
-                self.locationManager = [[CLLocationManager alloc] init];
-                self.locationManager.delegate = self;
-                self.locationManager.distanceFilter = kCLDistanceFilterNone;
-                self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-                [self.locationManager startUpdatingLocation];
-                
-                // store to modify gps metadata
-                self.repForGPS = [asset defaultRepresentation];
-                
-                // save new previewImageRep
-                self.previewImageRep = self.repForGPS;
-            } failureBlock:^(NSError *error) {
-                NSLog(@"failed to find asset");
-            }];
-        } failure:^(NSError *error) {
-            NSLog(@"failed to save image");
-        }];
-        
+        // find current location
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        self.locationManager.distanceFilter = kCLDistanceFilterNone;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+        self.imageCounter = 0;
+        [self.locationManager startUpdatingLocation];
     }
     
 }
@@ -204,6 +187,7 @@ finishedSavingWithError:(NSError *)error
 - (IBAction)cancelTapped:(id)sender {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.previewImageView setImage:nil];
+    self.previewImageRep = nil;
 }
 
 - (ALAssetsLibrary *)defaultAssetsLibrary
@@ -247,10 +231,26 @@ finishedSavingWithError:(NSError *)error
     [self.locationManager stopUpdatingLocation];
     
     // create metadata dictionary
-//    NSMutableDictionary *metadata = 
+    NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
+    [metadata setLocation:newLocation];
+    [metadata setImageOrientation:self.previewImageView.image.imageOrientation];
     
-    // set asset rep metadata vakyes
-    
+    if (self.imageCounter == 0) {
+    // add to asset library
+    ALAssetsLibrary *assetsLibrary = [self defaultAssetsLibrary];
+    [assetsLibrary writeImageToSavedPhotosAlbum:[self.previewImageView.image CGImage] metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+        NSLog(@"image saved");
+        [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+            NSLog(@"asset found");
+            self.previewImageRep = [asset defaultRepresentation];
+            [self.albumCollectionView reloadData];
+        } failureBlock:^(NSError *error) {
+            NSLog(@"failed to retrieve asset");
+        }];
+        
+    }];
+        self.imageCounter += 1;
+    }
 }
 
 @end
