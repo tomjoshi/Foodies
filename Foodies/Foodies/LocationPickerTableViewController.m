@@ -11,11 +11,14 @@
 #import <MBProgressHUD.h>
 #import "Venue.h"
 #import "Location.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface LocationPickerTableViewController () <UISearchBarDelegate, UISearchDisplayDelegate>
+@interface LocationPickerTableViewController () <UISearchBarDelegate, UISearchDisplayDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *LocationSearchBar;
 @property (strong, nonatomic) NSArray *arrayOfLocations;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
+- (IBAction)cancelTapped:(id)sender;
 @end
 
 @implementation LocationPickerTableViewController
@@ -32,10 +35,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
     if (self.latPassed && self.lngPassed) {
         [self loadRestaurantsAtLatitude:self.latPassed andLongitude:self.lngPassed];
     } else {
-        NSLog(@"no numbers!");
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        self.locationManager.distanceFilter = kCLDistanceFilterNone;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+        [self.locationManager startUpdatingLocation];
     }
     
 }
@@ -50,7 +60,8 @@
 
 - (void)loadRestaurantsAtLatitude:(NSNumber *)lat andLongitude:(NSNumber *)lng
 {
-    [MBProgressHUD showHUDAddedTo:self.tabBarController.view animated:YES];
+    if (!(lat && lng)) {
+    }
     
     [Foursquare2 venueSearchNearByLatitude:lat
                                  longitude:lng
@@ -82,7 +93,7 @@
              [mutableVenues addObject:venue];
          }
          self.arrayOfLocations = mutableVenues;
-         [MBProgressHUD hideHUDForView:self.tabBarController.view animated:YES];
+         [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
          [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
      }];
 }
@@ -163,5 +174,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)cancelTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - CLLocation Delegate Methods
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    [self.locationManager stopUpdatingLocation];
+    [self loadRestaurantsAtLatitude:@(newLocation.coordinate.latitude) andLongitude:@(newLocation.coordinate.longitude)];
+}
 
 @end
