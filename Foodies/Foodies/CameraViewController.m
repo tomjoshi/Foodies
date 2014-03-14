@@ -13,8 +13,10 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <ALAssetsLibrary+CustomPhotoAlbum.h>
 #import "PostFormTableViewController.h"
+#import "NSMutableDictionary+ImageMetadata.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
+@interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet UILabel *instructionLabel;
@@ -22,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 @property (strong, nonatomic) ALAssetRepresentation *previewImageRep;
 @property (nonatomic, strong) NSArray *assets;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) ALAssetRepresentation *repForGPS;
 
 - (void)layoutCameraView;
 - (IBAction)nextTapped:(id)sender;
@@ -65,11 +69,18 @@
             [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
                 NSLog(@"asset found");
                 
-                // add location exif metadat
-//                [asset setValue:<#(id)#> forKeyPath:ALAssetPropertyLocation];
+                // find current location
+                self.locationManager = [[CLLocationManager alloc] init];
+                self.locationManager.delegate = self;
+                self.locationManager.distanceFilter = kCLDistanceFilterNone;
+                self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+                [self.locationManager startUpdatingLocation];
+                
+                // store to modify gps metadata
+                self.repForGPS = [asset defaultRepresentation];
                 
                 // save new previewImageRep
-                self.previewImageRep = [asset defaultRepresentation];
+                self.previewImageRep = self.repForGPS;
             } failureBlock:^(NSError *error) {
                 NSLog(@"failed to find asset");
             }];
@@ -229,4 +240,17 @@ finishedSavingWithError:(NSError *)error
 {
     self.previewImageRep = nil;
 }
+
+#pragma mark - CLLocation Delegate Methods
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    [self.locationManager stopUpdatingLocation];
+    
+    // create metadata dictionary
+//    NSMutableDictionary *metadata = 
+    
+    // set asset rep metadata vakyes
+    
+}
+
 @end
