@@ -79,7 +79,6 @@
                  }
                 failureBlock:^(NSError *error) {
                 }];
-        [library autorelease];
     }
     
     return self;
@@ -122,7 +121,6 @@
         [locDict setObject:[NSNumber numberWithFloat:location.altitude] forKey:(NSString*)kCGImagePropertyGPSAltitude];
         
         [self setObject:locDict forKey:(NSString*)kCGImagePropertyGPSDictionary];
-        [locDict release];    
     }
 }
 
@@ -143,7 +141,6 @@
     [locDict setObject:[NSNumber numberWithFloat:trueHeading] forKey:(NSString*)kCGImagePropertyGPSImgDirection];
     
     [self setObject:locDict forKey:(NSString*)kCGImagePropertyGPSDictionary];
-    [locDict release];
 }
 
 - (CLLocation*)location {
@@ -160,7 +157,7 @@
         if ([@"W" isEqualToString:lngRef])
             lng *= -1.0f;
         
-        CLLocation *location = [[[CLLocation alloc] initWithLatitude:lat longitude:lng] autorelease];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
         return location;
     }
     
@@ -178,19 +175,19 @@
 }
 
 - (NSMutableDictionary *)dictionaryForKey:(CFStringRef)key {
-    NSDictionary *dict = [self objectForKey:(NSString*)key];
+    NSDictionary *dict = [self objectForKey:(__bridge NSString*)key];
     NSMutableDictionary *mutableDict;
     
     if (dict == nil) {
         mutableDict = [NSMutableDictionary dictionaryWithCapacity:1];
-        [self setObject:mutableDict forKey:(NSString*)key];
+        [self setObject:mutableDict forKey:(__bridge NSString*)key];
     } else {
         if ([dict isMemberOfClass:[NSMutableDictionary class]])
         {
             mutableDict = (NSMutableDictionary*)dict;
         } else {
-            mutableDict = [[dict mutableCopy] autorelease];
-            [self setObject:mutableDict forKey:(NSString*)key];
+            mutableDict = [dict mutableCopy];
+            [self setObject:mutableDict forKey:(__bridge NSString*)key];
         }
     }
     

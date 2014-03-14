@@ -39,8 +39,10 @@
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
     if (self.latPassed && self.lngPassed) {
+        NSLog(@"the passed latitude is %@ and longitude %@", self.latPassed, self.lngPassed);
         [self loadRestaurantsAtLatitude:self.latPassed andLongitude:self.lngPassed];
     } else {
+        NSLog(@"no passed coordinates");
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         self.locationManager.distanceFilter = kCLDistanceFilterNone;
