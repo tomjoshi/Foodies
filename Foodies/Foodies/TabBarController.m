@@ -146,7 +146,7 @@
     UINavigationController *nav = (UINavigationController *)self.viewControllers[2];
     CameraViewController *cameraTabVC = nav.viewControllers[0];
     cameraTabVC.imagePassed = image;
-    [cameraTabVC clearPreviewImageRep];
+    [cameraTabVC clearPreviewImageAsset];
     [self.cameraVC.delegate dismissCamera];
 }
 

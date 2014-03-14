@@ -10,5 +10,5 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface PostFormTableViewController : UITableViewController
-@property (strong, nonatomic) ALAssetRepresentation *assetRepPassed;
+@property (strong, nonatomic) ALAsset *assetPassed;
 @end
