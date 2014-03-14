@@ -43,6 +43,7 @@
 		D1BD1A8A18D35E1A00256BC2 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1A8718D35E1A00256BC2 /* Location.m */; };
 		D1BD1A8B18D35E1A00256BC2 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1A8918D35E1A00256BC2 /* Venue.m */; };
 		D1BD1B1318D36F3900256BC2 /* PostFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */; };
+		D1BD1B1518D3879200256BC2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1BD1B1418D3879200256BC2 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		D1BD1A8918D35E1A00256BC2 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		D1BD1B1118D36F3900256BC2 /* PostFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostFormTableViewController.h; sourceTree = "<group>"; };
 		D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostFormTableViewController.m; sourceTree = "<group>"; };
+		D1BD1B1418D3879200256BC2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1BD1B1518D3879200256BC2 /* CoreLocation.framework in Frameworks */,
 				D13A51AA18BBCA5700ADE71D /* AssetsLibrary.framework in Frameworks */,
 				D13A51A818BBCA3700ADE71D /* AVFoundation.framework in Frameworks */,
 				D183514718BBAE5B00303868 /* CoreGraphics.framework in Frameworks */,
@@ -233,6 +236,7 @@
 		D183514318BBAE5B00303868 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D1BD1B1418D3879200256BC2 /* CoreLocation.framework */,
 				D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */,
 				D13A51A718BBCA3700ADE71D /* AVFoundation.framework */,
 				D183514418BBAE5B00303868 /* Foundation.framework */,

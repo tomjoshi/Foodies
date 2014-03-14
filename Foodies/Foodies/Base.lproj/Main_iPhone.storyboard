@@ -193,7 +193,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="BY5-Ki-EID" kind="push" identifier="locationSegue" id="XNM-Gx-x9x"/>
+                                            <segue destination="NiM-j1-ZuF" kind="modal" identifier="locationSegue" id="XNM-Gx-x9x"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -257,7 +257,13 @@
                             <outlet property="delegate" destination="BY5-Ki-EID" id="zbI-ND-2s5"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Locations" id="tph-8G-nc4"/>
+                    <navigationItem key="navigationItem" title="Locations" id="tph-8G-nc4">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gFe-qu-ABN">
+                            <connections>
+                                <action selector="cancelTapped:" destination="BY5-Ki-EID" id="tMH-UO-FI6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="LocationSearchBar" destination="iWB-OH-Vpb" id="Yo2-M1-fLK"/>
                         <outlet property="searchDisplayController" destination="CcH-TN-Qqz" id="oqD-7d-Kau"/>
@@ -274,7 +280,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2547" y="1249"/>
+            <point key="canvasLocation" x="3073" y="1249"/>
         </scene>
         <!--Camera Mode View Controller-->
         <scene sceneID="mhJ-by-Uag">
@@ -492,6 +498,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aba-Ws-kcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1142" y="-834"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="x4K-dg-uka">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NiM-j1-ZuF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jwy-QN-ubK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BY5-Ki-EID" kind="relationship" relationship="rootViewController" id="3Xi-Qo-91u"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ER6-7R-wdH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2608" y="1249"/>
         </scene>
     </scenes>
     <resources>

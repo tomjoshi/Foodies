@@ -56,7 +56,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqual:@"locationSegue"]) {
-        LocationPickerTableViewController *segueVC = segue.destinationViewController;
+        UINavigationController *segueNC = segue.destinationViewController;
+        LocationPickerTableViewController *segueVC = segueNC.viewControllers[0];
         segueVC.latPassed = self.assetRepPassed.metadata[@"{GPS}"][@"Latitude"];
         segueVC.lngPassed = self.assetRepPassed.metadata[@"{GPS}"][@"Longitude"];
         if ([self.assetRepPassed.metadata[@"{GPS}"][@"LatitudeRef"] isEqualToString:@"S"]) {
