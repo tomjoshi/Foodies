@@ -56,6 +56,28 @@
 
 - (void)layoutCameraView
 {
+    [self loadAlbum];
+    
+    self.albumCollectionView.delegate = self;
+    self.albumCollectionView.dataSource = self;
+    self.mainScrollView.delegate = self;
+    
+    CGFloat screenWidth = self.view.bounds.size.width;
+    CGFloat screenHeight = self.view.bounds.size.height;
+    CGFloat tabBarHeight = [[[super tabBarController] tabBar] frame].size.height;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.mainScrollView setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+    [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight+screenWidth)];
+    
+    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40))];
+    
+    UIEdgeInsets albumInset = UIEdgeInsetsMake(self.albumCollectionView.contentInset.top, 0, tabBarHeight, 0);
+    [self.albumCollectionView setContentInset:albumInset];
+    
+}
+
+- (void)loadAlbum
+{
     _assets = [@[] mutableCopy];
     __block NSMutableArray *tmpAssets = [@[] mutableCopy];
     // 1
@@ -80,23 +102,6 @@
     } failureBlock:^(NSError *error) {
         NSLog(@"Error loading images %@", error);
     }];
-    
-    self.albumCollectionView.delegate = self;
-    self.albumCollectionView.dataSource = self;
-    self.mainScrollView.delegate = self;
-    
-    CGFloat screenWidth = self.view.bounds.size.width;
-    CGFloat screenHeight = self.view.bounds.size.height;
-    CGFloat tabBarHeight = [[[super tabBarController] tabBar] frame].size.height;
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.mainScrollView setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
-    [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight+screenWidth)];
-    
-    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40))];
-    
-    UIEdgeInsets albumInset = UIEdgeInsetsMake(self.albumCollectionView.contentInset.top, 0, tabBarHeight, 0);
-    [self.albumCollectionView setContentInset:albumInset];
-    
 }
 
 - (IBAction)nextTapped:(id)sender {
