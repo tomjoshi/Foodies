@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LocationPickerDelegate.h"
 
 @interface LocationPickerTableViewController : UITableViewController
+@property (strong, nonatomic) id<LocationPickerDelegate> delegate;
 @property (strong, nonatomic) NSNumber *latPassed;
 @property (strong, nonatomic) NSNumber *lngPassed;
 

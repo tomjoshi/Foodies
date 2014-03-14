@@ -123,6 +123,7 @@
 		D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
 		D1BD1B1918D3A1D600256BC2 /* ALAsset+Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+Date.h"; sourceTree = "<group>"; };
 		D1BD1B1A18D3A1D600256BC2 /* ALAsset+Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+Date.m"; sourceTree = "<group>"; };
+		D1BD1B1C18D3BCA500256BC2 /* LocationPickerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationPickerDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +180,7 @@
 				D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */,
 				D1BD1A8318D3575B00256BC2 /* LocationPickerTableViewController.h */,
 				D1BD1A8418D3575B00256BC2 /* LocationPickerTableViewController.m */,
+				D1BD1B1C18D3BCA500256BC2 /* LocationPickerDelegate.h */,
 			);
 			name = Camera;
 			sourceTree = "<group>";

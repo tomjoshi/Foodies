@@ -181,6 +181,13 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Venue *venueToPass = self.arrayOfLocations[indexPath.row];
+    [self.delegate submitVenue:venueToPass];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - CLLocation Delegate Methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
