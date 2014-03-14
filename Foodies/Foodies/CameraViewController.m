@@ -14,6 +14,7 @@
 #import <ALAssetsLibrary+CustomPhotoAlbum.h>
 #import "PostFormTableViewController.h"
 #import "NSMutableDictionary+ImageMetadata.h"
+#import "ALAsset+Date.h"
 #import <CoreLocation/CoreLocation.h>
 #import <ImageIO/CGImageProperties.h>
 
@@ -27,6 +28,7 @@
 @property (nonatomic, strong) NSArray *assets;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic) NSInteger imageCounter;
+@property (nonatomic) NSInteger amountOfAssets;
 
 - (void)layoutCameraView;
 - (IBAction)nextTapped:(id)sender;
@@ -71,6 +73,8 @@
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
         self.imageCounter = 0;
         [self.locationManager startUpdatingLocation];
+    } else {
+        [self loadAlbum];
     }
     
 }
@@ -132,7 +136,6 @@ finishedSavingWithError:(NSError *)error
     
     ALAsset *asset = self.assets[indexPath.row];
     [cell setAsset:asset];
-    cell.backgroundColor = [UIColor redColor];
     
     return cell;
 }
@@ -163,16 +166,18 @@ finishedSavingWithError:(NSError *)error
     ALAssetsLibrary *assetsLibrary = [self defaultAssetsLibrary];
     
     [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        
         [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
             if(result)
             {
                 [tmpAssets addObject:result];
             }
         }];
-
-        self.assets = [[tmpAssets reverseObjectEnumerator] allObjects];
         
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+        self.assets = [tmpAssets sortedArrayUsingDescriptors:@[sort]];
         [self.albumCollectionView reloadData];
+        
     } failureBlock:^(NSError *error) {
         NSLog(@"Error loading images %@", error);
     }];
@@ -234,6 +239,7 @@ finishedSavingWithError:(NSError *)error
     NSMutableDictionary *metadata = [[NSMutableDictionary alloc] init];
     [metadata setLocation:newLocation];
     [metadata setImageOrientation:self.previewImageView.image.imageOrientation];
+    [metadata setDateOriginal:[NSDate date]];
     
     if (self.imageCounter == 0) {
     // add to asset library
@@ -243,6 +249,7 @@ finishedSavingWithError:(NSError *)error
         [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
             NSLog(@"asset found");
             self.previewImageRep = [asset defaultRepresentation];
+            self.assets = [@[asset] arrayByAddingObjectsFromArray:self.assets];
             [self.albumCollectionView reloadData];
         } failureBlock:^(NSError *error) {
             NSLog(@"failed to retrieve asset");

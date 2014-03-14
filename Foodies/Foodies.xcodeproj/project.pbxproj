@@ -45,6 +45,7 @@
 		D1BD1B1318D36F3900256BC2 /* PostFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */; };
 		D1BD1B1518D3879200256BC2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1BD1B1418D3879200256BC2 /* CoreLocation.framework */; };
 		D1BD1B1818D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */; };
+		D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1A18D3A1D600256BC2 /* ALAsset+Date.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,8 @@
 		D1BD1B1418D3879200256BC2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D1BD1B1618D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+ImageMetadata.h"; sourceTree = "<group>"; };
 		D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
+		D1BD1B1918D3A1D600256BC2 /* ALAsset+Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+Date.h"; sourceTree = "<group>"; };
+		D1BD1B1A18D3A1D600256BC2 /* ALAsset+Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+Date.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +217,8 @@
 				D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */,
 				D110B00518CA5E070077D25B /* UIView+ResizeToFitSubviews.h */,
 				D110B00618CA5E070077D25B /* UIView+ResizeToFitSubviews.m */,
+				D1BD1B1918D3A1D600256BC2 /* ALAsset+Date.h */,
+				D1BD1B1A18D3A1D600256BC2 /* ALAsset+Date.m */,
 			);
 			name = "Category Methods";
 			sourceTree = "<group>";
@@ -449,6 +454,7 @@
 				D1BD1A8A18D35E1A00256BC2 /* Location.m in Sources */,
 				D1BD1A8518D3575B00256BC2 /* LocationPickerTableViewController.m in Sources */,
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
+				D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */,
 				D183515E18BBAE5B00303868 /* FirstViewController.m in Sources */,
 				D1BD1A8B18D35E1A00256BC2 /* Venue.m in Sources */,
 				D110AFFD18CA4E080077D25B /* FoodPost.m in Sources */,
