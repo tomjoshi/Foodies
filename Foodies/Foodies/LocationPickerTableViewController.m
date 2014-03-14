@@ -32,8 +32,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self loadRestaurantsAtLatitude:@40.7064 andLongitude:@-74.0094];
+    if (self.latPassed && self.lngPassed) {
+        [self loadRestaurantsAtLatitude:self.latPassed andLongitude:self.lngPassed];
+    } else {
+        NSLog(@"no numbers!");
+    }
     
 }
 

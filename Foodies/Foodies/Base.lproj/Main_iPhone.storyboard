@@ -134,10 +134,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="albumCollectionView" destination="Eks-qO-ql4" id="3V0-UD-YLh"/>
-                        <outlet property="imageView" destination="zJ0-zx-SLS" id="cec-3K-Edv"/>
                         <outlet property="instructionLabel" destination="LUZ-Kj-PgS" id="gbC-jB-lUu"/>
                         <outlet property="mainScrollView" destination="Eip-uh-EK1" id="Ql5-LQ-jTd"/>
-                        <outlet property="previewImageView" destination="zJ0-zx-SLS" id="sC2-X5-yLy"/>
+                        <outlet property="previewImageView" destination="zJ0-zx-SLS" id="kh8-1W-mVk"/>
                         <outlet property="scrollHandle" destination="qOu-WT-l6B" id="g8m-lg-YCE"/>
                     </connections>
                 </viewController>
@@ -150,10 +149,10 @@
             </objects>
             <point key="canvasLocation" x="1705" y="1249"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Post Form Table View Controller-->
         <scene sceneID="plp-BS-5z9">
             <objects>
-                <tableViewController id="gwG-if-rh6" sceneMemberID="viewController">
+                <tableViewController id="gwG-if-rh6" customClass="PostFormTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="haP-ND-Kco">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -194,7 +193,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="BY5-Ki-EID" kind="push" id="XNM-Gx-x9x"/>
+                                            <segue destination="BY5-Ki-EID" kind="push" identifier="locationSegue" id="XNM-Gx-x9x"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>

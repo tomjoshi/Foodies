@@ -11,6 +11,8 @@
 #import "CustomCamera.h"
 #import "albumThumbCollectionViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <ALAssetsLibrary+CustomPhotoAlbum.h>
+#import "PostFormTableViewController.h"
 
 @interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
@@ -18,11 +20,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *instructionLabel;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandle;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
+@property (strong, nonatomic) ALAssetRepresentation *previewImageRep;
 @property (nonatomic, strong) NSArray *assets;
 
 - (void)layoutCameraView;
 - (IBAction)nextTapped:(id)sender;
 - (IBAction)cancelTapped:(id)sender;
+- (ALAssetsLibrary *)defaultAssetsLibrary;
+
 @end
 
 @implementation CameraViewController
@@ -46,7 +51,34 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    self.imageView.image = self.imagePassed;
+    if (self.previewImageRep) {
+        [self.previewImageView setImage:[UIImage imageWithCGImage:[self.previewImageRep fullScreenImage] scale:[self.previewImageRep scale] orientation:0]];
+    } else if (self.imagePassed) {
+        __block ALAssetsLibrary *assetsLibrary = [self defaultAssetsLibrary];
+        [self.previewImageView setImage:self.imagePassed];
+        
+        // save image as an alasset
+        [assetsLibrary saveImage:self.imagePassed toAlbum:nil completion:^(NSURL *assetURL, NSError *error) {
+            NSLog(@"image saved");
+            // reload collection view
+            [self.albumCollectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+            [assetsLibrary assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                NSLog(@"asset found");
+                
+                // add location exif metadat
+//                [asset setValue:<#(id)#> forKeyPath:ALAssetPropertyLocation];
+                
+                // save new previewImageRep
+                self.previewImageRep = [asset defaultRepresentation];
+            } failureBlock:^(NSError *error) {
+                NSLog(@"failed to find asset");
+            }];
+        } failure:^(NSError *error) {
+            NSLog(@"failed to save image");
+        }];
+        
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,73 +109,6 @@
     
 }
 
-- (IBAction)flashTouched:(id)sender {
-    UIViewController *vC = [[UIViewController alloc] init];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self.navigationController pushViewController:vC animated:YES];
-}
-
-- (IBAction)useCamera:(id)sender {
-//    if ([UIImagePickerController isSourceTypeAvailable:
-//         UIImagePickerControllerSourceTypeCamera])
-//    {
-//        UIImagePickerController *imagePicker =
-//        [[UIImagePickerController alloc] init];
-//        imagePicker.delegate = self;
-//        imagePicker.sourceType =
-//        UIImagePickerControllerSourceTypeCamera;
-//        imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
-//        imagePicker.allowsEditing = NO;
-//        [self presentViewController:imagePicker
-//                           animated:YES completion:nil];
-//        _newMedia = YES;
-//    }
-    
-    [self openCustomCamera:nil];
-}
-
-- (IBAction)useCameraRoll:(id)sender {
-    if ([UIImagePickerController isSourceTypeAvailable:
-         UIImagePickerControllerSourceTypeSavedPhotosAlbum])
-    {
-        UIImagePickerController *imagePicker =
-        [[UIImagePickerController alloc] init];
-        imagePicker.delegate = self;
-        imagePicker.sourceType =
-        UIImagePickerControllerSourceTypePhotoLibrary;
-        imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
-        imagePicker.allowsEditing = NO;
-        [self presentViewController:imagePicker
-                           animated:YES completion:nil];
-        _newMedia = NO;
-    }
-}
-
-#pragma mark UIImagePickerControllerDelegate
-
--(void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    NSString *mediaType = info[UIImagePickerControllerMediaType];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-        UIImage *image = info[UIImagePickerControllerOriginalImage];
-        
-        _imageView.image = image;
-        if (_newMedia)
-            UIImageWriteToSavedPhotosAlbum(image,
-                                           self,
-                                           @selector(image:finishedSavingWithError:contextInfo:),
-                                           nil);
-    }
-    else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie])
-    {
-        // Code here to support video if enabled
-    }
-}
-
 -(void)image:(UIImage *)image
 finishedSavingWithError:(NSError *)error
  contextInfo:(void *)contextInfo
@@ -164,35 +129,6 @@ finishedSavingWithError:(NSError *)error
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - DBCameraViewControllerDelegate
-
-- (void) captureImageDidFinish:(UIImage *)image
-{
-    [self.imageView setImage:image];
-    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void) openCameraWithoutSegue
-{
-    DBCameraViewController *cameraController = [DBCameraViewController initWithDelegate:self];
-    [cameraController setUseCameraSegue:NO];
-    cameraController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cameraController];
-    [nav setNavigationBarHidden:YES];
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
-- (void) openCustomCamera:(id)sender
-{
-    CustomCamera *camera = [CustomCamera initWithFrame:[[UIScreen mainScreen] bounds]];
-    [camera buildInterface];
-    
-    DBCameraViewController *cameraController = [[DBCameraViewController alloc] initWithDelegate:self cameraView:camera];
-    [cameraController setUseCameraSegue:NO];
-    cameraController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    
-    [self presentViewController:cameraController animated:YES completion:nil];
-}
 
 #pragma mark - UICollectionView Delegate + Datasource methods + Library Assets Methods
 
@@ -216,8 +152,8 @@ finishedSavingWithError:(NSError *)error
 {
     ALAsset *asset = self.assets[indexPath.row];
     ALAssetRepresentation *defaultRep = [asset defaultRepresentation];
-    [self.imageView setImage:[UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0]];
-    self.imagePassed = self.imageView.image;
+    [self.previewImageView setImage:[UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0]];
+    self.previewImageRep = defaultRep;
     
     [UIView animateWithDuration:.3 animations:^{
         [self.mainScrollView setContentOffset:CGPointZero];
@@ -256,7 +192,7 @@ finishedSavingWithError:(NSError *)error
 
 - (IBAction)cancelTapped:(id)sender {
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self.imageView setImage:nil];
+    [self.previewImageView setImage:nil];
 }
 
 - (ALAssetsLibrary *)defaultAssetsLibrary
@@ -280,4 +216,17 @@ finishedSavingWithError:(NSError *)error
     
 }
 
+#pragma mark - Navigation Methods
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    PostFormTableViewController *segueVC = segue.destinationViewController;
+    segueVC.assetRepPassed = self.previewImageRep;
+}
+
+#pragma mark - Controller Methods
+- (void)clearPreviewImageRep
+{
+    self.previewImageRep = nil;
+}
 @end

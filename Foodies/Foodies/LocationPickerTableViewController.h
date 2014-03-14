@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LocationPickerTableViewController : UITableViewController
-@property (strong, nonatomic) NSNumber *langPassed;
-@property (strong, nonatomic) NSNumber *longPassed;
+@property (strong, nonatomic) NSNumber *latPassed;
+@property (strong, nonatomic) NSNumber *lngPassed;
 
 @end

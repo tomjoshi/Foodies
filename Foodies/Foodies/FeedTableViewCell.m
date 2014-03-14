@@ -53,7 +53,7 @@
     CGFloat timeLabelWidth = 80;
     CGFloat iconWidth = 10;
     CGFloat sidePadding = 10;
-    CGFloat iconSidePadding = 5;
+    CGFloat iconSidePadding = 6;
     CGFloat likesAndCommentsViewTopPadding = 5;
     CGFloat commentsTopPadding = 1;
     CGFloat heartIconTopPadding = 4;
