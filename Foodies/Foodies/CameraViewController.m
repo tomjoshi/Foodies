@@ -22,6 +22,7 @@
 
 - (void)layoutCameraView;
 - (IBAction)nextTapped:(id)sender;
+- (IBAction)cancelTapped:(id)sender;
 @end
 
 @implementation CameraViewController
@@ -75,40 +76,6 @@
     [self.albumCollectionView setContentInset:albumInset];
     
 }
-
-- (void)loadAlbum
-{
-    _assets = [@[] mutableCopy];
-    __block NSMutableArray *tmpAssets = [@[] mutableCopy];
-    // 1
-    ALAssetsLibrary *assetsLibrary = [self defaultAssetsLibrary];
-    // 2
-    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-            if(result)
-            {
-                // 3
-                [tmpAssets addObject:result];
-            }
-        }];
-        
-        // 4
-        //NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
-        //self.assets = [tmpAssets sortedArrayUsingDescriptors:@[sort]];
-        self.assets = tmpAssets;
-        
-        // 5
-        [self.albumCollectionView reloadData];
-    } failureBlock:^(NSError *error) {
-        NSLog(@"Error loading images %@", error);
-    }];
-}
-
-- (IBAction)nextTapped:(id)sender {
-    
-}
-
-
 
 - (IBAction)flashTouched:(id)sender {
     UIViewController *vC = [[UIViewController alloc] init];
@@ -227,7 +194,7 @@ finishedSavingWithError:(NSError *)error
     [self presentViewController:cameraController animated:YES completion:nil];
 }
 
-#pragma mark - UICollectionView Delegate + Datasource methods
+#pragma mark - UICollectionView Delegate + Datasource methods + Library Assets Methods
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -245,13 +212,50 @@ finishedSavingWithError:(NSError *)error
     return [self.assets count];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat screenWidth = self.view.bounds.size.width;
-    CGFloat screenHeight = self.view.bounds.size.height;
+    ALAsset *asset = self.assets[indexPath.row];
+    ALAssetRepresentation *defaultRep = [asset defaultRepresentation];
+    [self.imageView setImage:[UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0]];
     
-    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40)+self.mainScrollView.contentOffset.y)];
+    [UIView animateWithDuration:.3 animations:^{
+        [self.mainScrollView setContentOffset:CGPointZero];
+    } completion:^(BOOL finished) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }];
+}
+
+- (void)loadAlbum
+{
+    _assets = [@[] mutableCopy];
+    __block NSMutableArray *tmpAssets = [@[] mutableCopy];
+    ALAssetsLibrary *assetsLibrary = [self defaultAssetsLibrary];
     
+    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+            if(result)
+            {
+                [tmpAssets addObject:result];
+            }
+        }];
+
+        self.assets = [[tmpAssets reverseObjectEnumerator] allObjects];
+        
+        [self.albumCollectionView reloadData];
+    } failureBlock:^(NSError *error) {
+        NSLog(@"Error loading images %@", error);
+    }];
+}
+
+#pragma mark - IBActions methods
+
+- (IBAction)nextTapped:(id)sender {
+    
+}
+
+- (IBAction)cancelTapped:(id)sender {
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.imageView setImage:nil];
 }
 
 - (ALAssetsLibrary *)defaultAssetsLibrary
@@ -262,6 +266,17 @@ finishedSavingWithError:(NSError *)error
         library = [[ALAssetsLibrary alloc] init];
     });
     return library;
+}
+
+#pragma mark - UIScrollView Delegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat screenWidth = self.view.bounds.size.width;
+    CGFloat screenHeight = self.view.bounds.size.height;
+    
+    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40)+self.mainScrollView.contentOffset.y)];
+    
 }
 
 @end
