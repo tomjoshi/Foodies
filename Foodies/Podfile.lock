@@ -15,18 +15,24 @@ PODS:
     - FontAwesomeKit/Core
   - FontAwesomeKit/Zocial (2.1.5):
     - FontAwesomeKit/Core
+  - Foursquare-API-v2 (1.4.4)
+  - MBProgressHUD (0.8)
   - PrettyTimestamp (1.1)
   - TTTAttributedLabel (1.9.1)
 
 DEPENDENCIES:
   - DBCamera (~> 1.0.1)
   - FontAwesomeKit (~> 2.1.0)
+  - Foursquare-API-v2 (~> 1.4.4)
+  - MBProgressHUD (~> 0.8)
   - PrettyTimestamp
   - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   DBCamera: 04fe8162ecdf58308307c717f7fd6ce9856d9684
   FontAwesomeKit: 7d935e100337d503bdaefde2ea16be740b81ed13
+  Foursquare-API-v2: cb5609c318903a4d80a58d7d476298362e889a9b
+  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   PrettyTimestamp: 05ded9a97fd0f6f3e94fe2a4d87d527cf7577507
   TTTAttributedLabel: 3299d80e6cc066676fd6ac44276a2b0baaa1e965
 

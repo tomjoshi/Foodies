@@ -39,6 +39,9 @@
 		D183517618BBAE5C00303868 /* FoodiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D183517518BBAE5C00303868 /* FoodiesTests.m */; };
 		D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */; };
 		D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B57DAA18C11D67007B3833 /* TabBarController.m */; };
+		D1BD1A8518D3575B00256BC2 /* LocationPickerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1A8418D3575B00256BC2 /* LocationPickerTableViewController.m */; };
+		D1BD1A8A18D35E1A00256BC2 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1A8718D35E1A00256BC2 /* Location.m */; };
+		D1BD1A8B18D35E1A00256BC2 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1A8918D35E1A00256BC2 /* Venue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +106,12 @@
 		D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = albumThumbCollectionViewCell.m; sourceTree = "<group>"; };
 		D1B57DA918C11D67007B3833 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		D1B57DAA18C11D67007B3833 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
+		D1BD1A8318D3575B00256BC2 /* LocationPickerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPickerTableViewController.h; sourceTree = "<group>"; };
+		D1BD1A8418D3575B00256BC2 /* LocationPickerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationPickerTableViewController.m; sourceTree = "<group>"; };
+		D1BD1A8618D35E1A00256BC2 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		D1BD1A8718D35E1A00256BC2 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		D1BD1A8818D35E1A00256BC2 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		D1BD1A8918D35E1A00256BC2 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +163,8 @@
 				D13A51B518BCEF3200ADE71D /* CameraViewController.m */,
 				D1ABE1C918D22FD300254A84 /* albumThumbCollectionViewCell.h */,
 				D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */,
+				D1BD1A8318D3575B00256BC2 /* LocationPickerTableViewController.h */,
+				D1BD1A8418D3575B00256BC2 /* LocationPickerTableViewController.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -169,6 +180,10 @@
 				D110B00918CA67210077D25B /* Like.m */,
 				D110B00B18CA67E30077D25B /* Comment.h */,
 				D110B00C18CA67E30077D25B /* Comment.m */,
+				D1BD1A8618D35E1A00256BC2 /* Location.h */,
+				D1BD1A8718D35E1A00256BC2 /* Location.m */,
+				D1BD1A8818D35E1A00256BC2 /* Venue.h */,
+				D1BD1A8918D35E1A00256BC2 /* Venue.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -415,8 +430,11 @@
 				D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */,
 				D183516118BBAE5B00303868 /* SecondViewController.m in Sources */,
 				D183515518BBAE5B00303868 /* AppDelegate.m in Sources */,
+				D1BD1A8A18D35E1A00256BC2 /* Location.m in Sources */,
+				D1BD1A8518D3575B00256BC2 /* LocationPickerTableViewController.m in Sources */,
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
 				D183515E18BBAE5B00303868 /* FirstViewController.m in Sources */,
+				D1BD1A8B18D35E1A00256BC2 /* Venue.m in Sources */,
 				D110AFFD18CA4E080077D25B /* FoodPost.m in Sources */,
 				D110AFF218CA43450077D25B /* FeedTableViewCell.m in Sources */,
 				D110B00718CA5E070077D25B /* UIView+ResizeToFitSubviews.m in Sources */,

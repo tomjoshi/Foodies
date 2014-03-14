@@ -177,15 +177,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="d7w-VM-QzA" style="IBUITableViewCellStyleDefault" id="6tl-Lr-4S7">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="d7w-VM-QzA" style="IBUITableViewCellStyleDefault" id="6tl-Lr-4S7">
                                         <rect key="frame" x="0.0" y="152" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6tl-Lr-4S7" id="r8k-PX-dOE">
-                                            <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Add Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d7w-VM-QzA">
-                                                    <rect key="frame" x="15" y="0.0" width="238" height="43"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Name This Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d7w-VM-QzA">
+                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -194,7 +194,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="BY5-Ki-EID" kind="push" trigger="accessoryAction" id="gFU-WA-gis"/>
+                                            <segue destination="BY5-Ki-EID" kind="push" id="XNM-Gx-x9x"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -211,15 +211,15 @@
             </objects>
             <point key="canvasLocation" x="2132" y="1249"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Location Picker Table View Controller - Locations-->
         <scene sceneID="ubp-fi-Jg8">
             <objects>
-                <tableViewController id="BY5-Ki-EID" sceneMemberID="viewController">
+                <tableViewController id="BY5-Ki-EID" customClass="LocationPickerTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yT9-6O-lqa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="iWB-OH-Vpb">
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Find or create a location" id="iWB-OH-Vpb">
                             <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -228,12 +228,28 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="MNg-Br-Yeq">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="resultCell" textLabel="P3r-23-afq" detailTextLabel="zi8-ed-PSC" style="IBUITableViewCellStyleSubtitle" id="MNg-Br-Yeq">
                                 <rect key="frame" x="0.0" y="130" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MNg-Br-Yeq" id="LpV-NP-pjj">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="P3r-23-afq">
+                                            <rect key="frame" x="15" y="3" width="34" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zi8-ed-PSC">
+                                            <rect key="frame" x="15" y="25" width="43" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -242,8 +258,9 @@
                             <outlet property="delegate" destination="BY5-Ki-EID" id="zbI-ND-2s5"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="tph-8G-nc4"/>
+                    <navigationItem key="navigationItem" title="Locations" id="tph-8G-nc4"/>
                     <connections>
+                        <outlet property="LocationSearchBar" destination="iWB-OH-Vpb" id="Yo2-M1-fLK"/>
                         <outlet property="searchDisplayController" destination="CcH-TN-Qqz" id="oqD-7d-Kau"/>
                     </connections>
                 </tableViewController>
