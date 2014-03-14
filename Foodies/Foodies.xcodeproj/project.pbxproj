@@ -44,6 +44,7 @@
 		D1BD1A8B18D35E1A00256BC2 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1A8918D35E1A00256BC2 /* Venue.m */; };
 		D1BD1B1318D36F3900256BC2 /* PostFormTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */; };
 		D1BD1B1518D3879200256BC2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1BD1B1418D3879200256BC2 /* CoreLocation.framework */; };
+		D1BD1B1818D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,8 @@
 		D1BD1B1118D36F3900256BC2 /* PostFormTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostFormTableViewController.h; sourceTree = "<group>"; };
 		D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostFormTableViewController.m; sourceTree = "<group>"; };
 		D1BD1B1418D3879200256BC2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D1BD1B1618D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+ImageMetadata.h"; sourceTree = "<group>"; };
+		D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+ImageMetadata.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +210,8 @@
 		D110B00E18CA76B10077D25B /* Category Methods */ = {
 			isa = PBXGroup;
 			children = (
+				D1BD1B1618D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.h */,
+				D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */,
 				D110B00518CA5E070077D25B /* UIView+ResizeToFitSubviews.h */,
 				D110B00618CA5E070077D25B /* UIView+ResizeToFitSubviews.m */,
 			);
@@ -435,6 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1BD1B1818D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */,
 				D1BD1B1318D36F3900256BC2 /* PostFormTableViewController.m in Sources */,
 				D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */,
