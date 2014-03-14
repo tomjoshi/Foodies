@@ -217,6 +217,7 @@ finishedSavingWithError:(NSError *)error
     ALAsset *asset = self.assets[indexPath.row];
     ALAssetRepresentation *defaultRep = [asset defaultRepresentation];
     [self.imageView setImage:[UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0]];
+    self.imagePassed = self.imageView.image;
     
     [UIView animateWithDuration:.3 animations:^{
         [self.mainScrollView setContentOffset:CGPointZero];

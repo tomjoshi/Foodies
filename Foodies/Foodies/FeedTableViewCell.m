@@ -54,10 +54,10 @@
     CGFloat iconWidth = 10;
     CGFloat sidePadding = 10;
     CGFloat iconSidePadding = 5;
-    CGFloat likesAndCommentsViewTopPadding = 7;
-    CGFloat commentsTopPadding = 0;
-    CGFloat heartIconTopPadding = 0;
-    CGFloat commentIconTopPadding = 0;
+    CGFloat likesAndCommentsViewTopPadding = 5;
+    CGFloat commentsTopPadding = 1;
+    CGFloat heartIconTopPadding = 4;
+    CGFloat commentIconTopPadding = 4;
     CGFloat buttonTopPadding = 5;
     CGFloat buttonSidePadding = 5;
     CGFloat buttonRadius = 2;
@@ -91,6 +91,7 @@
         [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor redColor]];
         UILabel *heartIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(sidePadding, yPos+heartIconTopPadding, iconWidth, iconWidth)];
         [heartIconLabel setAttributedText:[heartIcon attributedString]];
+//        [heartIconLabel setBackgroundColor:[UIColor blackColor]];
         [likeAndCommentContent addSubview:heartIconLabel];
         
         // set number of likes
@@ -102,6 +103,7 @@
         likesLabel.delegate = self;
         [likesLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [likesLabel.text length])];
         [likesLabel sizeToFit];
+//        [likesLabel setBackgroundColor:[UIColor blackColor]];
         [likeAndCommentContent addSubview:likesLabel];
         
         
