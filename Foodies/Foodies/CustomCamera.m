@@ -10,7 +10,7 @@
 
 @interface CustomCamera ()
 
-@property (nonatomic, strong) CALayer *focusBox;
+//@property (nonatomic, strong) CALayer *focusBox;
 
 @end
 
@@ -28,27 +28,27 @@
 - (void) buildInterface
 {
     
-    [self.previewLayer addSublayer:self.focusBox];
+//    [self.previewLayer addSublayer:self.focusBox];
 //    [self.previewLayer addSublayer:self.exposeBox];
     
     [self createGesture];
 }
 
 #pragma mark - Focus / Expose Box
-
-- (CALayer *) focusBox
-{
-    if ( !_focusBox ) {
-        _focusBox = [[CALayer alloc] init];
-        [_focusBox setCornerRadius:45.0f];
-        [_focusBox setBounds:CGRectMake(0.0f, 0.0f, 90, 90)];
-        [_focusBox setBorderWidth:5.f];
-        [_focusBox setBorderColor:[[UIColor whiteColor] CGColor]];
-        [_focusBox setOpacity:0];
-    }
-    
-    return _focusBox;
-}
+//
+//- (CALayer *) focusBox
+//{
+//    if ( !_focusBox ) {
+//        _focusBox = [[CALayer alloc] init];
+//        [_focusBox setCornerRadius:45.0f];
+//        [_focusBox setBounds:CGRectMake(0.0f, 0.0f, 90, 90)];
+//        [_focusBox setBorderWidth:5.f];
+//        [_focusBox setBorderColor:[[UIColor whiteColor] CGColor]];
+//        [_focusBox setOpacity:0];
+//    }
+//    
+//    return _focusBox;
+//}
 
 //- (CALayer *) exposeBox
 //{
@@ -64,10 +64,10 @@
 //    return _exposeBox;
 //}
 
-- (void) drawFocusBoxAtPointOfInterest:(CGPoint)point andRemove:(BOOL)remove
-{
-    [super draw:_focusBox atPointOfInterest:point andRemove:remove];
-}
+//- (void) drawFocusBoxAtPointOfInterest:(CGPoint)point andRemove:(BOOL)remove
+//{
+//    [super draw:_focusBox atPointOfInterest:point andRemove:remove];
+//}
 
 //- (void) drawExposeBoxAtPointOfInterest:(CGPoint)point andRemove:(BOOL)remove
 //{

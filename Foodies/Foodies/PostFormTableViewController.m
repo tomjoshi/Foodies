@@ -9,10 +9,12 @@
 #import "PostFormTableViewController.h"
 #import "LocationPickerTableViewController.h"
 #import "LocationPickerDelegate.h"
+#import <GCPlaceholderTextView.h>
 
-@interface PostFormTableViewController () <LocationPickerDelegate>
+@interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageThumb;
+@property (weak, nonatomic) IBOutlet GCPlaceholderTextView *captionTextView;
 
 @end
 
@@ -31,6 +33,8 @@
 {
     [super viewDidLoad];
     
+    self.captionTextView.placeholder = @"Write a caption...";
+    self.captionTextView.delegate = self;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -79,6 +83,19 @@
     if (venue) {
         self.locationLabel.text = venue.name;
     }
+}
+#pragma mark - TextView Delegate Methods
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        
+        [textView resignFirstResponder];
+        // Return FALSE so that the final '\n' character doesn't get added
+        return NO;
+    }
+    // For any other character return TRUE so that the text gets added to the view
+    return YES;
 }
 
 @end

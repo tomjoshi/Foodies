@@ -46,6 +46,7 @@
 		D1BD1B1518D3879200256BC2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1BD1B1418D3879200256BC2 /* CoreLocation.framework */; };
 		D1BD1B1818D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */; };
 		D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1A18D3A1D600256BC2 /* ALAsset+Date.m */; };
+		D1C0C36118DCBEF000F3AD9C /* profilepic.png in Resources */ = {isa = PBXBuildFile; fileRef = D1C0C36018DCBEF000F3AD9C /* profilepic.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,7 @@
 		D1BD1B1918D3A1D600256BC2 /* ALAsset+Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+Date.h"; sourceTree = "<group>"; };
 		D1BD1B1A18D3A1D600256BC2 /* ALAsset+Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+Date.m"; sourceTree = "<group>"; };
 		D1BD1B1C18D3BCA500256BC2 /* LocationPickerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationPickerDelegate.h; sourceTree = "<group>"; };
+		D1C0C36018DCBEF000F3AD9C /* profilepic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profilepic.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				D110B00218CA561B0077D25B /* ramenImage.png */,
+				D1C0C36018DCBEF000F3AD9C /* profilepic.png */,
 			);
 			name = Image;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1C0C36118DCBEF000F3AD9C /* profilepic.png in Resources */,
 				D183515B18BBAE5B00303868 /* Main_iPad.storyboard in Resources */,
 				D183516318BBAE5B00303868 /* Images.xcassets in Resources */,
 				D110B00318CA561B0077D25B /* ramenImage.png in Resources */,

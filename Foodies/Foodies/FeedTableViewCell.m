@@ -34,7 +34,7 @@
 - (void)configureWithFoodPost:(FoodPost *)foodPost
 {
     for (UIView *view in self.contentView.subviews) {
-        if (!(view == self.authorLabel || view == self.timeLabel)) {
+        if (!(view == self.authorLabel || view == self.timeLabel || view == self.venueLabel)) {
             [view removeFromSuperview];
         }
     }
@@ -42,46 +42,71 @@
     UIImage *postImage = [foodPost getImage];
     NSString *postFormattedTime = [foodPost getFormattedTime];
     NSString *postAuthor = [foodPost.author getName];
+    NSString *postVenueName = [foodPost.venue getName];
     NSNumber *numberOfLikes = [foodPost getNumberOfLikes];
+    UIImage *authorThumb = [foodPost.author getThumb];
     BOOL isLiked = [foodPost isLiked];
     NSArray *comments = [foodPost getComments];
-    //    UIImage *authorThumb = [foodPost.author getThumb];
     
     // setup variables
     CGFloat cellWidth = self.bounds.size.width;
-    CGFloat headerHeight = 40;
+    CGFloat labelHeight = 25;
+    CGFloat profileRadius = 15;
     CGFloat timeLabelWidth = 80;
     CGFloat iconWidth = 10;
-    CGFloat sidePadding = 10;
+    CGFloat sidePadding = 8;
     CGFloat iconSidePadding = 6;
     CGFloat likesAndCommentsViewTopPadding = 5;
     CGFloat commentsTopPadding = 1;
     CGFloat heartIconTopPadding = 4;
     CGFloat commentIconTopPadding = 4;
-    CGFloat buttonTopPadding = 5;
+    CGFloat buttonTopPadding = 8;
     CGFloat buttonSidePadding = 5;
     CGFloat buttonRadius = 2;
     CGFloat commentTopPadding = 1;
-    NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName, (id)kCTFontAttributeName, nil];
-    NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor blueColor],[NSNumber numberWithInt:kCTUnderlineStyleNone], [UIFont fontWithName:@"HelveticaNeue" size:14],nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName, nil];
+    NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor blueColor],[NSNumber numberWithInt:kCTUnderlineStyleNone],nil];
     NSDictionary *linkAttributes = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
     
+    // set profile image
+    UIImageView *profileImageView = [[UIImageView alloc] initWithImage:authorThumb];
+    [profileImageView setFrame:CGRectMake(sidePadding, (labelHeight*2-profileRadius*2)/2, profileRadius*2, profileRadius*2)];
+    profileImageView.contentMode = UIViewContentModeScaleAspectFill;
+    profileImageView.layer.cornerRadius = profileRadius;
+    profileImageView.layer.masksToBounds = YES;
+    [self.contentView addSubview:profileImageView];
+    
     // set author label
-    [self.authorLabel setFrame:CGRectMake(sidePadding, 0, cellWidth-timeLabelWidth-2*sidePadding, headerHeight)];
+    [self.authorLabel setFrame:CGRectMake(2*sidePadding+profileRadius*2, 0, cellWidth-timeLabelWidth-3*sidePadding+profileRadius*2, labelHeight)];
+    self.authorLabel.linkAttributes = linkAttributes;
+    self.authorLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentBottom;
     self.authorLabel.text = postAuthor;
+    self.authorLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    self.authorLabel.delegate = self;
+    [self.authorLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [self.authorLabel.text length])];
     
     // set time label
-    [self.timeLabel setFrame:CGRectMake(cellWidth-timeLabelWidth-sidePadding, 0, timeLabelWidth, headerHeight)];
+    [self.timeLabel setFrame:CGRectMake(cellWidth-timeLabelWidth-sidePadding, 0, timeLabelWidth, labelHeight)];
     self.timeLabel.text = postFormattedTime;
+    self.timeLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentBottom;
+    
+    // set location label
+    [self.venueLabel setFrame:CGRectMake(2*sidePadding+profileRadius*2, labelHeight, cellWidth-3*sidePadding-profileRadius*2, labelHeight)];
+    self.venueLabel.linkAttributes = linkAttributes;
+    self.venueLabel.text = postVenueName;
+    self.venueLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
+    self.venueLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    self.venueLabel.delegate = self;
+    [self.venueLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [self.venueLabel.text length])];
     
     // set image
     UIImageView *postImageView = [[UIImageView alloc] initWithImage:postImage];
-    [postImageView setFrame:CGRectMake(0, headerHeight, cellWidth, cellWidth)];
+    [postImageView setFrame:CGRectMake(0, 2*labelHeight, cellWidth, cellWidth)];
     postImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:postImageView];
     
     // set a subview for likes and comments
-    UIView *likeAndCommentContent = [[UIView alloc] initWithFrame:CGRectMake(0, cellWidth+headerHeight+likesAndCommentsViewTopPadding, cellWidth, 0)];
+    UIView *likeAndCommentContent = [[UIView alloc] initWithFrame:CGRectMake(0, cellWidth+2*labelHeight+likesAndCommentsViewTopPadding, cellWidth, 0)];
     
     // set likes
     CGFloat yPos = 0;

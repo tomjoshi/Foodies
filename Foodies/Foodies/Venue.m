@@ -25,4 +25,9 @@
     }
     return self;
 }
+
+- (NSString *)getName
+{
+    return self.name;
+}
 @end

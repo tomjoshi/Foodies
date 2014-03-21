@@ -19,7 +19,7 @@
 {
     self = [super init];
     if (self) {
-        _profileImage = [[UIImage alloc] init];
+        _profileImage = [UIImage imageNamed:@"profilepic"];
         _name = @"Lucas Chwe";
     }
     return self;
