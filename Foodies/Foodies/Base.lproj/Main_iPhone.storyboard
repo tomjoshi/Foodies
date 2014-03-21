@@ -48,7 +48,7 @@
             </objects>
             <point key="canvasLocation" x="653" y="1935"/>
         </scene>
-        <!--Camera View Controller - Scale & Crop-->
+        <!--Camera View Controller - Take a Photo-->
         <scene sceneID="bip-ul-DJt">
             <objects>
                 <viewController id="au5-ON-E1O" customClass="CameraViewController" sceneMemberID="viewController">
@@ -64,13 +64,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="424"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hold down the camera button to take a photo or choose one from your album" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LUZ-Kj-PgS">
-                                                <rect key="frame" x="60" y="162" width="200" height="100"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="zJ0-zx-SLS">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="424"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -119,7 +112,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Scale &amp; Crop" id="BY8-5G-u6c">
+                    <navigationItem key="navigationItem" title="Take a Photo" id="BY8-5G-u6c">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2jO-8J-JJz">
                             <connections>
                                 <action selector="cancelTapped:" destination="au5-ON-E1O" id="aGD-VI-Eo8"/>
@@ -134,9 +127,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="albumCollectionView" destination="Eks-qO-ql4" id="3V0-UD-YLh"/>
-                        <outlet property="instructionLabel" destination="LUZ-Kj-PgS" id="gbC-jB-lUu"/>
                         <outlet property="mainScrollView" destination="Eip-uh-EK1" id="Ql5-LQ-jTd"/>
                         <outlet property="previewImageView" destination="zJ0-zx-SLS" id="kh8-1W-mVk"/>
+                        <outlet property="previewView" destination="Pum-D8-HY2" id="dGS-JC-Fm1"/>
                         <outlet property="scrollHandle" destination="qOu-WT-l6B" id="g8m-lg-YCE"/>
                     </connections>
                 </viewController>

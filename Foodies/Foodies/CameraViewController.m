@@ -21,9 +21,9 @@
 @interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
-@property (weak, nonatomic) IBOutlet UILabel *instructionLabel;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandle;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
+@property (weak, nonatomic) IBOutlet UIView *previewView;
 @property (strong, nonatomic) ALAsset *previewImageAsset;
 @property (nonatomic, strong) NSArray *assets;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -52,8 +52,45 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+//    [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self layoutCameraView];
+    [self getCameraStarted];
+}
+
+- (void)getCameraStarted
+{
+    //Capture Session
+    AVCaptureSession *session = [[AVCaptureSession alloc]init];
+    session.sessionPreset = AVCaptureSessionPresetPhoto;
+    
+    //Add device
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    //Input
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+    
+    if (!input)
+    {
+        NSLog(@"No Input");
+    }
+    
+    [session addInput:input];
+    
+    //Output
+    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
+    [session addOutput:output];
+    output.videoSettings =
+    @{(NSString *)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA)};
+    
+    //Preview Layer
+    AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
+    UIView *myView = self.previewView;
+    previewLayer.frame = myView.bounds;
+    previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    [myView.layer addSublayer:previewLayer];
+    
+    //Start capture session
+    [session startRunning];    
 }
 
 - (void)viewDidAppear:(BOOL)animated
