@@ -69,7 +69,7 @@
                                  longitude:lng
                                      query:@""
                                      limit:@100
-                                    intent:intentBrowse
+                                    intent:intentCheckin
                                     radius:@500
                                 categoryId:@"4d4b7105d754a06374d81259" //food category
                                   callback:^(BOOL success, id result)

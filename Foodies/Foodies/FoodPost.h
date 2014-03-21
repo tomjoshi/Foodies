@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "Foodie.h"
+#import "Venue.h"
 
 @interface FoodPost : NSObject
 @property (strong, nonatomic) Foodie *author;
+@property (strong, nonatomic) Venue *venue;
 
 - (UIImage *)getImage;
 - (NSDate *)getDate;

@@ -17,4 +17,5 @@
 - (instancetype)initWithName:(NSString *)name
                      venueId:(NSString *)venueId
                     location:(Location *)location;
+- (NSString *)getName;
 @end

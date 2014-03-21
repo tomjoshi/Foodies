@@ -11,8 +11,9 @@
 #import <TTTAttributedLabel.h>
 
 @interface FeedTableViewCell : UITableViewCell <TTTAttributedLabelDelegate>
-@property (weak, nonatomic) IBOutlet UILabel *authorLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *authorLabel;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *timeLabel;
+@property (weak, nonatomic) IBOutlet TTTAttributedLabel *venueLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
