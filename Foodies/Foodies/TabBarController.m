@@ -91,8 +91,85 @@
     [self.tabBar addGestureRecognizer:self.regularTap];
     
 //    self.arrayOfVCs = self.viewControllers;
+    
+    // load camera
+    [self getCameraStarted];
 }
 
+
+- (void)getCameraStarted
+{
+    //Capture Session
+    self.captureSession = [[AVCaptureSession alloc]init];
+    self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+    
+    //Add device
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    //Input
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+    
+    if (!input)
+    {
+        NSLog(@"No Input");
+    }
+    
+    [self.captureSession addInput:input];
+    
+    //Output
+    self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    NSDictionary *stillImageOutputSettings = [[NSDictionary alloc]initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey, nil];
+    [self.stillImageOutput setOutputSettings:stillImageOutputSettings];
+    [self.captureSession addOutput:self.stillImageOutput];
+    
+    //make Preview Layer
+    self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
+}
+
+
+-(void) captureStillImage
+{
+    AVCaptureConnection *stillImageConnection = [self.stillImageOutput.connections objectAtIndex:0];
+    if([stillImageConnection isVideoOrientationSupported])
+    {
+        [stillImageConnection setVideoOrientation:AVCaptureVideoOrientationPortrait];
+        
+        
+        [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+            if(imageDataSampleBuffer !=NULL)
+            {
+                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+                UIImage *image = [[UIImage alloc]initWithData:imageData];
+                
+                [self.cameraDelegate captureImageDidFinish:image];
+//                //Set image to image preview
+//                self.imagePreview.image = image;
+//                self.imagePreview.alpha = 100.0f;
+//                [UIView animateWithDuration:2.0f
+//                                      delay:0
+//                                    options:UIViewAnimationOptionCurveEaseIn
+//                                 animations:^{
+//                                     self.imagePreview.alpha = 0.0f;
+//                                 }
+//                                 completion:^(BOOL finished) {
+//                                     self.imagePreview.alpha = 100.0f;
+//                                 }];
+//                
+//                //Save to library
+//                ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//                [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error)
+//                 {
+//                     
+//                 }
+//                 ];
+            }
+            else
+            {
+                NSLog(@"Error capturing still image");
+            }
+        }];
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -108,13 +185,9 @@
     if (index == 2) {
         if (sender.state == UIGestureRecognizerStateEnded) {
             NSLog(@"long press ended");
-            [self.camera triggerAction];
+            [self captureStillImage];
         } else {
             NSLog(@"long press started");
-            [self openCamera];
-            // add swipe left for album
-            
-            // add swipe right for flash
         }
     }
 }
@@ -123,7 +196,12 @@
 {
     CGFloat touchX = [sender locationInView:self.tabBar].x;
     NSInteger index = floor(touchX/self.uiTabBarItemWidth);
-    [self setSelectedIndex:index];
+    
+    if ([self selectedViewController] == self.viewControllers[2] && index == 2) {
+        [self captureStillImage];
+    } else {
+        [self setSelectedIndex:index];
+    }
 }
 
 - (void) openCamera
