@@ -62,7 +62,7 @@
 
 - (void)loadRestaurantsAtLatitude:(NSNumber *)lat andLongitude:(NSNumber *)lng
 {
-    if (!(lat && lng)) {
+    if (lat && lng) {
     [Foursquare2 venueSearchNearByLatitude:lat
                                  longitude:lng
                                      query:@""
