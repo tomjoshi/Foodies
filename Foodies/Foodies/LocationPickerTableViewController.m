@@ -63,8 +63,6 @@
 - (void)loadRestaurantsAtLatitude:(NSNumber *)lat andLongitude:(NSNumber *)lng
 {
     if (!(lat && lng)) {
-    }
-    
     [Foursquare2 venueSearchNearByLatitude:lat
                                  longitude:lng
                                      query:@""
@@ -98,6 +96,7 @@
          [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
          [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
      }];
+    }
 }
 
 #pragma mark - Table view data source

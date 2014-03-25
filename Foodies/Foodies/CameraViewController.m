@@ -17,8 +17,9 @@
 #import "ALAsset+Date.h"
 #import <CoreLocation/CoreLocation.h>
 #import <ImageIO/CGImageProperties.h>
+#import "TabBarController.h"
 
-@interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
+@interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, CameraOutputDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandle;
@@ -29,6 +30,9 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic) NSInteger imageCounter;
 @property (nonatomic) NSInteger amountOfAssets;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *nextButton;
+
 
 - (void)layoutCameraView;
 - (IBAction)nextTapped:(id)sender;
@@ -54,43 +58,29 @@
 	// Do any additional setup after loading the view.
 //    [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self layoutCameraView];
-    [self getCameraStarted];
+    [self startCameraPreview];
+    
 }
 
-- (void)getCameraStarted
+- (void)startCameraPreview
 {
-    //Capture Session
-    AVCaptureSession *session = [[AVCaptureSession alloc]init];
-    session.sessionPreset = AVCaptureSessionPresetPhoto;
+    ((TabBarController *)self.tabBarController).previewLayer.frame = self.previewView.bounds;
+    ((TabBarController *)self.tabBarController).previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    ((TabBarController *)self.tabBarController).cameraDelegate = self;
+    [self.previewView.layer addSublayer:((TabBarController *)self.tabBarController).previewLayer];
     
-    //Add device
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    //Input
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
-    
-    if (!input)
-    {
-        NSLog(@"No Input");
-    }
-    
-    [session addInput:input];
-    
-    //Output
-    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
-    [session addOutput:output];
-    output.videoSettings =
-    @{(NSString *)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA)};
-    
-    //Preview Layer
-    AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
-    UIView *myView = self.previewView;
-    previewLayer.frame = myView.bounds;
-    previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    [myView.layer addSublayer:previewLayer];
-    
-    //Start capture session
-    [session startRunning];    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [queue addOperationWithBlock:^{
+        [((TabBarController *)self.tabBarController).captureSession startRunning];
+    }];
+}
+
+
+- (void) captureImageDidFinish:(UIImage *)image
+{
+    self.imagePassed = image;
+    [self clearPreviewImageAsset];
+    [self viewDidAppear:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -102,6 +92,7 @@
         NSLog(@"new image");
         [self.previewImageView setImage:self.imagePassed];
         self.imagePassed = nil;
+        [((TabBarController *)self.tabBarController).captureSession stopRunning];
         
         // find current location
         self.locationManager = [[CLLocationManager alloc] init];
@@ -189,11 +180,11 @@ finishedSavingWithError:(NSError *)error
     [self.previewImageView setImage:[UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0]];
     self.previewImageAsset = asset;
     
+    [self cropImage];
+    
     [UIView animateWithDuration:.3 animations:^{
         [self.mainScrollView setContentOffset:CGPointZero];
-    } completion:^(BOOL finished) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }];
+    } completion:nil];
 }
 
 - (void)loadAlbum
@@ -227,9 +218,9 @@ finishedSavingWithError:(NSError *)error
 }
 
 - (IBAction)cancelTapped:(id)sender {
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.previewImageView setImage:nil];
     self.previewImageAsset = nil;
+    [self cancelCropping];
 }
 
 - (ALAssetsLibrary *)defaultAssetsLibrary
@@ -267,6 +258,27 @@ finishedSavingWithError:(NSError *)error
     self.previewImageAsset = nil;
 }
 
+- (void)cropImage
+{
+    [self.navigationItem setTitle:@"Scale & Crop"];
+    self.navigationItem.leftBarButtonItem = self.cancelButton;
+    self.navigationItem.rightBarButtonItem = self.nextButton;
+    
+    [((TabBarController *)self.tabBarController).previewLayer removeFromSuperlayer];
+    [((TabBarController *)self.tabBarController).captureSession stopRunning];
+
+}
+
+- (void)cancelCropping
+{
+    [self.navigationItem setTitle:@"Take a Photo"];
+    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = nil;
+    
+    [self.previewView.layer addSublayer:((TabBarController *)self.tabBarController).previewLayer];
+    [((TabBarController *)self.tabBarController).captureSession startRunning];
+}
+
 #pragma mark - CLLocation Delegate Methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
@@ -288,6 +300,7 @@ finishedSavingWithError:(NSError *)error
             self.previewImageAsset = asset;
             self.assets = [@[asset] arrayByAddingObjectsFromArray:self.assets];
             [self.albumCollectionView reloadData];
+            [self cropImage];
         } failureBlock:^(NSError *error) {
             NSLog(@"failed to retrieve asset");
         }];
@@ -296,5 +309,7 @@ finishedSavingWithError:(NSError *)error
         self.imageCounter += 1;
     }
 }
+
+
 
 @end
