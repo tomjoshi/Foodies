@@ -15,6 +15,8 @@
 		D110B00718CA5E070077D25B /* UIView+ResizeToFitSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = D110B00618CA5E070077D25B /* UIView+ResizeToFitSubviews.m */; };
 		D110B00A18CA67210077D25B /* Like.m in Sources */ = {isa = PBXBuildFile; fileRef = D110B00918CA67210077D25B /* Like.m */; };
 		D110B00D18CA67E30077D25B /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = D110B00C18CA67E30077D25B /* Comment.m */; };
+		D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5018E33135000BF74A /* LandingTableViewController.m */; };
+		D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5318E353DF000BF74A /* LogInTableViewCell.m */; };
 		D12A6D9618C128800029EB6D /* CameraModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A6D9518C128800029EB6D /* CameraModeViewController.m */; };
 		D12A6D9918C12EB40029EB6D /* CustomCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A6D9818C12EB40029EB6D /* CustomCamera.m */; };
 		D13A51A818BBCA3700ADE71D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A718BBCA3700ADE71D /* AVFoundation.framework */; };
@@ -75,6 +77,10 @@
 		D110B00918CA67210077D25B /* Like.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Like.m; sourceTree = "<group>"; };
 		D110B00B18CA67E30077D25B /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		D110B00C18CA67E30077D25B /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		D12A5F4F18E33135000BF74A /* LandingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingTableViewController.h; path = ../LandingTableViewController.h; sourceTree = "<group>"; };
+		D12A5F5018E33135000BF74A /* LandingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandingTableViewController.m; path = ../LandingTableViewController.m; sourceTree = "<group>"; };
+		D12A5F5218E353DF000BF74A /* LogInTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInTableViewCell.h; path = ../LogInTableViewCell.h; sourceTree = "<group>"; };
+		D12A5F5318E353DF000BF74A /* LogInTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInTableViewCell.m; path = ../LogInTableViewCell.m; sourceTree = "<group>"; };
 		D12A6D9418C128800029EB6D /* CameraModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraModeViewController.h; sourceTree = "<group>"; };
 		D12A6D9518C128800029EB6D /* CameraModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraModeViewController.m; sourceTree = "<group>"; };
 		D12A6D9718C12EB40029EB6D /* CustomCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCamera.h; sourceTree = "<group>"; };
@@ -279,6 +285,10 @@
 				D183515D18BBAE5B00303868 /* FirstViewController.m */,
 				D183515F18BBAE5B00303868 /* SecondViewController.h */,
 				D183516018BBAE5B00303868 /* SecondViewController.m */,
+				D12A5F4F18E33135000BF74A /* LandingTableViewController.h */,
+				D12A5F5018E33135000BF74A /* LandingTableViewController.m */,
+				D12A5F5218E353DF000BF74A /* LogInTableViewCell.h */,
+				D12A5F5318E353DF000BF74A /* LogInTableViewCell.m */,
 				D110B00E18CA76B10077D25B /* Category Methods */,
 				D110AFFE18CA4E0E0077D25B /* Model */,
 				D110AFF418CA43750077D25B /* Camera */,
@@ -464,6 +474,7 @@
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
 				D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */,
 				D183515E18BBAE5B00303868 /* FirstViewController.m in Sources */,
+				D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */,
 				D1BD1A8B18D35E1A00256BC2 /* Venue.m in Sources */,
 				D110AFFD18CA4E080077D25B /* FoodPost.m in Sources */,
 				D110AFF218CA43450077D25B /* FeedTableViewCell.m in Sources */,
@@ -475,6 +486,7 @@
 				D183515118BBAE5B00303868 /* main.m in Sources */,
 				D110B00D18CA67E30077D25B /* Comment.m in Sources */,
 				D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */,
+				D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
