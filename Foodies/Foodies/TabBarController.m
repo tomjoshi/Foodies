@@ -11,6 +11,7 @@
 #import <DBCameraViewController.h>
 #import "CustomCamera.h"
 #import "CameraViewController.h"
+#import "LandingTableViewController.h"
 
 @interface TabBarController () <DBCameraViewControllerDelegate, UITabBarControllerDelegate>
 //@property (strong, nonatomic) NSArray *arrayOfVCs;
@@ -96,6 +97,20 @@
     [self getCameraStarted];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [defaults objectForKey:@"userId"];
+    
+    if (userId == nil) {
+        LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
+        [self presentViewController:modalVC animated:YES completion:nil];
+    }
+    
+}
 
 - (void)getCameraStarted
 {
