@@ -184,6 +184,14 @@
     
     // make api call to receive user id
     
-    // store user id in nsuserdefaults and dismiss this modal view
+    // store user id in nsuserdefaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *userId = @"1";
+    [defaults setObject:userId forKey:@"userId"];
+    [defaults synchronize];
+    
+    // dismiss modalview
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 @end
