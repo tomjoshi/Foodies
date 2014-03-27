@@ -191,7 +191,7 @@
     [defaults synchronize];
     
     // dismiss modalview
+    [self.delegate loggedIn];
     [self dismissViewControllerAnimated:YES completion:nil];
-    
 }
 @end

@@ -18,6 +18,7 @@
 		D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5018E33135000BF74A /* LandingTableViewController.m */; };
 		D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5318E353DF000BF74A /* LogInTableViewCell.m */; };
 		D12A5F5718E36F1D000BF74A /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5618E36F1D000BF74A /* ProfileViewController.m */; };
+		D12A5F5D18E37D48000BF74A /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5C18E37D48000BF74A /* SignUpViewController.m */; };
 		D12A6D9618C128800029EB6D /* CameraModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A6D9518C128800029EB6D /* CameraModeViewController.m */; };
 		D12A6D9918C12EB40029EB6D /* CustomCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A6D9818C12EB40029EB6D /* CustomCamera.m */; };
 		D13A51A818BBCA3700ADE71D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A718BBCA3700ADE71D /* AVFoundation.framework */; };
@@ -84,6 +85,8 @@
 		D12A5F5318E353DF000BF74A /* LogInTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LogInTableViewCell.m; path = ../LogInTableViewCell.m; sourceTree = "<group>"; };
 		D12A5F5518E36F1D000BF74A /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		D12A5F5618E36F1D000BF74A /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		D12A5F5B18E37D48000BF74A /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		D12A5F5C18E37D48000BF74A /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		D12A6D9418C128800029EB6D /* CameraModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraModeViewController.h; sourceTree = "<group>"; };
 		D12A6D9518C128800029EB6D /* CameraModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraModeViewController.m; sourceTree = "<group>"; };
 		D12A6D9718C12EB40029EB6D /* CustomCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCamera.h; sourceTree = "<group>"; };
@@ -116,6 +119,7 @@
 		D183517118BBAE5C00303868 /* FoodiesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoodiesTests-Info.plist"; sourceTree = "<group>"; };
 		D183517318BBAE5C00303868 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D183517518BBAE5C00303868 /* FoodiesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodiesTests.m; sourceTree = "<group>"; };
+		D193B85618E380AC00DCC5C8 /* LandingViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingViewControllerDelegate.h; sourceTree = "<group>"; };
 		D1ABE1C918D22FD300254A84 /* albumThumbCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = albumThumbCollectionViewCell.h; sourceTree = "<group>"; };
 		D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = albumThumbCollectionViewCell.m; sourceTree = "<group>"; };
 		D1B57DA918C11D67007B3833 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -239,6 +243,20 @@
 			name = "Category Methods";
 			sourceTree = "<group>";
 		};
+		D12A5F5E18E37D55000BF74A /* Landing */ = {
+			isa = PBXGroup;
+			children = (
+				D12A5F4F18E33135000BF74A /* LandingTableViewController.h */,
+				D12A5F5018E33135000BF74A /* LandingTableViewController.m */,
+				D12A5F5218E353DF000BF74A /* LogInTableViewCell.h */,
+				D12A5F5318E353DF000BF74A /* LogInTableViewCell.m */,
+				D12A5F5B18E37D48000BF74A /* SignUpViewController.h */,
+				D12A5F5C18E37D48000BF74A /* SignUpViewController.m */,
+				D193B85618E380AC00DCC5C8 /* LandingViewControllerDelegate.h */,
+			);
+			name = Landing;
+			sourceTree = "<group>";
+		};
 		D183513818BBAE5B00303868 = {
 			isa = PBXGroup;
 			children = (
@@ -290,12 +308,9 @@
 				D183515D18BBAE5B00303868 /* FirstViewController.m */,
 				D183515F18BBAE5B00303868 /* SecondViewController.h */,
 				D183516018BBAE5B00303868 /* SecondViewController.m */,
-				D12A5F4F18E33135000BF74A /* LandingTableViewController.h */,
-				D12A5F5018E33135000BF74A /* LandingTableViewController.m */,
-				D12A5F5218E353DF000BF74A /* LogInTableViewCell.h */,
-				D12A5F5318E353DF000BF74A /* LogInTableViewCell.m */,
 				D110B00E18CA76B10077D25B /* Category Methods */,
 				D110AFFE18CA4E0E0077D25B /* Model */,
+				D12A5F5E18E37D55000BF74A /* Landing */,
 				D110AFF418CA43750077D25B /* Camera */,
 				D110AFF318CA43610077D25B /* Feed */,
 				D183516218BBAE5B00303868 /* Images.xcassets */,
@@ -492,6 +507,7 @@
 				D183515118BBAE5B00303868 /* main.m in Sources */,
 				D110B00D18CA67E30077D25B /* Comment.m in Sources */,
 				D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */,
+				D12A5F5D18E37D48000BF74A /* SignUpViewController.m in Sources */,
 				D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
