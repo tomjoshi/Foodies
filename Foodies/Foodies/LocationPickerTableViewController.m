@@ -194,4 +194,11 @@
     [self loadRestaurantsAtLatitude:@(newLocation.coordinate.latitude) andLongitude:@(newLocation.coordinate.longitude)];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    UIAlertView *failedLocation = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to find your location" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [failedLocation show];
+}
+
 @end
