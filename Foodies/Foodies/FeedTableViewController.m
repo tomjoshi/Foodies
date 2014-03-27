@@ -34,6 +34,15 @@
     
     self.navigationController.scrollNavigationBar.scrollView = self.tableView;
     
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor foodiesColor];
+    [label setFont:[UIFont fontWithName:@"Avenir Book" size:20.0]];
+    self.navigationItem.titleView = label;
+    label.text = NSLocalizedString(@"Foodies", @"");
+    [label sizeToFit];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -102,11 +111,6 @@
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [[FoodPost alloc] init];
-}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
-{
-    [self.navigationController.scrollNavigationBar resetToDefaultPosition:YES];
 }
 
 @end
