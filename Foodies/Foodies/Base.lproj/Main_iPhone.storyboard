@@ -86,9 +86,16 @@
                                     <view alpha="0.80000000000000004" contentMode="scaleToFill" id="qOu-WT-l6B">
                                         <rect key="frame" x="0.0" y="384" width="320" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" id="KIv-sU-NpS">
+                                                <rect key="frame" x="139" y="15" width="42" height="10"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <color key="backgroundColor" red="0.10287299752235413" green="0.092235498130321503" blue="0.094640299677848816" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Eks-qO-ql4">
+                                    <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Eks-qO-ql4">
                                         <rect key="frame" x="0.0" y="423" width="320" height="145"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="4" id="Yxs-qC-X1L">
@@ -133,6 +140,7 @@
                         <outlet property="previewImageView" destination="zJ0-zx-SLS" id="kh8-1W-mVk"/>
                         <outlet property="previewView" destination="Pum-D8-HY2" id="dGS-JC-Fm1"/>
                         <outlet property="scrollHandle" destination="qOu-WT-l6B" id="g8m-lg-YCE"/>
+                        <outlet property="scrollHandleDetail" destination="KIv-sU-NpS" id="D0w-sI-8Eu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFE-5f-VgK" userLabel="First Responder" sceneMemberID="firstResponder"/>

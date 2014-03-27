@@ -18,11 +18,13 @@
 #import <CoreLocation/CoreLocation.h>
 #import <ImageIO/CGImageProperties.h>
 #import "TabBarController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, CameraOutputDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandle;
+@property (weak, nonatomic) IBOutlet UIView *scrollHandleDetail;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
 @property (weak, nonatomic) IBOutlet UIView *previewView;
 @property (strong, nonatomic) ALAsset *previewImageAsset;
@@ -32,6 +34,8 @@
 @property (nonatomic) NSInteger amountOfAssets;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *nextButton;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
+@property (strong, nonatomic) UITapGestureRecognizer *tapOnHandle;
 
 
 - (void)layoutCameraView;
@@ -60,7 +64,27 @@
     [self layoutCameraView];
     [self startCameraPreview];
     
+    self.scrollHandleDetail.layer.cornerRadius = 5;
+    self.scrollHandleDetail.layer.masksToBounds = YES;
+    
+    self.tapOnHandle = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapped)];
+    [self.scrollHandle addGestureRecognizer:self.tapOnHandle];
 }
+
+- (void)handleTapped
+{
+    if (self.mainScrollView.contentOffset.y == 0) {
+        [UIView animateWithDuration:.3 animations:^{
+            [self.mainScrollView setContentOffset:CGPointMake(0, 320)];
+        } completion:nil];
+    } else{
+        [UIView animateWithDuration:.3 animations:^{
+            [self.mainScrollView setContentOffset:CGPointZero];
+        } completion:nil];
+    }
+
+}
+
 
 - (void)startCameraPreview
 {
@@ -164,7 +188,11 @@ finishedSavingWithError:(NSError *)error
     
     ALAsset *asset = self.assets[indexPath.row];
     [cell setAsset:asset];
-    
+    if ([indexPath isEqual:self.selectedIndexPath]) {
+        [cell setSelected:YES];
+    } else {
+        [cell setSelected:NO];
+    }
     return cell;
 }
 
@@ -182,8 +210,11 @@ finishedSavingWithError:(NSError *)error
     
     [self cropImage];
     
+    self.selectedIndexPath = indexPath;
+    
     [UIView animateWithDuration:.3 animations:^{
         [self.mainScrollView setContentOffset:CGPointZero];
+        [self.albumCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionTop];
     } completion:nil];
 }
 
