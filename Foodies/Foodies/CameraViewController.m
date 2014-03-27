@@ -107,6 +107,28 @@
     [self viewDidAppear:NO];
 }
 
+- (void)shutterAnimation
+{
+    // make shutter animation
+    UIView *topShutter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
+    topShutter.backgroundColor = [UIColor blackColor];
+    [self.previewView addSubview:topShutter];
+    UIView *bottomShutter = [[UIView alloc] initWithFrame:CGRectMake(0, self.previewView.frame.size.height, 320, 0)];
+    bottomShutter.backgroundColor = [UIColor blackColor];
+    [self.previewView addSubview:bottomShutter];
+    [UIView animateWithDuration:.2 animations:^{
+        topShutter.frame = CGRectMake(0, 0, 320, self.previewView.frame.size.height/2);
+        bottomShutter.frame = CGRectMake(0, self.previewView.frame.size.height/2, 320, self.previewView.frame.size.height/2);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.2 animations:^{
+            topShutter.frame = CGRectMake(0, 0, 320, 0);
+            bottomShutter.frame = CGRectMake(0, self.previewView.frame.size.height, 320, 0);
+            [topShutter removeFromSuperview];
+            [bottomShutter removeFromSuperview];
+        } completion:nil];
+    }];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     if (self.previewImageAsset) {
