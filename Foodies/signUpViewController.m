@@ -1,21 +1,18 @@
 //
-//  ProfileViewController.m
+//  signUpViewController.m
 //  Foodies
 //
 //  Created by Lucas Chwe on 3/26/14.
 //  Copyright (c) 2014 Lucas Chwe. All rights reserved.
 //
 
-#import "ProfileViewController.h"
-#import "TabBarController.h"
-#import "LandingTableViewController.h"
+#import "signUpViewController.h"
 
-@interface ProfileViewController ()
-- (IBAction)logOutTapped:(id)sender;
+@interface signUpViewController ()
 
 @end
 
-@implementation ProfileViewController
+@implementation signUpViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,16 +46,4 @@
 }
 */
 
-- (IBAction)logOutTapped:(id)sender {
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:nil forKey:@"userId"];
-    [defaults synchronize];
-    
-    
-    LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
-    [self presentViewController:modalVC animated:YES completion:nil];
-    modalVC.delegate = (TabBarController *)self.tabBarController;
-    
-}
 @end

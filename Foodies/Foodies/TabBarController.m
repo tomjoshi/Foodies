@@ -107,9 +107,15 @@
     
     if (userId == nil) {
         LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
+        modalVC.delegate = self;
         [self presentViewController:modalVC animated:YES completion:nil];
     }
     
+}
+
+- (void)loggedIn
+{
+    [self setSelectedIndex:0];
 }
 
 - (void)getCameraStarted

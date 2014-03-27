@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LandingViewControllerDelegate.h"
 
 @interface LandingTableViewController : UIViewController
-
+@property (strong, nonatomic) id<LandingViewControllerDelegate> delegate;
 @end
