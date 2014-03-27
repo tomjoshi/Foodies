@@ -15,6 +15,7 @@
 		D110B00718CA5E070077D25B /* UIView+ResizeToFitSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = D110B00618CA5E070077D25B /* UIView+ResizeToFitSubviews.m */; };
 		D110B00A18CA67210077D25B /* Like.m in Sources */ = {isa = PBXBuildFile; fileRef = D110B00918CA67210077D25B /* Like.m */; };
 		D110B00D18CA67E30077D25B /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = D110B00C18CA67E30077D25B /* Comment.m */; };
+		D1247F6518E4CFFB009CD32B /* UIColor+colorPallete.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247F6418E4CFFB009CD32B /* UIColor+colorPallete.m */; };
 		D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5018E33135000BF74A /* LandingTableViewController.m */; };
 		D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5318E353DF000BF74A /* LogInTableViewCell.m */; };
 		D12A5F5718E36F1D000BF74A /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5618E36F1D000BF74A /* ProfileViewController.m */; };
@@ -79,6 +80,8 @@
 		D110B00918CA67210077D25B /* Like.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Like.m; sourceTree = "<group>"; };
 		D110B00B18CA67E30077D25B /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		D110B00C18CA67E30077D25B /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		D1247F6318E4CFFB009CD32B /* UIColor+colorPallete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+colorPallete.h"; sourceTree = "<group>"; };
+		D1247F6418E4CFFB009CD32B /* UIColor+colorPallete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+colorPallete.m"; sourceTree = "<group>"; };
 		D12A5F4F18E33135000BF74A /* LandingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingTableViewController.h; path = ../LandingTableViewController.h; sourceTree = "<group>"; };
 		D12A5F5018E33135000BF74A /* LandingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandingTableViewController.m; path = ../LandingTableViewController.m; sourceTree = "<group>"; };
 		D12A5F5218E353DF000BF74A /* LogInTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInTableViewCell.h; path = ../LogInTableViewCell.h; sourceTree = "<group>"; };
@@ -239,6 +242,8 @@
 				D110B00618CA5E070077D25B /* UIView+ResizeToFitSubviews.m */,
 				D1BD1B1918D3A1D600256BC2 /* ALAsset+Date.h */,
 				D1BD1B1A18D3A1D600256BC2 /* ALAsset+Date.m */,
+				D1247F6318E4CFFB009CD32B /* UIColor+colorPallete.h */,
+				D1247F6418E4CFFB009CD32B /* UIColor+colorPallete.m */,
 			);
 			name = "Category Methods";
 			sourceTree = "<group>";
@@ -506,6 +511,7 @@
 				D110B00118CA524B0077D25B /* Foodie.m in Sources */,
 				D183515118BBAE5B00303868 /* main.m in Sources */,
 				D110B00D18CA67E30077D25B /* Comment.m in Sources */,
+				D1247F6518E4CFFB009CD32B /* UIColor+colorPallete.m in Sources */,
 				D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */,
 				D12A5F5D18E37D48000BF74A /* SignUpViewController.m in Sources */,
 				D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */,

@@ -12,6 +12,7 @@
 #import "CustomCamera.h"
 #import "CameraViewController.h"
 #import "LandingTableViewController.h"
+#import "UIColor+colorPallete.h"
 
 @interface TabBarController () <DBCameraViewControllerDelegate, UITabBarControllerDelegate>
 //@property (strong, nonatomic) NSArray *arrayOfVCs;
@@ -41,37 +42,55 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.uiTabBarItemWidth = self.view.bounds.size.width/5;
+    [self.tabBar setSelectedImageTintColor:[UIColor foodiesColor]];
     
     UIViewController *homeVC = self.viewControllers[0];
-    FAKFontAwesome *homeIcon = [FAKFontAwesome homeIconWithSize:25];
+    FAKFontAwesome *homeIcon = [FAKFontAwesome homeIconWithSize:30];
     [homeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *homeIconImage = [homeIcon imageWithSize:CGSizeMake(25, 25)];
+    UIImage *homeIconImage = [homeIcon imageWithSize:CGSizeMake(30, 30)];
     homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Feed" image:homeIconImage tag:1];
     
     UIViewController *discoverVC = self.viewControllers[1];
-    FAKFontAwesome *searchIcon = [FAKFontAwesome searchIconWithSize:25];
+    FAKIonIcons *searchIcon = [FAKIonIcons ios7SearchIconWithSize:30];
     [searchIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *searchIconImage = [searchIcon imageWithSize:CGSizeMake(25, 25)];
+    UIImage *searchIconImage = [searchIcon imageWithSize:CGSizeMake(30, 30)];
     discoverVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Discover" image:searchIconImage tag:1];
+    FAKIonIcons *searchFullIcon = [FAKIonIcons ios7SearchStrongIconWithSize:30];
+    [searchFullIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *searchFullIconImage = [searchFullIcon imageWithSize:CGSizeMake(30, 30)];
+    discoverVC.tabBarItem.selectedImage = searchFullIconImage;
     
     UIViewController *cameraVC = self.viewControllers[2];
-    FAKFontAwesome *cameraIcon = [FAKFontAwesome cameraIconWithSize:25];
+    FAKIonIcons *cameraIcon = [FAKIonIcons ios7CameraOutlineIconWithSize:30];
     [cameraIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *cameraIconImage = [cameraIcon imageWithSize:CGSizeMake(25, 25)];
+    UIImage *cameraIconImage = [cameraIcon imageWithSize:CGSizeMake(30, 30)];
     cameraVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Camera" image:cameraIconImage tag:1];
+    FAKIonIcons *cameraFullIcon = [FAKIonIcons ios7CameraIconWithSize:30];
+    [cameraFullIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *cameraFullIconImage = [cameraFullIcon imageWithSize:CGSizeMake(30, 30)];
+    cameraVC.tabBarItem.selectedImage = cameraFullIconImage;
     // add touch down inside action listener to start camera
     
     UIViewController *wantVC = self.viewControllers[3];
-    FAKFontAwesome *starOIcon = [FAKFontAwesome starOIconWithSize:25];
+    FAKIonIcons *starOIcon = [FAKIonIcons ios7StarOutlineIconWithSize:30];
     [starOIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *starOIconImage = [starOIcon imageWithSize:CGSizeMake(25, 25)];
+    UIImage *starOIconImage = [starOIcon imageWithSize:CGSizeMake(30, 30)];
     wantVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Want" image:starOIconImage tag:1];
+    FAKIonIcons *starFullIcon = [FAKIonIcons ios7StarIconWithSize:30];
+    [starFullIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *starFullIconImage = [starFullIcon imageWithSize:CGSizeMake(30, 30)];
+    wantVC.tabBarItem.selectedImage = starFullIconImage;
     
     UIViewController *profileVC = self.viewControllers[4];
-    FAKFontAwesome *userIcon = [FAKFontAwesome userIconWithSize:25];
+    FAKIonIcons *userIcon = [FAKIonIcons ios7ContactOutlineIconWithSize:30];
     [userIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *userIconImage = [userIcon imageWithSize:CGSizeMake(25, 25)];
+    UIImage *userIconImage = [userIcon imageWithSize:CGSizeMake(30, 30)];
     profileVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:userIconImage tag:1];
+    FAKIonIcons *userFullIcon = [FAKIonIcons ios7ContactIconWithSize:30];
+    [userFullIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *userFullIconImage = [userFullIcon imageWithSize:CGSizeMake(30, 30)];
+    profileVC.tabBarItem.selectedImage = userFullIconImage;
+
     
     
     
