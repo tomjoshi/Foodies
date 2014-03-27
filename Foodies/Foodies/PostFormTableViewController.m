@@ -41,7 +41,6 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.imageThumb setImage:[UIImage imageWithCGImage:[self.assetPassed thumbnail]]];
-    
 }
 
 - (void)didReceiveMemoryWarning
