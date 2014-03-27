@@ -8,6 +8,8 @@
 
 #import "FeedTableViewController.h"
 #import "FeedTableViewCell.h"
+#import <GTScrollNavigationBar.h>
+#import "UIColor+colorPallete.h"
 
 @interface FeedTableViewController ()
 
@@ -29,7 +31,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    self.navigationController.scrollNavigationBar.scrollView = self.tableView;
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -98,6 +102,11 @@
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [[FoodPost alloc] init];
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
+    [self.navigationController.scrollNavigationBar resetToDefaultPosition:YES];
 }
 
 @end

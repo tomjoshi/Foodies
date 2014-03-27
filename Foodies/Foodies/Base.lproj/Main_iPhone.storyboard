@@ -491,10 +491,11 @@
         <!--Navigation Controller - Feed-->
         <scene sceneID="TyD-VL-N6L">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0qi-Xw-bHH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gZa-3l-4P7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" image="home-32.png" id="Mqs-XK-zNN"/>
+                    <tabBarItem key="tabBarItem" title="Feed" image="11B742CB-CC71-470A-A49A-99B8AFCB0F27" id="Mqs-XK-zNN"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NSi-s2-Gmj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NSi-s2-Gmj" customClass="GTScrollNavigationBar">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -503,13 +504,13 @@
                         <segue destination="pcX-xW-n83" kind="relationship" relationship="rootViewController" id="fUp-uD-7oX"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0qi-Xw-bHH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="653" y="-834"/>
         </scene>
         <!--Feed Table View Controller - Foodies-->
         <scene sceneID="f3w-DT-3q9">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Aba-Ws-kcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="pcX-xW-n83" customClass="FeedTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="279" sectionHeaderHeight="22" sectionFooterHeight="22" id="Pk8-yO-zjP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -587,7 +588,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Foodies" id="l4h-II-YWZ"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Aba-Ws-kcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1142" y="-834"/>
         </scene>
@@ -689,7 +689,23 @@
         </scene>
     </scenes>
     <resources>
-        <image name="home-32.png" width="30" height="30"/>
+        <image name="11B742CB-CC71-470A-A49A-99B8AFCB0F27" width="30" height="30">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGPD1YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
+GR4fJSYtMDY5VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
+V05TQ29sb3KAAoAMEiTAAACAA4AKWHszMCwgMzB90hUKFhhaTlMub2JqZWN0c6EXgASACdIVChoYohsc
+gAWABoAJEAXTIAohIiMkV05TLmJhc2VbTlMucmVsYXRpdmWAAIAIgAdfENdmaWxlOi8vL0FwcGxpY2F0
+aW9ucy9YY29kZS5hcHAvQ29udGVudHMvRGV2ZWxvcGVyL1BsYXRmb3Jtcy9pUGhvbmVTaW11bGF0b3Iu
+cGxhdGZvcm0vRGV2ZWxvcGVyL0xpYnJhcnkvWGNvZGUvUHJpdmF0ZVBsdWdJbnMvSURFSW50ZXJmYWNl
+QnVpbGRlckNvY29hVG91Y2hJbnRlZ3JhdGlvbi5pZGVwbHVnaW4vQ29udGVudHMvUmVzb3VyY2VzL0lC
+VUlNaXNzaW5nSW1hZ2UudGlmZtInKCkqWiRjbGFzc25hbWVYJGNsYXNzZXNVTlNVUkyiKyxVTlNVUkxY
+TlNPYmplY3TSJyguL1dOU0FycmF5oi4s0zEyCjM0NVdOU1doaXRlXE5TQ29sb3JTcGFjZUQwIDAAEAOA
+C9InKDc4V05TQ29sb3KiNyzSJyg6O1dOU0ltYWdlojosXxAPTlNLZXllZEFyY2hpdmVy0T4/VHJvb3SA
+AQAIABEAGgAjAC0AMgA3AEUASwBWAF0AZABxAHgAgACCAIQAiQCLAI0AlgCbAKYAqACqAKwAsQC0ALYA
+uAC6ALwAwwDLANcA2QDbAN0BtwG8AccB0AHWAdkB3wHoAe0B9QH4Af8CBwIUAhkCGwIdAiICKgItAjIC
+OgI9Ak8CUgJXAAAAAAAAAgEAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAlk
+</mutableData>
+        </image>
         <image name="integrated_webcam-32.png" width="32" height="32"/>
         <image name="search-32.png" width="32" height="32"/>
         <image name="star-32.png" width="32" height="32"/>
