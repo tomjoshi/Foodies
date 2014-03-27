@@ -159,6 +159,8 @@
         [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
             if(imageDataSampleBuffer !=NULL)
             {
+                [self.cameraDelegate shutterAnimation];
+                
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
                 UIImage *image = [[UIImage alloc]initWithData:imageData];
                 

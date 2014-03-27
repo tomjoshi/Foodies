@@ -10,4 +10,5 @@
 
 @protocol CameraOutputDelegate <NSObject>
 - (void) captureImageDidFinish:(UIImage *)image;
+- (void)shutterAnimation;
 @end
