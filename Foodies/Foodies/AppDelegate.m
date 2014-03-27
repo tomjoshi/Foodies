@@ -16,6 +16,7 @@
     [Foursquare2 setupFoursquareWithClientId:@"HKBEPUFSSHA32VHMHVJI1MDS3H2Y1OVT1IEVEU41XLBBJ0VP"
                                       secret:@"FEEBWVWJFDPIP3TR3ENVMLMT5OBTUC0T43UZFY3FPJHSDCWC"
                                  callbackURL:@"com.flatironschool"];
+    
     return YES;
 }
 							
