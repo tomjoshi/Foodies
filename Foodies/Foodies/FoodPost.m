@@ -71,4 +71,14 @@
     return [self.postDate prettyTimestampSinceNow];
 }
 
+- (void)addLike:(Like *)newLike
+{
+    [self.likes addObject:newLike];
+}
+
+- (void)addComment:(Comment *)newComment
+{
+    [self.comments addObject:newComment];
+}
+
 @end

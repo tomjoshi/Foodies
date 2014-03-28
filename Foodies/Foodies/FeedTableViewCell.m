@@ -13,7 +13,12 @@
 #import <FontAwesomeKit.h>
 #import "UIColor+colorPallete.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Like.h"
 
+@interface FeedTableViewCell ()
+@property (strong, nonatomic) TTTAttributedLabel *likesLabel;
+
+@end
 @implementation FeedTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -39,6 +44,9 @@
             [view removeFromSuperview];
         }
     }
+    
+    // set foodPost property
+    self.foodPostInCell = foodPost;
     
     UIImage *postImage = [foodPost getImage];
     NSString *postFormattedTime = [foodPost getFormattedTime];
@@ -102,9 +110,19 @@
     
     // set image
     UIImageView *postImageView = [[UIImageView alloc] initWithImage:postImage];
+    self.postImageView = postImageView;
     [postImageView setFrame:CGRectMake(0, 2*labelHeight, cellWidth, cellWidth)];
     postImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:postImageView];
+    
+    // add double tap gesture recognizer
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likePost)];
+    doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+    [postImageView addGestureRecognizer:doubleTapGestureRecognizer];
+    
+    //tapGestureRecognizer.delegate = self;
+    [self addGestureRecognizer:doubleTapGestureRecognizer];
+
     
     // set a subview for likes and comments
     UIView *likeAndCommentContent = [[UIView alloc] initWithFrame:CGRectMake(0, cellWidth+2*labelHeight+likesAndCommentsViewTopPadding, cellWidth, 0)];
@@ -121,7 +139,8 @@
         [likeAndCommentContent addSubview:heartIconLabel];
         
         // set number of likes
-        TTTAttributedLabel *likesLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(iconWidth+sidePadding+iconSidePadding, yPos, cellWidth-(iconWidth+2*sidePadding+iconSidePadding), 0)];
+        self.likesLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(iconWidth+sidePadding+iconSidePadding, yPos, cellWidth-(iconWidth+2*sidePadding+iconSidePadding), 0)];
+        TTTAttributedLabel *likesLabel = self.likesLabel;
         [likesLabel setFont:self.authorLabel.font];
         likesLabel.linkAttributes = linkAttributes;
         likesLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
@@ -188,6 +207,7 @@
     // set like button
     [self.likeButton setFrame:CGRectMake(sidePadding, yPos + buttonTopPadding, self.likeButton.frame.size.width, self.likeButton.frame.size.height)];
     UIButton *likeButton = self.likeButton;
+    [likeButton addTarget:self action:@selector(likePost) forControlEvents:UIControlEventTouchUpInside];
     likeButton.layer.cornerRadius = buttonRadius;
     likeButton.clipsToBounds = YES;
     [likeButton removeFromSuperview];
@@ -196,6 +216,7 @@
     // set comment button
     [self.commentButton setFrame:CGRectMake(sidePadding+self.likeButton.frame.size.width+buttonSidePadding, yPos + buttonTopPadding,  self.commentButton.frame.size.width, self.commentButton.frame.size.height)];
     UIButton *commentButton = self.commentButton;
+    [commentButton addTarget:self action:@selector(commentPost) forControlEvents:UIControlEventTouchUpInside];
     commentButton.layer.cornerRadius = buttonRadius;
     commentButton.clipsToBounds = YES;
     [commentButton removeFromSuperview];
@@ -220,5 +241,43 @@
 
 }
 
+- (void)likePost
+{
+    NSLog(@"isliked");
+    Like *newLike = [[Like alloc] init];
+    newLike.liker = [Foodie me];
+    newLike.date = [NSDate date];
+    [self.foodPostInCell addLike:newLike];
+    
+    // update label
+    self.likesLabel.text = [NSString stringWithFormat:@"%@ likes", [self.foodPostInCell getNumberOfLikes]];
+    [self.likesLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [self.likesLabel.text length])];
+    [self.likesLabel sizeToFit];
+    
+    // add like animation
+    FAKIonIcons *heartIcon = [FAKIonIcons heartIconWithSize:200];
+    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *heartIconImage = [heartIcon imageWithSize:CGSizeMake(200, 200)];
+    UIImageView *heartImageView = [[UIImageView alloc] initWithImage:heartIconImage];
+    [heartImageView setContentMode:UIViewContentModeCenter];
+    [heartImageView setFrame:self.postImageView.bounds];
+    [heartImageView setAlpha:0];
+    [self.postImageView addSubview:heartImageView];
+    [UIView animateWithDuration:.3 animations:^{
+        [heartImageView setAlpha:1];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.3 animations:^{
+            [heartImageView setAlpha:0];
+        } completion:^(BOOL finished) {
+            [heartImageView removeFromSuperview];
+        }];
+    }];
+}
+
+- (void)commentPost
+{
+    NSLog(@"wantstocomment");
+    // push a comment view controller (or tableviewcontroller may be better)
+}
 
 @end

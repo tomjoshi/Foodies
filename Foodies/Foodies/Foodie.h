@@ -13,4 +13,5 @@
 - (NSString *)getName;
 - (UIImage *)getThumb;
 - (instancetype)init;
++ (Foodie *)me;
 @end

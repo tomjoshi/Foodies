@@ -12,6 +12,7 @@
 #import "UIColor+colorPallete.h"
 
 @interface FeedTableViewController ()
+@property (strong, nonatomic) NSArray *tempPosts;
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -43,6 +44,9 @@
     label.text = NSLocalizedString(@"Foodies", @"");
     [label sizeToFit];
     
+    self.tempPosts = @[[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init]];
+    
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -71,7 +75,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    return [self.tempPosts count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -111,7 +115,7 @@
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[FoodPost alloc] init];
+    return self.tempPosts[indexPath.row];
 }
 
 @end
