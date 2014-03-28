@@ -416,13 +416,20 @@
                                             <action selector="logInTapped:" destination="6C7-bD-cY7" eventType="touchUpInside" id="nYs-Hs-jmx"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Foodies" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D2Z-lk-KNP">
-                                        <rect key="frame" x="20" y="143" width="280" height="71"/>
+                                    <view contentMode="scaleToFill" id="dht-YL-SRf" customClass="FBShimmeringView">
+                                        <rect key="frame" x="0.0" y="113" width="320" height="119"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="50"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Foodies" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D2Z-lk-KNP">
+                                                <rect key="frame" x="0.0" y="33" width="320" height="71"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="50"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rv1-XS-xbU">
                                         <rect key="frame" x="20" y="518" width="280" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -441,7 +448,9 @@
                         <color key="backgroundColor" red="0.79607850313186646" green="0.32549020648002625" blue="0.33725491166114807" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <connections>
+                        <outlet property="foodiesLabel" destination="D2Z-lk-KNP" id="rgD-9C-w0p"/>
                         <outlet property="scrollView" destination="glx-bA-gGF" id="zzk-Xb-7bt"/>
+                        <outlet property="shimmeringView" destination="dht-YL-SRf" id="B75-Dd-sCZ"/>
                         <outlet property="tableView" destination="KFO-4v-1Uz" id="wlJ-Tr-piN"/>
                     </connections>
                 </viewController>
@@ -495,7 +504,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0qi-Xw-bHH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gZa-3l-4P7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Feed" image="574E00AB-B7CF-49CB-B243-EF10ED6D5958" id="Mqs-XK-zNN"/>
+                    <tabBarItem key="tabBarItem" title="Feed" image="6D60F052-47BB-452F-8585-9D2F84B116D9" id="Mqs-XK-zNN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="NSi-s2-Gmj" customClass="GTScrollNavigationBar">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -691,7 +700,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="574E00AB-B7CF-49CB-B243-EF10ED6D5958" width="30" height="30">
+        <image name="6D60F052-47BB-452F-8585-9D2F84B116D9" width="30" height="30">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPD1YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYtMDY5VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz

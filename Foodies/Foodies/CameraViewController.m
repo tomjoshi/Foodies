@@ -273,6 +273,8 @@ finishedSavingWithError:(NSError *)error
 - (IBAction)cancelTapped:(id)sender {
     [self.previewImageView setImage:nil];
     self.previewImageAsset = nil;
+    [self.albumCollectionView deselectItemAtIndexPath:self.selectedIndexPath animated:YES];
+    self.selectedIndexPath = nil;
     [self cancelCropping];
 }
 
