@@ -251,7 +251,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="sDp-jX-gcQ">
-                        <barButtonItem key="rightBarButtonItem" title="Share" id="RGU-fa-5TE"/>
+                        <barButtonItem key="rightBarButtonItem" title="Share" id="RGU-fa-5TE">
+                            <connections>
+                                <action selector="sharePressed:" destination="gwG-if-rh6" id="QPl-cO-B0d"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="captionTextView" destination="bic-Ug-DaF" id="BzV-sa-3Aq"/>

@@ -9,13 +9,18 @@
 #import "PostFormTableViewController.h"
 #import "LocationPickerTableViewController.h"
 #import "LocationPickerDelegate.h"
+#import "FoodPost.h"
+#import "FoodiesDataStore.h"
 #import <GCPlaceholderTextView.h>
 
 @interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageThumb;
 @property (weak, nonatomic) IBOutlet GCPlaceholderTextView *captionTextView;
+@property (strong, nonatomic) Venue *venue;
+@property (strong, nonatomic) NSSet *mealTags;
 
+- (IBAction)sharePressed:(id)sender;
 @end
 
 @implementation PostFormTableViewController
@@ -81,8 +86,14 @@
 {
     if (venue) {
         self.locationLabel.text = venue.name;
+        self.venue = venue;
     }
 }
+
+
+
+
+
 #pragma mark - TextView Delegate Methods
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -97,4 +108,36 @@
     return YES;
 }
 
+
+#pragma mark - IBAction Methods
+
+- (IBAction)sharePressed:(id)sender {
+    UIImage *newImage = [UIImage imageWithCGImage:[[self.assetPassed defaultRepresentation] fullScreenImage] ];
+    
+    // ghetto hackjob cropping
+    double x = (newImage.size.width - 320) / 2.0;
+    double y = (newImage.size.height - 320) / 2.0;
+    CGRect cropRect = CGRectMake(x, y, 320, 320);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([newImage CGImage], cropRect);
+    UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
+    
+    
+    // setting comment
+    Comment *newComment = [[Comment alloc] init];
+    newComment.commenter = nil;
+    if (![self.captionTextView.text isEqual:@""]) {
+        newComment.commenter = [Foodie me];
+        newComment.comment = self.captionTextView.text;
+    }
+    
+    FoodPost *newFoodPost = [[FoodPost alloc] initWithImage:croppedImage Author:[Foodie me] Caption:newComment atVenue:self.venue andMealTags:self.mealTags];
+    [[FoodiesDataStore sharedInstance].tempPosts addObject:newFoodPost];
+    
+    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"postDate" ascending:NO];
+    [FoodiesDataStore sharedInstance].tempPosts = [NSMutableArray arrayWithArray:[[FoodiesDataStore sharedInstance].tempPosts sortedArrayUsingDescriptors:@[sortByDate]]];
+    
+    [self.tabBarController setSelectedIndex:0];
+    // need some kind of delegate method back to camera view so it resets.
+    [self.navigationController popViewControllerAnimated:NO];
+}
 @end

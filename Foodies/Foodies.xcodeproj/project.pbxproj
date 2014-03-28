@@ -16,6 +16,10 @@
 		D110B00A18CA67210077D25B /* Like.m in Sources */ = {isa = PBXBuildFile; fileRef = D110B00918CA67210077D25B /* Like.m */; };
 		D110B00D18CA67E30077D25B /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = D110B00C18CA67E30077D25B /* Comment.m */; };
 		D1247F6518E4CFFB009CD32B /* UIColor+colorPallete.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247F6418E4CFFB009CD32B /* UIColor+colorPallete.m */; };
+		D1247F6B18E5F1DB009CD32B /* NSDate+PrettyTimestamp.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247F6A18E5F1DB009CD32B /* NSDate+PrettyTimestamp.m */; };
+		D1247F6E18E5FA19009CD32B /* MealTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247F6D18E5FA19009CD32B /* MealTag.m */; };
+		D1247F7118E5FAB5009CD32B /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247F7018E5FAB5009CD32B /* Meal.m */; };
+		D1247F7418E602ED009CD32B /* FoodiesDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247F7318E602ED009CD32B /* FoodiesDataStore.m */; };
 		D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5018E33135000BF74A /* LandingTableViewController.m */; };
 		D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5318E353DF000BF74A /* LogInTableViewCell.m */; };
 		D12A5F5718E36F1D000BF74A /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5618E36F1D000BF74A /* ProfileViewController.m */; };
@@ -82,6 +86,14 @@
 		D110B00C18CA67E30077D25B /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		D1247F6318E4CFFB009CD32B /* UIColor+colorPallete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+colorPallete.h"; sourceTree = "<group>"; };
 		D1247F6418E4CFFB009CD32B /* UIColor+colorPallete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+colorPallete.m"; sourceTree = "<group>"; };
+		D1247F6918E5F1DB009CD32B /* NSDate+PrettyTimestamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyTimestamp.h"; sourceTree = "<group>"; };
+		D1247F6A18E5F1DB009CD32B /* NSDate+PrettyTimestamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PrettyTimestamp.m"; sourceTree = "<group>"; };
+		D1247F6C18E5FA19009CD32B /* MealTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MealTag.h; sourceTree = "<group>"; };
+		D1247F6D18E5FA19009CD32B /* MealTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MealTag.m; sourceTree = "<group>"; };
+		D1247F6F18E5FAB5009CD32B /* Meal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meal.h; sourceTree = "<group>"; };
+		D1247F7018E5FAB5009CD32B /* Meal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meal.m; sourceTree = "<group>"; };
+		D1247F7218E602ED009CD32B /* FoodiesDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodiesDataStore.h; sourceTree = "<group>"; };
+		D1247F7318E602ED009CD32B /* FoodiesDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodiesDataStore.m; sourceTree = "<group>"; };
 		D12A5F4F18E33135000BF74A /* LandingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingTableViewController.h; path = ../LandingTableViewController.h; sourceTree = "<group>"; };
 		D12A5F5018E33135000BF74A /* LandingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandingTableViewController.m; path = ../LandingTableViewController.m; sourceTree = "<group>"; };
 		D12A5F5218E353DF000BF74A /* LogInTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInTableViewCell.h; path = ../LogInTableViewCell.h; sourceTree = "<group>"; };
@@ -208,6 +220,8 @@
 		D110AFFE18CA4E0E0077D25B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D1247F7218E602ED009CD32B /* FoodiesDataStore.h */,
+				D1247F7318E602ED009CD32B /* FoodiesDataStore.m */,
 				D110AFFB18CA4E080077D25B /* FoodPost.h */,
 				D110AFFC18CA4E080077D25B /* FoodPost.m */,
 				D110AFFF18CA524B0077D25B /* Foodie.h */,
@@ -220,6 +234,10 @@
 				D1BD1A8718D35E1A00256BC2 /* Location.m */,
 				D1BD1A8818D35E1A00256BC2 /* Venue.h */,
 				D1BD1A8918D35E1A00256BC2 /* Venue.m */,
+				D1247F6F18E5FAB5009CD32B /* Meal.h */,
+				D1247F7018E5FAB5009CD32B /* Meal.m */,
+				D1247F6C18E5FA19009CD32B /* MealTag.h */,
+				D1247F6D18E5FA19009CD32B /* MealTag.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -244,6 +262,8 @@
 				D1BD1B1A18D3A1D600256BC2 /* ALAsset+Date.m */,
 				D1247F6318E4CFFB009CD32B /* UIColor+colorPallete.h */,
 				D1247F6418E4CFFB009CD32B /* UIColor+colorPallete.m */,
+				D1247F6918E5F1DB009CD32B /* NSDate+PrettyTimestamp.h */,
+				D1247F6A18E5F1DB009CD32B /* NSDate+PrettyTimestamp.m */,
 			);
 			name = "Category Methods";
 			sourceTree = "<group>";
@@ -489,13 +509,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1BD1B1818D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m in Sources */,
+				D1247F6B18E5F1DB009CD32B /* NSDate+PrettyTimestamp.m in Sources */,
 				D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */,
 				D1BD1B1318D36F3900256BC2 /* PostFormTableViewController.m in Sources */,
 				D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */,
 				D12A5F5718E36F1D000BF74A /* ProfileViewController.m in Sources */,
+				D1247F6E18E5FA19009CD32B /* MealTag.m in Sources */,
 				D183516118BBAE5B00303868 /* SecondViewController.m in Sources */,
 				D183515518BBAE5B00303868 /* AppDelegate.m in Sources */,
 				D1BD1A8A18D35E1A00256BC2 /* Location.m in Sources */,
+				D1247F7118E5FAB5009CD32B /* Meal.m in Sources */,
 				D1BD1A8518D3575B00256BC2 /* LocationPickerTableViewController.m in Sources */,
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
 				D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */,
@@ -504,6 +527,7 @@
 				D1BD1A8B18D35E1A00256BC2 /* Venue.m in Sources */,
 				D110AFFD18CA4E080077D25B /* FoodPost.m in Sources */,
 				D110AFF218CA43450077D25B /* FeedTableViewCell.m in Sources */,
+				D1247F7418E602ED009CD32B /* FoodiesDataStore.m in Sources */,
 				D110B00718CA5E070077D25B /* UIView+ResizeToFitSubviews.m in Sources */,
 				D110B00A18CA67210077D25B /* Like.m in Sources */,
 				D12A6D9918C12EB40029EB6D /* CustomCamera.m in Sources */,
