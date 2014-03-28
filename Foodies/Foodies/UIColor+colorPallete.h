@@ -10,4 +10,5 @@
 
 @interface UIColor (colorPallete)
 + (UIColor*)foodiesColor;
++ (UIColor*)lighterGrayColor;
 @end

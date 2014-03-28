@@ -11,6 +11,7 @@
 #import "Comment.h"
 #import "Foodie.h"
 #import <FontAwesomeKit.h>
+#import "UIColor+colorPallete.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation FeedTableViewCell
@@ -65,7 +66,7 @@
     CGFloat buttonRadius = 2;
     CGFloat commentTopPadding = 1;
     NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName, nil];
-    NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor blueColor],[NSNumber numberWithInt:kCTUnderlineStyleNone],nil];
+    NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor foodiesColor],[NSNumber numberWithInt:kCTUnderlineStyleNone],nil];
     NSDictionary *linkAttributes = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
     
     // set profile image
@@ -113,7 +114,7 @@
     if (isLiked) {
         // set heart icon
         FAKFontAwesome *heartIcon = [FAKFontAwesome heartIconWithSize:iconWidth];
-        [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor redColor]];
+        [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lighterGrayColor]];
         UILabel *heartIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(sidePadding, yPos+heartIconTopPadding, iconWidth, iconWidth)];
         [heartIconLabel setAttributedText:[heartIcon attributedString]];
 //        [heartIconLabel setBackgroundColor:[UIColor blackColor]];
@@ -142,7 +143,7 @@
     // set comment icon if needed
     if ([comments count] > 0) {
         FAKFontAwesome *commentIcon = [FAKFontAwesome commentIconWithSize:10];
-        [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor]];
+        [commentIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lighterGrayColor]];
         UILabel *commentIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(sidePadding, yPos+commentIconTopPadding, iconWidth, iconWidth)];
         [commentIconLabel setAttributedText:[commentIcon attributedString]];
         [likeAndCommentContent addSubview:commentIconLabel];

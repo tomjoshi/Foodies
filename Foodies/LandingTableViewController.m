@@ -8,10 +8,13 @@
 
 #import "LandingTableViewController.h"
 #import "LogInTableViewCell.h"
+#import <FBShimmeringView.h>
 
 @interface LandingTableViewController () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet FBShimmeringView *shimmeringView;
+@property (weak, nonatomic) IBOutlet UILabel *foodiesLabel;
 
 
 - (IBAction)logInTapped:(id)sender;
@@ -33,6 +36,10 @@
     tap.delegate = self;
     tap.numberOfTapsRequired = 1;
     [self.scrollView addGestureRecognizer:tap];
+    
+    // set up shimmering
+    self.shimmeringView.contentView = self.foodiesLabel;
+    self.shimmeringView.shimmering = YES;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
