@@ -37,4 +37,11 @@
     
     return foodieThumb;
 }
+
++ (Foodie *)me
+{
+    // pull out the user from nsdefaults and create a foodie object of this user
+    return [[Foodie alloc] init];
+}
+
 @end

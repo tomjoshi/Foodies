@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
+@property (strong, nonatomic) FoodPost *foodPostInCell;
+@property (strong, nonatomic) UIImageView *postImageView;
 
 - (void)configureWithFoodPost: (FoodPost *)foodPost;
 

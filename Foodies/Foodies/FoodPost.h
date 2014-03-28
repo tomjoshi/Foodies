@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "Foodie.h"
 #import "Venue.h"
+#import "Comment.h"
+#import "Like.h"
 
 @interface FoodPost : NSObject
 @property (strong, nonatomic) Foodie *author;
@@ -21,4 +23,6 @@
 - (NSNumber *)getNumberOfLikes;
 - (NSArray *)getComments;
 - (BOOL)isLiked;
+- (void)addLike:(Like *)newLike;
+- (void)addComment:(Comment *)newComment;
 @end
