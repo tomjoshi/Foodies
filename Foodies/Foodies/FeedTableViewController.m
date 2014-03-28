@@ -59,7 +59,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.tableView reloadData];
+
+    if ([FoodiesDataStore sharedInstance].newPost) {
+        [self.tableView setContentOffset:CGPointZero];
+        [self.tableView reloadData];
+        [FoodiesDataStore sharedInstance].newPost = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning

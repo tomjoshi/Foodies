@@ -10,6 +10,7 @@
 
 @interface FoodiesDataStore : NSObject
 @property (strong, nonatomic) NSMutableArray *tempPosts;
+@property (nonatomic) BOOL newPost;
 
 + (instancetype)sharedInstance;
 - (instancetype)init;

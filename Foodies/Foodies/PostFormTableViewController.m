@@ -12,6 +12,7 @@
 #import "FoodPost.h"
 #import "FoodiesDataStore.h"
 #import <GCPlaceholderTextView.h>
+#import "FoodiesDataStore.h"
 
 @interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
@@ -135,7 +136,7 @@
     
     NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"postDate" ascending:NO];
     [FoodiesDataStore sharedInstance].tempPosts = [NSMutableArray arrayWithArray:[[FoodiesDataStore sharedInstance].tempPosts sortedArrayUsingDescriptors:@[sortByDate]]];
-    
+    [FoodiesDataStore sharedInstance].newPost = YES;
     [self.tabBarController setSelectedIndex:0];
     // need some kind of delegate method back to camera view so it resets.
     [self.navigationController popViewControllerAnimated:NO];
