@@ -9,7 +9,8 @@
 #import "FoodPost.h"
 #import "Like.h"
 #import "Comment.h"
-#import <NSDate+PrettyTimestamp.h>
+#import "NSDate+PrettyTimestamp.h"
+#import "MealTag.h"
 
 
 @interface FoodPost()
@@ -17,6 +18,7 @@
 @property (strong, nonatomic) NSDate *postDate;
 @property (strong, nonatomic) NSMutableArray *likes;
 @property (strong, nonatomic) NSMutableArray *comments;
+@property (strong, nonatomic) NSSet *mealTags;
 
 @end
 
@@ -33,7 +35,27 @@
         _likes = [NSMutableArray arrayWithArray:@[[[Like alloc] init], [[Like alloc] init]]];
         _comments = [NSMutableArray arrayWithArray:@[[[Comment alloc] init],[[Comment alloc] init],[[Comment alloc] init]]];
         _venue = [[Venue alloc] initWithName:@"Ramen Palace" venueId:@"" location:nil];
+        _mealTags = [[NSSet alloc] init];
         
+    }
+    return self;
+}
+
+- (instancetype)initWithImage:(UIImage *)image Author:(Foodie *)author Caption:(Comment *)caption atVenue:(Venue *)venue andMealTags:(NSSet *)mealTags
+{
+    self = [super init];
+    if (self) {
+        _postImage = image;
+        _postDate = [NSDate date];
+        _author = author;
+        _likes = [[NSMutableArray alloc] init];
+        if (caption.commenter) {
+            _comments = [NSMutableArray arrayWithArray:@[caption]];
+        } else {
+            _comments = [[NSMutableArray alloc] init];
+        }
+        _venue = venue;
+        _mealTags = mealTags;
     }
     return self;
 }

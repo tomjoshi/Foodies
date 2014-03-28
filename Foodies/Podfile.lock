@@ -20,7 +20,6 @@ PODS:
   - GCPlaceholderTextView (1.0.1)
   - GTScrollNavigationBar (0.1.1)
   - MBProgressHUD (0.8)
-  - PrettyTimestamp (1.1)
   - Shimmer (1.0.1)
   - TTTAttributedLabel (1.9.2)
 
@@ -32,7 +31,6 @@ DEPENDENCIES:
   - GCPlaceholderTextView (~> 1.0)
   - GTScrollNavigationBar
   - MBProgressHUD (~> 0.8)
-  - PrettyTimestamp
   - Shimmer (~> 1.0)
   - TTTAttributedLabel
 
@@ -44,7 +42,6 @@ SPEC CHECKSUMS:
   GCPlaceholderTextView: 5eeef8d07a1dece8fdcd7762dfc21b8e89800838
   GTScrollNavigationBar: 10fc5b2d04e8d49785a6a9d957c0582d495d1cfa
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
-  PrettyTimestamp: 05ded9a97fd0f6f3e94fe2a4d87d527cf7577507
   Shimmer: a1b92685f04ae7363e655f636a41a276dbb1507e
   TTTAttributedLabel: 7bc9542fccee787f3e1147e597c14cd64e2f6b19
 

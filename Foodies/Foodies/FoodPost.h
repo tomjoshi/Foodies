@@ -16,6 +16,7 @@
 @property (strong, nonatomic) Foodie *author;
 @property (strong, nonatomic) Venue *venue;
 
+- (instancetype)initWithImage:(UIImage *)image Author:(Foodie *)author Caption:(Comment *)caption atVenue:(Venue *)venue andMealTags:(NSSet *)mealTags;
 - (UIImage *)getImage;
 - (NSDate *)getDate;
 - (NSString *)getFormattedTime;

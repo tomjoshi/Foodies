@@ -13,6 +13,7 @@
 @property (nonatomic,strong)NSString *name;
 @property (nonatomic,strong)NSString *venueId;
 @property (nonatomic,strong)Location *location;
+// properties missing: meals
 
 - (instancetype)initWithName:(NSString *)name
                      venueId:(NSString *)venueId

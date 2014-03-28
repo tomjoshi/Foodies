@@ -10,9 +10,9 @@
 #import "FeedTableViewCell.h"
 #import <GTScrollNavigationBar.h>
 #import "UIColor+colorPallete.h"
+#import "FoodiesDataStore.h"
 
 @interface FeedTableViewController ()
-@property (strong, nonatomic) NSArray *tempPosts;
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -44,9 +44,6 @@
     label.text = NSLocalizedString(@"Foodies", @"");
     [label sizeToFit];
     
-    self.tempPosts = @[[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init]];
-    
-    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -55,6 +52,12 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,7 +78,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.tempPosts count];
+    return [[FoodiesDataStore sharedInstance].tempPosts count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -115,7 +118,7 @@
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.tempPosts[indexPath.row];
+    return [FoodiesDataStore sharedInstance].tempPosts[indexPath.row];
 }
 
 @end

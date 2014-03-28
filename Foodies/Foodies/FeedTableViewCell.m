@@ -255,9 +255,9 @@
     [self.likesLabel sizeToFit];
     
     // add like animation
-    FAKIonIcons *heartIcon = [FAKIonIcons heartIconWithSize:200];
+    FAKIonIcons *heartIcon = [FAKIonIcons heartIconWithSize:150];
     [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *heartIconImage = [heartIcon imageWithSize:CGSizeMake(200, 200)];
+    UIImage *heartIconImage = [heartIcon imageWithSize:CGSizeMake(150, 150)];
     UIImageView *heartImageView = [[UIImageView alloc] initWithImage:heartIconImage];
     [heartImageView setContentMode:UIViewContentModeCenter];
     [heartImageView setFrame:self.postImageView.bounds];
@@ -266,7 +266,7 @@
     [UIView animateWithDuration:.3 animations:^{
         [heartImageView setAlpha:1];
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.3 animations:^{
+        [UIView animateWithDuration:.3 delay:.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
             [heartImageView setAlpha:0];
         } completion:^(BOOL finished) {
             [heartImageView removeFromSuperview];
