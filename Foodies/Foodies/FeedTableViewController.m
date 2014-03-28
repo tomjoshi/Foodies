@@ -153,7 +153,7 @@
     [heartImageView setFrame:cell.postImageView.bounds];
     [heartImageView setAlpha:0];
     [cell.postImageView addSubview:heartImageView];
-    [UIView animateWithDuration:.3 animations:^{
+    [UIView animateWithDuration:.1 animations:^{
         [heartImageView setAlpha:1];
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:.3 delay:.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
