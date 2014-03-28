@@ -17,6 +17,7 @@
 
 @interface FeedTableViewCell ()
 @property (strong, nonatomic) TTTAttributedLabel *likesLabel;
+@property (strong, nonatomic) UIView *likesAndCommentsView;
 
 @end
 @implementation FeedTableViewCell
@@ -126,6 +127,7 @@
     
     // set a subview for likes and comments
     UIView *likeAndCommentContent = [[UIView alloc] initWithFrame:CGRectMake(0, cellWidth+2*labelHeight+likesAndCommentsViewTopPadding, cellWidth, 0)];
+    self.likesAndCommentsView = likeAndCommentContent;
     
     // set likes
     CGFloat yPos = 0;
@@ -249,10 +251,15 @@
     newLike.date = [NSDate date];
     [self.foodPostInCell addLike:newLike];
     
-    // update label
-    self.likesLabel.text = [NSString stringWithFormat:@"%@ likes", [self.foodPostInCell getNumberOfLikes]];
-    [self.likesLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [self.likesLabel.text length])];
-    [self.likesLabel sizeToFit];
+    if ([[self.foodPostInCell getNumberOfLikes] integerValue]==1) {
+        [self.delegate reloadTable];
+    } else{
+        // update label
+        self.likesLabel.text = [NSString stringWithFormat:@"%@ likes", [self.foodPostInCell getNumberOfLikes]];
+        [self.likesLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [self.likesLabel.text length])];
+        [self.likesLabel sizeToFit];
+    }
+    
     
     // add like animation
     FAKIonIcons *heartIcon = [FAKIonIcons heartIconWithSize:150];
@@ -272,6 +279,7 @@
             [heartImageView removeFromSuperview];
         }];
     }];
+    
 }
 
 - (void)commentPost

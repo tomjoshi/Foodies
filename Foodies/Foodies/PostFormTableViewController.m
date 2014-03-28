@@ -115,9 +115,9 @@
     UIImage *newImage = [UIImage imageWithCGImage:[[self.assetPassed defaultRepresentation] fullScreenImage] ];
     
     // ghetto hackjob cropping
-    double x = (newImage.size.width - 320) / 2.0;
-    double y = (newImage.size.height - 320) / 2.0;
-    CGRect cropRect = CGRectMake(x, y, 320, 320);
+    double x = (newImage.size.width - newImage.size.width) / 2.0;
+    double y = (newImage.size.height - newImage.size.width) / 2.0;
+    CGRect cropRect = CGRectMake(x, y, newImage.size.width, newImage.size.width);
     CGImageRef imageRef = CGImageCreateWithImageInRect([newImage CGImage], cropRect);
     UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
     

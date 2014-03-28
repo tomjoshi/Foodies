@@ -11,8 +11,9 @@
 #import <GTScrollNavigationBar.h>
 #import "UIColor+colorPallete.h"
 #import "FoodiesDataStore.h"
+#import "FeedTableViewCellDelegate.h"
 
-@interface FeedTableViewController ()
+@interface FeedTableViewController () <FeedTableViewCellDelegate>
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -91,6 +92,7 @@
     // but for now lets just init the foodpost here
     FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
     [cell configureWithFoodPost:postToShow];
+    cell.delegate = self;
     
     return cell;
 }
@@ -107,6 +109,9 @@
 
  */
 
+
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedCell"];
@@ -119,6 +124,11 @@
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [FoodiesDataStore sharedInstance].tempPosts[indexPath.row];
+}
+
+- (void)reloadTable
+{
+    [self.tableView reloadData];
 }
 
 @end

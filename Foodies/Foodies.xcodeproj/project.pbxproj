@@ -94,6 +94,7 @@
 		D1247F7018E5FAB5009CD32B /* Meal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Meal.m; sourceTree = "<group>"; };
 		D1247F7218E602ED009CD32B /* FoodiesDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodiesDataStore.h; sourceTree = "<group>"; };
 		D1247F7318E602ED009CD32B /* FoodiesDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodiesDataStore.m; sourceTree = "<group>"; };
+		D1247F7518E60D4F009CD32B /* FeedTableViewCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCellDelegate.h; sourceTree = "<group>"; };
 		D12A5F4F18E33135000BF74A /* LandingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingTableViewController.h; path = ../LandingTableViewController.h; sourceTree = "<group>"; };
 		D12A5F5018E33135000BF74A /* LandingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandingTableViewController.m; path = ../LandingTableViewController.m; sourceTree = "<group>"; };
 		D12A5F5218E353DF000BF74A /* LogInTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInTableViewCell.h; path = ../LogInTableViewCell.h; sourceTree = "<group>"; };
@@ -192,6 +193,7 @@
 				D144D6A018C5272D00C6755F /* FeedTableViewController.m */,
 				D110AFF018CA43450077D25B /* FeedTableViewCell.h */,
 				D110AFF118CA43450077D25B /* FeedTableViewCell.m */,
+				D1247F7518E60D4F009CD32B /* FeedTableViewCellDelegate.h */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
