@@ -10,4 +10,5 @@
 
 @protocol FeedTableViewCellDelegate <NSObject>
 - (void)reloadTable;
+- (void)like:(NSIndexPath *)indexPath;
 @end

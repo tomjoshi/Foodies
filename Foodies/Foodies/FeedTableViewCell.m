@@ -260,26 +260,7 @@
         [self.likesLabel sizeToFit];
     }
     
-    
-    // add like animation
-    FAKIonIcons *heartIcon = [FAKIonIcons heartIconWithSize:150];
-    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *heartIconImage = [heartIcon imageWithSize:CGSizeMake(150, 150)];
-    UIImageView *heartImageView = [[UIImageView alloc] initWithImage:heartIconImage];
-    [heartImageView setContentMode:UIViewContentModeCenter];
-    [heartImageView setFrame:self.postImageView.bounds];
-    [heartImageView setAlpha:0];
-    [self.postImageView addSubview:heartImageView];
-    [UIView animateWithDuration:.3 animations:^{
-        [heartImageView setAlpha:1];
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.3 delay:.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            [heartImageView setAlpha:0];
-        } completion:^(BOOL finished) {
-            [heartImageView removeFromSuperview];
-        }];
-    }];
-    
+    [self.delegate like:self.indexPath];
 }
 
 - (void)commentPost

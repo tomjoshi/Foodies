@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
 @property (strong, nonatomic) FoodPost *foodPostInCell;
+@property (strong, nonatomic) NSIndexPath *indexPath;
 @property (strong, nonatomic) UIImageView *postImageView;
 
 @property (strong, nonatomic) id <FeedTableViewCellDelegate> delegate;

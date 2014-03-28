@@ -12,6 +12,7 @@
 #import "UIColor+colorPallete.h"
 #import "FoodiesDataStore.h"
 #import "FeedTableViewCellDelegate.h"
+#import <FontAwesomeKit.h>
 
 @interface FeedTableViewController () <FeedTableViewCellDelegate>
 
@@ -91,6 +92,7 @@
     // i need to pass what goes into the cell. Like a FeedImage object or image id to pull from database.
     // but for now lets just init the foodpost here
     FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
+    cell.indexPath = indexPath;
     [cell configureWithFoodPost:postToShow];
     cell.delegate = self;
     
@@ -131,4 +133,29 @@
     [self.tableView reloadData];
 }
 
+- (void)like:(NSIndexPath *)indexPath
+{
+    
+    // add like animation
+    FAKIonIcons *heartIcon = [FAKIonIcons heartIconWithSize:150];
+    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *heartIconImage = [heartIcon imageWithSize:CGSizeMake(150, 150)];
+    UIImageView *heartImageView = [[UIImageView alloc] initWithImage:heartIconImage];
+    [heartImageView setContentMode:UIViewContentModeCenter];
+    
+    FeedTableViewCell *cell = (FeedTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    
+    [heartImageView setFrame:cell.postImageView.bounds];
+    [heartImageView setAlpha:0];
+    [cell.postImageView addSubview:heartImageView];
+    [UIView animateWithDuration:.3 animations:^{
+        [heartImageView setAlpha:1];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.3 delay:.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            [heartImageView setAlpha:0];
+        } completion:^(BOOL finished) {
+            [heartImageView removeFromSuperview];
+        }];
+    }];
+}
 @end
