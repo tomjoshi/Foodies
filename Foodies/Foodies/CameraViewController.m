@@ -165,8 +165,6 @@
     
     CGFloat screenWidth = self.view.bounds.size.width;
     CGFloat screenHeight = self.view.bounds.size.height;
-    NSLog(@"width is %f", screenWidth);
-    NSLog(@"height is %f", screenHeight);
     
     [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight+screenWidth)];
     UIEdgeInsets albumInset = UIEdgeInsetsMake(4, 0, 4, 0);
