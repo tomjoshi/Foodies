@@ -12,6 +12,7 @@
 @interface TagPickerViewController ()
 @property (strong, nonatomic) NSMutableArray *mealTags;
 @property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UISearchBar *tagSearch;
 
 - (IBAction)doneTapped:(id)sender;
 @end
@@ -30,16 +31,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    CGFloat screenWidth = self.view.frame.size.width;
+    CGFloat screenHeight = self.view.frame.size.height;
+    
+    [self.view setBackgroundColor:[UIColor blackColor]];
     self.imageView = [[UIImageView alloc] initWithImage:self.imageToTag];
     [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
-    [self.imageView setFrame:CGRectMake(0, 0, 320, 320)];
+    [self.imageView setFrame:CGRectMake(0, 0, screenWidth, screenWidth)];
     [self.imageView setClipsToBounds:YES];
     [self.view addSubview:self.imageView];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
 
+    UITapGestureRecognizer *tapOnImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    [self.view addGestureRecognizer:tapOnImage];
+    
+    
+    self.tagSearch = [[UISearchBar alloc] init];
+    self.tagSearch.placeholder = @"Find or create a meal";
+    [self.tagSearch setHidden:YES];
+    self.navigationItem.titleView = self.tagSearch;
+    
+    UILabel *instructionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, screenWidth, screenWidth, screenHeight-screenWidth-64)];
+    instructionLabel.text = @"Tap to tag meal";
+    [instructionLabel setTextAlignment:NSTextAlignmentCenter];
+    [instructionLabel setTextColor:[UIColor whiteColor]];
+    [self.view addSubview:instructionLabel];
     
 }
 
@@ -60,7 +79,19 @@
 }
 */
 
-- (void)doneTapped:(id)sender {
+
+- (void)doneTapped:(id)sender
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)singleTap:(UITapGestureRecognizer *)sender
+{
+    if (CGRectContainsPoint(self.imageView.frame,[sender locationInView:self.view])) {
+        NSLog(@"image was tapped");
+        [self.tagSearch setHidden:NO];
+        [self.tagSearch becomeFirstResponder];
+    }
+}
+
 @end

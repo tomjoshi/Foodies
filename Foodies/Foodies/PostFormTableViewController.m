@@ -279,6 +279,7 @@
         
         UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:tagVC];
         [navC.navigationBar setTranslucent:NO];
+        [navC.navigationBar setBarTintColor:[UIColor foodiesColor]];
         [self.navigationController presentViewController:navC animated:YES completion:nil];
     }
 }
