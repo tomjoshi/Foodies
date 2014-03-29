@@ -74,13 +74,9 @@
 - (void)handleTapped
 {
     if (self.mainScrollView.contentOffset.y == 0) {
-        [UIView animateWithDuration:.3 animations:^{
-            [self.mainScrollView setContentOffset:CGPointMake(0, 320)];
-        } completion:nil];
+        [self.mainScrollView setContentOffset:CGPointMake(0, 320) animated:YES];
     } else{
-        [UIView animateWithDuration:.3 animations:^{
-            [self.mainScrollView setContentOffset:CGPointZero];
-        } completion:nil];
+        [self.mainScrollView setContentOffset:CGPointZero animated:YES];
     }
 
 }
@@ -169,14 +165,11 @@
     
     CGFloat screenWidth = self.view.bounds.size.width;
     CGFloat screenHeight = self.view.bounds.size.height;
-    CGFloat tabBarHeight = [[[super tabBarController] tabBar] frame].size.height;
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.mainScrollView setFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+    NSLog(@"width is %f", screenWidth);
+    NSLog(@"height is %f", screenHeight);
+    
     [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight+screenWidth)];
-    
-    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40))];
-    
-    UIEdgeInsets albumInset = UIEdgeInsetsMake(self.albumCollectionView.contentInset.top, 0, tabBarHeight, 0);
+    UIEdgeInsets albumInset = UIEdgeInsetsMake(4, 0, 4, 0);
     [self.albumCollectionView setContentInset:albumInset];
     
 }
@@ -234,10 +227,8 @@ finishedSavingWithError:(NSError *)error
     
     self.selectedIndexPath = indexPath;
     
-    [UIView animateWithDuration:.3 animations:^{
-        [self.mainScrollView setContentOffset:CGPointZero];
-        [self.albumCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionTop];
-    } completion:nil];
+    [self.mainScrollView setContentOffset:CGPointZero animated:YES];
+    [self.albumCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionTop];
 }
 
 - (void)loadAlbum
@@ -295,7 +286,7 @@ finishedSavingWithError:(NSError *)error
     CGFloat screenWidth = self.view.bounds.size.width;
     CGFloat screenHeight = self.view.bounds.size.height;
     
-    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+64+40, screenWidth, screenHeight-(screenWidth+64+40)+self.mainScrollView.contentOffset.y)];
+    [self.albumCollectionView setFrame:CGRectMake(0, screenWidth+self.scrollHandle.frame.size.height, screenWidth, screenHeight-(screenWidth+self.scrollHandle.frame.size.height)+self.mainScrollView.contentOffset.y)];
     
 }
 

@@ -1,5 +1,5 @@
 //
-//  testtttTableViewController.h
+//  TagPickerViewController.h
 //  Foodies
 //
 //  Created by Lucas Chwe on 3/29/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface testtttTableViewController : UITableViewController
-
+@interface TagPickerViewController : UIViewController
+@property (strong, nonatomic) UIImage *imageToTag;
 @end
