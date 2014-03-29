@@ -13,13 +13,15 @@
 #import "FoodiesDataStore.h"
 #import <GCPlaceholderTextView.h>
 #import "FoodiesDataStore.h"
+#import <FontAwesomeKit.h>
+#import "UIColor+colorPallete.h"
 
 @interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageThumb;
 @property (weak, nonatomic) IBOutlet GCPlaceholderTextView *captionTextView;
 @property (strong, nonatomic) Venue *venue;
-@property (strong, nonatomic) NSSet *mealTags;
+@property (strong, nonatomic) NSMutableArray *mealTags;
 
 - (IBAction)sharePressed:(id)sender;
 @end
@@ -47,6 +49,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.imageThumb setImage:[UIImage imageWithCGImage:[self.assetPassed thumbnail]]];
+    
+    [[self tableView] registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -131,7 +135,7 @@
         newComment.comment = self.captionTextView.text;
     }
     
-    FoodPost *newFoodPost = [[FoodPost alloc] initWithImage:croppedImage Author:[Foodie me] Caption:newComment atVenue:self.venue andMealTags:self.mealTags];
+    FoodPost *newFoodPost = [[FoodPost alloc] initWithImage:croppedImage Author:[Foodie me] Caption:newComment atVenue:self.venue andMealTags:[NSSet setWithArray:self.mealTags]];
     [[FoodiesDataStore sharedInstance].tempPosts addObject:newFoodPost];
     
     NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"postDate" ascending:NO];
@@ -141,4 +145,44 @@
     // need some kind of delegate method back to camera view so it resets.
     [self.navigationController popViewControllerAnimated:NO];
 }
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    
+    if (indexPath.section == 1 && indexPath.row == 1) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    } else{
+        cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    }
+
+    if (indexPath.section == 2) {
+        if (indexPath.row == 1) {
+            FAKIonIcons *emptyStar = [FAKIonIcons ios7StarOutlineIconWithSize:30];
+            [emptyStar addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
+            FAKIonIcons *fullStar = [FAKIonIcons ios7StarIconWithSize:30];
+            [fullStar addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
+            
+            UIButton *testButton = [[UIButton alloc] initWithFrame:CGRectMake(cell.bounds.size.width-cell.frame.size.height , 0, cell.frame.size.height, cell.frame.size.height)];
+            [testButton setAttributedTitle:[emptyStar attributedString] forState:UIControlStateNormal];
+            [testButton setAttributedTitle:[fullStar attributedString] forState:UIControlStateSelected];
+            
+            [testButton addTarget:self action:@selector(toggleSelect:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [cell addSubview:testButton];
+        }
+    }
+    
+    return cell;
+}
+
+- (void)toggleSelect:(UIButton *)sender
+{
+    if ([sender isSelected]) {
+        [sender setSelected:NO];
+    } else {
+        [sender setSelected:YES];
+    }
+}
+
 @end
