@@ -241,9 +241,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="pwO-5g-pBI" kind="modal" identifier="tagSegue" id="tNB-XX-oY5"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tagCell" textLabel="kjN-sB-gJM" style="IBUITableViewCellStyleDefault" id="541-4z-TKb">
                                         <rect key="frame" x="0.0" y="263" width="320" height="44"/>
@@ -286,31 +283,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IFI-CF-QTe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2144" y="1249"/>
-        </scene>
-        <!--Tag Picker View Controller-->
-        <scene sceneID="Aop-4J-I21">
-            <objects>
-                <viewController id="XK6-gw-gHx" customClass="TagPickerViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="PVS-g2-6iS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Efm-Y0-NdE">
-                                <rect key="frame" x="0.0" y="64" width="320" height="320"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Tci-gO-0Or"/>
-                    <connections>
-                        <outlet property="imageView" destination="Efm-Y0-NdE" id="u2a-jW-D7a"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wxJ-vT-O40" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3051" y="1713"/>
         </scene>
         <!--Location Picker Table View Controller - Locations-->
         <scene sceneID="ubp-fi-Jg8">
@@ -746,24 +718,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="syP-KX-X6D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="1631"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Uj3-QN-js0">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pwO-5g-pBI" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="O27-ll-2NY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="XK6-gw-gHx" kind="relationship" relationship="rootViewController" id="ipe-9I-sAQ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hoh-DC-ovl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2612" y="1713"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

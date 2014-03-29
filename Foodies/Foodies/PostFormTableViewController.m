@@ -16,6 +16,7 @@
 #import <FontAwesomeKit.h>
 #import "UIColor+colorPallete.h"
 #import "MealTag.h"
+#import "TagPickerViewController.h"
 
 @interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
@@ -266,6 +267,19 @@
         return [super tableView:tableView indentationLevelForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
     } else {
         return [super tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 2 && indexPath.row == 0) {
+        TagPickerViewController *tagVC = [[TagPickerViewController alloc] init];
+        ALAssetRepresentation *defaultRep = [self.assetPassed defaultRepresentation];
+        tagVC.imageToTag = [UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0];
+        
+        UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:tagVC];
+        [navC.navigationBar setTranslucent:NO];
+        [self.navigationController presentViewController:navC animated:YES completion:nil];
     }
 }
 

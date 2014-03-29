@@ -11,8 +11,9 @@
 
 @interface TagPickerViewController ()
 @property (strong, nonatomic) NSMutableArray *mealTags;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) UIImageView *imageView;
 
+- (IBAction)doneTapped:(id)sender;
 @end
 
 @implementation TagPickerViewController
@@ -30,6 +31,16 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    self.imageView = [[UIImageView alloc] initWithImage:self.imageToTag];
+    [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
+    [self.imageView setFrame:CGRectMake(0, 0, 320, 320)];
+    [self.imageView setClipsToBounds:YES];
+    [self.view addSubview:self.imageView];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
+
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,4 +60,7 @@
 }
 */
 
+- (void)doneTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end
