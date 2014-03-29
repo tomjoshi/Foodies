@@ -14,12 +14,27 @@
 {
     self = [super init];
     if (self) {
-        _name = name;
-        _foodPosts = [NSSet setWithObject:foodPost];
-        _score = score;
-        _venue = venue;
+        if (name) {
+            _name = name;
+        }
+        if (foodPost) {
+            _foodPosts = [NSSet setWithObject:foodPost];
+        } else {
+            _foodPosts = [[NSSet alloc] init];
+        }
+        if (score) {
+            _score = score;
+        }
+        if (venue) {
+            _venue = venue;
+        }
     }
     return self;
+}
+
+- (instancetype)init
+{
+    return [self initWithName:@"Lobster Roll" FoodPost:nil Score:nil andVenue:nil];
 }
 
 @end

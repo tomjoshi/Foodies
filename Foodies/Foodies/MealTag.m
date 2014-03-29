@@ -9,5 +9,13 @@
 #import "MealTag.h"
 
 @implementation MealTag
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _meal = [[Meal alloc] init];
+        _coordinates = CGPointMake(0, 0);
+    }
+    return self;
+}
 @end

@@ -15,6 +15,7 @@
 #import "FoodiesDataStore.h"
 #import <FontAwesomeKit.h>
 #import "UIColor+colorPallete.h"
+#import "MealTag.h"
 
 @interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
@@ -51,6 +52,8 @@
     [self.imageThumb setImage:[UIImage imageWithCGImage:[self.assetPassed thumbnail]]];
     
     [[self tableView] registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    
+    self.mealTags = [NSMutableArray arrayWithArray:@[[[MealTag alloc] init],[[MealTag alloc] init],[[MealTag alloc] init]]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,15 +63,15 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -146,18 +149,40 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
+#pragma mark - VC Methods
+
+- (void)toggleSelect:(UIButton *)sender
+{
+    if ([sender isSelected]) {
+        [sender setSelected:NO];
+    } else {
+        [sender setSelected:YES];
+    }
+}
+
+
+#pragma mark - UITableView Delegate Methods
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
     
-    if (indexPath.section == 1 && indexPath.row == 1) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    if (indexPath.section == 2 && indexPath.row >= 1) {
+        static NSString *CellIdentifier = @"TagCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
     } else{
         cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     }
-
+    
     if (indexPath.section == 2) {
-        if (indexPath.row == 1) {
+        if (indexPath.row >= 1) {
+            
+            MealTag *mealTag = self.mealTags[indexPath.row-1];
+            
             FAKIonIcons *emptyStar = [FAKIonIcons ios7StarOutlineIconWithSize:30];
             [emptyStar addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
             FAKIonIcons *fullStar = [FAKIonIcons ios7StarIconWithSize:30];
@@ -166,22 +191,81 @@
             UIButton *testButton = [[UIButton alloc] initWithFrame:CGRectMake(cell.bounds.size.width-cell.frame.size.height , 0, cell.frame.size.height, cell.frame.size.height)];
             [testButton setAttributedTitle:[emptyStar attributedString] forState:UIControlStateNormal];
             [testButton setAttributedTitle:[fullStar attributedString] forState:UIControlStateSelected];
-            
             [testButton addTarget:self action:@selector(toggleSelect:) forControlEvents:UIControlEventTouchUpInside];
             
+            UILabel *mealNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, cell.bounds.size.width-15, cell.bounds.size.height)];
+            mealNameLabel.text = mealTag.meal.name;
             [cell addSubview:testButton];
+            [cell addSubview:mealNameLabel];
+            
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            
         }
     }
     
     return cell;
 }
 
-- (void)toggleSelect:(UIButton *)sender
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([sender isSelected]) {
-        [sender setSelected:NO];
+    if (section == 2) {
+        return [self.mealTags count]+1;
+    }
+    return  [super tableView:tableView numberOfRowsInSection:section];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    int section = indexPath.section;
+    
+    // if dynamic section make all rows the same height as row 0
+    if (section == 2) {
+        return [super tableView:tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
     } else {
-        [sender setSelected:YES];
+        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    }
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [self.mealTags removeObjectAtIndex:indexPath.row-1];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+}
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 2 && indexPath.row >= 1) {
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    int section = indexPath.section;
+    
+    // if dynamic section make all rows the same indentation level as row 0
+    if (section == 2) {
+        return [super tableView:tableView indentationLevelForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+    } else {
+        return [super tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
     }
 }
 
