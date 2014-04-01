@@ -8,6 +8,9 @@
 
 #import "TagPickerViewController.h"
 #import "MealTag.h"
+#import "Meal.h"
+
+#import <AFNetworking.h>
 
 @interface TagPickerViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) NSMutableArray *mealTags;
@@ -17,7 +20,7 @@
 @property (strong, nonatomic) UITableView *menuTable;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UILabel *instructionLabel;
-@property (strong, nonatomic) NSArray *mealsArray;
+@property (strong, nonatomic) NSMutableArray *mealsArray;
 @property (nonatomic) BOOL isCancelled;
 
 @end
@@ -41,7 +44,41 @@
     CGFloat screenHeight = self.view.frame.size.height;
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    self.mealsArray = @[[[MealTag alloc] init],[[MealTag alloc] init],[[MealTag alloc] init]];
+    self.mealsArray = [[NSMutableArray alloc] init];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSString *urlQuery = [NSString stringWithFormat:@"http://api.locu.com/v1_0/venue/%@/?api_key=44e7b34e1d32742c1d12078dea0904dacc2cf43c", self.mealsVenue.venueId];
+    
+    
+    [manager GET:urlQuery parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"success");
+        
+        NSMutableArray *mealNames = [[NSMutableArray alloc] init];
+        NSArray *sections = responseObject[@"objects"][0][@"menus"][0][@"sections"];
+        
+        for (NSDictionary *section in sections) {
+            NSArray *subsections = section[@"subsections"];
+            for (NSDictionary *subsection in subsections) {
+                NSArray *contents = subsection[@"contents"];
+                for (NSDictionary *content in contents) {
+                    NSString *newName = content[@"name"];
+                    if (newName) {
+                        [mealNames addObject:newName];
+                    }
+                }
+            }
+        }
+
+        for (NSString *mealName in mealNames) {
+            [self.mealsArray addObject:[[MealTag alloc]initWithName:mealName andPoint:CGPointZero]];
+        }
+//        self.arrayOfLocations = mutableVenues;
+//        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        [self.menuTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"fail");
+    }];
+    
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     [self.scrollView setContentSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+self.view.bounds.size.width)];
@@ -68,7 +105,7 @@
 //    [self.searchDisplayController setActive:YES animated:YES];
     
     // add table view
-    self.menuTable = [[UITableView alloc]initWithFrame:CGRectMake(0, screenWidth, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStylePlain];
+    self.menuTable = [[UITableView alloc]initWithFrame:CGRectMake(0, screenWidth, self.view.frame.size.width, self.view.frame.size.height-64-screenWidth) style:UITableViewStylePlain];
 //    [self.menuTable setBounces:NO];
 //    [self.menuTable setContentInset:UIEdgeInsetsMake(screenWidth, 0, 0, 0)];
 //    [self.menuTable setBackgroundColor:[UIColor clearColor]];
@@ -116,6 +153,9 @@
     // add tap gesture
     UITapGestureRecognizer *tapOnImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
     [self.view addGestureRecognizer:tapOnImage];
+    
+    
+    
     
 }
 
@@ -267,7 +307,7 @@
     [searchBarTextField setReturnKeyType:UIReturnKeyDefault];
 //    [self.menuTable setContentOffset:CGPointZero animated:YES];
     [UIView animateWithDuration:.3 animations:^{
-        [self.menuTable setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64)];
+        [self.menuTable setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-216)];
     }];
 }
 

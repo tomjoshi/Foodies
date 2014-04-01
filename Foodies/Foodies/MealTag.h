@@ -13,4 +13,6 @@
 @property (nonatomic) CGPoint coordinates;
 @property (strong, nonatomic) Meal *meal;
 
+
+- (instancetype)initWithName:(NSString*)name andPoint:(CGPoint)point;
 @end
