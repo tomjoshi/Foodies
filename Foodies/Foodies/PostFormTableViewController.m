@@ -54,7 +54,7 @@
     
     [[self tableView] registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
-    self.mealTags = [NSMutableArray arrayWithArray:@[[[MealTag alloc] init],[[MealTag alloc] init],[[MealTag alloc] init]]];
+    self.mealTags = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -279,7 +279,7 @@
         
         UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:tagVC];
         [navC.navigationBar setTranslucent:NO];
-        [navC.navigationBar setBarTintColor:[UIColor foodiesColor]];
+//        [navC.navigationBar setBarTintColor:[UIColor foodiesColor]];
         [self.navigationController presentViewController:navC animated:YES completion:nil];
     }
 }

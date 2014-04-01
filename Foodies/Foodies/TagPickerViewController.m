@@ -17,7 +17,8 @@
 @property (strong, nonatomic) UITableView *menuTable;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UILabel *instructionLabel;
-
+@property (strong, nonatomic) NSArray *mealsArray;
+@property (nonatomic) BOOL isCancelled;
 
 @end
 
@@ -40,6 +41,7 @@
     CGFloat screenHeight = self.view.frame.size.height;
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    self.mealsArray = @[[[MealTag alloc] init],[[MealTag alloc] init],[[MealTag alloc] init]];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     [self.scrollView setContentSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+self.view.bounds.size.width)];
@@ -49,9 +51,9 @@
     
     // add nav buttons
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+//    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelTapped:)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+//    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.title = @"Meals";
     
     
@@ -66,16 +68,16 @@
 //    [self.searchDisplayController setActive:YES animated:YES];
     
     // add table view
-    self.menuTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStylePlain];
+    self.menuTable = [[UITableView alloc]initWithFrame:CGRectMake(0, screenWidth, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStylePlain];
 //    [self.menuTable setBounces:NO];
-    [self.menuTable setContentInset:UIEdgeInsetsMake(screenWidth, 0, 0, 0)];
+//    [self.menuTable setContentInset:UIEdgeInsetsMake(screenWidth, 0, 0, 0)];
 //    [self.menuTable setBackgroundColor:[UIColor clearColor]];
     [self.menuTable setUserInteractionEnabled:YES];
     [self.menuTable setAllowsSelection:YES];
     self.menuTable.delegate = self;
     self.menuTable.dataSource = self;
     [self.menuTable setScrollEnabled:NO];
-//    [self.menuTable setContentOffset:CGPointMake(0, 44)];
+    [self.menuTable setContentOffset:CGPointMake(0, 44)];
 //    [self.menuTable setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
     [self.view addSubview:self.menuTable];
 //    [self.view sendSubviewToBack:self.menuTable];
@@ -84,10 +86,10 @@
     // add image
     self.imageView = [[UIImageView alloc] initWithImage:self.imageToTag];
     [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
-    [self.imageView setFrame:CGRectMake(0, -screenWidth, screenWidth, screenWidth)];
+    [self.imageView setFrame:CGRectMake(0, 0, screenWidth, screenWidth)];
     [self.imageView setClipsToBounds:YES];
-    [self.menuTable addSubview:self.imageView];
-    [self.menuTable sendSubviewToBack:self.imageView];
+    [self.view addSubview:self.imageView];
+    [self.view sendSubviewToBack:self.imageView];
     
     
     // add instructions label
@@ -104,11 +106,11 @@
     
     // add search bar
 //    self.tagSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(instructionLabel.frame.origin.x, instructionLabel.frame.origin.y, instructionLabel.frame.origin.x, 44)];
-//    self.tagSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.instructionLabel.frame.size.width, 44)];
-//    self.tagSearch.placeholder = @"Find or create a meal";
-//    self.tagSearch.delegate = self;
-//    [self.menuTable addSubview:self.tagSearch];
-//    self.menuTable.tableFooterView = self.tagSearch;
+    self.tagSearch = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.instructionLabel.frame.size.width, 44)];
+    self.tagSearch.placeholder = @"Find or create a meal";
+    self.tagSearch.delegate = self;
+    [self.menuTable addSubview:self.tagSearch];
+    self.menuTable.tableHeaderView = self.tagSearch;
     
     
     // add tap gesture
@@ -147,7 +149,7 @@
 
 - (void)singleTap:(UITapGestureRecognizer *)sender
 {
-    CGPoint touchedPoint = [sender locationInView:self.menuTable];
+    CGPoint touchedPoint = [sender locationInView:self.view];
     if (CGRectContainsPoint(self.imageView.frame, touchedPoint) && self.instructionLabel.alpha == 1) {
         NSLog(@"image was tapped");
 //        [self.tagSearch setHidden:NO];
@@ -163,29 +165,68 @@
             }];
         }
         
-    } else {
+    } else if (self.menuTable.frame.origin.y == 0 || (self.menuTable.frame.origin.y != 0 && !CGRectContainsPoint(self.imageView.frame, touchedPoint))){
+        touchedPoint = [sender locationInView:self.menuTable];
+
         NSIndexPath *rowIp = [self.menuTable indexPathForRowAtPoint:touchedPoint];
 //        [self.menuTable selectRowAtIndexPath:rowIp animated:YES scrollPosition:UITableViewScrollPositionNone];
-        [self tableView:self.menuTable didSelectRowAtIndexPath:rowIp];
+        if (rowIp != nil) {
+            NSLog(@"%d", rowIp.row);
+            [self tableView:self.menuTable didSelectRowAtIndexPath:rowIp];
+        }
     }
     
 //    [self.menuTable hitTest:touchedPoint withEvent:UIEventSubtypeNone];
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    if ([self.tagSearch.text isEqualToString:@""]) {
+        [self.menuTable setContentOffset:CGPointMake(0, 44) animated:YES];
+    }
+    [UIView animateWithDuration:.3 animations:^{
+        [self.menuTable setFrame:CGRectMake(0, self.view.frame.size.width, self.view.frame.size.width, self.view.frame.size.height- self.view.frame.size.width)];
+//        [self.instructionLabel setAlpha:1];
+//        [self.menuTable setScrollEnabled:NO];
+        [self.tagSearch resignFirstResponder];
+    } completion:^(BOOL finished) {
+    }];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tagSearch resignFirstResponder];
+    [self.tagSearch setText:@""];
+    
     [UIView animateWithDuration:.3 animations:^{
-        [self.menuTable scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [self.menuTable setFrame:CGRectMake(0, self.view.frame.size.width, self.view.frame.size.width, self.view.frame.size.height- self.view.frame.size.width)];
+        [self.menuTable setContentOffset:CGPointMake(0, 44)];
         [self.instructionLabel setAlpha:1];
         [self.menuTable setScrollEnabled:NO];
     }];
 }
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    if (![self.tagSearch isFirstResponder]) {
+        [self.tagSearch setText:@""];
+        self.isCancelled = YES;
+    }
+}
+
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    if (self.isCancelled) {
+        return NO;
+        self.isCancelled = NO;
+    }
+    return YES;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-    cell.textLabel.text = @"hello";
-    cell.backgroundColor = [UIColor whiteColor];
+    MealTag *newMealTag = (MealTag *)self.mealsArray[indexPath.row];
+    cell.textLabel.text = newMealTag.meal.name;
+//    cell.backgroundColor = [UIColor whiteColor];
     [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
     [cell setUserInteractionEnabled:YES];
     
@@ -194,7 +235,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return [self.mealsArray count];
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
@@ -207,16 +248,35 @@
     return YES;
 }
 
-- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
+    UITextField *searchBarTextField = nil;
     
+    NSArray *views = ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0f) ? searchBar.subviews : [[searchBar.subviews objectAtIndex:0] subviews];
+    
+    for (UIView *subview in views)
+    {
+        if ([subview isKindOfClass:[UITextField class]])
+        {
+            searchBarTextField = (UITextField *)subview;
+            break;
+        }
+    }
+    searchBarTextField.enablesReturnKeyAutomatically = NO;
+    [searchBarTextField setReturnKeyType:UIReturnKeyDefault];
+//    [self.menuTable setContentOffset:CGPointZero animated:YES];
+    [UIView animateWithDuration:.3 animations:^{
+        [self.menuTable setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64)];
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-        [self.imageView setCenter:CGPointMake(self.imageView.frame.size.width/2, self.menuTable.contentOffset.y +self.imageView.frame.size.height/2)];
+//        [self.imageView setCenter:CGPointMake(self.imageView.frame.size.width/2, self.menuTable.contentOffset.y +self.imageView.frame.size.height/2)];
     NSLog(@"%f", self.menuTable.contentOffset.y);
 
 }
+
 
 @end
