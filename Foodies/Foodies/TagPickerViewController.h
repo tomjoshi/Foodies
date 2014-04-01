@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Venue.h"
 
 @interface TagPickerViewController : UIViewController
 @property (strong, nonatomic) UIImage *imageToTag;
+@property (strong, nonatomic) Venue *mealsVenue;
 @end
