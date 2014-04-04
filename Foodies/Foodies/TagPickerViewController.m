@@ -9,8 +9,10 @@
 #import "TagPickerViewController.h"
 #import "MealTag.h"
 #import "Meal.h"
-
+#include <CommonCrypto/CommonDigest.h>
+#include <CommonCrypto/CommonHMAC.h>
 #import <AFNetworking.h>
+#import "SinglePlatformSignature.h"
 
 @interface TagPickerViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) NSMutableArray *mealTags;
@@ -47,37 +49,82 @@
     self.mealsArray = [[NSMutableArray alloc] init];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *urlQuery = [NSString stringWithFormat:@"http://api.locu.com/v1_0/venue/%@/?api_key=44e7b34e1d32742c1d12078dea0904dacc2cf43c", self.mealsVenue.venueId];
+    [manager setRequestSerializer:[AFJSONRequestSerializer serializer]];
     
+    NSString *urlQuery = [NSString stringWithFormat:@"http://matching-api.singleplatform.com/location-match?client=cmhe9zqp8qn1zwzu8ws6zczjl"];
     
-    [manager GET:urlQuery parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    NSDictionary *params = @{
+                                @"locations": @[@{@"foursquare_id": self.mealsVenue.venueId}],
+                        @"matching_criteria": @"FOURSQUARE_ID"
+                                };
+    [manager POST:urlQuery parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"success");
         
-        NSMutableArray *mealNames = [[NSMutableArray alloc] init];
-        NSArray *sections = responseObject[@"objects"][0][@"menus"][0][@"sections"];
+        // get the menu now
+        NSString *spId = responseObject[@"response"][0][@"spv2id"];
         
-        for (NSDictionary *section in sections) {
-            NSArray *subsections = section[@"subsections"];
-            for (NSDictionary *subsection in subsections) {
-                NSArray *contents = subsection[@"contents"];
-                for (NSDictionary *content in contents) {
-                    NSString *newName = content[@"name"];
-                    if (newName) {
-                        [mealNames addObject:newName];
+        // create url with signature key
+        NSString *urlSignatureStuff = [SinglePlatformSignature generateApiSingatureForPath:[NSString stringWithFormat:@"/locations/%@/menu", spId] withParams:nil withCliendId:@"cmhe9zqp8qn1zwzu8ws6zczjl" andApiSecret:@"RwlSK-4Ug2OpjS8Pf6IzqyZpvX1xy-FVxCxR4B1yxeM"];
+        NSString *urlQuery = [NSString stringWithFormat:@"http://api.singleplatform.co%@", urlSignatureStuff];
+        
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        [manager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+        
+        [manager GET:urlQuery parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSArray *menus = responseObject[@"menus"];
+            if ([menus count] > 0) {
+                NSLog(@"there is a menu");
+                
+                NSMutableArray *mealNames = [[NSMutableArray alloc] init];
+                NSArray *entries = menus[0][@"entries"];
+                for (NSDictionary *entry in entries) {
+                    if ([entry[@"type"] isEqualToString:@"item"]) {
+                        NSLog(@"%@", entry[@"title"]);
+                        [mealNames addObject:entry[@"title"]];
                     }
+                    
                 }
+                
+                for (NSString *mealName in mealNames) {
+                    [self.mealsArray addObject:[[MealTag alloc]initWithName:mealName andPoint:CGPointZero]];
+                }
+                [self.menuTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
-        }
-
-        for (NSString *mealName in mealNames) {
-            [self.mealsArray addObject:[[MealTag alloc]initWithName:mealName andPoint:CGPointZero]];
-        }
-//        self.arrayOfLocations = mutableVenues;
-//        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-        [self.menuTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            NSLog(@"success menu");
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSLog(@"fail menu");
+        }];
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"fail");
     }];
+    
+//    [manager GET:urlQuery parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSLog(@"success");
+//        
+//        NSMutableArray *mealNames = [[NSMutableArray alloc] init];
+//        NSArray *sections = responseObject[@"objects"][0][@"menus"][0][@"sections"];
+//        
+//        for (NSDictionary *section in sections) {
+//            NSArray *subsections = section[@"subsections"];
+//            for (NSDictionary *subsection in subsections) {
+//                NSArray *contents = subsection[@"contents"];
+//                for (NSDictionary *content in contents) {
+//                    NSString *newName = content[@"name"];
+//                    if (newName) {
+//                        [mealNames addObject:newName];
+//                    }
+//                }
+//            }
+//        }
+//
+//        for (NSString *mealName in mealNames) {
+//            [self.mealsArray addObject:[[MealTag alloc]initWithName:mealName andPoint:CGPointZero]];
+//        }
+//        [self.menuTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        NSLog(@"fail");
+//    }];
     
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];

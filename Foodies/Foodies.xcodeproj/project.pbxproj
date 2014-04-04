@@ -57,6 +57,8 @@
 		D1BD1B1818D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */; };
 		D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1A18D3A1D600256BC2 /* ALAsset+Date.m */; };
 		D1C0C36118DCBEF000F3AD9C /* profilepic.png in Resources */ = {isa = PBXBuildFile; fileRef = D1C0C36018DCBEF000F3AD9C /* profilepic.png */; };
+		D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */; };
+		D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +161,10 @@
 		D1BD1B1C18D3BCA500256BC2 /* LocationPickerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationPickerDelegate.h; sourceTree = "<group>"; };
 		D1C0C36018DCBEF000F3AD9C /* profilepic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profilepic.png; sourceTree = "<group>"; };
 		D1C0C36218DCD10F00F3AD9C /* CameraOutputDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraOutputDelegate.h; sourceTree = "<group>"; };
+		D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlatformSignature.h; sourceTree = "<group>"; };
+		D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlatformSignature.m; sourceTree = "<group>"; };
+		D1FB843E18EF70E100A44DD9 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
+		D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +233,10 @@
 		D110AFFE18CA4E0E0077D25B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */,
+				D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */,
+				D1FB843E18EF70E100A44DD9 /* MF_Base64Additions.h */,
+				D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */,
 				D1247F7218E602ED009CD32B /* FoodiesDataStore.h */,
 				D1247F7318E602ED009CD32B /* FoodiesDataStore.m */,
 				D110AFFB18CA4E080077D25B /* FoodPost.h */,
@@ -429,6 +439,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Lucas Chwe";
 				TargetAttributes = {
+					D183514018BBAE5B00303868 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					D183516718BBAE5C00303868 = {
 						TestTargetID = D183514018BBAE5B00303868;
 					};
@@ -544,6 +561,8 @@
 				D183515118BBAE5B00303868 /* main.m in Sources */,
 				D110B00D18CA67E30077D25B /* Comment.m in Sources */,
 				D1247F6518E4CFFB009CD32B /* UIColor+colorPallete.m in Sources */,
+				D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */,
+				D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */,
 				D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */,
 				D12A5F5D18E37D48000BF74A /* SignUpViewController.m in Sources */,
 				D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */,
