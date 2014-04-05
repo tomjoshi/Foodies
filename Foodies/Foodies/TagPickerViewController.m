@@ -13,16 +13,20 @@
 #include <CommonCrypto/CommonHMAC.h>
 #import <AFNetworking.h>
 #import "SinglePlatformSignature.h"
+#import "UIColor+colorPallete.h"
+#import <QuartzCore/QuartzCore.h>
+#import <FontAwesomeKit.h>
 
 @interface TagPickerViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate>
-@property (strong, nonatomic) NSMutableArray *mealTags;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UISearchBar *tagSearch;
 @property (strong, nonatomic) UISearchDisplayController *searchController;
 @property (strong, nonatomic) UITableView *menuTable;
-@property (strong, nonatomic) UIScrollView *scrollView;
+//@property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UILabel *instructionLabel;
 @property (strong, nonatomic) NSMutableArray *mealsArray;
+@property (strong, nonatomic) NSTimer *tableShrinkTimer;
+@property (strong, nonatomic) UIButton *cancelTableButton;
 @property (nonatomic) BOOL isCancelled;
 
 @end
@@ -127,19 +131,18 @@
 //    }];
     
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    [self.scrollView setContentSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+self.view.bounds.size.width)];
-//    [self.scrollView setContentOffset:CGPointMake(<#CGFloat x#>, <#CGFloat y#>)]
-    [self.view addSubview:self.scrollView];
+//    self.scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+//    [self.scrollView setContentSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height+self.view.bounds.size.width)];
+////    [self.scrollView setContentOffset:CGPointMake(<#CGFloat x#>, <#CGFloat y#>)]
+//    [self.view addSubview:self.scrollView];
     
     
     // add nav buttons
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
+    
 //    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelTapped:)];
 //    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-    self.navigationItem.title = @"Meals";
-    
+    self.navigationItem.title = @"Tags";
     
 //    self.navigationItem.titleView = self.tagSearch;
 //    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:self.tagSearch contentsController:self];
@@ -152,20 +155,38 @@
 //    [self.searchDisplayController setActive:YES animated:YES];
     
     // add table view
-    self.menuTable = [[UITableView alloc]initWithFrame:CGRectMake(0, screenWidth, self.view.frame.size.width, self.view.frame.size.height-64-screenWidth) style:UITableViewStylePlain];
+    self.menuTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStylePlain];
 //    [self.menuTable setBounces:NO];
 //    [self.menuTable setContentInset:UIEdgeInsetsMake(screenWidth, 0, 0, 0)];
 //    [self.menuTable setBackgroundColor:[UIColor clearColor]];
     [self.menuTable setUserInteractionEnabled:YES];
     [self.menuTable setAllowsSelection:YES];
+    [self.menuTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     self.menuTable.delegate = self;
     self.menuTable.dataSource = self;
     [self.menuTable setScrollEnabled:NO];
-    [self.menuTable setContentOffset:CGPointMake(0, 44)];
+//    [self.menuTable setContentOffset:CGPointMake(0, 44)];
+    [self.menuTable setAlpha:0];
+    [self.menuTable setBackgroundView:nil];
+    [self.menuTable setOpaque:NO];
+    [self.menuTable setBackgroundColor:[UIColor semiTransparentWhiteColor]];
+//    [self.menuTable setBackgroundColor:[UIColor blackColor]];
 //    [self.menuTable setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
     [self.view addSubview:self.menuTable];
 //    [self.view sendSubviewToBack:self.menuTable];
     
+    // add cancel button
+    self.cancelTableButton = [[UIButton alloc] initWithFrame:CGRectMake((screenWidth-70)/2, screenWidth+(screenHeight-screenWidth-64-70)/2, 70, 70)];
+    FAKIonIcons *cancelButton = [FAKIonIcons closeRoundIconWithSize:25];
+    [cancelButton addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    [self.cancelTableButton setAttributedTitle:[cancelButton attributedString] forState:UIControlStateNormal];
+    [self.cancelTableButton addTarget:self action:@selector(dismissTable) forControlEvents:UIControlEventTouchUpInside];
+    [self.cancelTableButton setBackgroundColor:[UIColor lightGrayColor]];
+    [self.cancelTableButton setEnabled:NO];
+    [self.cancelTableButton setAlpha:0];
+    self.cancelTableButton.layer.cornerRadius = self.cancelTableButton.frame.size.width/2;
+    self.cancelTableButton.layer.masksToBounds = YES;
+    [self.view addSubview:self.cancelTableButton];
     
     // add image
     self.imageView = [[UIImageView alloc] initWithImage:self.imageToTag];
@@ -178,7 +199,7 @@
     
     // add instructions label
     self.instructionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, screenWidth, screenWidth, screenHeight-screenWidth-64)];
-    self.instructionLabel.text = @"Tap to tag meal";
+    self.instructionLabel.text = @"Tap on your meal";
     [self.instructionLabel setTextAlignment:NSTextAlignmentCenter];
     //    [self.instructionLabel setTextColor:[UIColor whiteColor]];
     [self.instructionLabel setBackgroundColor:[UIColor whiteColor]];
@@ -201,9 +222,8 @@
     UITapGestureRecognizer *tapOnImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
     [self.view addGestureRecognizer:tapOnImage];
     
-    
-    
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -226,6 +246,7 @@
 
 - (void)doneTapped:(id)sender
 {
+    [self.delegate submitTags:self.mealTags];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -248,11 +269,14 @@
         if (self.instructionLabel.alpha == 1) {
             [UIView animateWithDuration:.3 animations:^{
                 [self.instructionLabel setAlpha:0];
+                [self.menuTable setAlpha:1];
                 [self.menuTable setScrollEnabled:YES];
+                [self.cancelTableButton setAlpha:.8];
+                [self.cancelTableButton setEnabled:YES];
             }];
         }
         
-    } else if (self.menuTable.frame.origin.y == 0 || (self.menuTable.frame.origin.y != 0 && !CGRectContainsPoint(self.imageView.frame, touchedPoint))){
+    } else if (self.menuTable.alpha == 1){
         touchedPoint = [sender locationInView:self.menuTable];
 
         NSIndexPath *rowIp = [self.menuTable indexPathForRowAtPoint:touchedPoint];
@@ -268,44 +292,35 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    if ([self.tagSearch.text isEqualToString:@""]) {
-        [self.menuTable setContentOffset:CGPointMake(0, 44) animated:YES];
-    }
-    [UIView animateWithDuration:.3 animations:^{
-        [self.menuTable setFrame:CGRectMake(0, self.view.frame.size.width, self.view.frame.size.width, self.view.frame.size.height- self.view.frame.size.width)];
 //        [self.instructionLabel setAlpha:1];
 //        [self.menuTable setScrollEnabled:NO];
-        [self.tagSearch resignFirstResponder];
-    } completion:^(BOOL finished) {
-    }];
+    [self.tagSearch resignFirstResponder];
+//    if ([self.tagSearch.text isEqualToString:@""]) {
+//        [self.menuTable setContentOffset:CGPointMake(0, 44) animated:YES];
+//    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tagSearch resignFirstResponder];
-    [self.tagSearch setText:@""];
-    
-    [UIView animateWithDuration:.3 animations:^{
-        [self.menuTable setFrame:CGRectMake(0, self.view.frame.size.width, self.view.frame.size.width, self.view.frame.size.height- self.view.frame.size.width)];
-        [self.menuTable setContentOffset:CGPointMake(0, 44)];
-        [self.instructionLabel setAlpha:1];
-        [self.menuTable setScrollEnabled:NO];
-    }];
+    [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
+    [[tableView cellForRowAtIndexPath:indexPath] setHighlighted:NO];
+    [self.mealTags addObject:self.mealsArray[indexPath.row]];
+    [self dismissTable];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    if (![self.tagSearch isFirstResponder]) {
-        [self.tagSearch setText:@""];
-        self.isCancelled = YES;
-    }
+//    if (![self.tagSearch isFirstResponder]) {
+//        [self.tagSearch setText:@""];
+//        self.isCancelled = YES;
+//    }
 }
 
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    if (self.isCancelled) {
-        return NO;
-        self.isCancelled = NO;
-    }
+//    if (self.isCancelled) {
+//        return NO;
+//        self.isCancelled = NO;
+//    }
     return YES;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -313,7 +328,7 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     MealTag *newMealTag = (MealTag *)self.mealsArray[indexPath.row];
     cell.textLabel.text = newMealTag.meal.name;
-//    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
     [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
     [cell setUserInteractionEnabled:YES];
     
@@ -353,8 +368,42 @@
     searchBarTextField.enablesReturnKeyAutomatically = NO;
     [searchBarTextField setReturnKeyType:UIReturnKeyDefault];
 //    [self.menuTable setContentOffset:CGPointZero animated:YES];
+//    [self.menuTable setContentInset:UIEdgeInsetsMake(self.menuTable.contentInset.top, self.menuTable.contentInset.left, 216, self.menuTable.contentInset.top)]
+
+}
+
+- (void)keyboardDidShow
+{
+    [self.menuTable setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-216)];
+}
+
+- (void)keyboardWillHide
+{
+    [self.menuTable setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+}
+
+- (void)dismissTable
+{
+    
+    if ([self.mealTags count]>0) {
+        [self setDoneButton];
+    } else{
+        [self unsetDoneButton];
+    }
+    
+    [self.tagSearch resignFirstResponder];
+    [self.tagSearch setText:@""];
+    
+    
     [UIView animateWithDuration:.3 animations:^{
-        [self.menuTable setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-216)];
+        //        [self.menuTable setFrame:CGRectMake(0, self.view.frame.size.width, self.view.frame.size.width, self.view.frame.size.height- self.view.frame.size.width)];
+        [self.menuTable setAlpha:0];
+        [self.instructionLabel setAlpha:1];
+        [self.cancelTableButton setAlpha:0];
+        [self.cancelTableButton setEnabled:NO];
+        [self.menuTable setScrollEnabled:NO];
+    } completion:^(BOOL finished) {
+        [self.menuTable setContentOffset:CGPointZero];
     }];
 }
 
@@ -365,5 +414,14 @@
 
 }
 
+- (void)setDoneButton
+{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
+}
+
+- (void)unsetDoneButton
+{
+    self.navigationItem.rightBarButtonItem = nil;
+}
 
 @end

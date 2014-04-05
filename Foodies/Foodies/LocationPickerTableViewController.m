@@ -50,6 +50,7 @@
         [self.locationManager startUpdatingLocation];
     }
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelTapped:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -220,11 +221,15 @@
 }
 */
 
+- (void)cancelTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Venue *venueToPass = self.arrayOfLocations[indexPath.row];
     [self.delegate submitVenue:venueToPass];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - CLLocation Delegate Methods

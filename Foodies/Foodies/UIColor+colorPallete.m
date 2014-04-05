@@ -18,4 +18,9 @@
 {
     return [UIColor colorWithRed:0.792 green:0.792 blue:0.792 alpha:1.0];
 }
+
++ (UIColor *)semiTransparentWhiteColor
+{
+    return [UIColor colorWithRed:1 green:1 blue:1 alpha:.5];
+}
 @end
