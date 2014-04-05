@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIColor (colorPallete)
-+ (UIColor*)foodiesColor;
-+ (UIColor*)lighterGrayColor;
++ (UIColor *)foodiesColor;
++ (UIColor *)lighterGrayColor;
++ (UIColor *)semiTransparentWhiteColor;
 @end

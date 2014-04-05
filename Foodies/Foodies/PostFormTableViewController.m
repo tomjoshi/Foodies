@@ -19,7 +19,9 @@
 #import "TagPickerViewController.h"
 #import <Foursquare2.h>
 
-@interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate>
+@interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate, TagPickerDelegate>
+@property (weak, nonatomic) IBOutlet UITableViewCell *locationCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *tagCell;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageThumb;
 @property (weak, nonatomic) IBOutlet GCPlaceholderTextView *captionTextView;
@@ -53,9 +55,22 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.imageThumb setImage:[UIImage imageWithCGImage:[self.assetPassed thumbnail]]];
     
-    [[self tableView] registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    [[self tableView] registerClass:[UITableViewCell class] forCellReuseIdentifier:@"TagCell"];
     
     self.mealTags = [[NSMutableArray alloc] init];
+    
+    
+    FAKIonIcons *locationIcon = [FAKIonIcons locationIconWithSize:25];
+    [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
+    UIImage *locationIconImage = [locationIcon imageWithSize:CGSizeMake(25, 25)];
+    [self.locationCell.imageView setImage:locationIconImage];
+    NSLog(@"%f", self.locationCell.textLabel.frame.origin.x);
+    
+    FAKFontAwesome *tagIcon = [FAKFontAwesome tagIconWithSize:20];
+    [tagIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
+    UIImage *tagIconImage = [tagIcon imageWithSize:CGSizeMake(25, 25)];
+    [self.tagCell.imageView setImage:tagIconImage];
+    NSLog(@"%f", self.tagCell.textLabel.frame.origin.x);
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,7 +93,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqual:@"locationSegue"]) {
-        LocationPickerTableViewController *segueVC = segue.destinationViewController;
+        UINavigationController *segueNC = segue.destinationViewController;
+        LocationPickerTableViewController *segueVC = segueNC.viewControllers[0];
         segueVC.delegate = self;
         segueVC.latPassed = [self.assetPassed defaultRepresentation].metadata[@"{GPS}"][@"Latitude"];
         segueVC.lngPassed = [self.assetPassed defaultRepresentation].metadata[@"{GPS}"][@"Longitude"];
@@ -95,8 +111,14 @@
 {
     if (venue) {
         self.locationLabel.text = venue.name;
+        FAKIonIcons *locationIcon = [FAKIonIcons locationIconWithSize:25];
+        [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
+        UIImage *locationIconImage = [locationIcon imageWithSize:CGSizeMake(25, 25)];
+        [self.locationCell.imageView setImage:locationIconImage];
         self.venue = venue;
         [self.tableView reloadData];
+        
+        
         [Foursquare2 venueGetMenu:venue.venueId callback:^(BOOL success, id result) {
             NSLog(@"%@", result);
         }];
@@ -104,6 +126,19 @@
         
         
     }
+}
+
+- (void)submitTags:(NSArray *)tags
+{
+    if ([tags count] > 0) {
+        self.mealTags = [NSMutableArray arrayWithArray:tags];
+        [self.tableView reloadData];
+    }
+    
+    FAKFontAwesome *tagIcon = [FAKFontAwesome tagIconWithSize:20];
+    [tagIcon addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
+    UIImage *tagIconImage = [tagIcon imageWithSize:CGSizeMake(25, 25)];
+    [self.tagCell.imageView setImage:tagIconImage];
 }
 
 
@@ -197,17 +232,30 @@
             [fullStar addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
             
             UIButton *testButton = [[UIButton alloc] initWithFrame:CGRectMake(cell.bounds.size.width-cell.frame.size.height , 0, cell.frame.size.height, cell.frame.size.height)];
+//            UIButton *testButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tagCell.textLabel.frame.origin.x, cell.frame.size.height)];
             [testButton setAttributedTitle:[emptyStar attributedString] forState:UIControlStateNormal];
             [testButton setAttributedTitle:[fullStar attributedString] forState:UIControlStateSelected];
             [testButton addTarget:self action:@selector(toggleSelect:) forControlEvents:UIControlEventTouchUpInside];
             
-            UILabel *mealNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, cell.bounds.size.width-15, cell.bounds.size.height)];
+            UILabel *mealNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, cell.bounds.size.width-cell.frame.size.height-15, cell.bounds.size.height)];
             mealNameLabel.text = mealTag.meal.name;
             [cell addSubview:testButton];
             [cell addSubview:mealNameLabel];
             
+            
+            
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
+        } else if ([self.mealTags count] > 0){
+            NSString *mealLabel;
+            if ([self.mealTags count] > 1) {
+                mealLabel = @"Meals";
+            } else {
+                mealLabel = @"Meal";
+            }
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@",[self.mealTags count], mealLabel];
+        } else {
+            cell.detailTextLabel.text = @"";
         }
         
         if (!self.venue) {
@@ -256,6 +304,7 @@
         // Delete the row from the data source
         [self.mealTags removeObjectAtIndex:indexPath.row-1];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView reloadData];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
@@ -288,16 +337,20 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [[tableView cellForRowAtIndexPath:indexPath] setHighlighted:NO];
+    [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
+    
     if (indexPath.section == 2 && indexPath.row == 0) {
         TagPickerViewController *tagVC = [[TagPickerViewController alloc] init];
         ALAssetRepresentation *defaultRep = [self.assetPassed defaultRepresentation];
         tagVC.imageToTag = [UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0];
         tagVC.mealsVenue = self.venue;
+        tagVC.mealTags = self.mealTags;
+        tagVC.delegate = self;
         
         UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:tagVC];
         [navC.navigationBar setTranslucent:NO];
-//        [navC.navigationBar setBarTintColor:[UIColor foodiesColor]];
-        [self.navigationController presentViewController:navC animated:YES completion:nil];
+        [self presentViewController:navC animated:YES completion:nil];
     }
 }
 
