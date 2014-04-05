@@ -17,6 +17,7 @@
 #import "UIColor+colorPallete.h"
 #import "MealTag.h"
 #import "TagPickerViewController.h"
+#import <Foursquare2.h>
 
 @interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
@@ -96,6 +97,13 @@
     if (venue) {
         self.locationLabel.text = venue.name;
         self.venue = venue;
+        
+        [Foursquare2 venueGetMenu:venue.venueId callback:^(BOOL success, id result) {
+            NSLog(@"%@", result);
+        }];
+        
+        
+        
     }
 }
 

@@ -10,7 +10,7 @@
 
 @implementation Meal
 
-- (instancetype)initWithName:(NSString *)name FoodPost:(FoodPost *)foodPost Score:(NSNumber *)score andVenue:(Venue *)venue
+- (instancetype)initWithName:(NSString *)name FoodPost:(FoodPost *)foodPost Score:(NSNumber *)score mealId:(NSString *)mealId andVenue:(Venue *)venue
 {
     self = [super init];
     if (self) {
@@ -28,13 +28,16 @@
         if (venue) {
             _venue = venue;
         }
+        if (mealId) {
+            _mealId = mealId;
+        }
     }
     return self;
 }
 
 - (instancetype)init
 {
-    return [self initWithName:@"Lobster Roll" FoodPost:nil Score:nil andVenue:nil];
+    return [self initWithName:@"Lobster Roll" FoodPost:nil Score:nil mealId:nil andVenue:nil];
 }
 
 @end
