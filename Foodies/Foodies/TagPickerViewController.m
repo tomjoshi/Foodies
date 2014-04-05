@@ -181,7 +181,7 @@
     [cancelButton addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     [self.cancelTableButton setAttributedTitle:[cancelButton attributedString] forState:UIControlStateNormal];
     [self.cancelTableButton addTarget:self action:@selector(dismissTable) forControlEvents:UIControlEventTouchUpInside];
-    [self.cancelTableButton setBackgroundColor:[UIColor lightGrayColor]];
+    [self.cancelTableButton setBackgroundColor:[UIColor grayColor]];
     [self.cancelTableButton setEnabled:NO];
     [self.cancelTableButton setAlpha:0];
     self.cancelTableButton.layer.cornerRadius = self.cancelTableButton.frame.size.width/2;
@@ -271,7 +271,7 @@
                 [self.instructionLabel setAlpha:0];
                 [self.menuTable setAlpha:1];
                 [self.menuTable setScrollEnabled:YES];
-                [self.cancelTableButton setAlpha:.8];
+                [self.cancelTableButton setAlpha:.6];
                 [self.cancelTableButton setEnabled:YES];
             }];
         }
@@ -384,16 +384,7 @@
 
 - (void)dismissTable
 {
-    
-    if ([self.mealTags count]>0) {
-        [self setDoneButton];
-    } else{
-        [self unsetDoneButton];
-    }
-    
     [self.tagSearch resignFirstResponder];
-    [self.tagSearch setText:@""];
-    
     
     [UIView animateWithDuration:.3 animations:^{
         //        [self.menuTable setFrame:CGRectMake(0, self.view.frame.size.width, self.view.frame.size.width, self.view.frame.size.height- self.view.frame.size.width)];
@@ -402,8 +393,15 @@
         [self.cancelTableButton setAlpha:0];
         [self.cancelTableButton setEnabled:NO];
         [self.menuTable setScrollEnabled:NO];
+        
+        if ([self.mealTags count]>0) {
+            [self setDoneButton];
+        } else{
+            [self unsetDoneButton];
+        }
     } completion:^(BOOL finished) {
         [self.menuTable setContentOffset:CGPointZero];
+        [self.tagSearch setText:@""];
     }];
 }
 
