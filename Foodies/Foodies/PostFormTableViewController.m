@@ -132,13 +132,21 @@
 {
     if ([tags count] > 0) {
         self.mealTags = [NSMutableArray arrayWithArray:tags];
+        
+        FAKFontAwesome *tagIcon = [FAKFontAwesome tagIconWithSize:20];
+        [tagIcon addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
+        UIImage *tagIconImage = [tagIcon imageWithSize:CGSizeMake(25, 25)];
+        [self.tagCell.imageView setImage:tagIconImage];
+        
         [self.tableView reloadData];
+    } else {
+        self.mealTags = [[NSMutableArray alloc] init];
+        FAKFontAwesome *tagIcon = [FAKFontAwesome tagIconWithSize:20];
+        [tagIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
+        UIImage *tagIconImage = [tagIcon imageWithSize:CGSizeMake(25, 25)];
+        [self.tagCell.imageView setImage:tagIconImage];
     }
     
-    FAKFontAwesome *tagIcon = [FAKFontAwesome tagIconWithSize:20];
-    [tagIcon addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
-    UIImage *tagIconImage = [tagIcon imageWithSize:CGSizeMake(25, 25)];
-    [self.tagCell.imageView setImage:tagIconImage];
 }
 
 
@@ -256,6 +264,10 @@
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@",[self.mealTags count], mealLabel];
         } else {
             cell.detailTextLabel.text = @"";
+            FAKFontAwesome *tagIcon = [FAKFontAwesome tagIconWithSize:20];
+            [tagIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
+            UIImage *tagIconImage = [tagIcon imageWithSize:CGSizeMake(25, 25)];
+            [self.tagCell.imageView setImage:tagIconImage];
         }
         
         if (!self.venue) {
