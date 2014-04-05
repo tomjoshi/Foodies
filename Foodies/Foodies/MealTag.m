@@ -23,7 +23,7 @@
 {
     self = [super init];
     if (self) {
-        _meal = [[Meal alloc] initWithName:name FoodPost:nil Score:nil andVenue:nil];
+        _meal = [[Meal alloc] initWithName:name FoodPost:nil Score:nil mealId:nil andVenue:nil];
         _coordinates = point;
     }
     return self;

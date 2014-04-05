@@ -337,7 +337,6 @@
 		D183514A18BBAE5B00303868 /* Foodies */ = {
 			isa = PBXGroup;
 			children = (
-				D110B00418CA561F0077D25B /* Image */,
 				D183515318BBAE5B00303868 /* AppDelegate.h */,
 				D183515418BBAE5B00303868 /* AppDelegate.m */,
 				D183515918BBAE5B00303868 /* Main_iPad.storyboard */,
@@ -355,6 +354,7 @@
 				D12A5F5E18E37D55000BF74A /* Landing */,
 				D110AFF418CA43750077D25B /* Camera */,
 				D110AFF318CA43610077D25B /* Feed */,
+				D110B00418CA561F0077D25B /* Image */,
 				D183516218BBAE5B00303868 /* Images.xcassets */,
 				D183514B18BBAE5B00303868 /* Supporting Files */,
 			);
