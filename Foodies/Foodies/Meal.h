@@ -15,9 +15,10 @@
 @property (strong, nonatomic) NSSet *foodPosts;
 @property (strong, nonatomic) Venue *venue;
 @property (strong, nonatomic) NSNumber *score;
+@property (strong, nonatomic) NSString *mealId;
 
-// properties missing: tips, wants, meal id
+// properties missing: tips, wants
 
 
-- (instancetype)initWithName:(NSString *)name FoodPost:(FoodPost *)foodPost Score:(NSNumber *)score andVenue:(Venue *)venue;
+- (instancetype)initWithName:(NSString *)name FoodPost:(FoodPost *)foodPost Score:(NSNumber *)score mealId:(NSString *)mealId andVenue:(Venue *)venue;
 @end
