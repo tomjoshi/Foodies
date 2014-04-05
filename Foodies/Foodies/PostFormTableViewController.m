@@ -78,8 +78,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqual:@"locationSegue"]) {
-        UINavigationController *segueNC = segue.destinationViewController;
-        LocationPickerTableViewController *segueVC = segueNC.viewControllers[0];
+        LocationPickerTableViewController *segueVC = segue.destinationViewController;
         segueVC.delegate = self;
         segueVC.latPassed = [self.assetPassed defaultRepresentation].metadata[@"{GPS}"][@"Latitude"];
         segueVC.lngPassed = [self.assetPassed defaultRepresentation].metadata[@"{GPS}"][@"Longitude"];
@@ -97,7 +96,7 @@
     if (venue) {
         self.locationLabel.text = venue.name;
         self.venue = venue;
-        
+        [self.tableView reloadData];
         [Foursquare2 venueGetMenu:venue.venueId callback:^(BOOL success, id result) {
             NSLog(@"%@", result);
         }];
@@ -210,6 +209,12 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
         }
+        
+        if (!self.venue) {
+            [cell setHidden:YES];
+        } else {
+            [cell setHidden:NO];
+        }
     }
     
     return cell;
@@ -229,6 +234,9 @@
     
     // if dynamic section make all rows the same height as row 0
     if (section == 2) {
+        if (!self.venue) {
+            return 0;
+        }
         return [super tableView:tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
     } else {
         return [super tableView:tableView heightForRowAtIndexPath:indexPath];

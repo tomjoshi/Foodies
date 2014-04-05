@@ -19,7 +19,6 @@
 @property (strong, nonatomic) NSArray *arrayOfLocations;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
-- (IBAction)cancelTapped:(id)sender;
 @end
 
 @implementation LocationPickerTableViewController
@@ -221,15 +220,11 @@
 }
 */
 
-- (IBAction)cancelTapped:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Venue *venueToPass = self.arrayOfLocations[indexPath.row];
     [self.delegate submitVenue:venueToPass];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - CLLocation Delegate Methods
