@@ -40,7 +40,8 @@ PODS:
   - GTScrollNavigationBar (0.1.1)
   - MBProgressHUD (0.8)
   - Shimmer (1.0.1)
-  - TTTAttributedLabel (1.9.3)
+  - TTTAttributedLabel (1.9.4)
+  - WEPopover (1.0.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
@@ -53,6 +54,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.8)
   - Shimmer (~> 1.0)
   - TTTAttributedLabel
+  - WEPopover (~> 1.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
@@ -64,6 +66,7 @@ SPEC CHECKSUMS:
   GTScrollNavigationBar: 10fc5b2d04e8d49785a6a9d957c0582d495d1cfa
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   Shimmer: a1b92685f04ae7363e655f636a41a276dbb1507e
-  TTTAttributedLabel: e65b9dd6aadb409ca07cb16034e94537e4ddab36
+  TTTAttributedLabel: 617e14e3590a4afc9bc35dd999eb37e888996f36
+  WEPopover: 448ce0482739057ad7dfff2fe0438cc55ed38164
 
 COCOAPODS: 0.29.0

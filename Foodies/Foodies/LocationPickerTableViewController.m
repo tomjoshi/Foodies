@@ -51,6 +51,9 @@
     }
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelTapped:)];
+    
+//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"resultCell"];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,29 +77,7 @@
                                     categoryId:@"4d4b7105d754a06374d81259" //food category
                                       callback:^(BOOL success, id result)
          {
-             
-             NSArray *venues = result[@"response"][@"venues"];
-             NSMutableArray *mutableVenues = [NSMutableArray new];
-             for (NSDictionary *venueDict in venues)
-             {
-                 NSDictionary *locationDictionary = venueDict[@"location"];
-                 Location *location = [[Location alloc] initWithlat:locationDictionary[@"lat"]
-                                                                lng:locationDictionary[@"lng"]
-                                                            address:locationDictionary[@"address"]
-                                                               city:locationDictionary[@"city"]
-                                                              state:locationDictionary[@"state"]
-                                                         postalCode:locationDictionary[@"postalCode"]
-                                                            country:locationDictionary[@"country"]
-                                                        crossStreet:locationDictionary[@"crossStreet"]];
-                 
-                 Venue *venue = [[Venue alloc] initWithName:venueDict[@"name"]
-                                                    venueId:venueDict[@"id"]
-                                                   location:location];
-                 [mutableVenues addObject:venue];
-             }
-             self.arrayOfLocations = mutableVenues;
-             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+             [self getLocationsFromResult:result];
          }];
         
 
@@ -159,14 +140,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"resultCell" forIndexPath:indexPath];
- 
-    // Configure the cell...
-    Venue *venueForCell = self.arrayOfLocations[indexPath.row];
-    cell.textLabel.text = venueForCell.name;
-    if (![venueForCell.location.address isKindOfClass:[NSNull class]]) {
-        cell.detailTextLabel.text = [venueForCell.location description];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"resultCell"];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"resultCell"];
     }
+    
+    // Configure the cell...
+    Venue *venueForCell;
+    if ([self.arrayOfLocations count]>indexPath.row) {
+         venueForCell = self.arrayOfLocations[indexPath.row];
+    } else {
+        venueForCell = [[Venue alloc] initWithName:@"" venueId:@"" location:nil];
+    }
+    cell.textLabel.text = venueForCell.name;
+//    if (![venueForCell.location.address isKindOfClass:[NSNull class]]) {
+        cell.detailTextLabel.text = [venueForCell.location description];
+//    }
     
     return cell;
 }
@@ -227,9 +217,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Venue *venueToPass = self.arrayOfLocations[indexPath.row];
-    [self.delegate submitVenue:venueToPass];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.arrayOfLocations[indexPath.row]) {
+        Venue *venueToPass = self.arrayOfLocations[indexPath.row];
+        [self.delegate submitVenue:venueToPass];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - CLLocation Delegate Methods
@@ -245,5 +237,44 @@
     UIAlertView *failedLocation = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to find your location" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [failedLocation show];
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    [Foursquare2 venueSearchNearByLatitude:self.latPassed longitude:self.lngPassed query:searchBar.text limit:@(20) intent:intentBrowse radius:@500 categoryId:@"4d4b7105d754a06374d81259" callback:^(BOOL success, id result) {
+        [self.LocationSearchBar resignFirstResponder];
+        [self getLocationsFromResult:result];
+    }];
+}
+
+- (void)getLocationsFromResult:(id)result
+{
+    NSArray *venues = result[@"response"][@"venues"];
+    NSMutableArray *mutableVenues = [NSMutableArray new];
+    for (NSDictionary *venueDict in venues)
+    {
+        NSDictionary *locationDictionary = venueDict[@"location"];
+        Location *location = [[Location alloc] initWithlat:locationDictionary[@"lat"]
+                                                       lng:locationDictionary[@"lng"]
+                                                   address:locationDictionary[@"address"]
+                                                      city:locationDictionary[@"city"]
+                                                     state:locationDictionary[@"state"]
+                                                postalCode:locationDictionary[@"postalCode"]
+                                                   country:locationDictionary[@"country"]
+                                               crossStreet:locationDictionary[@"crossStreet"]];
+        
+        Venue *venue = [[Venue alloc] initWithName:venueDict[@"name"]
+                                           venueId:venueDict[@"id"]
+                                          location:location];
+        [mutableVenues addObject:venue];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.arrayOfLocations = mutableVenues;
+        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        [self.tableView reloadData];
+        [self.searchDisplayController.searchResultsTableView reloadData];
+    });
+}
+
 
 @end
