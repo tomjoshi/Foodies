@@ -644,4 +644,13 @@
     }    
 }
 
+- (CGPoint)pointCoordinates
+{
+    if (self.isArrowUp) {
+        return CGPointMake(self.arrowPoint.x, self.arrowPoint.y-1);
+    } else {
+        return CGPointMake(self.arrowPoint.x, self.arrowPoint.y+1);
+    }
+}
+
 @end
