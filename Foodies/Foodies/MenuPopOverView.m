@@ -32,6 +32,8 @@
 @property (strong, nonatomic) NSMutableArray *pageButtons; // of NSArray for each page of UIButtons.
 @property (strong, nonatomic) NSMutableArray *dividers; // of CGRect frame of dividers
 
+@property (strong, nonatomic) UITapGestureRecognizer *tap;
+
 @property (nonatomic) CGRect boxFrame;
 @property (nonatomic) int pageIndex;
 
@@ -94,6 +96,23 @@
         
         [self.buttons addObject:textButton];
     }
+    
+//    // generate buttons from attributed string
+//    for (NSAttributedString *attributedString in stringArray) {
+//        CGSize textSize = [attributedString size];
+//        UIButton *textButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, textSize.width + 2 * kTextEdgeInsets, kButtonHeight)];
+//        textButton.enabled = NO;
+//        textButton.backgroundColor = kBackgroundColor;
+//        textButton.titleLabel.font = kTextFont;
+//        textButton.titleLabel.textColor = kTextColor;
+//        textButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+//        [textButton setAttributedTitle:attributedString forState:UIControlStateNormal];
+//        [textButton addTarget:self action:@selector(didTapButton:) forControlEvents:UIControlEventTouchUpInside];
+//        [textButton addTarget:self action:@selector(changeBackgroundColor:) forControlEvents:UIControlEventTouchDown];
+//        [textButton addTarget:self action:@selector(resetBackgroundColor:) forControlEvents:UIControlEventTouchUpOutside];
+//        
+//        [self.buttons addObject:textButton];
+//    }
     
     // put these buttons into right position
     float totalWidth = [self reArrangeButtons:self.buttons];
@@ -381,13 +400,21 @@
     self.frame = topViewBounds;
     [self setNeedsDisplay];
     
-    [self addSubview:_contentView];
-    [topView addSubview:self];
+    if (![self.subviews containsObject:_contentView]) {
+        [self addSubview:_contentView];
+    }
     
-    //Add a tap gesture recognizer to the large invisible view (self), which will detect taps anywhere on the screen.
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
-    tap.cancelsTouchesInView = NO; // Allow touches through to a UITableView or other touchable view, as suggested by Dimajp.
-    [self addGestureRecognizer:tap];
+    if (![topView.subviews containsObject:self]) {
+        [topView addSubview:self];
+    }
+    
+    
+    if (![self.gestureRecognizers containsObject:self.tap]) {
+        //Add a tap gesture recognizer to the large invisible view (self), which will detect taps anywhere on the screen.
+        self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+        self.tap.cancelsTouchesInView = NO; // Allow touches through to a UITableView or other touchable view, as suggested by Dimajp.
+        [self addGestureRecognizer:self.tap];
+    }
     self.userInteractionEnabled = YES;
 }
 
