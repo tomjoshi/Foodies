@@ -17,10 +17,12 @@
 #import <SMCalloutView.h>
 #import <WEPopoverController.h>
 #import "MenuPopOverView.h"
+#import "MealTag.h"
 
 @interface FeedTableViewCell () <MenuPopOverViewDelegate>
 @property (strong, nonatomic) TTTAttributedLabel *likesLabel;
 @property (strong, nonatomic) UIView *likesAndCommentsView;
+@property (nonatomic) BOOL tagsAreVisible;
 
 @end
 @implementation FeedTableViewCell
@@ -119,13 +121,22 @@
     postImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:postImageView];
     
+    // add single tap gesture recognizer
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showTags)];
+    singleTap.numberOfTapsRequired = 1;
+    [postImageView addGestureRecognizer:singleTap];
+    
     // add double tap gesture recognizer
     UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likePost)];
     doubleTapGestureRecognizer.numberOfTapsRequired = 2;
     [postImageView addGestureRecognizer:doubleTapGestureRecognizer];
     
-    //tapGestureRecognizer.delegate = self;
+    // this is wrong but it works for now
     [self addGestureRecognizer:doubleTapGestureRecognizer];
+    [self addGestureRecognizer:singleTap];
+    
+    // require double tap to fail for single tap to work
+    [singleTap requireGestureRecognizerToFail:doubleTapGestureRecognizer];
 
     
     // set a subview for likes and comments
@@ -270,5 +281,17 @@
     NSLog(@"wantstocomment");
     // push a comment view controller (or tableviewcontroller may be better)
 }
+
+- (void)showTags
+{
+    if (self.tagsAreVisible) {
+        [self.delegate hideTags:self.indexPath];
+        self.tagsAreVisible = NO;
+    } else {
+        [self.delegate showTags:self.indexPath];
+        self.tagsAreVisible = YES;
+    }
+}
+
 
 @end

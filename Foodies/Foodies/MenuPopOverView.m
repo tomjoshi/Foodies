@@ -31,7 +31,6 @@
 @property (strong, nonatomic) NSMutableArray *pageButtons; // of NSArray for each page of UIButtons.
 @property (strong, nonatomic) NSMutableArray *dividers; // of CGRect frame of dividers
 
-@property (strong, nonatomic) UITapGestureRecognizer *tap;
 
 @property (nonatomic) CGRect boxFrame;
 @property (nonatomic) int pageIndex;

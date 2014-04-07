@@ -13,8 +13,9 @@
 #import "FoodiesDataStore.h"
 #import "FeedTableViewCellDelegate.h"
 #import <FontAwesomeKit.h>
+#import "MealTag.h"
 
-@interface FeedTableViewController () <FeedTableViewCellDelegate>
+@interface FeedTableViewController () <FeedTableViewCellDelegate, MenuPopOverViewDelegate>
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -163,4 +164,26 @@
         }];
     }];
 }
+
+- (void)showTags:(NSIndexPath *)indexPath
+{
+    FeedTableViewCell *cell = (FeedTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    
+    for (MealTag *mealTag in [cell.foodPostInCell getTags]) {
+        [mealTag showTagInView: cell.postImageView];
+        mealTag.popOver.delegate = self;
+    }
+    
+}
+
+- (void)hideTags:(NSIndexPath *)indexPath
+{
+    FeedTableViewCell *cell = (FeedTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    
+    for (MealTag *mealTag in [cell.foodPostInCell getTags]) {
+        [mealTag.popOver dismiss:YES];
+    }
+    
+}
+
 @end

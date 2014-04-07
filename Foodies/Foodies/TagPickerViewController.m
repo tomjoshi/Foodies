@@ -17,7 +17,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <FontAwesomeKit.h>
 
-@interface TagPickerViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate>
+@interface TagPickerViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate, MenuPopOverViewDelegate, UIGestureRecognizerDelegate>
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UISearchBar *tagSearch;
 @property (strong, nonatomic) UISearchDisplayController *searchController;
@@ -27,7 +27,11 @@
 @property (strong, nonatomic) NSMutableArray *mealsArray;
 @property (strong, nonatomic) NSTimer *tableShrinkTimer;
 @property (strong, nonatomic) UIButton *cancelTableButton;
+@property (nonatomic) CGPoint newTagCoordinates;
 @property (nonatomic) BOOL isCancelled;
+@property (strong, nonatomic) UIPanGestureRecognizer *panTag;
+@property (strong, nonatomic) UITapGestureRecognizer *tapOnImage;
+@property (strong, nonatomic) MealTag *editableTag;
 
 @end
 
@@ -196,6 +200,8 @@
     [self.view addSubview:self.imageView];
     [self.view sendSubviewToBack:self.imageView];
     
+    // show tags
+    [self showTags];
     
     // add instructions label
     self.instructionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, screenWidth, screenWidth, screenHeight-screenWidth-64)];
@@ -219,8 +225,17 @@
     
     
     // add tap gesture
-    UITapGestureRecognizer *tapOnImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
-    [self.view addGestureRecognizer:tapOnImage];
+    self.tapOnImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    self.tapOnImage.delegate = self;
+    [self.view addGestureRecognizer:self.tapOnImage];
+    
+    // add pan gesture
+    self.panTag = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panPopOver:)];
+    self.panTag.delaysTouchesBegan = NO;
+    self.panTag.delaysTouchesEnded = NO;
+    
+    // require taponimage only to work if pan does not work
+    [self.tapOnImage requireGestureRecognizerToFail:self.panTag];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
@@ -258,6 +273,17 @@
 - (void)singleTap:(UITapGestureRecognizer *)sender
 {
     CGPoint touchedPoint = [sender locationInView:self.view];
+    
+    for (MealTag *mealTag in self.mealTags) {
+        for (UIButton *button in mealTag.popOver.buttons) {
+            CGRect buttonFrame = [button.superview convertRect:button.frame toView:self.view];
+            if (CGRectContainsPoint(buttonFrame, touchedPoint)) {
+                [button sendActionsForControlEvents: UIControlEventTouchUpInside];
+                return;
+            }
+        }
+    }
+    
     if (CGRectContainsPoint(self.imageView.frame, touchedPoint) && self.instructionLabel.alpha == 1) {
         NSLog(@"image was tapped");
 //        [self.tagSearch setHidden:NO];
@@ -265,13 +291,24 @@
         
         NSLog(@"x:%f, y:%f", touchedPoint.x, touchedPoint.y);
         
+        // save coordinates of touch;
+        self.newTagCoordinates = touchedPoint;
+        
+        // stop editing tag
+        if (self.editableTag) {
+            [self.editableTag stopTagEditable];
+            self.editableTag.popOver.delegate = self;
+            self.editableTag = nil;
+            [self.view removeGestureRecognizer:self.panTag];
+        }
+        
         // make menuitems
         if (self.instructionLabel.alpha == 1) {
             [UIView animateWithDuration:.3 animations:^{
                 [self.instructionLabel setAlpha:0];
                 [self.menuTable setAlpha:1];
                 [self.menuTable setScrollEnabled:YES];
-                [self.cancelTableButton setAlpha:.6];
+                [self.cancelTableButton setAlpha:.8];
                 [self.cancelTableButton setEnabled:YES];
             }];
         }
@@ -304,8 +341,13 @@
 {
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
     [[tableView cellForRowAtIndexPath:indexPath] setHighlighted:NO];
-    [self.mealTags addObject:self.mealsArray[indexPath.row]];
+    MealTag *tagToAdd = self.mealsArray[indexPath.row];
+    tagToAdd.coordinates = self.newTagCoordinates;
+    if (![self.mealTags containsObject:tagToAdd]) {
+        [self.mealTags addObject:tagToAdd];
+    }
     [self dismissTable];
+    [self showTags];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -421,5 +463,63 @@
 {
     self.navigationItem.rightBarButtonItem = nil;
 }
+
+- (void)showTags
+{
+    for (MealTag *mealTag in self.mealTags) {
+        [mealTag showTagInView:self.imageView];
+        mealTag.popOver.delegate = self;
+    }
+}
+
+- (void)popoverView:(MenuPopOverView *)popoverView didSelectItemAtIndex:(NSInteger)index
+{
+    if (index == 0) {
+        NSLog(@"clicked on food");
+        
+        for (MealTag *mealTag in self.mealTags) {
+            if ([mealTag.popOver isEqual:popoverView]) {
+                if (![self.editableTag isEqual:mealTag]) {
+                    if (self.editableTag) {
+                        // if something was being edited, stop it
+                        [self.editableTag stopTagEditable];
+                        self.editableTag.popOver.delegate = self;
+                    }
+                    [mealTag makeTagEditable];
+                    self.editableTag = mealTag;
+                    mealTag.popOver.delegate = self;
+                    if (![self.view.gestureRecognizers containsObject:self.panTag]) {
+                        [self.view addGestureRecognizer:self.panTag];
+                    }
+                } else {
+                    // if an editable tag was pressed, stop it
+                    [mealTag stopTagEditable];
+                    mealTag.popOver.delegate = self;
+                    self.editableTag = nil;
+                    [self.view removeGestureRecognizer:self.panTag];
+                }
+            }
+        }
+    } else if (index == 1) {
+        NSLog(@"clicked on close icon");
+        for (MealTag *mealTag in self.mealTags) {
+            if ([mealTag.popOver isEqual:popoverView]) {
+                [self.mealTags removeObject:mealTag];
+                break;
+            }
+        }
+        [popoverView dismiss:YES];
+    }
+}
+
+- (void)panPopOver:(UIPanGestureRecognizer *)recognizer
+{
+    CGPoint translation = [recognizer translationInView:self.imageView];
+    MenuPopOverView *popOver = self.editableTag.popOver;
+    self.editableTag.coordinates = CGPointMake(popOver.pointCoordinates.x + translation.x, popOver.pointCoordinates.y + translation.y);
+    [popOver setupLayout:CGRectMake(self.editableTag.coordinates.x, self.editableTag.coordinates.y, 0, 0) inView:self.imageView];
+    [recognizer setTranslation:CGPointMake(0, 0) inView:self.imageView];
+}
+
 
 @end

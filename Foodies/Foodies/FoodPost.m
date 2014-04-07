@@ -103,4 +103,9 @@
     [self.comments addObject:newComment];
 }
 
+- (NSSet *)getTags
+{
+    return self.mealTags;
+}
+
 @end
