@@ -82,14 +82,27 @@
 
     // generate buttons for string array
     for (NSString *string in stringArray) {
-        CGSize textSize = [string sizeWithAttributes:@{NSFontAttributeName: kTextFont}];
+        CGSize textSize;
+        if ([[string class] isSubclassOfClass:[NSAttributedString class]]) {
+            textSize = [(NSAttributedString *)string size];
+        } else {
+            textSize = [string sizeWithAttributes:@{NSFontAttributeName: kTextFont}];
+        }
+        
         UIButton *textButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, textSize.width + 2 * kTextEdgeInsets, kButtonHeight)];
         textButton.enabled = NO;
         textButton.backgroundColor = kBackgroundColor;
         textButton.titleLabel.font = kTextFont;
         textButton.titleLabel.textColor = kTextColor;
         textButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [textButton setTitle:string forState:UIControlStateNormal];
+        
+        
+        if ([[string class] isSubclassOfClass:[NSAttributedString class]]) {
+            [textButton setAttributedTitle:(NSAttributedString*)string forState:UIControlStateNormal];
+        } else {
+            [textButton setTitle:string forState:UIControlStateNormal];
+        }
+        
         [textButton addTarget:self action:@selector(didTapButton:) forControlEvents:UIControlEventTouchUpInside];
         [textButton addTarget:self action:@selector(changeBackgroundColor:) forControlEvents:UIControlEventTouchDown];
         [textButton addTarget:self action:@selector(resetBackgroundColor:) forControlEvents:UIControlEventTouchUpOutside];
