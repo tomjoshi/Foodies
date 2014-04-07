@@ -58,11 +58,9 @@
     CGPoint translation = [recognizer translationInView:self.foodImage];
 //    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x, recognizer.view.center.y + translation.y);
     MenuPopOverView *popOver = (MenuPopOverView *)recognizer.view;
-    if (popOver.isArrowUp) {
-        [popOver setupLayout:CGRectMake(popOver.arrowPoint.x + translation.x, popOver.arrowPoint.y-1 + translation.y, 0, 0) inView:self.foodImage];
-    } else {
-        [popOver setupLayout:CGRectMake(popOver.arrowPoint.x + translation.x, popOver.arrowPoint.y+1 + translation.y, 0, 0) inView:self.foodImage];
-    }
+
+    [popOver setupLayout:CGRectMake(popOver.pointCoordinates.x + translation.x, popOver.pointCoordinates.y + translation.y, 0, 0) inView:self.foodImage];
+
     
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.foodImage];
     
@@ -75,9 +73,8 @@
     if (index == 0) {
         NSLog(@"clicked on food");
         
-        CGPoint tempArrowPoint = popoverView.arrowPoint;
+        CGPoint tempCoordinates = popoverView.pointCoordinates;
         NSInteger tempButtons = [popoverView.buttons count];
-        BOOL tempIsArrowUp = popoverView.isArrowUp;
         [popoverView removeFromSuperview];
         popoverView = [[MenuPopOverView alloc] init];
         popoverView.delegate = self;
@@ -86,18 +83,10 @@
             // make close icon
             FAKIonIcons *closeIcon = [FAKIonIcons closeCircledIconWithSize:18];
             [closeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-            if (tempIsArrowUp) {
-                [popoverView presentPopoverFromRect:CGRectMake(tempArrowPoint.x, tempArrowPoint.y-1, 0, 0) inView:self.foodImage withStrings:@[@"Spicy Miso Ramen",[closeIcon attributedString]]];
-            } else {
-                [popoverView presentPopoverFromRect:CGRectMake(tempArrowPoint.x, tempArrowPoint.y+1, 0, 0) inView:self.foodImage withStrings:@[@"Spicy Miso Ramen",[closeIcon attributedString]]];
-            }
+            [popoverView presentPopoverFromRect:CGRectMake(tempCoordinates.x, tempCoordinates.y, 0, 0) inView:self.foodImage withStrings:@[@"Spicy Miso Ramen",[closeIcon attributedString]]];
             [popoverView addGestureRecognizer:self.pan];
         } else if (tempButtons==2) {
-            if (tempIsArrowUp) {
-                [popoverView presentPopoverFromRect:CGRectMake(tempArrowPoint.x, tempArrowPoint.y-1, 0, 0) inView:self.foodImage withStrings:@[@"Spicy Miso Ramen"]];
-            } else {
-                [popoverView presentPopoverFromRect:CGRectMake(tempArrowPoint.x, tempArrowPoint.y+1, 0, 0) inView:self.foodImage withStrings:@[@"Spicy Miso Ramen"]];
-            }
+            [popoverView presentPopoverFromRect:CGRectMake(tempCoordinates.x, tempCoordinates.y, 0, 0) inView:self.foodImage withStrings:@[@"Spicy Miso Ramen"]];
         }
         
     } else if (index == 1) {
