@@ -14,9 +14,11 @@
 #import "UIColor+colorPallete.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Like.h"
+#import <SMCalloutView.h>
 #import <WEPopoverController.h>
+#import "MenuPopOverView.h"
 
-@interface FeedTableViewCell ()
+@interface FeedTableViewCell () <MenuPopOverViewDelegate>
 @property (strong, nonatomic) TTTAttributedLabel *likesLabel;
 @property (strong, nonatomic) UIView *likesAndCommentsView;
 
@@ -116,15 +118,6 @@
     [postImageView setFrame:CGRectMake(0, 2*labelHeight, cellWidth, cellWidth)];
     postImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:postImageView];
-    
-    // put the tags in the imageview
-    UIMenuController *menu = [UIMenuController sharedMenuController];
-    [menu setTargetRect:CGRectMake(30, 30, 30, 30) inView:postImageView];
-    UIMenuItem *testItem = [[UIMenuItem alloc] init];
-    testItem.title = @"Test";
-    [menu setMenuItems:@[testItem]];
-    [menu setMenuVisible:YES];
-    
     
     // add double tap gesture recognizer
     UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(likePost)];
@@ -249,9 +242,8 @@
     // resize content view
     [self.contentView resizeToFitSubviews];
 
-    
-
 }
+
 
 - (void)likePost
 {
