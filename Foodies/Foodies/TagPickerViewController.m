@@ -300,6 +300,7 @@
             self.editableTag.popOver.delegate = self;
             self.editableTag = nil;
             [self.view removeGestureRecognizer:self.panTag];
+            return;
         }
         
         // make menuitems
