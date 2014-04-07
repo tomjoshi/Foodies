@@ -23,6 +23,8 @@
 @property (nonatomic) CGRect presentedRect;
 @property (nonatomic) BOOL isArrowUp;
 @property (nonatomic) CGPoint arrowPoint;
+@property (strong, nonatomic) NSMutableArray *buttons; // of MenuPopOverButton
 - (void)presentPopoverFromRect:(CGRect)rect inView:(UIView *)view withStrings:(NSArray *)stringArray;
 - (void)setupLayout:(CGRect)rect inView:(UIView*)view;
+- (void)dismiss:(BOOL)animate;
 @end

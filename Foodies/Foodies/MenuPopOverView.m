@@ -28,7 +28,6 @@
 @interface MenuPopOverView()
 
 @property (strong, nonatomic) UIView *contentView;
-@property (strong, nonatomic) NSMutableArray *buttons; // of MenuPopOverButton
 @property (strong, nonatomic) NSMutableArray *pageButtons; // of NSArray for each page of UIButtons.
 @property (strong, nonatomic) NSMutableArray *dividers; // of CGRect frame of dividers
 
@@ -65,6 +64,8 @@
 
 - (void)presentPopoverFromRect:(CGRect)rect inView:(UIView *)view withStrings:(NSArray *)stringArray {
     
+    [self removeFromSuperview];
+    
     if ([stringArray count] == 0) {
         return;
     }
@@ -88,21 +89,17 @@
         } else {
             textSize = [string sizeWithAttributes:@{NSFontAttributeName: kTextFont}];
         }
-        
         UIButton *textButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, textSize.width + 2 * kTextEdgeInsets, kButtonHeight)];
         textButton.enabled = NO;
         textButton.backgroundColor = kBackgroundColor;
         textButton.titleLabel.font = kTextFont;
         textButton.titleLabel.textColor = kTextColor;
         textButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        
-        
         if ([[string class] isSubclassOfClass:[NSAttributedString class]]) {
             [textButton setAttributedTitle:(NSAttributedString*)string forState:UIControlStateNormal];
         } else {
             [textButton setTitle:string forState:UIControlStateNormal];
         }
-        
         [textButton addTarget:self action:@selector(didTapButton:) forControlEvents:UIControlEventTouchUpInside];
         [textButton addTarget:self action:@selector(changeBackgroundColor:) forControlEvents:UIControlEventTouchDown];
         [textButton addTarget:self action:@selector(resetBackgroundColor:) forControlEvents:UIControlEventTouchUpOutside];
@@ -110,25 +107,9 @@
         [self.buttons addObject:textButton];
     }
     
-//    // generate buttons from attributed string
-//    for (NSAttributedString *attributedString in stringArray) {
-//        CGSize textSize = [attributedString size];
-//        UIButton *textButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, textSize.width + 2 * kTextEdgeInsets, kButtonHeight)];
-//        textButton.enabled = NO;
-//        textButton.backgroundColor = kBackgroundColor;
-//        textButton.titleLabel.font = kTextFont;
-//        textButton.titleLabel.textColor = kTextColor;
-//        textButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-//        [textButton setAttributedTitle:attributedString forState:UIControlStateNormal];
-//        [textButton addTarget:self action:@selector(didTapButton:) forControlEvents:UIControlEventTouchUpInside];
-//        [textButton addTarget:self action:@selector(changeBackgroundColor:) forControlEvents:UIControlEventTouchDown];
-//        [textButton addTarget:self action:@selector(resetBackgroundColor:) forControlEvents:UIControlEventTouchUpOutside];
-//        
-//        [self.buttons addObject:textButton];
-//    }
-    
     // put these buttons into right position
     float totalWidth = [self reArrangeButtons:self.buttons];
+    
     for (NSArray *btns in self.pageButtons) {
         for (UIButton *b in btns) {
             [buttonContainer addSubview:b];
