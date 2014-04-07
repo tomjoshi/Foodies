@@ -26,4 +26,5 @@
 - (BOOL)isLiked;
 - (void)addLike:(Like *)newLike;
 - (void)addComment:(Comment *)newComment;
+- (NSSet *)getTags;
 @end

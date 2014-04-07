@@ -25,6 +25,7 @@
 @property (nonatomic) CGPoint arrowPoint;
 @property (nonatomic) CGPoint pointCoordinates;
 @property (strong, nonatomic) NSMutableArray *buttons; // of MenuPopOverButton
+@property (strong, nonatomic) UITapGestureRecognizer *tap;
 - (void)presentPopoverFromRect:(CGRect)rect inView:(UIView *)view withStrings:(NSArray *)stringArray;
 - (void)setupLayout:(CGRect)rect inView:(UIView*)view;
 - (void)dismiss:(BOOL)animate;

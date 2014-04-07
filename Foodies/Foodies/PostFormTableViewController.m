@@ -357,7 +357,7 @@
         ALAssetRepresentation *defaultRep = [self.assetPassed defaultRepresentation];
         tagVC.imageToTag = [UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0];
         tagVC.mealsVenue = self.venue;
-        tagVC.mealTags = self.mealTags;
+        tagVC.mealTags = [[NSMutableArray alloc] initWithArray:[self.mealTags copy]];
         tagVC.delegate = self;
         
         UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:tagVC];
