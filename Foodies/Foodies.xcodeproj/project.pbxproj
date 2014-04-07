@@ -59,6 +59,7 @@
 		D1C0C36118DCBEF000F3AD9C /* profilepic.png in Resources */ = {isa = PBXBuildFile; fileRef = D1C0C36018DCBEF000F3AD9C /* profilepic.png */; };
 		D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */; };
 		D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */; };
+		D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +167,8 @@
 		D1FB843E18EF70E100A44DD9 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
 		D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
 		D1FB844118F0873D00A44DD9 /* TagPickerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagPickerDelegate.h; sourceTree = "<group>"; };
+		D1FB844218F25BBF00A44DD9 /* MenuPopOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuPopOverView.h; sourceTree = "<group>"; };
+		D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuPopOverView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +238,8 @@
 		D110AFFE18CA4E0E0077D25B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D1FB844218F25BBF00A44DD9 /* MenuPopOverView.h */,
+				D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */,
 				D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */,
 				D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */,
 				D1FB843E18EF70E100A44DD9 /* MF_Base64Additions.h */,
@@ -556,6 +561,7 @@
 				D110AFF218CA43450077D25B /* FeedTableViewCell.m in Sources */,
 				D1247F7418E602ED009CD32B /* FoodiesDataStore.m in Sources */,
 				D110B00718CA5E070077D25B /* UIView+ResizeToFitSubviews.m in Sources */,
+				D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */,
 				D110B00A18CA67210077D25B /* Like.m in Sources */,
 				D12A6D9918C12EB40029EB6D /* CustomCamera.m in Sources */,
 				D12A6D9618C128800029EB6D /* CameraModeViewController.m in Sources */,

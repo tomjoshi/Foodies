@@ -8,8 +8,12 @@
 
 #import "FirstViewController.h"
 #import <FontAwesomeKit.h>
+#import "MenuPopOverView.h"
 
 @interface FirstViewController ()
+@property (strong, nonatomic) MenuPopOverView *popOver;
+@property (nonatomic) CGRect popOverInitialRect;
+@property (strong, nonatomic) UIImageView *foodImage;
 
 @end
 
@@ -19,12 +23,50 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.}
+    
+    self.popOver = [[MenuPopOverView alloc] init];
+    //    popOver.delegate = self;
+    
+    self.foodImage= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ramenImage"]];
+    [self.foodImage setFrame:CGRectMake(0, 100, 320, 320)];
+    [self.foodImage setUserInteractionEnabled:YES];
+    [self.view addSubview:self.foodImage];
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panPopOver:)];
+//    pan.delaysTouchesBegan = NO;
+    pan.delaysTouchesBegan = NO;
+    pan.delaysTouchesEnded = NO;
+    [self.popOver presentPopoverFromRect:CGRectMake(0, -100, 0, 0) inView:self.foodImage withStrings:@[@"Spicy Miso Ramen",@"X"]];
+    NSLog(@"initial x %f", self.popOver.arrowPoint.x);
+    NSLog(@"initial y %f", self.popOver.arrowPoint.y);
+    [self.popOver addGestureRecognizer:pan];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)panPopOver:(UIPanGestureRecognizer *)recognizer
+{
+    CGPoint translation = [recognizer translationInView:self.foodImage];
+//    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
+//                                         recognizer.view.center.y + translation.y);
+    MenuPopOverView *popOver = (MenuPopOverView *)recognizer.view;
+    if (popOver.isArrowUp) {
+        [popOver setupLayout:CGRectMake(popOver.arrowPoint.x + translation.x, popOver.arrowPoint.y-1 + translation.y, 0, 0) inView:self.foodImage];
+    } else {
+        [popOver setupLayout:CGRectMake(popOver.arrowPoint.x + translation.x, popOver.arrowPoint.y+1 + translation.y, 0, 0) inView:self.foodImage];
+    }
+    
+    [recognizer setTranslation:CGPointMake(0, 0) inView:self.foodImage];
+    
+    
+    
+    
+    NSLog(@"%f, %f", popOver.arrowPoint.x, popOver.arrowPoint.y );
+
 }
 
 @end

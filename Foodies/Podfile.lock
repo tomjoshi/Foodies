@@ -40,6 +40,7 @@ PODS:
   - GTScrollNavigationBar (0.1.1)
   - MBProgressHUD (0.8)
   - Shimmer (1.0.1)
+  - SMCalloutView (2.0)
   - TTTAttributedLabel (1.9.4)
   - WEPopover (1.0.0)
 
@@ -53,6 +54,7 @@ DEPENDENCIES:
   - GTScrollNavigationBar
   - MBProgressHUD (~> 0.8)
   - Shimmer (~> 1.0)
+  - SMCalloutView (~> 2.0)
   - TTTAttributedLabel
   - WEPopover (~> 1.0)
 
@@ -66,6 +68,7 @@ SPEC CHECKSUMS:
   GTScrollNavigationBar: 10fc5b2d04e8d49785a6a9d957c0582d495d1cfa
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   Shimmer: a1b92685f04ae7363e655f636a41a276dbb1507e
+  SMCalloutView: 1b8d1de1232d73b4f4a195c9238e84384b070470
   TTTAttributedLabel: 617e14e3590a4afc9bc35dd999eb37e888996f36
   WEPopover: 448ce0482739057ad7dfff2fe0438cc55ed38164
 
