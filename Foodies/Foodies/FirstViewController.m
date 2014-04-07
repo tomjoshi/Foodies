@@ -9,6 +9,7 @@
 #import "FirstViewController.h"
 #import <FontAwesomeKit.h>
 #import "MenuPopOverView.h"
+#import <FontAwesomeKit.h>
 
 @interface FirstViewController ()
 @property (strong, nonatomic) MenuPopOverView *popOver;
@@ -28,6 +29,7 @@
     //    popOver.delegate = self;
     
     self.foodImage= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ramenImage"]];
+    [self.foodImage setContentMode:UIViewContentModeScaleAspectFill];
     [self.foodImage setFrame:CGRectMake(0, 100, 320, 320)];
     [self.foodImage setUserInteractionEnabled:YES];
     [self.view addSubview:self.foodImage];
@@ -36,6 +38,11 @@
 //    pan.delaysTouchesBegan = NO;
     pan.delaysTouchesBegan = NO;
     pan.delaysTouchesEnded = NO;
+    
+    // make close icon
+    FAKIonIcons *closeIcon = [FAKIonIcons closeCircledIconWithSize:20];
+    [closeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    
     [self.popOver presentPopoverFromRect:CGRectMake(0, -100, 0, 0) inView:self.foodImage withStrings:@[@"Spicy Miso Ramen",@"X"]];
     NSLog(@"initial x %f", self.popOver.arrowPoint.x);
     NSLog(@"initial y %f", self.popOver.arrowPoint.y);
@@ -51,8 +58,7 @@
 - (void)panPopOver:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint translation = [recognizer translationInView:self.foodImage];
-//    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
-//                                         recognizer.view.center.y + translation.y);
+//    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x, recognizer.view.center.y + translation.y);
     MenuPopOverView *popOver = (MenuPopOverView *)recognizer.view;
     if (popOver.isArrowUp) {
         [popOver setupLayout:CGRectMake(popOver.arrowPoint.x + translation.x, popOver.arrowPoint.y-1 + translation.y, 0, 0) inView:self.foodImage];
@@ -65,7 +71,7 @@
     
     
     
-    NSLog(@"%f, %f", popOver.arrowPoint.x, popOver.arrowPoint.y );
+  //  NSLog(@"%f, %f", popOver.arrowPoint.x, popOver.arrowPoint.y );
 
 }
 
