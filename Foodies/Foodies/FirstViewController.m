@@ -40,10 +40,10 @@
     pan.delaysTouchesEnded = NO;
     
     // make close icon
-    FAKIonIcons *closeIcon = [FAKIonIcons closeCircledIconWithSize:20];
+    FAKIonIcons *closeIcon = [FAKIonIcons closeCircledIconWithSize:25];
     [closeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     
-    [self.popOver presentPopoverFromRect:CGRectMake(0, -100, 0, 0) inView:self.foodImage withStrings:@[@"Spicy Miso Ramen",@"X"]];
+    [self.popOver presentPopoverFromRect:CGRectMake(0, -100, 0, 0) inView:self.foodImage withStrings:@[@"Spicy Miso Ramen",[closeIcon attributedString]]];
     NSLog(@"initial x %f", self.popOver.arrowPoint.x);
     NSLog(@"initial y %f", self.popOver.arrowPoint.y);
     [self.popOver addGestureRecognizer:pan];
