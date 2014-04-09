@@ -663,7 +663,7 @@
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="textField" destination="BxD-J6-jms" id="RCC-hj-KH6"/>
+                                                    <outlet property="textField" destination="BxD-J6-jms" id="iJc-AC-Xl5"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

@@ -9,6 +9,7 @@
 #import "ProfileViewController.h"
 #import "TabBarController.h"
 #import "LandingTableViewController.h"
+#import <Parse/Parse.h>
 
 @interface ProfileViewController ()
 - (IBAction)logOutTapped:(id)sender;
@@ -50,11 +51,7 @@
 */
 
 - (IBAction)logOutTapped:(id)sender {
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:nil forKey:@"userId"];
-    [defaults synchronize];
-    
+    [PFUser logOut];
     
     LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
     [self presentViewController:modalVC animated:YES completion:nil];

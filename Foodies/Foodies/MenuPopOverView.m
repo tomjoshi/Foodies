@@ -7,6 +7,7 @@
 //
 
 #import "MenuPopOverView.h"
+#import "UIColor+colorPallete.h"
 
 // Geometry metrics
 #define kPopOverViewPadding 0.f
@@ -20,10 +21,10 @@
 #define kTextEdgeInsets 10.f
 
 // Customizable color
-#define kBackgroundColor [UIColor blackColor]
+#define kBackgroundColor [UIColor semiTransparentWhiteColor]
 #define kHighlightColor [UIColor lightGrayColor]
-#define kDividerColor [UIColor whiteColor]
-#define kTextColor [UIColor whiteColor]
+#define kDividerColor [UIColor blackColor]
+#define kTextColor [UIColor blackColor]
 
 @interface MenuPopOverView()
 
@@ -92,7 +93,8 @@
         textButton.enabled = NO;
         textButton.backgroundColor = kBackgroundColor;
         textButton.titleLabel.font = kTextFont;
-        textButton.titleLabel.textColor = kTextColor;
+//        textButton.titleLabel.textColor = kTextColor;
+        [textButton setTitleColor:kTextColor forState:UIControlStateNormal];
         textButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         if ([[string class] isSubclassOfClass:[NSAttributedString class]]) {
             [textButton setAttributedTitle:(NSAttributedString*)string forState:UIControlStateNormal];
@@ -100,8 +102,8 @@
             [textButton setTitle:string forState:UIControlStateNormal];
         }
         [textButton addTarget:self action:@selector(didTapButton:) forControlEvents:UIControlEventTouchUpInside];
-        [textButton addTarget:self action:@selector(changeBackgroundColor:) forControlEvents:UIControlEventTouchDown];
-        [textButton addTarget:self action:@selector(resetBackgroundColor:) forControlEvents:UIControlEventTouchUpOutside];
+//        [textButton addTarget:self action:@selector(changeBackgroundColor:) forControlEvents:UIControlEventTouchDown];
+//        [textButton addTarget:self action:@selector(resetBackgroundColor:) forControlEvents:UIControlEventTouchUpOutside];
         
         [self.buttons addObject:textButton];
     }
@@ -326,11 +328,21 @@
     float popoverMaxWidth = screenBounds.size.width - 2 * kPopOverViewPadding;
     
     // update the rect if its out of bounds within the view
-    if (rect.origin.y < view.bounds.origin.y) {
-        rect = CGRectMake(rect.origin.x, view.bounds.origin.y, rect.size.width, rect.size.height);
-    } else if (rect.origin.y > view.bounds.origin.y+view.bounds.size.height) {
-        rect = CGRectMake(rect.origin.x, view.bounds.origin.y+view.bounds.size.height, rect.size.width, rect.size.height);
+    if (_isArrowUp) {
+        if (rect.origin.y < view.bounds.origin.y) {
+            rect = CGRectMake(rect.origin.x, view.bounds.origin.y, rect.size.width, rect.size.height);
+        } else if (rect.origin.y > view.bounds.origin.y+view.bounds.size.height - kPopOverViewHeight) {
+            rect = CGRectMake(rect.origin.x, view.bounds.origin.y+view.bounds.size.height - kPopOverViewHeight, rect.size.width, rect.size.height);
+        }
+    } else{
+        if (rect.origin.y < view.bounds.origin.y + kPopOverViewHeight) {
+            rect = CGRectMake(rect.origin.x, view.bounds.origin.y + kPopOverViewHeight, rect.size.width, rect.size.height);
+        } else if (rect.origin.y > view.bounds.origin.y+view.bounds.size.height) {
+            rect = CGRectMake(rect.origin.x, view.bounds.origin.y+view.bounds.size.height, rect.size.width, rect.size.height);
+        }
     }
+    
+    NSLog(@"%f", rect.origin.y);
 
     // determine the arrow position
     CGRect topViewBounds = topView.bounds;
@@ -342,13 +354,11 @@
     // save the rect
     self.presentedRect = destRect;
     
-    // 1 pixel gap
-    if (maxY + kPopOverViewHeight + 1 > CGRectGetMidY(topViewBounds)) {
+    if (_isArrowUp) {
+        _arrowPoint = CGPointMake(CGRectGetMidX(destRect), maxY + 1);
+    } else {
         _isArrowUp = NO;
         _arrowPoint = CGPointMake(CGRectGetMidX(destRect), minY - 1);
-    } else {
-        _isArrowUp = YES;
-        _arrowPoint = CGPointMake(CGRectGetMidX(destRect), maxY + 1);
     }
     
     float contentWidth = self.contentView.frame.size.width;
@@ -404,7 +414,7 @@
     
     if (![self.gestureRecognizers containsObject:self.tap]) {
         //Add a tap gesture recognizer to the large invisible view (self), which will detect taps anywhere on the screen.
-        self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+        self.tap = [[TouchDownGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         self.tap.cancelsTouchesInView = NO; // Allow touches through to a UITableView or other touchable view, as suggested by Dimajp.
         [self addGestureRecognizer:self.tap];
     }

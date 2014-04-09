@@ -20,4 +20,5 @@
 - (void)showTagInView:(UIView *)view;
 - (void)makeTagEditable;
 - (void)stopTagEditable;
+- (void)toggleArrow;
 @end

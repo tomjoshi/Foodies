@@ -8,9 +8,11 @@
 
 #import "MealTag.h"
 #import <FontAwesomeKit.h>
+#import "UIColor+colorPallete.h"
 
 @interface MealTag()
 @property (strong, nonatomic) UIView *viewIn;
+@property (nonatomic) BOOL isArrowUp;
 
 @end
 
@@ -21,6 +23,7 @@
     if (self) {
         _meal = [[Meal alloc] init];
         _coordinates = CGPointMake(0, 0);
+        _isArrowUp = NO;
     }
     return self;
 }
@@ -31,6 +34,7 @@
     if (self) {
         _meal = [[Meal alloc] initWithName:name FoodPost:nil Score:nil mealId:nil andVenue:nil];
         _coordinates = point;
+        _isArrowUp = NO;
     }
     return self;
 }
@@ -39,6 +43,7 @@
 {
     [self.popOver dismiss:YES];
     self.popOver = [[MenuPopOverView alloc] init];
+    self.popOver.isArrowUp = self.isArrowUp;
     self.viewIn = view;
     [self.popOver presentPopoverFromRect:CGRectMake(self.coordinates.x, self.coordinates.y, 0, 0) inView:view withStrings:@[self.meal.name]];
 }
@@ -47,17 +52,37 @@
 {
     // make close icon
     FAKIonIcons *closeIcon = [FAKIonIcons closeCircledIconWithSize:18];
-    [closeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    [closeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
+    // make arrow up
+    FAKIonIcons *arrowIcon;
+    if (self.isArrowUp) {
+        arrowIcon = [FAKIonIcons arrowDownBIconWithSize:18];
+    } else {
+        arrowIcon = [FAKIonIcons arrowUpBIconWithSize:18];
+    }
+    [arrowIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
+    
     [self.popOver dismiss:NO];
     self.popOver = [[MenuPopOverView alloc] init];
-    [self.popOver presentPopoverFromRect:CGRectMake(self.coordinates.x, self.coordinates.y, 0, 0) inView:self.viewIn withStrings:@[self.meal.name,[closeIcon attributedString]]];
+    self.popOver.isArrowUp = self.isArrowUp;
+    [self.popOver presentPopoverFromRect:CGRectMake(self.coordinates.x, self.coordinates.y, 0, 0) inView:self.viewIn withStrings:@[[arrowIcon attributedString],self.meal.name,[closeIcon attributedString]]];
 }
 
 - (void)stopTagEditable
 {
     [self.popOver dismiss:NO];
     self.popOver = [[MenuPopOverView alloc] init];
+    self.popOver.isArrowUp = self.isArrowUp;
     [self.popOver presentPopoverFromRect:CGRectMake(self.coordinates.x, self.coordinates.y, 0, 0) inView:self.viewIn withStrings:@[self.meal.name]];
 }
 
+- (void)toggleArrow
+{
+    if (self.isArrowUp) {
+        self.isArrowUp = NO;
+    } else {
+        self.isArrowUp = YES;
+    }
+    [self makeTagEditable];
+}
 @end
