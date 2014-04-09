@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LandingViewControllerDelegate.h"
 
 @interface SignUpViewController : UIViewController
+@property (strong, nonatomic) id<LandingViewControllerDelegate> delegate;
 
 @end

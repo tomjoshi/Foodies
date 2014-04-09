@@ -9,6 +9,8 @@
 #import "LandingTableViewController.h"
 #import "LogInTableViewCell.h"
 #import <FBShimmeringView.h>
+#import <Parse/Parse.h>
+#import "SignUpViewController.h"
 
 @interface LandingTableViewController () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -201,4 +203,11 @@
     [self.delegate loggedIn];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    SignUpViewController *segueVC = segue.destinationViewController;
+    segueVC.delegate = self.delegate;
+}
+
 @end

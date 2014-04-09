@@ -8,14 +8,19 @@
 
 #import "AppDelegate.h"
 #import <Foursquare2.h>
+#import <Parse/Parse.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
     [Foursquare2 setupFoursquareWithClientId:@"HKBEPUFSSHA32VHMHVJI1MDS3H2Y1OVT1IEVEU41XLBBJ0VP"
                                       secret:@"FEEBWVWJFDPIP3TR3ENVMLMT5OBTUC0T43UZFY3FPJHSDCWC"
                                  callbackURL:@"com.flatironschool"];
+    
+    [Parse setApplicationId:@"VXZ2bfttJwvO9WVTczqpmPh4Vu4tn8B21R0W0Xn2"
+                  clientKey:@"RmOWg6bPDNyVrGdnLb6AnxbL2G2ymq4IjNC9cbt4"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     return YES;
 }

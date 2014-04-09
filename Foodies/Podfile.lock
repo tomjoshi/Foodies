@@ -20,6 +20,7 @@ PODS:
     - AFNetworking/NSURLSession
   - ALAssetsLibrary-CustomPhotoAlbum (1.1.5)
   - DBCamera (1.0.1)
+  - Facebook-iOS-SDK (3.13.1)
   - FontAwesomeKit (2.1.5):
     - FontAwesomeKit/Core
     - FontAwesomeKit/FontAwesome
@@ -39,6 +40,8 @@ PODS:
   - GCPlaceholderTextView (1.0.1)
   - GTScrollNavigationBar (0.1.1)
   - MBProgressHUD (0.8)
+  - Parse-iOS-SDK (1.2.18):
+    - Facebook-iOS-SDK (~> 3.7)
   - Shimmer (1.0.1)
   - SMCalloutView (2.0)
   - TTTAttributedLabel (1.9.4)
@@ -53,6 +56,7 @@ DEPENDENCIES:
   - GCPlaceholderTextView (~> 1.0)
   - GTScrollNavigationBar
   - MBProgressHUD (~> 0.8)
+  - Parse-iOS-SDK (~> 1.2)
   - Shimmer (~> 1.0)
   - SMCalloutView (~> 2.0)
   - TTTAttributedLabel
@@ -62,11 +66,13 @@ SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   ALAssetsLibrary-CustomPhotoAlbum: 1a60eddafc065a5f1e05786f7850448d8cf2cbf5
   DBCamera: 04fe8162ecdf58308307c717f7fd6ce9856d9684
+  Facebook-iOS-SDK: 0d121e16437981fabff9379e07bf646bd5ab245c
   FontAwesomeKit: 7d935e100337d503bdaefde2ea16be740b81ed13
   Foursquare-API-v2: cb5609c318903a4d80a58d7d476298362e889a9b
-  GCPlaceholderTextView: 5eeef8d07a1dece8fdcd7762dfc21b8e89800838
+  GCPlaceholderTextView: 8f0e4cb4b93827c9ec8d9bf9e850bbd328d1db0b
   GTScrollNavigationBar: 10fc5b2d04e8d49785a6a9d957c0582d495d1cfa
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
+  Parse-iOS-SDK: 48bfd538a107b6e1f29eebe59fa80c0f0b844dd1
   Shimmer: a1b92685f04ae7363e655f636a41a276dbb1507e
   SMCalloutView: 1b8d1de1232d73b4f4a195c9238e84384b070470
   TTTAttributedLabel: 617e14e3590a4afc9bc35dd999eb37e888996f36

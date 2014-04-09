@@ -180,12 +180,14 @@
 //    [self.view sendSubviewToBack:self.menuTable];
     
     // add cancel button
-    self.cancelTableButton = [[UIButton alloc] initWithFrame:CGRectMake((screenWidth-70)/2, screenWidth+(screenHeight-screenWidth-64-70)/2, 70, 70)];
+    self.cancelTableButton = [[UIButton alloc] initWithFrame:CGRectMake((screenWidth-70)/2, screenHeight+70, 70, 70)];
     FAKIonIcons *cancelButton = [FAKIonIcons closeRoundIconWithSize:25];
-    [cancelButton addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    [cancelButton addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
     [self.cancelTableButton setAttributedTitle:[cancelButton attributedString] forState:UIControlStateNormal];
     [self.cancelTableButton addTarget:self action:@selector(dismissTable) forControlEvents:UIControlEventTouchUpInside];
-    [self.cancelTableButton setBackgroundColor:[UIColor grayColor]];
+    [self.cancelTableButton setBackgroundColor:[UIColor semiTransparentWhiteColor]];
+    [self.cancelTableButton.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+    [self.cancelTableButton.layer setBorderWidth:1];
     [self.cancelTableButton setEnabled:NO];
     [self.cancelTableButton setAlpha:0];
     self.cancelTableButton.layer.cornerRadius = self.cancelTableButton.frame.size.width/2;
@@ -205,7 +207,7 @@
     
     // add instructions label
     self.instructionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, screenWidth, screenWidth, screenHeight-screenWidth-64)];
-    self.instructionLabel.text = @"Tap on your meal";
+    self.instructionLabel.text = @"Tap to tag meal";
     [self.instructionLabel setTextAlignment:NSTextAlignmentCenter];
     //    [self.instructionLabel setTextColor:[UIColor whiteColor]];
     [self.instructionLabel setBackgroundColor:[UIColor whiteColor]];
@@ -274,12 +276,14 @@
 {
     CGPoint touchedPoint = [sender locationInView:self.view];
     
-    for (MealTag *mealTag in self.mealTags) {
-        for (UIButton *button in mealTag.popOver.buttons) {
-            CGRect buttonFrame = [button.superview convertRect:button.frame toView:self.view];
-            if (CGRectContainsPoint(buttonFrame, touchedPoint)) {
-                [button sendActionsForControlEvents: UIControlEventTouchUpInside];
-                return;
+    if (self.instructionLabel.alpha == 1) {
+        for (MealTag *mealTag in self.mealTags) {
+            for (UIButton *button in mealTag.popOver.buttons) {
+                CGRect buttonFrame = [button.superview convertRect:button.frame toView:self.view];
+                if (CGRectContainsPoint(buttonFrame, touchedPoint)) {
+                    [button sendActionsForControlEvents: UIControlEventTouchUpInside];
+                    return;
+                }
             }
         }
     }
@@ -309,11 +313,21 @@
                 [self.instructionLabel setAlpha:0];
                 [self.menuTable setAlpha:1];
                 [self.menuTable setScrollEnabled:YES];
-                [self.cancelTableButton setAlpha:.8];
+                [self.cancelTableButton setAlpha:1];
                 [self.cancelTableButton setEnabled:YES];
+                [self.cancelTableButton setFrame:CGRectMake((self.view.frame.size.width-70)/2, self.view.frame.size.width+(self.view.frame.size.height-self.view.frame.size.width-70)/2, 70, 70)];
+                
             }];
         }
         
+    } else if (self.instructionLabel.alpha == 1) {
+        // stop editing tag
+        if (self.editableTag) {
+            [self.editableTag stopTagEditable];
+            self.editableTag.popOver.delegate = self;
+            self.editableTag = nil;
+            [self.view removeGestureRecognizer:self.panTag];
+        }
     } else if (self.menuTable.alpha == 1){
         touchedPoint = [sender locationInView:self.menuTable];
 
@@ -436,12 +450,10 @@
         [self.cancelTableButton setAlpha:0];
         [self.cancelTableButton setEnabled:NO];
         [self.menuTable setScrollEnabled:NO];
+        [self.cancelTableButton setFrame:CGRectMake((self.view.frame.size.width-70)/2, self.view.frame.size.height + 70, 70, 70)];
         
-        if ([self.mealTags count]>0) {
-            [self setDoneButton];
-        } else{
-            [self unsetDoneButton];
-        }
+        [self checkTagCount];
+        
     } completion:^(BOOL finished) {
         [self.menuTable setContentOffset:CGPointZero];
         [self.tagSearch setText:@""];
@@ -454,10 +466,22 @@
     NSLog(@"%f", self.menuTable.contentOffset.y);
 
 }
+- (void)checkTagCount
+{
+    if ([self.mealTags count]>0) {
+        [self setDoneButton];
+        self.instructionLabel.text = @"Select tag to edit";
+    } else{
+        [self unsetDoneButton];
+        self.instructionLabel.text = @"Tap to tag meal";
+    }
+}
 
 - (void)setDoneButton
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
+    if (!self.navigationItem.rightBarButtonItem) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneTapped:)];
+    }
 }
 
 - (void)unsetDoneButton
@@ -475,6 +499,13 @@
 
 - (void)popoverView:(MenuPopOverView *)popoverView didSelectItemAtIndex:(NSInteger)index
 {
+    if ([[popoverView buttons] count]>2) {
+        index = (index-1);
+        if (index<0) {
+            index = 2;
+        }
+    }
+    
     if (index == 0) {
         NSLog(@"clicked on food");
         
@@ -506,10 +537,20 @@
         for (MealTag *mealTag in self.mealTags) {
             if ([mealTag.popOver isEqual:popoverView]) {
                 [self.mealTags removeObject:mealTag];
+                self.editableTag = nil;
+                [self checkTagCount];
                 break;
             }
         }
         [popoverView dismiss:YES];
+        popoverView = nil;
+    } else if (index == 2) {
+        NSLog(@"clicked on arrow icon");
+        [self.editableTag toggleArrow];
+        self.editableTag.popOver.delegate = self;
+        if (![self.view.gestureRecognizers containsObject:self.panTag]) {
+            [self.view addGestureRecognizer:self.panTag];
+        }
     }
 }
 

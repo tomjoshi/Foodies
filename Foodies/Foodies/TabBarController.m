@@ -13,6 +13,7 @@
 #import "CameraViewController.h"
 #import "LandingTableViewController.h"
 #import "UIColor+colorPallete.h"
+#import <Parse/Parse.h>
 
 @interface TabBarController () <DBCameraViewControllerDelegate, UITabBarControllerDelegate>
 //@property (strong, nonatomic) NSArray *arrayOfVCs;
@@ -40,7 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
     self.uiTabBarItemWidth = self.view.bounds.size.width/5;
     [self.tabBar setSelectedImageTintColor:[UIColor foodiesColor]];
     
@@ -121,10 +122,11 @@
     [super viewDidAppear:animated];
     
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *userId = [defaults objectForKey:@"userId"];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSString *userId = [defaults objectForKey:@"userId"];
+    PFUser *user = [PFUser currentUser];
     
-    if (userId == nil) {
+    if (user == nil) {
         LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
         modalVC.delegate = self;
         [self presentViewController:modalVC animated:YES completion:nil];
