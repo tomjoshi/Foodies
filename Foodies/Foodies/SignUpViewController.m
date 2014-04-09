@@ -9,6 +9,7 @@
 #import "SignUpViewController.h"
 #import "LogInTableViewCell.h"
 #import <Parse/Parse.h>
+#import "Foodie.h"
 
 @interface SignUpViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -87,32 +88,17 @@
 
 - (IBAction)signUpTapped:(id)sender {
     
-    PFUser *user = [PFUser user];
     LogInTableViewCell *cell1 = (LogInTableViewCell* )[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
     LogInTableViewCell *cell2 = (LogInTableViewCell* )[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
     LogInTableViewCell *cell3 = (LogInTableViewCell* )[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
-    
-    NSLog(@"%@", cell1.textField.text);
-    
-    user.username = cell1.textField.text;
-    user.password = cell2.textField.text;
-    user.email = cell3.textField.text;
-    
-    // other fields can be set if you want to save more information
-//    user[@"phone"] = @"650-555-0000";
-    
-    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            // Hooray! Let them use the app now.
-            NSLog(@"signed up no problem!");
-            // dismiss modalview
-            [self.delegate loggedIn];
-            [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            NSString *errorString = [error userInfo][@"error"];
-            // Show the errorString somewhere and let the user try again.
-            NSLog(@"%@", errorString);
-        }
+
+    [Foodie signUpWithUsernameInBackground:cell1.textField.text password:cell2.textField.text email:cell3.textField.text success:^{
+        // dismiss modalview
+        [self.delegate loggedIn];
+        [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    } failure:^(NSError *error) {
+        NSString *errorString = [error userInfo][@"error"];
+        NSLog(@"%@", errorString);
     }];
 }
 

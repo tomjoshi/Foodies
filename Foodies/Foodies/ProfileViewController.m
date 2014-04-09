@@ -10,6 +10,7 @@
 #import "TabBarController.h"
 #import "LandingTableViewController.h"
 #import <Parse/Parse.h>
+#import "Foodie.h"
 
 @interface ProfileViewController ()
 - (IBAction)logOutTapped:(id)sender;
@@ -51,7 +52,7 @@
 */
 
 - (IBAction)logOutTapped:(id)sender {
-    [PFUser logOut];
+    [Foodie logOut];
     
     LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
     [self presentViewController:modalVC animated:YES completion:nil];

@@ -11,6 +11,7 @@
 #import <FBShimmeringView.h>
 #import <Parse/Parse.h>
 #import "SignUpViewController.h"
+#import "Foodie.h"
 
 @interface LandingTableViewController () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, UITextFieldDelegate, UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -197,15 +198,14 @@
     // make api call to receive user id
     
     // store user id in nsuserdefaults
-    [PFUser logInWithUsernameInBackground:cell1.textField.text password:cell2.textField.text block:^(PFUser *user, NSError *error) {
-        if (user) {
-            NSLog(@"logged in properly!");
-            // dismiss modalview
-            [self.delegate loggedIn];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            NSLog(@"failed to log in!");
-        }
+    
+    [Foodie logInWithUsernameInBackground:cell1.textField.text password:cell2.textField.text success:^{
+        NSLog(@"logged in properly!");
+        // dismiss modalview
+        [self.delegate loggedIn];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } failure:^(NSError *error) {
+        NSLog(@"failed to log in! with error: %@", error);
     }];
     
 }
