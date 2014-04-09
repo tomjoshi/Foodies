@@ -186,6 +186,9 @@
 
 - (IBAction)logInTapped:(id)sender {
     
+    LogInTableViewCell *cell1 = (LogInTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    LogInTableViewCell *cell2 = (LogInTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    
     // verify format of email and password
     
     // if its all good then hide keyboard
@@ -194,14 +197,17 @@
     // make api call to receive user id
     
     // store user id in nsuserdefaults
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *userId = @"1";
-    [defaults setObject:userId forKey:@"userId"];
-    [defaults synchronize];
+    [PFUser logInWithUsernameInBackground:cell1.textField.text password:cell2.textField.text block:^(PFUser *user, NSError *error) {
+        if (user) {
+            NSLog(@"logged in properly!");
+            // dismiss modalview
+            [self.delegate loggedIn];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            NSLog(@"failed to log in!");
+        }
+    }];
     
-    // dismiss modalview
-    [self.delegate loggedIn];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
