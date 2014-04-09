@@ -7,6 +7,7 @@
 //
 
 #import "Foodie.h"
+#import <Parse/Parse.h>
 
 @interface Foodie()
 @property (strong, nonatomic) NSString *name;
@@ -40,8 +41,47 @@
 
 + (Foodie *)me
 {
-    // pull out the user from nsdefaults and create a foodie object of this user
-    return [[Foodie alloc] init];
+    PFUser *pfUser = [PFUser currentUser];
+    if (pfUser) {
+        // pull out the user from nsdefaults and create a foodie object of this user
+        return [[Foodie alloc] init];
+    }
+    return nil;
+}
+
++ (void)logOut
+{
+    [PFUser logOut];
+}
+
++ (void)logInWithUsernameInBackground:(NSString *)username password:(NSString *)password success:(void (^)(void))successBlock failure:(void (^)(NSError *))failureBlock
+{
+    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
+        if (user) {
+            successBlock();
+        } else {
+            failureBlock(error);
+        }
+    }];
+}
+
++ (void)signUpWithUsernameInBackground:(NSString *)username password:(NSString *)password email:(NSString *)email success:(void (^)(void))successBlock failure:(void (^)(NSError *))failureBlock
+{
+    PFUser *user = [PFUser user];
+    
+    user.username = username;
+    user.password = password;
+    user.email = email;
+    
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            // Hooray! Let them use the app now.
+            NSLog(@"signed up no problem!");
+            successBlock();
+        } else {
+            failureBlock(error);
+        }
+    }];
 }
 
 @end

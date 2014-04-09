@@ -14,6 +14,7 @@
 #import "LandingTableViewController.h"
 #import "UIColor+colorPallete.h"
 #import <Parse/Parse.h>
+#import "Foodie.h"
 
 @interface TabBarController () <DBCameraViewControllerDelegate, UITabBarControllerDelegate>
 //@property (strong, nonatomic) NSArray *arrayOfVCs;
@@ -121,12 +122,7 @@
 {
     [super viewDidAppear:animated];
     
-    
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSString *userId = [defaults objectForKey:@"userId"];
-    PFUser *user = [PFUser currentUser];
-    
-    if (user == nil) {
+    if ([Foodie me] == nil) {
         LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
         modalVC.delegate = self;
         [self presentViewController:modalVC animated:YES completion:nil];
