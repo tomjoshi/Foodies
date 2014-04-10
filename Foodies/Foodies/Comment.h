@@ -12,6 +12,7 @@
 @interface Comment : NSObject
 @property (strong, nonatomic) Foodie *commenter;
 @property (strong, nonatomic) NSString *comment;
+@property (nonatomic) BOOL isCaption;
 
 - (Comment *)init;
 @end

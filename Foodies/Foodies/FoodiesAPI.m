@@ -21,13 +21,33 @@
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             NSLog(@"image was saved");
+            PFUser *user = [PFUser currentUser];
             
             // set image for post
             [foodPostToPost setObject:imageFile forKey:@"postImage"];
             
             // set likes for post
+            [foodPostToPost setObject:@[] forKey:@"likes"];
             
             // set comments for post
+            if ([[newFoodPost getComments] count] == 1) {
+                Comment *caption = (Comment *)[newFoodPost getComments][0];
+                PFObject *pfCaption = [PFObject objectWithClassName:@"comment"];
+                
+                // make it a caption
+                [pfCaption setObject:@(YES) forKey:@"isCaption"];
+                
+                // set the comment text
+                [pfCaption setObject:caption.comment forKey:@"comment"];
+                
+                // relate author to his own caption
+                PFRelation *userRelation = [pfCaption relationForKey:@"commenter"];
+                [userRelation addObject:user];
+                
+                [foodPostToPost setObject:@[pfCaption] forKey:@"comments"];
+            } else {
+                [foodPostToPost setObject:@[] forKey:@"comments"];
+            }
             
             // set mealTags for post
             
@@ -35,26 +55,31 @@
             foodPostToPost.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
             
             // relate author to post
-            PFUser *user = [PFUser currentUser];
             PFRelation *userRelation = [foodPostToPost relationForKey:@"author"];
             [userRelation addObject:user];
             
             // relate venue to post
-            
-            
-            [foodPostToPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!error) {
-                    NSLog(@"%@", foodPostToPost.objectId);
-                    // retrieve objectId for postId
-                    [newFoodPost setPostId:foodPostToPost.objectId];
-                    NSLog(@"%@", foodPostToPost.createdAt);
-                    // retrieve createdAt for postDate
-                    [newFoodPost setPostDate:foodPostToPost.createdAt];
-                    
-                    // most likely add a block here
-                } else {
-                    // add failure block
+            [FoodiesAPI pfObjectForVenue:newFoodPost.venue completion:^(PFObject *pfVenue) {
+                // in the case that the user did not select a venue
+                if (pfVenue) {
+                    PFRelation *venueRelation = [foodPostToPost relationForKey:@"venue"];
+                    [venueRelation addObject:pfVenue];
                 }
+                
+                [foodPostToPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        NSLog(@"%@", foodPostToPost.objectId);
+                        // retrieve objectId for postId
+                        [newFoodPost setPostId:foodPostToPost.objectId];
+                        NSLog(@"%@", foodPostToPost.createdAt);
+                        // retrieve createdAt for postDate
+                        [newFoodPost setPostDate:foodPostToPost.createdAt];
+                        
+                        // most likely add a block here
+                    } else {
+                        // add failure block
+                    }
+                }];
             }];
         }
     }];
@@ -89,4 +114,48 @@
         }
     }];
 }
+
++ (void)pfObjectForVenue:(Venue *)venue completion:(void (^)(PFObject *pfVenue))completionBlock
+{
+    if (venue) {
+        PFQuery *query = [PFQuery queryWithClassName:@"Venue"];
+        [query whereKey:@"foursquareId" equalTo:venue.foursquareId];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if ([objects count] == 1) {
+                NSLog(@"venue was found");
+                PFObject *foundVenue = objects[0];
+                completionBlock(foundVenue);
+            } else {
+                NSLog(@"venue was not found");
+                PFObject *newVenue = [PFObject objectWithClassName:@"Venue"];
+                [newVenue setObject:venue.name forKey:@"name"];
+                [newVenue setObject:venue.foursquareId forKey:@"foursquareId"];
+                // make pfobject for location
+                PFObject *locationForNewVenue = [PFObject objectWithClassName:@"Location"];
+                [locationForNewVenue setObject:venue.location.lat forKey:@"lat"];
+                [locationForNewVenue setObject:venue.location.lng forKey:@"lng"];
+                [locationForNewVenue setObject:venue.location.address forKey:@"address"];
+                [locationForNewVenue setObject:venue.location.city forKey:@"city"];
+                [locationForNewVenue setObject:venue.location.state forKey:@"state"];
+                [locationForNewVenue setObject:venue.location.postalCode forKey:@"postalCode"];
+                [locationForNewVenue setObject:venue.location.country forKey:@"country"];
+                [locationForNewVenue setObject:venue.location.crossStreet forKey:@"crossStreet"];
+                [newVenue setObject:locationForNewVenue forKey:@"location"];
+                
+                [newVenue saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        completionBlock(newVenue);
+                    }
+                }];
+            }
+        }];
+    } else {
+        completionBlock(nil);
+    }
+    
+
+}
+
+
+
 @end

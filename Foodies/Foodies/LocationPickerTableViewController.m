@@ -79,47 +79,6 @@
          {
              [self getLocationsFromResult:result];
          }];
-        
-
-        
-/////////////////////////locu API
-//        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//        NSString *urlQuery = @"http://api.locu.com/v1_0/venue/search/?api_key=44e7b34e1d32742c1d12078dea0904dacc2cf43c";
-//        NSDictionary *params = @{@"location":[NSString stringWithFormat:@"%@,%@",lat, lng],
-//                                 @"radius":@1000,
-//                                 @"category":@"restaurant"};
-//        
-//        [manager GET:urlQuery parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-//            NSLog(@"success");
-//            
-//             NSArray *venues = responseObject[@"objects"];
-//             NSMutableArray *mutableVenues = [NSMutableArray new];
-//             for (NSDictionary *venueDict in venues)
-//             {
-//                 NSDictionary *locationDictionary = venueDict;
-//                 Location *location = [[Location alloc] initWithlat:locationDictionary[@"lat"]
-//                                                                lng:locationDictionary[@"lng"]
-//                                                            address:locationDictionary[@"street_address"]
-//                                                               city:locationDictionary[@"locality"]
-//                                                              state:locationDictionary[@"region"]
-//                                                         postalCode:locationDictionary[@"postal_code"]
-//                                                            country:locationDictionary[@"country"]
-//                                                        crossStreet:@""];
-//
-//                 Venue *venue = [[Venue alloc] initWithName:venueDict[@"name"]
-//                                                    venueId:venueDict[@"id"]
-//                                                   location:location];
-//                 [mutableVenues addObject:venue];
-//             }
-//             self.arrayOfLocations = mutableVenues;
-//             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-//             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//            NSLog(@"fail");
-//        }];
-        
-        
-        
     }
 }
 
@@ -149,9 +108,9 @@
     // Configure the cell...
     Venue *venueForCell;
     if ([self.arrayOfLocations count]>indexPath.row) {
-         venueForCell = self.arrayOfLocations[indexPath.row];
+        venueForCell = self.arrayOfLocations[indexPath.row];
     } else {
-        venueForCell = [[Venue alloc] initWithName:@"" venueId:@"" location:nil];
+        venueForCell = [[Venue alloc] init];
     }
     cell.textLabel.text = venueForCell.name;
 //    if (![venueForCell.location.address isKindOfClass:[NSNull class]]) {
@@ -264,7 +223,7 @@
                                                crossStreet:locationDictionary[@"crossStreet"]];
         
         Venue *venue = [[Venue alloc] initWithName:venueDict[@"name"]
-                                           venueId:venueDict[@"id"]
+                                           foursquareId:venueDict[@"id"]
                                           location:location];
         [mutableVenues addObject:venue];
     }

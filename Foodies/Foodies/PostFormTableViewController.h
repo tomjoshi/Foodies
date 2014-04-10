@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "PostFormViewControllerDelegate.h"
 
 @interface PostFormTableViewController : UITableViewController
 @property (strong, nonatomic) ALAsset *assetPassed;
+@property (strong, nonatomic) id<PostFormViewControllerDelegate> delegate;
 @end
