@@ -15,7 +15,7 @@
     PFObject *foodPostToPost = [PFObject objectWithClassName:@"FoodPost"];
     
     // post image first as file
-    NSString *imageName = [NSString stringWithFormat:@"%@-%f.png", [newFoodPost.author getUserId], [[newFoodPost getDate] timeIntervalSince1970]];
+    NSString *imageName = [NSString stringWithFormat:@"%@-%f.png", [newFoodPost.author getUserId], [[NSDate date] timeIntervalSince1970]];
     PFFile *imageFile = [PFFile fileWithName:imageName data:UIImagePNGRepresentation([newFoodPost getImage])];
     
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -24,9 +24,6 @@
             
             // set image for post
             [foodPostToPost setObject:imageFile forKey:@"postImage"];
-            
-            // set date for post
-            [foodPostToPost setObject:[newFoodPost getDate] forKey:@"postDate"];
             
             // set likes for post
             
@@ -48,6 +45,12 @@
             [foodPostToPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (!error) {
                     NSLog(@"%@", foodPostToPost.objectId);
+                    // retrieve objectId for postId
+                    [newFoodPost setPostId:foodPostToPost.objectId];
+                    NSLog(@"%@", foodPostToPost.createdAt);
+                    // retrieve createdAt for postDate
+                    [newFoodPost setPostDate:foodPostToPost.createdAt];
+                    
                     // most likely add a block here
                 } else {
                     // add failure block

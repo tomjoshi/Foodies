@@ -15,6 +15,7 @@
 @interface FoodPost : NSObject
 @property (strong, nonatomic) Foodie *author;
 @property (strong, nonatomic) Venue *venue;
+@property (strong, nonatomic) NSString *postId;
 
 - (instancetype)initWithImage:(UIImage *)image Author:(Foodie *)author Caption:(Comment *)caption atVenue:(Venue *)venue andMealTags:(NSSet *)mealTags;
 - (UIImage *)getImage;
@@ -24,6 +25,7 @@
 - (NSNumber *)getNumberOfLikes;
 - (NSArray *)getComments;
 - (BOOL)isLiked;
+- (void)setPostDate:(NSDate *)postDate;
 - (void)addLike:(Like *)newLike;
 - (void)addComment:(Comment *)newComment;
 - (NSSet *)getTags;

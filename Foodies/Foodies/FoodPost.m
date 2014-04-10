@@ -67,6 +67,11 @@
     return self.postDate;
 }
 
+- (void)setPostDate:(NSDate *)postDate
+{
+    _postDate = postDate;
+}
+
 - (UIImage *)getImage
 {
     return self.postImage;
