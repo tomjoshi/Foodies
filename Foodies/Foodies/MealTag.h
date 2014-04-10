@@ -13,10 +13,11 @@
 @interface MealTag : NSObject
 @property (nonatomic) CGPoint coordinates;
 @property (strong, nonatomic) Meal *meal;
+@property (nonatomic) BOOL isArrowUp;
 @property (strong, nonatomic) MenuPopOverView *popOver;
 
 
-- (instancetype)initWithName:(NSString*)name andPoint:(CGPoint)point;
+- (instancetype)initWithMeal:(Meal *)meal andPoint:(CGPoint)point;
 - (void)showTagInView:(UIView *)view;
 - (void)makeTagEditable;
 - (void)stopTagEditable;

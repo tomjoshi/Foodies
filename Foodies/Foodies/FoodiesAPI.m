@@ -8,6 +8,7 @@
 
 #import "FoodiesAPI.h"
 #import "Foodie.h"
+#import "MealTag.h"
 
 @implementation FoodiesAPI
 + (void)postFoodPost:(FoodPost *)newFoodPost
@@ -32,7 +33,7 @@
             // set comments for post
             if ([[newFoodPost getComments] count] == 1) {
                 Comment *caption = (Comment *)[newFoodPost getComments][0];
-                PFObject *pfCaption = [PFObject objectWithClassName:@"comment"];
+                PFObject *pfCaption = [PFObject objectWithClassName:@"Comment"];
                 
                 // make it a caption
                 [pfCaption setObject:@(YES) forKey:@"isCaption"];
@@ -49,8 +50,6 @@
                 [foodPostToPost setObject:@[] forKey:@"comments"];
             }
             
-            // set mealTags for post
-            
             // Set the access control list to current user for security purposes
             foodPostToPost.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
             
@@ -58,10 +57,11 @@
             PFRelation *userRelation = [foodPostToPost relationForKey:@"author"];
             [userRelation addObject:user];
             
-            // relate venue to post
+            // get the PFObject of the venue
             [FoodiesAPI pfObjectForVenue:newFoodPost.venue completion:^(PFObject *pfVenue) {
                 // in the case that the user did not select a venue
                 if (pfVenue) {
+                    // relate venue to post
                     PFRelation *venueRelation = [foodPostToPost relationForKey:@"venue"];
                     [venueRelation addObject:pfVenue];
                 }
@@ -74,6 +74,27 @@
                         NSLog(@"%@", foodPostToPost.createdAt);
                         // retrieve createdAt for postDate
                         [newFoodPost setPostDate:foodPostToPost.createdAt];
+                        
+                        // set mealTags for post
+                        if ([[newFoodPost getTags] count] > 0) {
+                            for (MealTag *mealTag in [newFoodPost getTags]) {
+                                PFObject *pfMealTag = [PFObject objectWithClassName:@"MealTag"];
+                                // set the coordinates
+                                [pfMealTag setObject:@[@(mealTag.coordinates.x), @(mealTag.coordinates.y)] forKey:@"coordinates"];
+                                // set if arrow is up
+                                [pfMealTag setObject:@(mealTag.isArrowUp) forKey:@"isArrowUp"];
+                                
+                                // set meal
+                                [FoodiesAPI pfObjectForMeal:mealTag.meal atPFVenue:pfVenue completion:^(PFObject *pfMeal) {
+                                    [pfMealTag setObject:pfMeal forKey:@"meal"];
+                                    mealTag.meal.mealId = pfMeal.objectId;
+                                    [foodPostToPost addObject:pfMealTag forKey:@"mealTags"];
+                                    PFRelation *foodPostRelation = [pfMeal relationForKey:@"foodPosts"];
+                                    [foodPostRelation addObject:foodPostToPost];
+                                    [PFObject saveAllInBackground:@[pfMeal, foodPostToPost]];
+                                }];
+                            }
+                        }
                         
                         // most likely add a block here
                     } else {
@@ -156,6 +177,34 @@
 
 }
 
-
++ (void)pfObjectForMeal:(Meal *)meal atPFVenue:(PFObject *)pfVenue completion:(void (^)(PFObject *pfMeal))completionBlock
+{
+    if (meal) {
+        PFQuery *query = [PFQuery queryWithClassName:@"Meal"];
+        [query whereKey:@"spMealId" equalTo:meal.spMealId];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if ([objects count] == 1) {
+                NSLog(@"meal was found");
+                PFObject *foundMeal = objects[0];
+                completionBlock(foundMeal);
+            } else {
+                NSLog(@"meal was not found");
+                PFObject *newMeal = [PFObject objectWithClassName:@"Meal"];
+                [newMeal setObject:meal.name forKey:@"name"];
+                [newMeal setObject:meal.spMealId forKey:@"spMealId"];
+                PFRelation *venueRelation = [newMeal relationForKey:@"venue"];
+                [venueRelation addObject:pfVenue];
+                
+                [newMeal saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (!error) {
+                        completionBlock(newMeal);
+                    }
+                }];
+            }
+        }];
+    } else {
+        completionBlock(nil);
+    }
+}
 
 @end
