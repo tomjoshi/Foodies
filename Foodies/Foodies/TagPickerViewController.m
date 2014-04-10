@@ -88,13 +88,14 @@
                 for (NSDictionary *entry in entries) {
                     if ([entry[@"type"] isEqualToString:@"item"]) {
                         NSLog(@"%@", entry[@"title"]);
-                        [mealNames addObject:entry[@"title"]];
+                        Meal *meal = [[Meal alloc] initWithName:entry[@"title"] andSPMealId:entry[@"id"]];
+                        [mealNames addObject:meal];
                     }
                     
                 }
                 
-                for (NSString *mealName in mealNames) {
-                    [self.mealsArray addObject:[[MealTag alloc]initWithName:mealName andPoint:CGPointZero]];
+                for (Meal *meal in mealNames) {
+                    [self.mealsArray addObject:[[MealTag alloc]initWithMeal:meal andPoint:CGPointZero]];
                 }
                 [self.menuTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
             }

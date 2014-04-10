@@ -40,4 +40,11 @@
     return [self initWithName:@"Lobster Roll" FoodPost:nil Score:nil mealId:nil andVenue:nil];
 }
 
+- (instancetype)initWithName:(NSString *)name andSPMealId:(NSString *)spMealId
+{
+    self = [self initWithName:name FoodPost:nil Score:nil mealId:nil andVenue:nil];
+    self.spMealId = spMealId;
+    return self;
+}
+
 @end

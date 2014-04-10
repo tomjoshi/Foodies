@@ -34,4 +34,12 @@
 {
     return self.address;
 }
+
+- (NSString *)crossStreet
+{
+    if (_crossStreet) {
+        return _crossStreet;
+    }
+    return @"";
+}
 @end

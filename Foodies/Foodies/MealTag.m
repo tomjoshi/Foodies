@@ -12,7 +12,6 @@
 
 @interface MealTag()
 @property (strong, nonatomic) UIView *viewIn;
-@property (nonatomic) BOOL isArrowUp;
 
 @end
 
@@ -28,11 +27,11 @@
     return self;
 }
 
-- (instancetype)initWithName:(NSString *)name andPoint:(CGPoint)point
+- (instancetype)initWithMeal:(Meal *)meal andPoint:(CGPoint)point
 {
     self = [super init];
     if (self) {
-        _meal = [[Meal alloc] initWithName:name FoodPost:nil Score:nil mealId:nil andVenue:nil];
+        _meal = meal;
         _coordinates = point;
         _isArrowUp = NO;
     }
