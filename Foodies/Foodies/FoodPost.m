@@ -11,6 +11,7 @@
 #import "Comment.h"
 #import "NSDate+PrettyTimestamp.h"
 #import "MealTag.h"
+#import "FoodiesAPI.h"
 
 
 @interface FoodPost()
@@ -57,6 +58,7 @@
         _venue = venue;
         _mealTags = mealTags;
     }
+    [FoodiesAPI postFoodPost:self];
     return self;
 }
 

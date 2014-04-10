@@ -13,8 +13,10 @@
 - (NSString *)getName;
 - (UIImage *)getThumb;
 - (instancetype)init;
-+ (void)logOut;
+- (NSString *)getUserId;
+
 + (Foodie *)me;
++ (void)logOut;
 + (void)logInWithUsernameInBackground:(NSString *)username password:(NSString *)password success:(void (^)(void))successBlock failure:(void (^)(NSError *error))failureBlock;
 + (void)signUpWithUsernameInBackground:(NSString *)username password:(NSString *)password email:(NSString *)email success:(void (^)(void))successBlock failure:(void (^)(NSError *error))failureBlock;
 

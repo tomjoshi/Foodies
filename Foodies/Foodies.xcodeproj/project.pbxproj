@@ -38,6 +38,7 @@
 		D13A51A818BBCA3700ADE71D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A718BBCA3700ADE71D /* AVFoundation.framework */; };
 		D13A51AA18BBCA5700ADE71D /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D13A51B518BCEF3200ADE71D /* CameraViewController.m */; };
+		D1440E7518F6E8FF0031B568 /* FoodiesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D1440E7418F6E8FF0031B568 /* FoodiesAPI.m */; };
 		D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D144D6A018C5272D00C6755F /* FeedTableViewController.m */; };
 		D183514518BBAE5B00303868 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D183514418BBAE5B00303868 /* Foundation.framework */; };
 		D183514718BBAE5B00303868 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D183514618BBAE5B00303868 /* CoreGraphics.framework */; };
@@ -135,6 +136,8 @@
 		D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		D13A51B418BCEF3200ADE71D /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		D13A51B518BCEF3200ADE71D /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		D1440E7318F6E8FF0031B568 /* FoodiesAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodiesAPI.h; sourceTree = "<group>"; };
+		D1440E7418F6E8FF0031B568 /* FoodiesAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodiesAPI.m; sourceTree = "<group>"; };
 		D144D69F18C5272D00C6755F /* FeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewController.h; sourceTree = "<group>"; };
 		D144D6A018C5272D00C6755F /* FeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewController.m; sourceTree = "<group>"; };
 		D183514118BBAE5B00303868 /* Foodies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foodies.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +277,8 @@
 				D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */,
 				D1247F7218E602ED009CD32B /* FoodiesDataStore.h */,
 				D1247F7318E602ED009CD32B /* FoodiesDataStore.m */,
+				D1440E7318F6E8FF0031B568 /* FoodiesAPI.h */,
+				D1440E7418F6E8FF0031B568 /* FoodiesAPI.m */,
 				D110AFFB18CA4E080077D25B /* FoodPost.h */,
 				D110AFFC18CA4E080077D25B /* FoodPost.m */,
 				D110AFFF18CA524B0077D25B /* Foodie.h */,
@@ -603,6 +608,7 @@
 				D110B00718CA5E070077D25B /* UIView+ResizeToFitSubviews.m in Sources */,
 				D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */,
 				D110B00A18CA67210077D25B /* Like.m in Sources */,
+				D1440E7518F6E8FF0031B568 /* FoodiesAPI.m in Sources */,
 				D12A6D9918C12EB40029EB6D /* CustomCamera.m in Sources */,
 				D12A6D9618C128800029EB6D /* CameraModeViewController.m in Sources */,
 				D110B00118CA524B0077D25B /* Foodie.m in Sources */,

@@ -22,6 +22,10 @@
                   clientKey:@"RmOWg6bPDNyVrGdnLb6AnxbL2G2ymq4IjNC9cbt4"];
 //    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
+    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+    testObject[@"foo"] = @"bar";
+    [testObject saveInBackground];
+    
     return YES;
 }
 							
