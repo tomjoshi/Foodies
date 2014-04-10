@@ -35,7 +35,7 @@
         _author = [[Foodie alloc] init];
         _likes = [NSMutableArray arrayWithArray:@[[[Like alloc] init], [[Like alloc] init]]];
         _comments = [NSMutableArray arrayWithArray:@[[[Comment alloc] init],[[Comment alloc] init],[[Comment alloc] init]]];
-        _venue = [[Venue alloc] initWithName:@"Ramen Palace" venueId:@"" location:nil];
+        _venue = [[Venue alloc] initWithName:@"Ramen Palace" foursquareId:@"" location:nil];
         _mealTags = [[NSSet alloc] init];
         
     }

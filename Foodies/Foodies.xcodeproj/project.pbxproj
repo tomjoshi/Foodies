@@ -138,6 +138,7 @@
 		D13A51B518BCEF3200ADE71D /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		D1440E7318F6E8FF0031B568 /* FoodiesAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodiesAPI.h; sourceTree = "<group>"; };
 		D1440E7418F6E8FF0031B568 /* FoodiesAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodiesAPI.m; sourceTree = "<group>"; };
+		D1440E7618F744E80031B568 /* PostFormViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostFormViewControllerDelegate.h; sourceTree = "<group>"; };
 		D144D69F18C5272D00C6755F /* FeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewController.h; sourceTree = "<group>"; };
 		D144D6A018C5272D00C6755F /* FeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewController.m; sourceTree = "<group>"; };
 		D183514118BBAE5B00303868 /* Foodies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foodies.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,6 +256,7 @@
 				D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */,
 				D1BD1B1118D36F3900256BC2 /* PostFormTableViewController.h */,
 				D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */,
+				D1440E7618F744E80031B568 /* PostFormViewControllerDelegate.h */,
 				D1247F7918E75BB5009CD32B /* TagPickerViewController.h */,
 				D1247F7A18E75BB5009CD32B /* TagPickerViewController.m */,
 				D1FB844118F0873D00A44DD9 /* TagPickerDelegate.h */,

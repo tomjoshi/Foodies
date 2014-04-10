@@ -19,8 +19,9 @@
 #import <ImageIO/CGImageProperties.h>
 #import "TabBarController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PostFormViewControllerDelegate.h"
 
-@interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, CameraOutputDelegate>
+@interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, CameraOutputDelegate, PostFormViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandle;
@@ -262,7 +263,7 @@ finishedSavingWithError:(NSError *)error
 - (IBAction)cancelTapped:(id)sender {
     [self.previewImageView setImage:nil];
     self.previewImageAsset = nil;
-    [self.albumCollectionView deselectItemAtIndexPath:self.selectedIndexPath animated:YES];
+    [self.albumCollectionView deselectItemAtIndexPath:self.selectedIndexPath animated:NO];
     self.selectedIndexPath = nil;
     [self cancelCropping];
 }
@@ -294,6 +295,7 @@ finishedSavingWithError:(NSError *)error
 {
     PostFormTableViewController *segueVC = segue.destinationViewController;
     segueVC.assetPassed = self.previewImageAsset;
+    segueVC.delegate = self;
 }
 
 #pragma mark - Controller Methods
@@ -354,6 +356,9 @@ finishedSavingWithError:(NSError *)error
     }
 }
 
-
+- (void)didSharePost
+{
+    [self cancelTapped:nil];
+}
 
 @end

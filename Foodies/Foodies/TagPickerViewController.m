@@ -62,7 +62,7 @@
     NSString *urlQuery = [NSString stringWithFormat:@"http://matching-api.singleplatform.com/location-match?client=cmhe9zqp8qn1zwzu8ws6zczjl"];
     
     NSDictionary *params = @{
-                                @"locations": @[@{@"foursquare_id": self.mealsVenue.venueId}],
+                                @"locations": @[@{@"foursquare_id": self.mealsVenue.foursquareId}],
                         @"matching_criteria": @"FOURSQUARE_ID"
                                 };
     [manager POST:urlQuery parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {

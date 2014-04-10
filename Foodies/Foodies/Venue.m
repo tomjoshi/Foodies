@@ -12,15 +12,15 @@
 
 - init
 {
-    return [self initWithName:@"" venueId:@"" location:nil];
+    return [self initWithName:@"" foursquareId:@"" location:nil];
 }
 
-- (instancetype)initWithName:(NSString *)name venueId:(NSString *)venueId location:(Location *)location
+- (instancetype)initWithName:(NSString *)name foursquareId:(NSString *)foursquareId location:(Location *)location
 {
     self = [super init];
     if (self) {
         _name = name;
-        _venueId = venueId;
+        _foursquareId = foursquareId;
         _location = location;
     }
     return self;

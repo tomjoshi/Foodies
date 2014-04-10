@@ -93,6 +93,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqual:@"locationSegue"]) {
+        if ([self.captionTextView isFirstResponder]) {
+            [self.captionTextView resignFirstResponder];
+        }
         UINavigationController *segueNC = segue.destinationViewController;
         LocationPickerTableViewController *segueVC = segueNC.viewControllers[0];
         segueVC.delegate = self;
@@ -119,7 +122,7 @@
         [self.tableView reloadData];
         
         
-        [Foursquare2 venueGetMenu:venue.venueId callback:^(BOOL success, id result) {
+        [Foursquare2 venueGetMenu:venue.foursquareId callback:^(BOOL success, id result) {
             NSLog(@"%@", result);
         }];
         
@@ -197,6 +200,7 @@
     [FoodiesDataStore sharedInstance].newPost = YES;
     [self.tabBarController setSelectedIndex:0];
     // need some kind of delegate method back to camera view so it resets.
+    [self.delegate didSharePost];
     [self.navigationController popViewControllerAnimated:NO];
 }
 
@@ -353,6 +357,10 @@
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
     
     if (indexPath.section == 2 && indexPath.row == 0) {
+        if ([self.captionTextView isFirstResponder]) {
+            [self.captionTextView resignFirstResponder];
+        }
+        
         TagPickerViewController *tagVC = [[TagPickerViewController alloc] init];
         ALAssetRepresentation *defaultRep = [self.assetPassed defaultRepresentation];
         tagVC.imageToTag = [UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0];
