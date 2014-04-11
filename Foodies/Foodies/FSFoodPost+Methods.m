@@ -26,10 +26,6 @@
     return self.postDate;
 }
 
-- (void)setPostDate:(NSDate *)postDate
-{
-    self.postDate = postDate;
-}
 
 - (NSNumber *)getNumberOfLikes
 {
