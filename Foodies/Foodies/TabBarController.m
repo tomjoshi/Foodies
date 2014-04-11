@@ -122,7 +122,7 @@
 {
     [super viewDidAppear:animated];
     
-    if ([Foodie me] == nil) {
+    if ([PFUser currentUser] == nil) {
         LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
         modalVC.delegate = self;
         [self presentViewController:modalVC animated:YES completion:nil];

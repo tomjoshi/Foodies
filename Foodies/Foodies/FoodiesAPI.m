@@ -11,6 +11,7 @@
 #import "MealTag.h"
 
 @implementation FoodiesAPI
+
 + (void)postFoodPost:(FoodPost *)newFoodPost
 {
     PFObject *foodPostToPost = [PFObject objectWithClassName:@"FoodPost"];
@@ -108,7 +109,7 @@
 
 + (void)logInWithUsernameInBackground:(NSString *)username password:(NSString *)password success:(void (^)(void))successBlock failure:(void (^)(NSError *))failureBlock
 {
-    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error) {
+    [PFUser logInWithUsernameInBackground:[username lowercaseString] password:password block:^(PFUser *user, NSError *error) {
         if (user) {
             successBlock();
         } else {
@@ -121,7 +122,7 @@
 {
     PFUser *user = [PFUser user];
     
-    user.username = username;
+    user.username = [username lowercaseString];
     user.password = password;
     user.email = email;
     
@@ -173,8 +174,6 @@
     } else {
         completionBlock(nil);
     }
-    
-
 }
 
 + (void)pfObjectForMeal:(Meal *)meal atPFVenue:(PFObject *)pfVenue completion:(void (^)(PFObject *pfMeal))completionBlock
