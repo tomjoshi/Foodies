@@ -52,13 +52,6 @@
     
     [FoodiesDataStore sharedInstance].fetchedResultsController.delegate = self;
     
-    NSError *error;
-    if (![[FoodiesDataStore sharedInstance].fetchedResultsController performFetch:&error]) {
-        // Update to handle the error appropriately.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        exit(-1);  // Fail
-    }
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -125,7 +118,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     FeedTableViewCell *cellToConfigure = (FeedTableViewCell *)cell;
-    FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
+    FSFoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
     cellToConfigure.indexPath = indexPath;
     [cellToConfigure configureWithFoodPost:postToShow];
     cellToConfigure.delegate = self;

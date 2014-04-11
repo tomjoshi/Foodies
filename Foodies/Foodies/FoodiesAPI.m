@@ -126,7 +126,6 @@
 //                newFSFoodPost.postDate = [NSDate date];
 //                newFSFoodPost.authorName = [[Foodie me] getName];
 //                newFSFoodPost.venueName = self.venue.name;
-//                [[FoodiesDataStore sharedInstance] saveContext];
                 
             }
         }

@@ -25,6 +25,7 @@
 @property (strong, nonatomic) TTTAttributedLabel *likesLabel;
 @property (strong, nonatomic) UIView *likesAndCommentsView;
 @property (nonatomic) BOOL tagsAreVisible;
+@property (strong, nonatomic) UIImage *image;
 
 @end
 @implementation FeedTableViewCell

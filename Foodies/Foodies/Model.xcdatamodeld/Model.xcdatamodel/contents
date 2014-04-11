@@ -10,10 +10,10 @@
     <entity name="FSFoodPost" representedClassName="FSFoodPost" syncable="YES">
         <attribute name="authorId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="authorThumb" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="authorThumb" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="postDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="postId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="postImage" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="postImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="venueId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="venueName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FSComment" inverseName="foodPost" inverseEntity="FSComment" syncable="YES"/>

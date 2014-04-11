@@ -17,7 +17,6 @@
 - (NSNumber *)getNumberOfLikes;
 - (NSArray *)getComments;
 - (BOOL)isLiked;
-- (void)setPostDate:(NSDate *)postDate;
 - (void)addLike:(FSLike *)newLike;
 - (void)addComment:(FSComment *)newComment;
 - (NSSet *)getTags;
