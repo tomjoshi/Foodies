@@ -107,6 +107,22 @@
     }];
 }
 
++ (void)fetchFoodPostsInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"FoodPost"];
+//    [query setLimit:20];
+//    [query addDescendingOrder:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *pfFoodPost in objects) {
+                NSLog(@"%@", pfFoodPost);
+                // ideally insert entity here, if it does not exist.
+                // compare with foodpostid, which is the objectid
+            }
+        }
+    }];
+}
+
 + (void)logInWithUsernameInBackground:(NSString *)username password:(NSString *)password success:(void (^)(void))successBlock failure:(void (^)(NSError *))failureBlock
 {
     [PFUser logInWithUsernameInBackground:[username lowercaseString] password:password block:^(PFUser *user, NSError *error) {

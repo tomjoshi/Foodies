@@ -58,7 +58,7 @@
         _venue = venue;
         _mealTags = mealTags;
     }
-    [FoodiesAPI postFoodPost:self];
+    
     return self;
 }
 

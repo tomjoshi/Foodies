@@ -13,6 +13,7 @@
 @interface FoodiesAPI : NSObject
 // FoodPost related
 + (void)postFoodPost:(FoodPost *)newFoodPost;
++ (void)fetchFoodPostsInManagedObjectContext:(NSManagedObjectContext *)context;
 
 // Foodie related
 + (void)signUpWithUsernameInBackground:(NSString *)username password:(NSString *)password email:(NSString *)email success:(void (^)(void))successBlock failure:(void (^)(NSError *error))failureBlock;

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="FSComment" syncable="YES">
+    <entity name="FSComment" representedClassName="FSComment" syncable="YES">
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commenterId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commenterName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isCaption" optional="YES" attributeType="Boolean" syncable="YES"/>
         <relationship name="foodPost" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FSFoodPost" inverseName="comments" inverseEntity="FSFoodPost" syncable="YES"/>
     </entity>
-    <entity name="FSFoodPost" syncable="YES">
+    <entity name="FSFoodPost" representedClassName="FSFoodPost" syncable="YES">
         <attribute name="authorId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorThumb" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -20,13 +20,13 @@
         <relationship name="likes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FSLike" inverseName="foodPost" inverseEntity="FSLike" syncable="YES"/>
         <relationship name="mealTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FSMealTag" inverseName="foodPost" inverseEntity="FSMealTag" syncable="YES"/>
     </entity>
-    <entity name="FSLike" syncable="YES">
+    <entity name="FSLike" representedClassName="FSLike" syncable="YES">
         <attribute name="likeDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="likerId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="likerName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="foodPost" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FSFoodPost" inverseName="likes" inverseEntity="FSFoodPost" syncable="YES"/>
     </entity>
-    <entity name="FSMealTag" syncable="YES">
+    <entity name="FSMealTag" representedClassName="FSMealTag" syncable="YES">
         <attribute name="coordinateX" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="coordinateY" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="isArrowUp" optional="YES" attributeType="Boolean" syncable="YES"/>

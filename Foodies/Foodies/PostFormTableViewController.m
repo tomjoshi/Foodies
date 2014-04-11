@@ -18,6 +18,8 @@
 #import "MealTag.h"
 #import "TagPickerViewController.h"
 #import <Foursquare2.h>
+#import "FoodiesAPI.h"
+#import "FSFoodPost.h"
 
 @interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate, TagPickerDelegate>
 @property (weak, nonatomic) IBOutlet UITableViewCell *locationCell;
@@ -195,6 +197,17 @@
     FoodPost *newFoodPost = [[FoodPost alloc] initWithImage:croppedImage Author:[Foodie me] Caption:newComment atVenue:self.venue andMealTags:[NSSet setWithArray:self.mealTags]];
     [[FoodiesDataStore sharedInstance].tempPosts addObject:newFoodPost];
     
+    // make an entity in core data
+    FSFoodPost *newFSFoodPost = [NSEntityDescription insertNewObjectForEntityForName:@"FSFoodPost" inManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
+    newFSFoodPost.postImage = UIImagePNGRepresentation(croppedImage);
+    newFSFoodPost.postDate = [NSDate date];
+    newFSFoodPost.authorName = [[Foodie me] getName];
+    newFSFoodPost.venueName = self.venue.name;
+    [[FoodiesDataStore sharedInstance] saveContext];
+    
+    // save in api
+    [FoodiesAPI postFoodPost:newFoodPost];
+    
     NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"postDate" ascending:NO];
     [FoodiesDataStore sharedInstance].tempPosts = [NSMutableArray arrayWithArray:[[FoodiesDataStore sharedInstance].tempPosts sortedArrayUsingDescriptors:@[sortByDate]]];
     [FoodiesDataStore sharedInstance].newPost = YES;
@@ -265,7 +278,7 @@
             } else {
                 mealLabel = @"Meal";
             }
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@",[self.mealTags count], mealLabel];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu %@",(unsigned long)[self.mealTags count], mealLabel];
         } else {
             cell.detailTextLabel.text = @"";
             FAKFontAwesome *tagIcon = [FAKFontAwesome tagIconWithSize:20];
@@ -341,7 +354,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int section = indexPath.section;
+    NSInteger section = indexPath.section;
     
     // if dynamic section make all rows the same indentation level as row 0
     if (section == 2) {

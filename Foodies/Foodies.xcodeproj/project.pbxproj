@@ -38,6 +38,12 @@
 		D13A51A818BBCA3700ADE71D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A718BBCA3700ADE71D /* AVFoundation.framework */; };
 		D13A51AA18BBCA5700ADE71D /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D13A51B518BCEF3200ADE71D /* CameraViewController.m */; };
+		D1410A9218F86884002AC1AC /* FSMealTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D1410A9118F86884002AC1AC /* FSMealTag.m */; };
+		D1410A9518F86884002AC1AC /* FSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D1410A9418F86884002AC1AC /* FSComment.m */; };
+		D1410A9818F86884002AC1AC /* FSFoodPost.m in Sources */ = {isa = PBXBuildFile; fileRef = D1410A9718F86884002AC1AC /* FSFoodPost.m */; };
+		D1410A9B18F86884002AC1AC /* FSLike.m in Sources */ = {isa = PBXBuildFile; fileRef = D1410A9A18F86884002AC1AC /* FSLike.m */; };
+		D1410A9D18F86D38002AC1AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1410A9C18F86D38002AC1AC /* CoreData.framework */; };
+		D1410AE118F881FB002AC1AC /* FSFoodPost+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = D1410AE018F881FB002AC1AC /* FSFoodPost+Methods.m */; };
 		D1440E7518F6E8FF0031B568 /* FoodiesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D1440E7418F6E8FF0031B568 /* FoodiesAPI.m */; };
 		D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D144D6A018C5272D00C6755F /* FeedTableViewController.m */; };
 		D183514518BBAE5B00303868 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D183514418BBAE5B00303868 /* Foundation.framework */; };
@@ -137,6 +143,17 @@
 		D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		D13A51B418BCEF3200ADE71D /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		D13A51B518BCEF3200ADE71D /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		D1410A9018F86884002AC1AC /* FSMealTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMealTag.h; sourceTree = "<group>"; };
+		D1410A9118F86884002AC1AC /* FSMealTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMealTag.m; sourceTree = "<group>"; };
+		D1410A9318F86884002AC1AC /* FSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComment.h; sourceTree = "<group>"; };
+		D1410A9418F86884002AC1AC /* FSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComment.m; sourceTree = "<group>"; };
+		D1410A9618F86884002AC1AC /* FSFoodPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSFoodPost.h; sourceTree = "<group>"; };
+		D1410A9718F86884002AC1AC /* FSFoodPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSFoodPost.m; sourceTree = "<group>"; };
+		D1410A9918F86884002AC1AC /* FSLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSLike.h; sourceTree = "<group>"; };
+		D1410A9A18F86884002AC1AC /* FSLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSLike.m; sourceTree = "<group>"; };
+		D1410A9C18F86D38002AC1AC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D1410ADF18F881FB002AC1AC /* FSFoodPost+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSFoodPost+Methods.h"; sourceTree = "<group>"; };
+		D1410AE018F881FB002AC1AC /* FSFoodPost+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSFoodPost+Methods.m"; sourceTree = "<group>"; };
 		D1440E7318F6E8FF0031B568 /* FoodiesAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodiesAPI.h; sourceTree = "<group>"; };
 		D1440E7418F6E8FF0031B568 /* FoodiesAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodiesAPI.m; sourceTree = "<group>"; };
 		D1440E7618F744E80031B568 /* PostFormViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostFormViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -202,6 +219,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1410A9D18F86D38002AC1AC /* CoreData.framework in Frameworks */,
 				D1089F5518F4F89F008AC538 /* SystemConfiguration.framework in Frameworks */,
 				D1089F5318F4F894008AC538 /* StoreKit.framework in Frameworks */,
 				D1089F5118F4F88E008AC538 /* Security.framework in Frameworks */,
@@ -274,6 +292,16 @@
 			isa = PBXGroup;
 			children = (
 				D1A4E99C18F830A100E35D56 /* Model.xcdatamodeld */,
+				D1410A9918F86884002AC1AC /* FSLike.h */,
+				D1410A9A18F86884002AC1AC /* FSLike.m */,
+				D1410A9618F86884002AC1AC /* FSFoodPost.h */,
+				D1410A9718F86884002AC1AC /* FSFoodPost.m */,
+				D1410ADF18F881FB002AC1AC /* FSFoodPost+Methods.h */,
+				D1410AE018F881FB002AC1AC /* FSFoodPost+Methods.m */,
+				D1410A9318F86884002AC1AC /* FSComment.h */,
+				D1410A9418F86884002AC1AC /* FSComment.m */,
+				D1410A9018F86884002AC1AC /* FSMealTag.h */,
+				D1410A9118F86884002AC1AC /* FSMealTag.m */,
 				D1FB844218F25BBF00A44DD9 /* MenuPopOverView.h */,
 				D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */,
 				D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */,
@@ -370,6 +398,7 @@
 		D183514318BBAE5B00303868 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D1410A9C18F86D38002AC1AC /* CoreData.framework */,
 				D1089F5418F4F89F008AC538 /* SystemConfiguration.framework */,
 				D1089F5218F4F894008AC538 /* StoreKit.framework */,
 				D1089F5018F4F88E008AC538 /* Security.framework */,
@@ -588,17 +617,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1410AE118F881FB002AC1AC /* FSFoodPost+Methods.m in Sources */,
 				D1BD1B1818D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				D1247F6B18E5F1DB009CD32B /* NSDate+PrettyTimestamp.m in Sources */,
 				D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */,
 				D1BD1B1318D36F3900256BC2 /* PostFormTableViewController.m in Sources */,
 				D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */,
+				D1410A9B18F86884002AC1AC /* FSLike.m in Sources */,
 				D12A5F5718E36F1D000BF74A /* ProfileViewController.m in Sources */,
 				D1247F6E18E5FA19009CD32B /* MealTag.m in Sources */,
 				D183516118BBAE5B00303868 /* SecondViewController.m in Sources */,
 				D183515518BBAE5B00303868 /* AppDelegate.m in Sources */,
 				D1BD1A8A18D35E1A00256BC2 /* Location.m in Sources */,
 				D1247F7118E5FAB5009CD32B /* Meal.m in Sources */,
+				D1410A9818F86884002AC1AC /* FSFoodPost.m in Sources */,
 				D1BD1A8518D3575B00256BC2 /* LocationPickerTableViewController.m in Sources */,
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
 				D1247F7B18E75BB5009CD32B /* TagPickerViewController.m in Sources */,
@@ -622,9 +654,11 @@
 				D110B00D18CA67E30077D25B /* Comment.m in Sources */,
 				D1247F6518E4CFFB009CD32B /* UIColor+colorPallete.m in Sources */,
 				D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */,
+				D1410A9218F86884002AC1AC /* FSMealTag.m in Sources */,
 				D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */,
 				D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */,
 				D12A5F5D18E37D48000BF74A /* SignUpViewController.m in Sources */,
+				D1410A9518F86884002AC1AC /* FSComment.m in Sources */,
 				D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

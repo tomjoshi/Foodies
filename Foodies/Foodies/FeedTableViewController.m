@@ -14,8 +14,9 @@
 #import "FeedTableViewCellDelegate.h"
 #import <FontAwesomeKit.h>
 #import "MealTag.h"
+#import "FoodiesAPI.h"
 
-@interface FeedTableViewController () <FeedTableViewCellDelegate, MenuPopOverViewDelegate>
+@interface FeedTableViewController () <FeedTableViewCellDelegate, MenuPopOverViewDelegate, NSFetchedResultsControllerDelegate>
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
 
@@ -48,13 +49,14 @@
     label.text = NSLocalizedString(@"Foodies", @"");
     [label sizeToFit];
     
+    [FoodiesDataStore sharedInstance].fetchedResultsController.delegate = self;
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+    NSError *error;
+    if (![[FoodiesDataStore sharedInstance].fetchedResultsController performFetch:&error]) {
+        // Update to handle the error appropriately.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        exit(-1);  // Fail
+    }
     
 }
 
@@ -87,6 +89,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    NSLog(@"count from FSC %lu", (unsigned long)[[[[FoodiesDataStore sharedInstance].fetchedResultsController sections] objectAtIndex:section] numberOfObjects]);
     return [[FoodiesDataStore sharedInstance].tempPosts count];
 }
 
@@ -98,10 +101,8 @@
     // Configure the cell...
     // i need to pass what goes into the cell. Like a FeedImage object or image id to pull from database.
     // but for now lets just init the foodpost here
-    FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
-    cell.indexPath = indexPath;
-    [cell configureWithFoodPost:postToShow];
-    cell.delegate = self;
+    
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
@@ -132,11 +133,25 @@
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([[[FoodiesDataStore sharedInstance].fetchedResultsController.sections objectAtIndex:indexPath.section] numberOfObjects]>indexPath.row) {
+        NSLog(@"get post :%@", [[FoodiesDataStore sharedInstance].fetchedResultsController objectAtIndexPath:indexPath]);
+    }
     return [FoodiesDataStore sharedInstance].tempPosts[indexPath.row];
 }
 
-- (IBAction)refreshTapped:(id)sender {
-    // fetch latest posts
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    FeedTableViewCell *cellToConfigure = (FeedTableViewCell *)cell;
+    FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
+    cellToConfigure.indexPath = indexPath;
+    [cellToConfigure configureWithFoodPost:postToShow];
+    cellToConfigure.delegate = self;
+}
+
+- (IBAction)refreshTapped:(UIButton *)sender {
+    // make the api call to fetch latest posts
+    [FoodiesAPI fetchFoodPostsInManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
 }
 
 - (void)reloadTable
@@ -191,4 +206,61 @@
     
 }
 
+# pragma mark - NSFetchedResultsController Delegate Methods
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                          withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+                          withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
+                    atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                             withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
 @end
