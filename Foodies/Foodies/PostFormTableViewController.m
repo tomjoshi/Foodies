@@ -197,14 +197,6 @@
     FoodPost *newFoodPost = [[FoodPost alloc] initWithImage:croppedImage Author:[Foodie me] Caption:newComment atVenue:self.venue andMealTags:[NSSet setWithArray:self.mealTags]];
     [[FoodiesDataStore sharedInstance].tempPosts addObject:newFoodPost];
     
-    // make an entity in core data
-    FSFoodPost *newFSFoodPost = [NSEntityDescription insertNewObjectForEntityForName:@"FSFoodPost" inManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
-    newFSFoodPost.postImage = UIImagePNGRepresentation(croppedImage);
-    newFSFoodPost.postDate = [NSDate date];
-    newFSFoodPost.authorName = [[Foodie me] getName];
-    newFSFoodPost.venueName = self.venue.name;
-    [[FoodiesDataStore sharedInstance] saveContext];
-    
     // save in api
     [FoodiesAPI postFoodPost:newFoodPost];
     

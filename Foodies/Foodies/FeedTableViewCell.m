@@ -18,6 +18,8 @@
 #import <WEPopoverController.h>
 #import "MenuPopOverView.h"
 #import "MealTag.h"
+#import "FoodiesDataStore.h"
+#import "FSLike.h"
 
 @interface FeedTableViewCell () <MenuPopOverViewDelegate>
 @property (strong, nonatomic) TTTAttributedLabel *likesLabel;
@@ -43,7 +45,7 @@
     // Configure the view for the selected state
 }
 
-- (void)configureWithFoodPost:(FoodPost *)foodPost
+- (void)configureWithFoodPost:(FSFoodPost *)foodPost
 {
     for (UIView *view in self.contentView.subviews) {
         if (!(view == self.authorLabel || view == self.timeLabel || view == self.venueLabel)) {
@@ -56,10 +58,10 @@
     
     UIImage *postImage = [foodPost getImage];
     NSString *postFormattedTime = [foodPost getFormattedTime];
-    NSString *postAuthor = [foodPost.author getName];
-    NSString *postVenueName = [foodPost.venue getName];
+    NSString *postAuthor = foodPost.authorName;
+    NSString *postVenueName = foodPost.venueName;
     NSNumber *numberOfLikes = [foodPost getNumberOfLikes];
-    UIImage *authorThumb = [foodPost.author getThumb];
+    UIImage *authorThumb = [foodPost getAuthorThumb];
     BOOL isLiked = [foodPost isLiked];
     NSArray *comments = [foodPost getComments];
     
@@ -259,9 +261,10 @@
 - (void)likePost
 {
     NSLog(@"isliked");
-    Like *newLike = [[Like alloc] init];
-    newLike.liker = [Foodie me];
-    newLike.date = [NSDate date];
+    FSLike *newLike = [NSEntityDescription insertNewObjectForEntityForName:@"Like" inManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
+    newLike.likerId = [Foodie getUserId];
+    newLike.likerName = [[Foodie me] getName];
+    newLike.likeDate = [NSDate date];
     [self.foodPostInCell addLike:newLike];
     
     if ([[self.foodPostInCell getNumberOfLikes] integerValue]==1) {

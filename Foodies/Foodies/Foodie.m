@@ -40,7 +40,7 @@
     return foodieThumb;
 }
 
-- (NSString *)getUserId
++ (NSString *)getUserId
 {
     PFUser *me = [PFUser currentUser];
     return me.objectId;
@@ -49,12 +49,12 @@
 + (Foodie *)me
 {
     // maybe have a currentUser property instead of having to call PFUser
-    PFUser *pfUser = [PFUser currentUser];
-    if (pfUser) {
+//    PFUser *pfUser = [PFUser currentUser];
+//    if (pfUser) {
         // pull out the user from nsdefaults and create a foodie object of this user
         return [[Foodie alloc] init];
-    }
-    return nil;
+//    }
+//    return nil;
 }
 
 + (void)logOut

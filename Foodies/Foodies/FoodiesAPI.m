@@ -17,7 +17,7 @@
     PFObject *foodPostToPost = [PFObject objectWithClassName:@"FoodPost"];
     
     // post image first as file
-    NSString *imageName = [NSString stringWithFormat:@"%@-%f.png", [newFoodPost.author getUserId], [[NSDate date] timeIntervalSince1970]];
+    NSString *imageName = [NSString stringWithFormat:@"%@-%f.png", [Foodie getUserId], [[NSDate date] timeIntervalSince1970]];
     PFFile *imageFile = [PFFile fileWithName:imageName data:UIImagePNGRepresentation([newFoodPost getImage])];
     
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -110,14 +110,24 @@
 + (void)fetchFoodPostsInManagedObjectContext:(NSManagedObjectContext *)context
 {
     PFQuery *query = [PFQuery queryWithClassName:@"FoodPost"];
-//    [query setLimit:20];
-//    [query addDescendingOrder:@"createdAt"];
+    [query setLimit:20];
+    [query addDescendingOrder:@"createdAt"];
+//    [query includeKey:<#(NSString *)#>]
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (PFObject *pfFoodPost in objects) {
                 NSLog(@"%@", pfFoodPost);
                 // ideally insert entity here, if it does not exist.
                 // compare with foodpostid, which is the objectid
+                
+                // make an entity in core data
+//                FSFoodPost *newFSFoodPost = [NSEntityDescription insertNewObjectForEntityForName:@"FSFoodPost" inManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
+//                newFSFoodPost.postImage = UIImagePNGRepresentation(croppedImage);
+//                newFSFoodPost.postDate = [NSDate date];
+//                newFSFoodPost.authorName = [[Foodie me] getName];
+//                newFSFoodPost.venueName = self.venue.name;
+//                [[FoodiesDataStore sharedInstance] saveContext];
+                
             }
         }
     }];

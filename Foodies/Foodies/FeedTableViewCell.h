@@ -10,6 +10,7 @@
 #import "FoodPost.h"
 #import <TTTAttributedLabel.h>
 #import "FeedTableViewCellDelegate.h"
+#import "FSFoodPost+Methods.h"
 
 @interface FeedTableViewCell : UITableViewCell <TTTAttributedLabelDelegate>
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *authorLabel;
@@ -18,12 +19,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
-@property (strong, nonatomic) FoodPost *foodPostInCell;
+@property (strong, nonatomic) FSFoodPost *foodPostInCell;
 @property (strong, nonatomic) NSIndexPath *indexPath;
 @property (strong, nonatomic) UIImageView *postImageView;
 
 @property (strong, nonatomic) id <FeedTableViewCellDelegate> delegate;
 
-- (void)configureWithFoodPost: (FoodPost *)foodPost;
+- (void)configureWithFoodPost: (FSFoodPost *)foodPost;
 
 @end
