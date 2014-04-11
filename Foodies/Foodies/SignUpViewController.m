@@ -106,9 +106,4 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    NSLog(@"%@", textField.text);
-    return YES;
-}
 @end

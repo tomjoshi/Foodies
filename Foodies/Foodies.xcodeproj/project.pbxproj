@@ -56,6 +56,7 @@
 		D183516C18BBAE5C00303868 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D183514818BBAE5B00303868 /* UIKit.framework */; };
 		D183517418BBAE5C00303868 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D183517218BBAE5C00303868 /* InfoPlist.strings */; };
 		D183517618BBAE5C00303868 /* FoodiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D183517518BBAE5C00303868 /* FoodiesTests.m */; };
+		D1A4E99E18F830A100E35D56 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D1A4E99C18F830A100E35D56 /* Model.xcdatamodeld */; };
 		D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */; };
 		D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B57DAA18C11D67007B3833 /* TabBarController.m */; };
 		D1BD1A8518D3575B00256BC2 /* LocationPickerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1A8418D3575B00256BC2 /* LocationPickerTableViewController.m */; };
@@ -164,6 +165,7 @@
 		D183517318BBAE5C00303868 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D183517518BBAE5C00303868 /* FoodiesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodiesTests.m; sourceTree = "<group>"; };
 		D193B85618E380AC00DCC5C8 /* LandingViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingViewControllerDelegate.h; sourceTree = "<group>"; };
+		D1A4E99D18F830A100E35D56 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		D1ABE1C918D22FD300254A84 /* albumThumbCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = albumThumbCollectionViewCell.h; sourceTree = "<group>"; };
 		D1ABE1CA18D22FD300254A84 /* albumThumbCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = albumThumbCollectionViewCell.m; sourceTree = "<group>"; };
 		D1B57DA918C11D67007B3833 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 		D110AFFE18CA4E0E0077D25B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D1A4E99C18F830A100E35D56 /* Model.xcdatamodeld */,
 				D1FB844218F25BBF00A44DD9 /* MenuPopOverView.h */,
 				D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */,
 				D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */,
@@ -602,6 +605,7 @@
 				D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */,
 				D183515E18BBAE5B00303868 /* FirstViewController.m in Sources */,
 				D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */,
+				D1A4E99E18F830A100E35D56 /* Model.xcdatamodeld in Sources */,
 				D1FB844B18F388BC00A44DD9 /* TouchDownGestureRecognizer.m in Sources */,
 				D1BD1A8B18D35E1A00256BC2 /* Venue.m in Sources */,
 				D110AFFD18CA4E080077D25B /* FoodPost.m in Sources */,
@@ -850,6 +854,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D1A4E99C18F830A100E35D56 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D1A4E99D18F830A100E35D56 /* Model.xcdatamodel */,
+			);
+			currentVersion = D1A4E99D18F830A100E35D56 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D183513918BBAE5B00303868 /* Project object */;
 }

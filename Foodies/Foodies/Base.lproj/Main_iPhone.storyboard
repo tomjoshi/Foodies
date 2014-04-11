@@ -623,7 +623,13 @@
                             <outlet property="delegate" destination="pcX-xW-n83" id="EbV-UL-WU3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="l4h-II-YWZ"/>
+                    <navigationItem key="navigationItem" id="l4h-II-YWZ">
+                        <barButtonItem key="leftBarButtonItem" title="Item" systemItem="refresh" id="xqT-2w-ff6">
+                            <connections>
+                                <action selector="refreshTapped:" destination="pcX-xW-n83" id="Apu-Yh-eWL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aba-Ws-kcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

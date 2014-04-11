@@ -19,6 +19,7 @@
 
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
 
+- (IBAction)refreshTapped:(id)sender;
 @end
 
 @implementation FeedTableViewController
@@ -132,6 +133,10 @@
 - (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [FoodiesDataStore sharedInstance].tempPosts[indexPath.row];
+}
+
+- (IBAction)refreshTapped:(id)sender {
+    // fetch latest posts
 }
 
 - (void)reloadTable
