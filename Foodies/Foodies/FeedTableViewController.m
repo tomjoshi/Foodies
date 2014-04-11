@@ -14,11 +14,12 @@
 #import "FeedTableViewCellDelegate.h"
 #import <FontAwesomeKit.h>
 #import "MealTag.h"
+#import "FSFoodPost+Methods.h"
 #import "FoodiesAPI.h"
 
 @interface FeedTableViewController () <FeedTableViewCellDelegate, MenuPopOverViewDelegate, NSFetchedResultsControllerDelegate>
 
-- (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
+- (FSFoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (IBAction)refreshTapped:(id)sender;
 @end
@@ -88,9 +89,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    NSLog(@"count from FSC %lu", (unsigned long)[[[[FoodiesDataStore sharedInstance].fetchedResultsController sections] objectAtIndex:section] numberOfObjects]);
-    return [[FoodiesDataStore sharedInstance].tempPosts count];
+    // Return the number of rows in the section
+    return [[[[FoodiesDataStore sharedInstance].fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,36 +107,18 @@
     return cell;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
-
-
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"feedCell"];
-    FoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
+    FSFoodPost *postToShow = [self getPostToShowAtIndexPath:indexPath];
     [cell configureWithFoodPost:postToShow];
     
     return cell.contentView.bounds.size.height+40;
 }
 
-- (FoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
+- (FSFoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[[FoodiesDataStore sharedInstance].fetchedResultsController.sections objectAtIndex:indexPath.section] numberOfObjects]>indexPath.row) {
-        NSLog(@"get post :%@", [[FoodiesDataStore sharedInstance].fetchedResultsController objectAtIndexPath:indexPath]);
-    }
-    return [FoodiesDataStore sharedInstance].tempPosts[indexPath.row];
+    return [[FoodiesDataStore sharedInstance].fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 

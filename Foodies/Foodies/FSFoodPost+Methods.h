@@ -9,5 +9,17 @@
 #import "FSFoodPost.h"
 
 @interface FSFoodPost (Methods)
-//- (instancetype)init
+
+- (UIImage *)getImage;
+- (UIImage *)getAuthorThumb;
+- (NSDate *)getDate;
+- (NSString *)getFormattedTime;
+- (NSNumber *)getNumberOfLikes;
+- (NSArray *)getComments;
+- (BOOL)isLiked;
+- (void)setPostDate:(NSDate *)postDate;
+- (void)addLike:(FSLike *)newLike;
+- (void)addComment:(FSComment *)newComment;
+- (NSSet *)getTags;
+
 @end
