@@ -112,11 +112,17 @@
     PFQuery *query = [PFQuery queryWithClassName:@"FoodPost"];
     [query setLimit:20];
     [query addDescendingOrder:@"createdAt"];
-//    [query includeKey:<#(NSString *)#>]
+    [query includeKey:@"comments"];
+    [query includeKey:@"likes"];
+    [query includeKey:@"mealTags"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (PFObject *pfFoodPost in objects) {
-                NSLog(@"%@", pfFoodPost);
+                if ([pfFoodPost[@"comments"] count] > 0) {
+                    PFRelation *foodieRelation = (PFRelation *)pfFoodPost[@"comments"][0][@"commenter"];
+                    PFObject *foodie = [[foodieRelation query] findObjects][0];
+                    NSLog(@"%@",[foodie objectForKey:@"email"]);
+                }
                 // ideally insert entity here, if it does not exist.
                 // compare with foodpostid, which is the objectid
                 
