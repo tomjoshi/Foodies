@@ -414,7 +414,7 @@
     
     if (![self.gestureRecognizers containsObject:self.tap]) {
         //Add a tap gesture recognizer to the large invisible view (self), which will detect taps anywhere on the screen.
-        self.tap = [[TouchDownGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+        self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         self.tap.cancelsTouchesInView = NO; // Allow touches through to a UITableView or other touchable view, as suggested by Dimajp.
         [self addGestureRecognizer:self.tap];
     }

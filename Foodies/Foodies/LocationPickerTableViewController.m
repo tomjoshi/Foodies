@@ -51,35 +51,6 @@
     }
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelTapped:)];
-    
-//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"resultCell"];
-
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Controller Methods
-
-- (void)loadRestaurantsAtLatitude:(NSNumber *)lat andLongitude:(NSNumber *)lng
-{
-    if (lat && lng) {
-    
-        [Foursquare2 venueSearchNearByLatitude:lat
-                                     longitude:lng
-                                         query:@""
-                                         limit:@100
-                                        intent:intentCheckin
-                                        radius:@500
-                                    categoryId:@"4d4b7105d754a06374d81259" //food category
-                                      callback:^(BOOL success, id result)
-         {
-             [self getLocationsFromResult:result];
-         }];
-    }
 }
 
 #pragma mark - Table view data source
@@ -113,65 +84,9 @@
         venueForCell = [[Venue alloc] init];
     }
     cell.textLabel.text = venueForCell.name;
-//    if (![venueForCell.location.address isKindOfClass:[NSNull class]]) {
-        cell.detailTextLabel.text = [venueForCell.location description];
-//    }
+    cell.detailTextLabel.text = [venueForCell.location description];
     
     return cell;
-}
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (void)cancelTapped:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -197,6 +112,8 @@
     [failedLocation show];
 }
 
+#pragma mark - UISearchBarDelegate methods
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -204,6 +121,30 @@
         [self.LocationSearchBar resignFirstResponder];
         [self getLocationsFromResult:result];
     }];
+}
+
+#pragma mark - VC methods
+
+- (void)cancelTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)loadRestaurantsAtLatitude:(NSNumber *)lat andLongitude:(NSNumber *)lng
+{
+    if (lat && lng) {
+        
+        [Foursquare2 venueSearchNearByLatitude:lat
+                                     longitude:lng
+                                         query:@""
+                                         limit:@100
+                                        intent:intentCheckin
+                                        radius:@500
+                                    categoryId:@"4d4b7105d754a06374d81259" //food category
+                                      callback:^(BOOL success, id result)
+         {
+             [self getLocationsFromResult:result];
+         }];
+    }
 }
 
 - (void)getLocationsFromResult:(id)result
@@ -223,7 +164,7 @@
                                                crossStreet:locationDictionary[@"crossStreet"]];
         
         Venue *venue = [[Venue alloc] initWithName:venueDict[@"name"]
-                                           foursquareId:venueDict[@"id"]
+                                      foursquareId:venueDict[@"id"]
                                           location:location];
         [mutableVenues addObject:venue];
     }
@@ -234,6 +175,4 @@
         [self.searchDisplayController.searchResultsTableView reloadData];
     });
 }
-
-
 @end

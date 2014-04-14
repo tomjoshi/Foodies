@@ -45,19 +45,19 @@
     FAKIonIcons *homeIcon = [FAKIonIcons personStalkerIconWithSize:30];
     [homeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *homeIconImage = [homeIcon imageWithSize:CGSizeMake(30, 30)];
-    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Friends" image:homeIconImage tag:1];
+    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Friends" image:homeIconImage tag:0];
     
-    UIViewController *cameraVC = self.viewControllers[1];
-    FAKIonIcons *cameraIcon = [FAKIonIcons cameraIconWithSize:30];
-    [cameraIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *cameraIconImage = [cameraIcon imageWithSize:CGSizeMake(30, 30)];
-    cameraVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Post" image:cameraIconImage tag:1];
+    UIViewController *postVC = self.viewControllers[1];
+    FAKIonIcons *postIcon = [FAKIonIcons cameraIconWithSize:30];
+    [postIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
+    UIImage *postIconImage = [postIcon imageWithSize:CGSizeMake(30, 30)];
+    postVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Post" image:postIconImage tag:1];
     
     UIViewController *profileVC = self.viewControllers[2];
     FAKIonIcons *userIcon = [FAKIonIcons personIconWithSize:30];
     [userIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *userIconImage = [userIcon imageWithSize:CGSizeMake(30, 30)];
-    profileVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Me" image:userIconImage tag:1];
+    profileVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Me" image:userIconImage tag:2];
     
     // set up special gesture for the camera shutter
     self.touchDownCamera = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(takePhoto:)];
@@ -78,17 +78,22 @@
     
     // check if user is logged in
     if ([PFUser currentUser] == nil) {
+        // launch log in view if user is not logged in
         LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
         modalVC.delegate = self;
-        [self presentViewController:modalVC animated:YES completion:nil];
+        [self presentViewController:modalVC animated:NO completion:nil];
     }
     
 }
+
+#pragma mark - LandingViewControllerDelegate method
 
 - (void)didLoggedIn
 {
     [self setSelectedIndex:0];
 }
+
+#pragma mark - Camera functionality methods
 
 - (void)getCameraStarted
 {
@@ -144,12 +149,6 @@
             }
         }];
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)takePhoto:(UILongPressGestureRecognizer *)sender
