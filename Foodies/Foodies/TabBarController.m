@@ -43,26 +43,17 @@
 {
     [super viewDidLoad];
 	
-    self.uiTabBarItemWidth = self.view.bounds.size.width/5;
+    self.uiTabBarItemWidth = self.view.bounds.size.width/3;
     [self.tabBar setSelectedImageTintColor:[UIColor foodiesColor]];
     
+    // prepare tabs
     UIViewController *homeVC = self.viewControllers[0];
     FAKFontAwesome *homeIcon = [FAKFontAwesome homeIconWithSize:30];
     [homeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *homeIconImage = [homeIcon imageWithSize:CGSizeMake(30, 30)];
     homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Feed" image:homeIconImage tag:1];
     
-    UIViewController *discoverVC = self.viewControllers[1];
-    FAKIonIcons *searchIcon = [FAKIonIcons ios7SearchIconWithSize:30];
-    [searchIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *searchIconImage = [searchIcon imageWithSize:CGSizeMake(30, 30)];
-    discoverVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Discover" image:searchIconImage tag:1];
-    FAKIonIcons *searchFullIcon = [FAKIonIcons ios7SearchStrongIconWithSize:30];
-    [searchFullIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *searchFullIconImage = [searchFullIcon imageWithSize:CGSizeMake(30, 30)];
-    discoverVC.tabBarItem.selectedImage = searchFullIconImage;
-    
-    UIViewController *cameraVC = self.viewControllers[2];
+    UIViewController *cameraVC = self.viewControllers[1];
     FAKIonIcons *cameraIcon = [FAKIonIcons ios7CameraOutlineIconWithSize:30];
     [cameraIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *cameraIconImage = [cameraIcon imageWithSize:CGSizeMake(30, 30)];
@@ -71,19 +62,8 @@
     [cameraFullIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *cameraFullIconImage = [cameraFullIcon imageWithSize:CGSizeMake(30, 30)];
     cameraVC.tabBarItem.selectedImage = cameraFullIconImage;
-    // add touch down inside action listener to start camera
     
-    UIViewController *wantVC = self.viewControllers[3];
-    FAKIonIcons *starOIcon = [FAKIonIcons ios7StarOutlineIconWithSize:30];
-    [starOIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *starOIconImage = [starOIcon imageWithSize:CGSizeMake(30, 30)];
-    wantVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Want" image:starOIconImage tag:1];
-    FAKIonIcons *starFullIcon = [FAKIonIcons ios7StarIconWithSize:30];
-    [starFullIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *starFullIconImage = [starFullIcon imageWithSize:CGSizeMake(30, 30)];
-    wantVC.tabBarItem.selectedImage = starFullIconImage;
-    
-    UIViewController *profileVC = self.viewControllers[4];
+    UIViewController *profileVC = self.viewControllers[2];
     FAKIonIcons *userIcon = [FAKIonIcons ios7ContactOutlineIconWithSize:30];
     [userIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *userIconImage = [userIcon imageWithSize:CGSizeMake(30, 30)];
@@ -92,18 +72,8 @@
     [userFullIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *userFullIconImage = [userFullIcon imageWithSize:CGSizeMake(30, 30)];
     profileVC.tabBarItem.selectedImage = userFullIconImage;
-
     
-    
-    
-    // take over control of gestures over uitabbar
-//    discoverVC.tabBarItem.enabled = NO;
-//    homeVC.tabBarItem.enabled = NO;
-//    cameraVC.tabBarItem.enabled = NO;
-//    wantVC.tabBarItem.enabled = NO;
-//    profileVC.tabBarItem.enabled = NO;
-    
-    
+    // set up special gesture for the camera shutter
     self.touchDownCamera = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(takePhoto:)];
     self.touchDownCamera.minimumPressDuration = 0.5;
     [self.tabBar addGestureRecognizer:self.touchDownCamera];
@@ -111,8 +81,6 @@
     self.regularTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectViewController:)];
     [self.regularTap requireGestureRecognizerToFail:self.touchDownCamera];
     [self.tabBar addGestureRecognizer:self.regularTap];
-    
-//    self.arrayOfVCs = self.viewControllers;
     
     // load camera
     [self getCameraStarted];
@@ -122,6 +90,7 @@
 {
     [super viewDidAppear:animated];
     
+    // check if user is logged in
     if ([PFUser currentUser] == nil) {
         LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
         modalVC.delegate = self;
@@ -182,26 +151,6 @@
                 UIImage *image = [[UIImage alloc]initWithData:imageData];
                 
                 [self.cameraDelegate captureImageDidFinish:image];
-//                //Set image to image preview
-//                self.imagePreview.image = image;
-//                self.imagePreview.alpha = 100.0f;
-//                [UIView animateWithDuration:2.0f
-//                                      delay:0
-//                                    options:UIViewAnimationOptionCurveEaseIn
-//                                 animations:^{
-//                                     self.imagePreview.alpha = 0.0f;
-//                                 }
-//                                 completion:^(BOOL finished) {
-//                                     self.imagePreview.alpha = 100.0f;
-//                                 }];
-//                
-//                //Save to library
-//                ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//                [library writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error)
-//                 {
-//                     
-//                 }
-//                 ];
             }
             else
             {
@@ -222,7 +171,7 @@
     CGFloat touchX = [sender locationInView:self.tabBar].x;
     NSInteger index = floor(touchX/self.uiTabBarItemWidth);
     
-    if (index == 2) {
+    if (index == 1) {
         if (sender.state == UIGestureRecognizerStateEnded) {
             NSLog(@"long press ended");
             [self captureStillImage];
@@ -237,7 +186,7 @@
     CGFloat touchX = [sender locationInView:self.tabBar].x;
     NSInteger index = floor(touchX/self.uiTabBarItemWidth);
     
-    if ([self selectedViewController] == self.viewControllers[2] && index == 2) {
+    if ([self selectedViewController] == self.viewControllers[1] && index == 1) {
         [self captureStillImage];
     } else {
         [self setSelectedIndex:index];
@@ -261,7 +210,7 @@
 
 - (void) captureImageDidFinish:(UIImage *)image withMetadata:(NSDictionary *)metadata
 {
-    UINavigationController *nav = (UINavigationController *)self.viewControllers[2];
+    UINavigationController *nav = (UINavigationController *)self.viewControllers[1];
     CameraViewController *cameraTabVC = nav.viewControllers[0];
     cameraTabVC.imagePassed = image;
     [cameraTabVC clearPreviewImageAsset];

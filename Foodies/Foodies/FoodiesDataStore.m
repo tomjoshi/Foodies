@@ -22,6 +22,7 @@
     self = [super init];
     if (self) {
         self.tempPosts = [NSMutableArray arrayWithArray:@[[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init]]];
+        self.cachedPostImages = [[NSMutableDictionary alloc] init];
     }
     return self;
 }

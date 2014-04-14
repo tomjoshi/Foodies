@@ -201,6 +201,7 @@
     FSFoodPost *newFSFoodPost = [NSEntityDescription insertNewObjectForEntityForName:@"FSFoodPost" inManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
     newFSFoodPost.postImage = UIImagePNGRepresentation(croppedImage);
     newFSFoodPost.postDate = [NSDate date];
+    newFSFoodPost.postId = [NSString stringWithFormat:@"%f",[newFSFoodPost.postDate timeIntervalSince1970]];
     newFSFoodPost.authorName = [[Foodie me] getName];
     newFSFoodPost.venueName = self.venue.name;
     [[FoodiesDataStore sharedInstance] saveContext];
