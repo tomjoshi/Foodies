@@ -19,6 +19,7 @@ DerivedData
 # CocoaPods
 Pods
 
-
 .DS_Store
 TempFolder
+*Constants.h
+*Constants.m
