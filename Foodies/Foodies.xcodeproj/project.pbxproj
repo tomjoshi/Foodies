@@ -54,8 +54,6 @@
 		D183515518BBAE5B00303868 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D183515418BBAE5B00303868 /* AppDelegate.m */; };
 		D183515818BBAE5B00303868 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D183515618BBAE5B00303868 /* Main_iPhone.storyboard */; };
 		D183515B18BBAE5B00303868 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D183515918BBAE5B00303868 /* Main_iPad.storyboard */; };
-		D183515E18BBAE5B00303868 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D183515D18BBAE5B00303868 /* FirstViewController.m */; };
-		D183516118BBAE5B00303868 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D183516018BBAE5B00303868 /* SecondViewController.m */; };
 		D183516318BBAE5B00303868 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D183516218BBAE5B00303868 /* Images.xcassets */; };
 		D183516A18BBAE5C00303868 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D183516918BBAE5C00303868 /* XCTest.framework */; };
 		D183516B18BBAE5C00303868 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D183514418BBAE5B00303868 /* Foundation.framework */; };
@@ -171,10 +169,6 @@
 		D183515418BBAE5B00303868 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D183515718BBAE5B00303868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D183515A18BBAE5B00303868 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		D183515C18BBAE5B00303868 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		D183515D18BBAE5B00303868 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		D183515F18BBAE5B00303868 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		D183516018BBAE5B00303868 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		D183516218BBAE5B00303868 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D183516818BBAE5C00303868 /* FoodiesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodiesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D183516918BBAE5C00303868 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -291,6 +285,7 @@
 		D110AFFE18CA4E0E0077D25B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D110B00E18CA76B10077D25B /* Category Methods */,
 				D1A4E99C18F830A100E35D56 /* Model.xcdatamodeld */,
 				D1410A9918F86884002AC1AC /* FSLike.h */,
 				D1410A9A18F86884002AC1AC /* FSLike.m */,
@@ -424,22 +419,8 @@
 			children = (
 				D183515318BBAE5B00303868 /* AppDelegate.h */,
 				D183515418BBAE5B00303868 /* AppDelegate.m */,
-				D12A5F5518E36F1D000BF74A /* ProfileViewController.h */,
-				D12A5F5618E36F1D000BF74A /* ProfileViewController.m */,
-				D1B57DA918C11D67007B3833 /* TabBarController.h */,
-				D1B57DAA18C11D67007B3833 /* TabBarController.m */,
-				D183515C18BBAE5B00303868 /* FirstViewController.h */,
-				D183515D18BBAE5B00303868 /* FirstViewController.m */,
-				D183515F18BBAE5B00303868 /* SecondViewController.h */,
-				D183516018BBAE5B00303868 /* SecondViewController.m */,
-				D183515918BBAE5B00303868 /* Main_iPad.storyboard */,
-				D183515618BBAE5B00303868 /* Main_iPhone.storyboard */,
-				D110B00E18CA76B10077D25B /* Category Methods */,
 				D110AFFE18CA4E0E0077D25B /* Model */,
-				D12A5F5E18E37D55000BF74A /* Landing */,
-				D110AFF418CA43750077D25B /* Camera */,
-				D110AFF318CA43610077D25B /* Feed */,
-				D110B00418CA561F0077D25B /* Image */,
+				D1D3E83F18FC60B500F7ACC4 /* Controllers/Views */,
 				D183516218BBAE5B00303868 /* Images.xcassets */,
 				D183514B18BBAE5B00303868 /* Supporting Files */,
 			);
@@ -449,6 +430,7 @@
 		D183514B18BBAE5B00303868 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D110B00418CA561F0077D25B /* Image */,
 				D183514C18BBAE5B00303868 /* Foodies-Info.plist */,
 				D183514D18BBAE5B00303868 /* InfoPlist.strings */,
 				D183515018BBAE5B00303868 /* main.m */,
@@ -473,6 +455,30 @@
 				D183517218BBAE5C00303868 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D1D3E83F18FC60B500F7ACC4 /* Controllers/Views */ = {
+			isa = PBXGroup;
+			children = (
+				D1B57DA918C11D67007B3833 /* TabBarController.h */,
+				D1B57DAA18C11D67007B3833 /* TabBarController.m */,
+				D183515918BBAE5B00303868 /* Main_iPad.storyboard */,
+				D183515618BBAE5B00303868 /* Main_iPhone.storyboard */,
+				D12A5F5E18E37D55000BF74A /* Landing */,
+				D110AFF318CA43610077D25B /* Feed */,
+				D110AFF418CA43750077D25B /* Camera */,
+				D1D3E84018FC610B00F7ACC4 /* Profile */,
+			);
+			name = Controllers/Views;
+			sourceTree = "<group>";
+		};
+		D1D3E84018FC610B00F7ACC4 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				D12A5F5518E36F1D000BF74A /* ProfileViewController.h */,
+				D12A5F5618E36F1D000BF74A /* ProfileViewController.m */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -626,7 +632,6 @@
 				D1410A9B18F86884002AC1AC /* FSLike.m in Sources */,
 				D12A5F5718E36F1D000BF74A /* ProfileViewController.m in Sources */,
 				D1247F6E18E5FA19009CD32B /* MealTag.m in Sources */,
-				D183516118BBAE5B00303868 /* SecondViewController.m in Sources */,
 				D183515518BBAE5B00303868 /* AppDelegate.m in Sources */,
 				D1BD1A8A18D35E1A00256BC2 /* Location.m in Sources */,
 				D1247F7118E5FAB5009CD32B /* Meal.m in Sources */,
@@ -635,7 +640,6 @@
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
 				D1247F7B18E75BB5009CD32B /* TagPickerViewController.m in Sources */,
 				D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */,
-				D183515E18BBAE5B00303868 /* FirstViewController.m in Sources */,
 				D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */,
 				D1A4E99E18F830A100E35D56 /* Model.xcdatamodeld in Sources */,
 				D1FB844B18F388BC00A44DD9 /* TouchDownGestureRecognizer.m in Sources */,

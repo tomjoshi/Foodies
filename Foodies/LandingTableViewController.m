@@ -202,7 +202,7 @@
     [Foodie logInWithUsernameInBackground:cell1.textField.text password:cell2.textField.text success:^{
         NSLog(@"logged in properly!");
         // dismiss modalview
-        [self.delegate loggedIn];
+        [self.delegate didLoggedIn];
         [self dismissViewControllerAnimated:YES completion:nil];
     } failure:^(NSError *error) {
         NSLog(@"failed to log in! with error: %@", error);

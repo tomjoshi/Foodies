@@ -94,7 +94,7 @@
 
     [Foodie signUpWithUsernameInBackground:cell1.textField.text password:cell2.textField.text email:cell3.textField.text success:^{
         // dismiss modalview
-        [self.delegate loggedIn];
+        [self.delegate didLoggedIn];
         [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     } failure:^(NSError *error) {
         NSString *errorString = [error userInfo][@"error"];

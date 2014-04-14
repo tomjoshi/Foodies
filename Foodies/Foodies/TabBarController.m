@@ -8,21 +8,16 @@
 
 #import "TabBarController.h"
 #import <FontAwesomeKit.h>
-#import <DBCameraViewController.h>
-#import "CustomCamera.h"
 #import "CameraViewController.h"
 #import "LandingTableViewController.h"
 #import "UIColor+colorPallete.h"
 #import <Parse/Parse.h>
 #import "Foodie.h"
 
-@interface TabBarController () <DBCameraViewControllerDelegate, UITabBarControllerDelegate>
-//@property (strong, nonatomic) NSArray *arrayOfVCs;
+@interface TabBarController () <UITabBarControllerDelegate>
 @property (strong, nonatomic) UILongPressGestureRecognizer *touchDownCamera;
 @property (strong, nonatomic) UITapGestureRecognizer *regularTap;
 @property (nonatomic) CGFloat uiTabBarItemWidth;
-@property (strong, nonatomic) CustomCamera *camera;
-@property (strong, nonatomic) DBCameraViewController *cameraVC;
 
 @end
 
@@ -34,7 +29,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
     }
     return self;
 }
@@ -48,30 +42,22 @@
     
     // prepare tabs
     UIViewController *homeVC = self.viewControllers[0];
-    FAKFontAwesome *homeIcon = [FAKFontAwesome homeIconWithSize:30];
+    FAKIonIcons *homeIcon = [FAKIonIcons personStalkerIconWithSize:30];
     [homeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *homeIconImage = [homeIcon imageWithSize:CGSizeMake(30, 30)];
-    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Feed" image:homeIconImage tag:1];
+    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Friends" image:homeIconImage tag:1];
     
     UIViewController *cameraVC = self.viewControllers[1];
-    FAKIonIcons *cameraIcon = [FAKIonIcons ios7CameraOutlineIconWithSize:30];
+    FAKIonIcons *cameraIcon = [FAKIonIcons cameraIconWithSize:30];
     [cameraIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *cameraIconImage = [cameraIcon imageWithSize:CGSizeMake(30, 30)];
-    cameraVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Camera" image:cameraIconImage tag:1];
-    FAKIonIcons *cameraFullIcon = [FAKIonIcons ios7CameraIconWithSize:30];
-    [cameraFullIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *cameraFullIconImage = [cameraFullIcon imageWithSize:CGSizeMake(30, 30)];
-    cameraVC.tabBarItem.selectedImage = cameraFullIconImage;
+    cameraVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Post" image:cameraIconImage tag:1];
     
     UIViewController *profileVC = self.viewControllers[2];
-    FAKIonIcons *userIcon = [FAKIonIcons ios7ContactOutlineIconWithSize:30];
+    FAKIonIcons *userIcon = [FAKIonIcons personIconWithSize:30];
     [userIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *userIconImage = [userIcon imageWithSize:CGSizeMake(30, 30)];
-    profileVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Profile" image:userIconImage tag:1];
-    FAKIonIcons *userFullIcon = [FAKIonIcons ios7ContactIconWithSize:30];
-    [userFullIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
-    UIImage *userFullIconImage = [userFullIcon imageWithSize:CGSizeMake(30, 30)];
-    profileVC.tabBarItem.selectedImage = userFullIconImage;
+    profileVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Me" image:userIconImage tag:1];
     
     // set up special gesture for the camera shutter
     self.touchDownCamera = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(takePhoto:)];
@@ -99,7 +85,7 @@
     
 }
 
-- (void)loggedIn
+- (void)didLoggedIn
 {
     [self setSelectedIndex:0];
 }
@@ -134,7 +120,7 @@
 }
 
 
--(void) captureStillImage
+- (void)captureStillImage
 {
     AVCaptureConnection *stillImageConnection = [self.stillImageOutput.connections objectAtIndex:0];
     if([stillImageConnection isVideoOrientationSupported])
@@ -192,37 +178,5 @@
         [self setSelectedIndex:index];
     }
 }
-
-- (void) openCamera
-{
-    self.camera = [CustomCamera initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.camera buildInterface];
-    self.cameraVC = [[DBCameraViewController alloc] initWithDelegate:self cameraView:self.camera];
-    [self.cameraVC setUseCameraSegue:NO];
-    self.cameraVC.hidesBottomBarWhenPushed = NO;
-    UINavigationController *nav = (UINavigationController *)self.selectedViewController;
-    [nav setNavigationBarHidden:YES animated:YES];
-    [nav pushViewController:self.cameraVC animated:NO];
-
-}
-
-#pragma mark - DBCameraViewControllerDelegate Methods
-
-- (void) captureImageDidFinish:(UIImage *)image withMetadata:(NSDictionary *)metadata
-{
-    UINavigationController *nav = (UINavigationController *)self.viewControllers[1];
-    CameraViewController *cameraTabVC = nav.viewControllers[0];
-    cameraTabVC.imagePassed = image;
-    [cameraTabVC clearPreviewImageAsset];
-    [self.cameraVC.delegate dismissCamera];
-}
-
-- (void) dismissCamera
-{
-    UINavigationController *nav = (UINavigationController *)self.selectedViewController;
-    [nav popToRootViewControllerAnimated:NO];
-    [nav setNavigationBarHidden:NO animated:YES];
-}
-
 
 @end
