@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @protocol LandingViewControllerDelegate <NSObject>
-- (void)loggedIn;
+- (void)didLoggedIn;
 @end
