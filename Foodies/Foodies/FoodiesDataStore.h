@@ -20,6 +20,7 @@
 - (NSURL *)applicationDocumentsDirectory;
 
 @property (strong, nonatomic) NSMutableArray *tempPosts;
+@property (strong, nonatomic) NSMutableDictionary *cachedPostImages;
 @property (nonatomic) BOOL newPost;
 
 + (instancetype)sharedInstance;

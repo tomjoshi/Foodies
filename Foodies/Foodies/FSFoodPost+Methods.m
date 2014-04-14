@@ -8,12 +8,22 @@
 
 #import "FSFoodPost+Methods.h"
 #import "NSDate+PrettyTimestamp.h"
+#import "FoodiesDataStore.h"
 
 @implementation FSFoodPost (Methods)
 
 - (UIImage *)getImage
 {
-    return [UIImage imageWithData:self.postImage];
+    UIImage *postImage;
+    if ([FoodiesDataStore sharedInstance].cachedPostImages[self.postId]) {
+        postImage = [FoodiesDataStore sharedInstance].cachedPostImages[self.postId];
+    } else {
+        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+        [queue addOperationWithBlock:^{
+            [FoodiesDataStore sharedInstance].cachedPostImages[self.postId] = [UIImage imageWithData:self.postImage];
+        }];
+    }
+    return postImage;
 }
 
 - (UIImage *)getAuthorThumb
