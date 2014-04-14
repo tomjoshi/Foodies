@@ -1,4 +1,4 @@
 Foodies
 =======
 
-Food discovery iOS app
+Food sharing iOS app
