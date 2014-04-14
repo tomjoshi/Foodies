@@ -68,6 +68,7 @@
 		D1BD1B1818D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */; };
 		D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BD1B1A18D3A1D600256BC2 /* ALAsset+Date.m */; };
 		D1C0C36118DCBEF000F3AD9C /* profilepic.png in Resources */ = {isa = PBXBuildFile; fileRef = D1C0C36018DCBEF000F3AD9C /* profilepic.png */; };
+		D1D3E84318FC837D00F7ACC4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E84218FC837D00F7ACC4 /* Constants.m */; };
 		D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */; };
 		D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */; };
 		D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */; };
@@ -188,6 +189,8 @@
 		D1BD1B1C18D3BCA500256BC2 /* LocationPickerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationPickerDelegate.h; sourceTree = "<group>"; };
 		D1C0C36018DCBEF000F3AD9C /* profilepic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profilepic.png; sourceTree = "<group>"; };
 		D1C0C36218DCD10F00F3AD9C /* CameraOutputDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraOutputDelegate.h; sourceTree = "<group>"; };
+		D1D3E84118FC837D00F7ACC4 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D1D3E84218FC837D00F7ACC4 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlatformSignature.h; sourceTree = "<group>"; };
 		D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlatformSignature.m; sourceTree = "<group>"; };
 		D1FB843E18EF70E100A44DD9 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
@@ -402,6 +405,8 @@
 			children = (
 				D183515318BBAE5B00303868 /* AppDelegate.h */,
 				D183515418BBAE5B00303868 /* AppDelegate.m */,
+				D1D3E84118FC837D00F7ACC4 /* Constants.h */,
+				D1D3E84218FC837D00F7ACC4 /* Constants.m */,
 				D110AFFE18CA4E0E0077D25B /* Model */,
 				D1D3E83F18FC60B500F7ACC4 /* Controllers/Views */,
 				D183516218BBAE5B00303868 /* Images.xcassets */,
@@ -624,6 +629,7 @@
 				D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */,
 				D1A4E99E18F830A100E35D56 /* Model.xcdatamodeld in Sources */,
 				D1BD1A8B18D35E1A00256BC2 /* Venue.m in Sources */,
+				D1D3E84318FC837D00F7ACC4 /* Constants.m in Sources */,
 				D110AFFD18CA4E080077D25B /* FoodPost.m in Sources */,
 				D110AFF218CA43450077D25B /* FeedTableViewCell.m in Sources */,
 				D1247F7418E602ED009CD32B /* FoodiesDataStore.m in Sources */,
