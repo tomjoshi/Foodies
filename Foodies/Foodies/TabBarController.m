@@ -45,7 +45,7 @@
     FAKIonIcons *homeIcon = [FAKIonIcons personStalkerIconWithSize:30];
     [homeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *homeIconImage = [homeIcon imageWithSize:CGSizeMake(30, 30)];
-    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Friends" image:homeIconImage tag:0];
+    homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Foodies" image:homeIconImage tag:0];
     
     UIViewController *postVC = self.viewControllers[1];
     FAKIonIcons *postIcon = [FAKIonIcons cameraIconWithSize:30];

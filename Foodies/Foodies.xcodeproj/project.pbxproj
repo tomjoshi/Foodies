@@ -234,7 +234,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D110AFF318CA43610077D25B /* Friends */ = {
+		D110AFF318CA43610077D25B /* Foodies */ = {
 			isa = PBXGroup;
 			children = (
 				D144D69F18C5272D00C6755F /* FeedTableViewController.h */,
@@ -243,7 +243,7 @@
 				D110AFF118CA43450077D25B /* FeedTableViewCell.m */,
 				D1247F7518E60D4F009CD32B /* FeedTableViewCellDelegate.h */,
 			);
-			name = Friends;
+			name = Foodies;
 			sourceTree = "<group>";
 		};
 		D110AFF418CA43750077D25B /* Post */ = {
@@ -447,7 +447,7 @@
 				D1B57DAA18C11D67007B3833 /* TabBarController.m */,
 				D183515618BBAE5B00303868 /* Main_iPhone.storyboard */,
 				D12A5F5E18E37D55000BF74A /* Landing */,
-				D110AFF318CA43610077D25B /* Friends */,
+				D110AFF318CA43610077D25B /* Foodies */,
 				D110AFF418CA43750077D25B /* Post */,
 				D1D3E84018FC610B00F7ACC4 /* Me */,
 			);
