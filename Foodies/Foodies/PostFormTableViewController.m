@@ -50,17 +50,12 @@
     
     self.captionTextView.placeholder = @"Write a caption...";
     self.captionTextView.delegate = self;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.imageThumb setImage:[UIImage imageWithCGImage:[self.assetPassed thumbnail]]];
     
     [[self tableView] registerClass:[UITableViewCell class] forCellReuseIdentifier:@"TagCell"];
     
     self.mealTags = [[NSMutableArray alloc] init];
-    
     
     FAKIonIcons *locationIcon = [FAKIonIcons locationIconWithSize:25];
     [locationIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor]];
@@ -75,22 +70,7 @@
     NSLog(@"%f", self.tagCell.textLabel.frame.origin.x);
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark - Navigation method
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -111,6 +91,8 @@
         }
     }
 }
+
+#pragma mark - LocationPickerDelegate method
 
 - (void)submitVenue:(Venue *)venue
 {
@@ -133,6 +115,8 @@
     }
 }
 
+#pragma mark - TagPickerDelegate method
+
 - (void)submitTags:(NSArray *)tags
 {
     if ([tags count] > 0) {
@@ -153,10 +137,6 @@
     }
     
 }
-
-
-
-
 
 #pragma mark - TextView Delegate Methods
 
@@ -218,7 +198,7 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
-#pragma mark - VC Methods
+#pragma mark - VC methods
 
 - (void)toggleSelect:(UIButton *)sender
 {
@@ -230,7 +210,7 @@
 }
 
 
-#pragma mark - UITableView Delegate Methods
+#pragma mark - UITableView delegate and datasource methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -258,7 +238,6 @@
             [fullStar addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
             
             UIButton *testButton = [[UIButton alloc] initWithFrame:CGRectMake(cell.bounds.size.width-cell.frame.size.height , 0, cell.frame.size.height, cell.frame.size.height)];
-//            UIButton *testButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.tagCell.textLabel.frame.origin.x, cell.frame.size.height)];
             [testButton setAttributedTitle:[emptyStar attributedString] forState:UIControlStateNormal];
             [testButton setAttributedTitle:[fullStar attributedString] forState:UIControlStateSelected];
             [testButton addTarget:self action:@selector(toggleSelect:) forControlEvents:UIControlEventTouchUpInside];
@@ -326,8 +305,6 @@
     return UITableViewCellEditingStyleDelete;
 }
 
-
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {

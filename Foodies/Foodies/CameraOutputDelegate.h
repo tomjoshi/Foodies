@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @protocol CameraOutputDelegate <NSObject>
-- (void) captureImageDidFinish:(UIImage *)image;
+- (void)captureImageDidFinish:(UIImage *)image;
 - (void)shutterAnimation;
 @end

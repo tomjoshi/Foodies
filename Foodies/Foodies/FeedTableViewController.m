@@ -8,19 +8,18 @@
 
 #import "FeedTableViewController.h"
 #import "FeedTableViewCell.h"
+#import "FeedTableViewCellDelegate.h"
 #import <GTScrollNavigationBar.h>
+#import <FontAwesomeKit.h>
 #import "UIColor+colorPallete.h"
 #import "FoodiesDataStore.h"
-#import "FeedTableViewCellDelegate.h"
-#import <FontAwesomeKit.h>
-#import "MealTag.h"
-#import "FSFoodPost+Methods.h"
 #import "FoodiesAPI.h"
+#import "FSFoodPost+Methods.h"
+#import "MealTag.h"
 
 @interface FeedTableViewController () <FeedTableViewCellDelegate, MenuPopOverViewDelegate, NSFetchedResultsControllerDelegate>
 
 - (FSFoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
-
 - (IBAction)refreshTapped:(id)sender;
 @end
 
@@ -65,13 +64,6 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-    
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -109,6 +101,8 @@
     return cell.contentView.bounds.size.height+40;
 }
 
+#pragma mark - Table view helper methods
+
 - (FSFoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [[FoodiesDataStore sharedInstance].fetchedResultsController objectAtIndexPath:indexPath];
@@ -124,10 +118,14 @@
     cellToConfigure.delegate = self;
 }
 
+#pragma mark - IBActions methods
+
 - (IBAction)refreshTapped:(UIButton *)sender {
     // make the api call to fetch latest posts
     [FoodiesAPI fetchFoodPostsInManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
 }
+
+#pragma mark - FeedTableViewCellDelegate methods
 
 - (void)reloadTable
 {
@@ -181,7 +179,7 @@
     
 }
 
-# pragma mark - NSFetchedResultsController Delegate Methods
+#pragma mark - NSFetchedResultsControllerDelegate methods
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
@@ -238,4 +236,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
 }
+
+
+
 @end

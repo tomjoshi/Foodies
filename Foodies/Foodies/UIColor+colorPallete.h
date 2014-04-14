@@ -12,4 +12,5 @@
 + (UIColor *)foodiesColor;
 + (UIColor *)lighterGrayColor;
 + (UIColor *)semiTransparentWhiteColor;
++ (UIColor *)semiTransparentBlackColor;
 @end

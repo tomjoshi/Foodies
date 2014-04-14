@@ -7,8 +7,6 @@
 //
 
 #import "CameraViewController.h"
-#import <DBCameraViewController.h>
-#import "CustomCamera.h"
 #import "albumThumbCollectionViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <ALAssetsLibrary+CustomPhotoAlbum.h>
@@ -21,26 +19,25 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PostFormViewControllerDelegate.h"
 
-@interface CameraViewController () <DBCameraViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, CameraOutputDelegate, PostFormViewControllerDelegate>
+@interface CameraViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, CameraOutputDelegate, PostFormViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandle;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandleDetail;
 @property (weak, nonatomic) IBOutlet UICollectionView *albumCollectionView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *nextButton;
 @property (weak, nonatomic) IBOutlet UIView *previewView;
 @property (strong, nonatomic) ALAsset *previewImageAsset;
 @property (nonatomic, strong) NSArray *assets;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic) NSInteger imageCounter;
 @property (nonatomic) NSInteger amountOfAssets;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *nextButton;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 @property (strong, nonatomic) UITapGestureRecognizer *tapOnHandle;
 
 
 - (void)layoutCameraView;
-- (IBAction)nextTapped:(id)sender;
 - (IBAction)cancelTapped:(id)sender;
 - (ALAssetsLibrary *)defaultAssetsLibrary;
 
@@ -61,69 +58,18 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-//    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    // get the camera going
     [self layoutCameraView];
     [self startCameraPreview];
     
+    // style scrolling "handle"
     self.scrollHandleDetail.layer.cornerRadius = 5;
     self.scrollHandleDetail.layer.masksToBounds = YES;
     
+    // add tap gesture on handle
     self.tapOnHandle = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapped)];
     [self.scrollHandle addGestureRecognizer:self.tapOnHandle];
-}
-
-- (void)handleTapped
-{
-    if (self.mainScrollView.contentOffset.y == 0) {
-        [self.mainScrollView setContentOffset:CGPointMake(0, 320) animated:YES];
-    } else{
-        [self.mainScrollView setContentOffset:CGPointZero animated:YES];
-    }
-
-}
-
-
-- (void)startCameraPreview
-{
-    ((TabBarController *)self.tabBarController).previewLayer.frame = self.previewView.bounds;
-    ((TabBarController *)self.tabBarController).previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    ((TabBarController *)self.tabBarController).cameraDelegate = self;
-    [self.previewView.layer addSublayer:((TabBarController *)self.tabBarController).previewLayer];
-    
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [queue addOperationWithBlock:^{
-        [((TabBarController *)self.tabBarController).captureSession startRunning];
-    }];
-}
-
-
-- (void) captureImageDidFinish:(UIImage *)image
-{
-    self.imagePassed = image;
-    [self clearPreviewImageAsset];
-    [self viewDidAppear:NO];
-}
-
-- (void)shutterAnimation
-{
-    // make shutter animation
-    UIView *topShutter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
-    topShutter.backgroundColor = [UIColor blackColor];
-    [self.previewView addSubview:topShutter];
-    UIView *bottomShutter = [[UIView alloc] initWithFrame:CGRectMake(0, self.previewView.frame.size.height, 320, 0)];
-    bottomShutter.backgroundColor = [UIColor blackColor];
-    [self.previewView addSubview:bottomShutter];
-    [UIView animateWithDuration:.2 animations:^{
-        topShutter.frame = CGRectMake(0, 0, 320, self.previewView.frame.size.height/2);
-        bottomShutter.frame = CGRectMake(0, self.previewView.frame.size.height/2, 320, self.previewView.frame.size.height/2);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.2 animations:^{
-            topShutter.frame = CGRectMake(0, 0, 320, 0);
-            bottomShutter.frame = CGRectMake(0, self.previewView.frame.size.height, 320, 0);
-            [topShutter removeFromSuperview];
-            [bottomShutter removeFromSuperview];
-        } completion:nil];
-    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -150,51 +96,16 @@
     
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - CameraOutputDelegate method
+
+- (void) captureImageDidFinish:(UIImage *)image
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.imagePassed = image;
+    [self clearPreviewImageAsset];
+    [self viewDidAppear:NO];
 }
 
-- (void)layoutCameraView
-{
-    [self loadAlbum];
-    
-    self.albumCollectionView.delegate = self;
-    self.albumCollectionView.dataSource = self;
-    self.mainScrollView.delegate = self;
-    
-    CGFloat screenWidth = self.view.bounds.size.width;
-    CGFloat screenHeight = self.view.bounds.size.height;
-    
-    [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight+screenWidth)];
-    UIEdgeInsets albumInset = UIEdgeInsetsMake(4, 0, 4, 0);
-    [self.albumCollectionView setContentInset:albumInset];
-    
-}
-
--(void)image:(UIImage *)image
-finishedSavingWithError:(NSError *)error
- contextInfo:(void *)contextInfo
-{
-    if (error) {
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: @"Save failed"
-                              message: @"Failed to save image"
-                              delegate: nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-        [alert show];
-    }
-}
-
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-#pragma mark - UICollectionView Delegate + Datasource methods + Library Assets Methods
+#pragma mark - UICollectionViewDelegate + Datasource + Library Assets methods
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -254,20 +165,6 @@ finishedSavingWithError:(NSError *)error
     }];
 }
 
-#pragma mark - IBActions methods
-
-- (IBAction)nextTapped:(id)sender {
-    
-}
-
-- (IBAction)cancelTapped:(id)sender {
-    [self.previewImageView setImage:nil];
-    self.previewImageAsset = nil;
-    [self.albumCollectionView deselectItemAtIndexPath:self.selectedIndexPath animated:NO];
-    self.selectedIndexPath = nil;
-    [self cancelCropping];
-}
-
 - (ALAssetsLibrary *)defaultAssetsLibrary
 {
     static dispatch_once_t pred = 0;
@@ -278,7 +175,17 @@ finishedSavingWithError:(NSError *)error
     return library;
 }
 
-#pragma mark - UIScrollView Delegate Methods
+#pragma mark - IBActions methods
+
+- (IBAction)cancelTapped:(id)sender {
+    [self.previewImageView setImage:nil];
+    self.previewImageAsset = nil;
+    [self.albumCollectionView deselectItemAtIndexPath:self.selectedIndexPath animated:NO];
+    self.selectedIndexPath = nil;
+    [self cancelCropping];
+}
+
+#pragma mark - UIScrollViewDelegate methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -289,7 +196,7 @@ finishedSavingWithError:(NSError *)error
     
 }
 
-#pragma mark - Navigation Methods
+#pragma mark - Navigation methods
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -298,7 +205,70 @@ finishedSavingWithError:(NSError *)error
     segueVC.delegate = self;
 }
 
-#pragma mark - Controller Methods
+#pragma mark - VC methods
+
+- (void)handleTapped
+{
+    if (self.mainScrollView.contentOffset.y == 0) {
+        [self.mainScrollView setContentOffset:CGPointMake(0, 320) animated:YES];
+    } else{
+        [self.mainScrollView setContentOffset:CGPointZero animated:YES];
+    }
+    
+}
+
+- (void)layoutCameraView
+{
+    [self loadAlbum];
+    
+    self.albumCollectionView.delegate = self;
+    self.albumCollectionView.dataSource = self;
+    self.mainScrollView.delegate = self;
+    
+    CGFloat screenWidth = self.view.bounds.size.width;
+    CGFloat screenHeight = self.view.bounds.size.height;
+    
+    [self.mainScrollView setContentSize:CGSizeMake(screenWidth, screenHeight+screenWidth)];
+    UIEdgeInsets albumInset = UIEdgeInsetsMake(4, 0, 4, 0);
+    [self.albumCollectionView setContentInset:albumInset];
+    
+}
+
+- (void)startCameraPreview
+{
+    ((TabBarController *)self.tabBarController).previewLayer.frame = self.previewView.bounds;
+    ((TabBarController *)self.tabBarController).previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    ((TabBarController *)self.tabBarController).cameraDelegate = self;
+    [self.previewView.layer addSublayer:((TabBarController *)self.tabBarController).previewLayer];
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [queue addOperationWithBlock:^{
+        [((TabBarController *)self.tabBarController).captureSession startRunning];
+    }];
+}
+
+- (void)shutterAnimation
+{
+    // make shutter animation
+    UIView *topShutter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
+    topShutter.backgroundColor = [UIColor blackColor];
+    [self.previewView addSubview:topShutter];
+    UIView *bottomShutter = [[UIView alloc] initWithFrame:CGRectMake(0, self.previewView.frame.size.height, 320, 0)];
+    bottomShutter.backgroundColor = [UIColor blackColor];
+    [self.previewView addSubview:bottomShutter];
+    [UIView animateWithDuration:.2 animations:^{
+        topShutter.frame = CGRectMake(0, 0, 320, self.previewView.frame.size.height/2);
+        bottomShutter.frame = CGRectMake(0, self.previewView.frame.size.height/2, 320, self.previewView.frame.size.height/2);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:.2 animations:^{
+            topShutter.frame = CGRectMake(0, 0, 320, 0);
+            bottomShutter.frame = CGRectMake(0, self.previewView.frame.size.height, 320, 0);
+            [topShutter removeFromSuperview];
+            [bottomShutter removeFromSuperview];
+        } completion:nil];
+    }];
+}
+
 - (void)clearPreviewImageAsset
 {
     self.previewImageAsset = nil;
@@ -325,7 +295,7 @@ finishedSavingWithError:(NSError *)error
     [((TabBarController *)self.tabBarController).captureSession startRunning];
 }
 
-#pragma mark - CLLocation Delegate Methods
+#pragma mark - CLLocationDelegate methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     [self.locationManager stopUpdatingLocation];
@@ -355,6 +325,8 @@ finishedSavingWithError:(NSError *)error
         self.imageCounter += 1;
     }
 }
+
+#pragma mark - PostFormViewControllerDelegate methods
 
 - (void)didSharePost
 {

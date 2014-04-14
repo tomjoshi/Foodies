@@ -23,4 +23,9 @@
 {
     return [UIColor colorWithRed:1 green:1 blue:1 alpha:.8];
 }
+
++ (UIColor *)semiTransparentBlackColor
+{
+    return [UIColor colorWithRed:0 green:0 blue:0 alpha:.5];
+}
 @end

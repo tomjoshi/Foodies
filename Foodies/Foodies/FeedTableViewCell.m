@@ -54,9 +54,8 @@
         }
     }
     
-    // set foodPost property
+    // cache current foodPost and retrieve needed properties
     self.foodPostInCell = foodPost;
-    
     UIImage *postImage = [foodPost getImage];
     NSString *postFormattedTime = [foodPost getFormattedTime];
     NSString *postAuthor = foodPost.authorName;
@@ -154,7 +153,6 @@
         [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor lighterGrayColor]];
         UILabel *heartIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(sidePadding, yPos+heartIconTopPadding, iconWidth, iconWidth)];
         [heartIconLabel setAttributedText:[heartIcon attributedString]];
-//        [heartIconLabel setBackgroundColor:[UIColor blackColor]];
         [likeAndCommentContent addSubview:heartIconLabel];
         
         // set number of likes
@@ -167,7 +165,6 @@
         likesLabel.delegate = self;
         [likesLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [likesLabel.text length])];
         [likesLabel sizeToFit];
-//        [likesLabel setBackgroundColor:[UIColor blackColor]];
         [likeAndCommentContent addSubview:likesLabel];
         
         
@@ -258,6 +255,7 @@
 
 }
 
+#pragma mark - Cell methods
 
 - (void)likePost
 {
@@ -288,6 +286,7 @@
 
 - (void)showTags
 {
+    // if tags are already showings, then hide them. it should be "toggleTags", rather than "showTags", but oh well.
     if (self.tagsAreVisible) {
         [self.delegate hideTags:self.indexPath];
         self.tagsAreVisible = NO;

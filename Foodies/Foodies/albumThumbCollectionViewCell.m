@@ -7,8 +7,7 @@
 //
 
 #import "albumThumbCollectionViewCell.h"
-
-#define UIColorFromRGB(rgbValue, alp) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:(float)alp]
+#import "UIColor+colorPallete.h"
 
 @interface albumThumbCollectionViewCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
@@ -18,20 +17,13 @@
 @end
 @implementation albumThumbCollectionViewCell
 
-- (void) setAsset:(ALAsset *)asset
+#pragma mark - Cell methods
+
+- (void)setAsset:(ALAsset *)asset
 {
     _asset = asset;
     self.photoImageView.image = [UIImage imageWithCGImage:[asset thumbnail]];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 - (void)setSelected:(BOOL)selected
 {
@@ -56,7 +48,7 @@
     if (highlighted) {
         if (![self.subviews containsObject:self.highlightedView]) {
             self.highlightedView = [[UIView alloc] initWithFrame:self.bounds];
-            [self.highlightedView setBackgroundColor:UIColorFromRGB(0x000000, .5)];
+            [self.highlightedView setBackgroundColor:[UIColor semiTransparentBlackColor]];
             self.highlightedView.layer.borderColor = [[UIColor blackColor] CGColor];
             self.highlightedView.layer.borderWidth = 2.0f;
             [self addSubview:self.highlightedView];

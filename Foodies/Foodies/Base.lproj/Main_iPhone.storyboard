@@ -109,7 +109,7 @@
                         <outlet property="albumCollectionView" destination="Eks-qO-ql4" id="3V0-UD-YLh"/>
                         <outlet property="cancelButton" destination="HR2-gq-ve7" id="FwK-cz-l0e"/>
                         <outlet property="mainScrollView" destination="Eip-uh-EK1" id="Ql5-LQ-jTd"/>
-                        <outlet property="nextButton" destination="JOx-9A-oxm" id="h2L-gE-vkC"/>
+                        <outlet property="nextButton" destination="JOx-9A-oxm" id="Gvf-Um-JeP"/>
                         <outlet property="previewImageView" destination="zJ0-zx-SLS" id="kh8-1W-mVk"/>
                         <outlet property="previewView" destination="Pum-D8-HY2" id="dGS-JC-Fm1"/>
                         <outlet property="scrollHandle" destination="qOu-WT-l6B" id="g8m-lg-YCE"/>
@@ -129,7 +129,6 @@
                 </barButtonItem>
                 <barButtonItem title="Next" id="JOx-9A-oxm">
                     <connections>
-                        <action selector="nextTapped:" destination="au5-ON-E1O" id="2fc-ay-NLe"/>
                         <segue destination="gwG-if-rh6" kind="push" id="hg4-21-E1L"/>
                     </connections>
                 </barButtonItem>
