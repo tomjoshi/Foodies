@@ -28,7 +28,6 @@
 		D1247F6E18E5FA19009CD32B /* MealTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247F6D18E5FA19009CD32B /* MealTag.m */; };
 		D1247F7118E5FAB5009CD32B /* Meal.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247F7018E5FAB5009CD32B /* Meal.m */; };
 		D1247F7418E602ED009CD32B /* FoodiesDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247F7318E602ED009CD32B /* FoodiesDataStore.m */; };
-		D1247F7B18E75BB5009CD32B /* TagPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1247F7A18E75BB5009CD32B /* TagPickerViewController.m */; };
 		D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5018E33135000BF74A /* LandingTableViewController.m */; };
 		D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5318E353DF000BF74A /* LogInTableViewCell.m */; };
 		D12A5F5718E36F1D000BF74A /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D12A5F5618E36F1D000BF74A /* ProfileViewController.m */; };
@@ -69,6 +68,7 @@
 		D1C0C36118DCBEF000F3AD9C /* profilepic.png in Resources */ = {isa = PBXBuildFile; fileRef = D1C0C36018DCBEF000F3AD9C /* profilepic.png */; };
 		D1D3E84318FC837D00F7ACC4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E84218FC837D00F7ACC4 /* Constants.m */; };
 		D1D3E84518FC8D7000F7ACC4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E84418FC8D7000F7ACC4 /* AppDelegate.m */; };
+		D1D3E84718FC8E2500F7ACC4 /* TagPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E84618FC8E2500F7ACC4 /* TagPickerViewController.m */; };
 		D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */; };
 		D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */; };
 		D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */; };
@@ -121,7 +121,6 @@
 		D1247F7318E602ED009CD32B /* FoodiesDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodiesDataStore.m; sourceTree = "<group>"; };
 		D1247F7518E60D4F009CD32B /* FeedTableViewCellDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCellDelegate.h; sourceTree = "<group>"; };
 		D1247F7918E75BB5009CD32B /* TagPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagPickerViewController.h; sourceTree = "<group>"; };
-		D1247F7A18E75BB5009CD32B /* TagPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagPickerViewController.m; sourceTree = "<group>"; };
 		D12A5F4F18E33135000BF74A /* LandingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandingTableViewController.h; path = ../LandingTableViewController.h; sourceTree = "<group>"; };
 		D12A5F5018E33135000BF74A /* LandingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandingTableViewController.m; path = ../LandingTableViewController.m; sourceTree = "<group>"; };
 		D12A5F5218E353DF000BF74A /* LogInTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogInTableViewCell.h; path = ../LogInTableViewCell.h; sourceTree = "<group>"; };
@@ -191,6 +190,7 @@
 		D1D3E84118FC837D00F7ACC4 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		D1D3E84218FC837D00F7ACC4 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		D1D3E84418FC8D7000F7ACC4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D1D3E84618FC8E2500F7ACC4 /* TagPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagPickerViewController.m; sourceTree = "<group>"; };
 		D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlatformSignature.h; sourceTree = "<group>"; };
 		D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlatformSignature.m; sourceTree = "<group>"; };
 		D1FB843E18EF70E100A44DD9 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
@@ -261,7 +261,7 @@
 				D1BD1B1218D36F3900256BC2 /* PostFormTableViewController.m */,
 				D1440E7618F744E80031B568 /* PostFormViewControllerDelegate.h */,
 				D1247F7918E75BB5009CD32B /* TagPickerViewController.h */,
-				D1247F7A18E75BB5009CD32B /* TagPickerViewController.m */,
+				D1D3E84618FC8E2500F7ACC4 /* TagPickerViewController.m */,
 				D1FB844118F0873D00A44DD9 /* TagPickerDelegate.h */,
 				D1BD1A8318D3575B00256BC2 /* LocationPickerTableViewController.h */,
 				D1BD1A8418D3575B00256BC2 /* LocationPickerTableViewController.m */,
@@ -623,7 +623,6 @@
 				D1410A9818F86884002AC1AC /* FSFoodPost.m in Sources */,
 				D1BD1A8518D3575B00256BC2 /* LocationPickerTableViewController.m in Sources */,
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
-				D1247F7B18E75BB5009CD32B /* TagPickerViewController.m in Sources */,
 				D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */,
 				D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */,
 				D1A4E99E18F830A100E35D56 /* Model.xcdatamodeld in Sources */,
@@ -634,6 +633,7 @@
 				D110AFF218CA43450077D25B /* FeedTableViewCell.m in Sources */,
 				D1247F7418E602ED009CD32B /* FoodiesDataStore.m in Sources */,
 				D110B00718CA5E070077D25B /* UIView+ResizeToFitSubviews.m in Sources */,
+				D1D3E84718FC8E2500F7ACC4 /* TagPickerViewController.m in Sources */,
 				D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */,
 				D110B00A18CA67210077D25B /* Like.m in Sources */,
 				D1440E7518F6E8FF0031B568 /* FoodiesAPI.m in Sources */,
