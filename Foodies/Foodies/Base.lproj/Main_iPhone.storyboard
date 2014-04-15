@@ -562,13 +562,13 @@
                             <outlet property="delegate" destination="pcX-xW-n83" id="EbV-UL-WU3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="l4h-II-YWZ">
-                        <barButtonItem key="leftBarButtonItem" title="Item" systemItem="refresh" id="xqT-2w-ff6">
-                            <connections>
-                                <action selector="refreshTapped:" destination="pcX-xW-n83" id="Apu-Yh-eWL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="l4h-II-YWZ"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="LQI-ck-W3m">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refreshPulled:" destination="pcX-xW-n83" eventType="valueChanged" id="KTk-mA-fbs"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aba-Ws-kcg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

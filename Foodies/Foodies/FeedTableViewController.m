@@ -20,7 +20,7 @@
 @interface FeedTableViewController () <FeedTableViewCellDelegate, MenuPopOverViewDelegate, NSFetchedResultsControllerDelegate>
 
 - (FSFoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
-- (IBAction)refreshTapped:(id)sender;
+- (IBAction)refreshPulled:(id)sender;
 @end
 
 @implementation FeedTableViewController
@@ -120,9 +120,10 @@
 
 #pragma mark - IBActions methods
 
-- (IBAction)refreshTapped:(UIButton *)sender {
-    // make the api call to fetch latest posts
+- (IBAction)refreshPulled:(id)sender {
+    UIRefreshControl *refreshControl = sender;
     [FoodiesAPI fetchFoodPostsInManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
+    [refreshControl endRefreshing];
 }
 
 #pragma mark - FeedTableViewCellDelegate methods

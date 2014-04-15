@@ -127,6 +127,16 @@
 
 - (void)captureStillImage
 {
+    // check that the camera is ready to take a picture, if its not pop the nav to its rootviewcontroller
+    UINavigationController *navC = self.viewControllers[1];
+    CameraViewController *rootVC = navC.viewControllers[0];
+    if (![[navC topViewController] isEqual:rootVC] || rootVC.navigationItem.leftBarButtonItem || (rootVC.mainScrollView.contentOffset.y > 0)) {
+        [navC popToRootViewControllerAnimated:YES];
+        [rootVC.mainScrollView setContentOffset:CGPointZero animated:YES];
+        [rootVC cancelTapped:nil];
+        return;
+    }
+    
     AVCaptureConnection *stillImageConnection = [self.stillImageOutput.connections objectAtIndex:0];
     if([stillImageConnection isVideoOrientationSupported])
     {
@@ -165,6 +175,8 @@
         }
     }
 }
+
+#pragma mark - Tab methods
 
 - (void)selectViewController:(UITapGestureRecognizer *)sender
 {

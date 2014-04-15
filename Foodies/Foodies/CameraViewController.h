@@ -12,6 +12,8 @@
 @interface CameraViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property BOOL newMedia;
 @property (strong, nonatomic) UIImage *imagePassed;
+@property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 
 - (void)clearPreviewImageAsset;
+- (IBAction)cancelTapped:(id)sender;
 @end

@@ -20,7 +20,6 @@
 #import "PostFormViewControllerDelegate.h"
 
 @interface CameraViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, CameraOutputDelegate, PostFormViewControllerDelegate>
-@property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandle;
 @property (weak, nonatomic) IBOutlet UIView *scrollHandleDetail;
@@ -38,7 +37,6 @@
 
 
 - (void)layoutCameraView;
-- (IBAction)cancelTapped:(id)sender;
 - (ALAssetsLibrary *)defaultAssetsLibrary;
 
 @end
@@ -183,6 +181,7 @@
     [self.albumCollectionView deselectItemAtIndexPath:self.selectedIndexPath animated:NO];
     self.selectedIndexPath = nil;
     [self cancelCropping];
+    [self.albumCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate methods
@@ -317,6 +316,9 @@
             self.assets = [@[asset] arrayByAddingObjectsFromArray:self.assets];
             [self.albumCollectionView reloadData];
             [self cropImage];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+            self.selectedIndexPath = indexPath;
+            [self.albumCollectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionTop];
         } failureBlock:^(NSError *error) {
             NSLog(@"failed to retrieve asset");
         }];

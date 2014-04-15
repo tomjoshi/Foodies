@@ -165,6 +165,12 @@
     CGImageRef imageRef = CGImageCreateWithImageInRect([newImage CGImage], cropRect);
     UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
     
+    // reduce size of image to 640x640, due to file size issues
+    CGSize newSize = CGSizeMake(640,640);
+    UIGraphicsBeginImageContext(newSize);
+    [croppedImage drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* compressedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
     // setting comment
     Comment *newComment = [[Comment alloc] init];
@@ -174,12 +180,13 @@
         newComment.comment = self.captionTextView.text;
     }
     
-    FoodPost *newFoodPost = [[FoodPost alloc] initWithImage:croppedImage Author:[Foodie me] Caption:newComment atVenue:self.venue andMealTags:[NSSet setWithArray:self.mealTags]];
+    // how i originally created the foodpost class object
+    FoodPost *newFoodPost = [[FoodPost alloc] initWithImage:compressedImage Author:[Foodie me] Caption:newComment atVenue:self.venue andMealTags:[NSSet setWithArray:self.mealTags]];
     [[FoodiesDataStore sharedInstance].tempPosts addObject:newFoodPost];
     
     // make an entity in core data
     FSFoodPost *newFSFoodPost = [NSEntityDescription insertNewObjectForEntityForName:@"FSFoodPost" inManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
-    newFSFoodPost.postImage = UIImagePNGRepresentation(croppedImage);
+    newFSFoodPost.postImage = UIImagePNGRepresentation(compressedImage);
     newFSFoodPost.postDate = [NSDate date];
     newFSFoodPost.postId = [NSString stringWithFormat:@"%f",[newFSFoodPost.postDate timeIntervalSince1970]];
     newFSFoodPost.authorName = [[Foodie me] getName];
