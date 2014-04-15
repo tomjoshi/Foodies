@@ -118,11 +118,19 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (PFObject *pfFoodPost in objects) {
+                NSDictionary *foodPostToAdd;
+                
+                // experimenting with pfrelations to retrieve the "commenter"
                 if ([pfFoodPost[@"comments"] count] > 0) {
                     PFRelation *foodieRelation = (PFRelation *)pfFoodPost[@"comments"][0][@"commenter"];
                     PFObject *foodie = [[foodieRelation query] findObjects][0];
                     NSLog(@"%@",[foodie objectForKey:@"email"]);
                 }
+                
+                [foodPostToAdd setValue:pfFoodPost.objectId forKey:@"postId"];
+                [foodPostToAdd setValue:pfFoodPost.createdAt forKey:@"postDate"];
+                
+                PFFile *imageFile;
                 // ideally insert entity here, if it does not exist.
                 // compare with foodpostid, which is the objectid
                 

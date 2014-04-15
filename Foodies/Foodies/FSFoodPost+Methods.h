@@ -7,6 +7,9 @@
 //
 
 #import "FSFoodPost.h"
+#import "Foodie.h"
+#import "Venue.h"
+#import "MealTag.h"
 
 @interface FSFoodPost (Methods)
 
@@ -20,5 +23,17 @@
 - (void)addLike:(FSLike *)newLike;
 - (void)addComment:(FSComment *)newComment;
 - (NSSet *)getTags;
+- (FSFoodPost *)initWithPostImage:(UIImage *)postImage
+                         PostDate:(NSDate *)postDate
+                           PostId:(NSString *)postId
+                       AuthorName:(NSString *)authorName
+                         AuthorId:(NSString *)authorId
+                      AuthorThumb:(UIImage *)authorThumb
+                        VenueName:(NSString *)venueName
+                          VenueId:(NSString *)venueId
+                         Comments:(NSArray *)commentsArray
+                            Likes:(NSArray *)likesArray
+                      andMealTags:(NSArray *)mealTagsArray
+                        inContext:(NSManagedObjectContext *)context;
 
 @end

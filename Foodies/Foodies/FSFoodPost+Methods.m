@@ -9,8 +9,64 @@
 #import "FSFoodPost+Methods.h"
 #import "NSDate+PrettyTimestamp.h"
 #import "FoodiesDataStore.h"
+#import "FSComment.h"
+#import "FSLike.h"
+#import "FSMealTag.h"
 
 @implementation FSFoodPost (Methods)
+
+- (FSFoodPost *)initWithPostImage:(UIImage *)postImage PostDate:(NSDate *)postDate PostId:(NSString *)postId AuthorName:(NSString *)authorName AuthorId:(NSString *)authorId AuthorThumb:(UIImage *)authorThumb VenueName:(NSString *)venueName VenueId:(NSString *)venueId Comments:(NSArray *)commentsArray Likes:(NSArray *)likesArray andMealTags:(NSArray *)mealTagsArray inContext:(NSManagedObjectContext *)context
+{
+    FSFoodPost *fsFoodPost;
+    
+    // check if exists, if it does, it needs to be updated
+    NSPredicate *filterPostId = [NSPredicate predicateWithFormat:@"postId == %@",postId];
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"FSFoodPost"];
+    request.predicate = filterPostId;
+    NSArray *resultsArray = [context executeFetchRequest:request error:nil];
+    if ([resultsArray count] == 0) {
+        fsFoodPost = [NSEntityDescription insertNewObjectForEntityForName:@"FSFoodPost" inManagedObjectContext:context];
+    } else {
+        fsFoodPost = (FSFoodPost *)resultsArray[0];
+    }
+    
+    // set new properties
+    if (postImage) {
+        fsFoodPost.postImage = UIImagePNGRepresentation(postImage);
+    }
+    if (postDate) {
+        fsFoodPost.postDate = postDate;
+    }
+    if (postId) {
+        fsFoodPost.postId = postId;
+    }
+    if (authorName) {
+        fsFoodPost.authorName = authorName;
+    }
+    if (authorId) {
+        fsFoodPost.authorId = authorId;
+    }
+    if (authorThumb) {
+        fsFoodPost.authorThumb = UIImagePNGRepresentation(authorThumb);
+    }
+    if (venueName) {
+        fsFoodPost.venueName = venueName;
+    }
+    if (venueId) {
+        fsFoodPost.venueId = venueId;
+    }
+    if ([commentsArray count]>0) {
+        // insert comment entities
+    }
+    if ([likesArray count]>0) {
+        // insert likes entities
+    }
+    if ([mealTagsArray count]>0) {
+        // insert mealtags entities
+    }
+    return fsFoodPost;
+    
+}
 
 - (UIImage *)getImage
 {

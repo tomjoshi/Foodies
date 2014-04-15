@@ -184,15 +184,6 @@
     FoodPost *newFoodPost = [[FoodPost alloc] initWithImage:compressedImage Author:[Foodie me] Caption:newComment atVenue:self.venue andMealTags:[NSSet setWithArray:self.mealTags]];
     [[FoodiesDataStore sharedInstance].tempPosts addObject:newFoodPost];
     
-    // make an entity in core data
-    FSFoodPost *newFSFoodPost = [NSEntityDescription insertNewObjectForEntityForName:@"FSFoodPost" inManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
-    newFSFoodPost.postImage = UIImagePNGRepresentation(compressedImage);
-    newFSFoodPost.postDate = [NSDate date];
-    newFSFoodPost.postId = [NSString stringWithFormat:@"%f",[newFSFoodPost.postDate timeIntervalSince1970]];
-    newFSFoodPost.authorName = [[Foodie me] getName];
-    newFSFoodPost.venueName = self.venue.name;
-    [[FoodiesDataStore sharedInstance] saveContext];
-    
     // save in api
     [FoodiesAPI postFoodPost:newFoodPost];
     
@@ -239,22 +230,9 @@
             
             MealTag *mealTag = self.mealTags[indexPath.row-1];
             
-            FAKIonIcons *emptyStar = [FAKIonIcons ios7StarOutlineIconWithSize:30];
-            [emptyStar addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
-            FAKIonIcons *fullStar = [FAKIonIcons ios7StarIconWithSize:30];
-            [fullStar addAttribute:NSForegroundColorAttributeName value:[UIColor foodiesColor]];
-            
-            UIButton *testButton = [[UIButton alloc] initWithFrame:CGRectMake(cell.bounds.size.width-cell.frame.size.height , 0, cell.frame.size.height, cell.frame.size.height)];
-            [testButton setAttributedTitle:[emptyStar attributedString] forState:UIControlStateNormal];
-            [testButton setAttributedTitle:[fullStar attributedString] forState:UIControlStateSelected];
-            [testButton addTarget:self action:@selector(toggleSelect:) forControlEvents:UIControlEventTouchUpInside];
-            
-            UILabel *mealNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, cell.bounds.size.width-cell.frame.size.height-15, cell.bounds.size.height)];
+            UILabel *mealNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, cell.bounds.size.width-15, cell.bounds.size.height)];
             mealNameLabel.text = mealTag.meal.name;
-            [cell addSubview:testButton];
             [cell addSubview:mealNameLabel];
-            
-            
             
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             
