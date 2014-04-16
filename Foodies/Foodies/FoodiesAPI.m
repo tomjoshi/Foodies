@@ -115,22 +115,61 @@
     [query includeKey:@"comments"];
     [query includeKey:@"likes"];
     [query includeKey:@"mealTags"];
+    [query includeKey:@"mealTags.meal"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             for (PFObject *pfFoodPost in objects) {
-                NSDictionary *foodPostToAdd;
-                
-                // experimenting with pfrelations to retrieve the "commenter"
-                if ([pfFoodPost[@"comments"] count] > 0) {
-                    PFRelation *foodieRelation = (PFRelation *)pfFoodPost[@"comments"][0][@"commenter"];
-                    PFObject *foodie = [[foodieRelation query] findObjects][0];
-                    NSLog(@"%@",[foodie objectForKey:@"email"]);
-                }
+                NSMutableDictionary *foodPostToAdd = [[NSMutableDictionary alloc] init];
                 
                 [foodPostToAdd setValue:pfFoodPost.objectId forKey:@"postId"];
                 [foodPostToAdd setValue:pfFoodPost.createdAt forKey:@"postDate"];
                 
-                PFFile *imageFile;
+                PFFile *postImageFile = [pfFoodPost objectForKey:@"postImage"];
+                [postImageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    if (!error) {
+                        // save postImage data
+                        [foodPostToAdd setValue:data forKey:@"postImage"];
+                        
+                        // get venue info
+                        PFRelation *venueRelation = (PFRelation *)pfFoodPost[@"venue"];
+                        NSArray *venueResults = [[venueRelation query] findObjects];
+                        if ([venueResults count] > 0) {
+                            PFObject *venue = venueResults[0];
+                            [foodPostToAdd setValue:[venue objectForKey:@"name"] forKey:@"venueName"];
+                            [foodPostToAdd setValue:venue.objectId forKey:@"venueId"];
+                        }
+                        
+                        // get author info
+                        PFRelation *authorRelation = (PFRelation *)pfFoodPost[@"author"];
+                        PFObject *author = [[authorRelation query] findObjects][0];
+                        [foodPostToAdd setValue:[author objectForKey:@"username"] forKey:@"authorName"];
+                        [foodPostToAdd setValue:author.objectId forKey:@"authorId"];
+                        
+                        // get author thumb
+//                        PFFile *authorThumbFile = [author objectForKey:@"thumb"]
+                        
+                        // get mealtags
+                        if ([pfFoodPost[@"mealTags"] count] > 0) {
+                            NSMutableArray *mealTags = [[NSMutableArray alloc] init];
+                            for (PFObject *mealTag in pfFoodPost[@"mealTags"]) {
+                                NSMutableDictionary *mealTagToAdd = [[NSMutableDictionary alloc] init];
+                                [mealTagToAdd setObject:[mealTag objectForKey:@"isArrowUp"] forKey:@"isArrowUp"];
+                                [mealTagToAdd setObject:[mealTag objectForKey:@"coordinates"][0] forKey:@"coordinateX"];
+                                [mealTagToAdd setObject:[mealTag objectForKey:@"coordinates"][1] forKey:@"coordinateY"];
+                                PFObject *pfMeal = [mealTag objectForKey:@"meal"];
+                                
+                                [query includeKey:@"mealTags"];
+                                [mealTagToAdd setObject:[pfMeal objectForKey:@"name"] forKey:@"mealName"];
+                                [mealTagToAdd setObject:pfMeal.objectId forKey:@"mealId"];
+                                
+                                // add mealtag to mealtags array
+                                [mealTags addObject:mealTagToAdd];
+                            }
+                            [foodPostToAdd setValue:mealTags forKey:@"mealTags"];
+                        }
+                        
+                    }
+                }];
                 // ideally insert entity here, if it does not exist.
                 // compare with foodpostid, which is the objectid
                 

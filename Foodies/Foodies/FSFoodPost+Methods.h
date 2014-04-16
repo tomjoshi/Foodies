@@ -23,7 +23,7 @@
 - (void)addLike:(FSLike *)newLike;
 - (void)addComment:(FSComment *)newComment;
 - (NSSet *)getTags;
-- (FSFoodPost *)initWithPostImage:(UIImage *)postImage
++ (FSFoodPost *)initWithPostImage:(UIImage *)postImage
                          PostDate:(NSDate *)postDate
                            PostId:(NSString *)postId
                        AuthorName:(NSString *)authorName
