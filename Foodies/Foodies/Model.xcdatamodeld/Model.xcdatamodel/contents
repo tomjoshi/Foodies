@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="FSComment" representedClassName="FSComment" syncable="YES">
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commentDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="commenterId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commenterName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isCaption" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -35,7 +36,7 @@
         <relationship name="foodPost" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FSFoodPost" inverseName="mealTags" inverseEntity="FSFoodPost" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FSComment" positionX="-18" positionY="27" width="128" height="118"/>
+        <element name="FSComment" positionX="-18" positionY="27" width="128" height="133"/>
         <element name="FSFoodPost" positionX="-63" positionY="-18" width="128" height="208"/>
         <element name="FSLike" positionX="-36" positionY="9" width="128" height="103"/>
         <element name="FSMealTag" positionX="-54" positionY="-9" width="128" height="133"/>

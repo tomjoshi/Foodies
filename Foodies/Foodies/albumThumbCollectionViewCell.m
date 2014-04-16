@@ -27,8 +27,19 @@
 
 - (void)setSelected:(BOOL)selected
 {
+    if (selected == self.isSelected) {
+        return;
+    }
+    [super setSelected:selected];
+    
     if (selected) {
-        [self setHighlighted:YES];
+        if (![self.subviews containsObject:self.highlightedView]) {
+            self.highlightedView = [[UIView alloc] initWithFrame:self.bounds];
+            [self.highlightedView setBackgroundColor:[UIColor semiTransparentBlackColor]];
+            self.highlightedView.layer.borderColor = [[UIColor blackColor] CGColor];
+            self.highlightedView.layer.borderWidth = 2.0f;
+            [self addSubview:self.highlightedView];
+        }
         if (![self.subviews containsObject:self.selectedView]) {
             self.selectedView = [[UIView alloc] initWithFrame:self.bounds];
             self.selectedView.layer.borderColor = [[UIColor redColor] CGColor];
@@ -36,16 +47,23 @@
             [self addSubview:self.selectedView];
         }
     } else {
-        [self setHighlighted:NO];
         if ([self.subviews containsObject:self.selectedView]) {
             [self.selectedView removeFromSuperview];
+        }
+        if ([self.subviews containsObject:self.highlightedView]) {
+            [self.highlightedView removeFromSuperview];
         }
     }
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
-    if (highlighted) {
+    if (highlighted == self.isHighlighted) {
+        return;
+    }
+    [super setHighlighted:highlighted];
+    
+    if (highlighted || self.isSelected) {
         if (![self.subviews containsObject:self.highlightedView]) {
             self.highlightedView = [[UIView alloc] initWithFrame:self.bounds];
             [self.highlightedView setBackgroundColor:[UIColor semiTransparentBlackColor]];
