@@ -7,12 +7,11 @@
 //
 
 #import "FoodiesAPI.h"
-#import "Foodie.h"
-#import "MealTag.h"
+#import "FSFoodPost+Methods.h"
 
 @implementation FoodiesAPI
 
-+ (void)postFoodPost:(FoodPost *)newFoodPost
++ (void)postFoodPost:(FoodPost *)newFoodPost inContext:(NSManagedObjectContext *)context
 {
     PFObject *foodPostToPost = [PFObject objectWithClassName:@"FoodPost"];
     
@@ -144,7 +143,7 @@
                             NSMutableArray *mealTags = [[NSMutableArray alloc] init];
                             for (PFObject *mealTag in pfFoodPost[@"mealTags"]) {
                                 NSMutableDictionary *mealTagToAdd = [[NSMutableDictionary alloc] init];
-                                [mealTagToAdd setObject:@((BOOL)[mealTag objectForKey:@"isArrowUp"]) forKey:@"isArrowUp"];
+                                [mealTagToAdd setObject:[mealTag objectForKey:@"isArrowUp"] forKey:@"isArrowUp"];
                                 [mealTagToAdd setObject:[mealTag objectForKey:@"coordinates"][0] forKey:@"coordinateX"];
                                 [mealTagToAdd setObject:[mealTag objectForKey:@"coordinates"][1] forKey:@"coordinateY"];
                                 PFObject *pfMeal = [mealTag objectForKey:@"meal"];
@@ -210,6 +209,8 @@
                         
                         // ideally insert entity here. let the category method take care of that. since it can be updated if it exists in coredata already.
                         // compare with foodpostid, which is the objectid
+                        
+                        [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
                     }
                 }];
             }

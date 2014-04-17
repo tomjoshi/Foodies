@@ -15,7 +15,12 @@
 
 @implementation FSFoodPost (Methods)
 
-+ (FSFoodPost *)initWithPostImage:(UIImage *)postImage PostDate:(NSDate *)postDate PostId:(NSString *)postId AuthorName:(NSString *)authorName AuthorId:(NSString *)authorId AuthorThumb:(UIImage *)authorThumb VenueName:(NSString *)venueName VenueId:(NSString *)venueId Comments:(NSArray *)commentsArray Likes:(NSArray *)likesArray andMealTags:(NSArray *)mealTagsArray inContext:(NSManagedObjectContext *)context
++ (FSFoodPost *)initWithDictionary:(NSDictionary *)foodPostDict inContext:(NSManagedObjectContext *)context
+{
+    return [FSFoodPost initWithPostImage:foodPostDict[@"postImage"] PostDate:foodPostDict[@"postDate"] PostId:foodPostDict[@"postId"] AuthorName:foodPostDict[@"authorName"] AuthorId:foodPostDict[@"authorId"] AuthorThumb:foodPostDict[@"authorThumb"] VenueName:foodPostDict[@"venueName"] VenueId:foodPostDict[@"venueId"] Comments:foodPostDict[@"comments"] Likes:foodPostDict[@"likes"] andMealTags:foodPostDict[@"mealTags"] inContext:context];
+}
+
++ (FSFoodPost *)initWithPostImage:(NSData *)postImage PostDate:(NSDate *)postDate PostId:(NSString *)postId AuthorName:(NSString *)authorName AuthorId:(NSString *)authorId AuthorThumb:(NSData *)authorThumb VenueName:(NSString *)venueName VenueId:(NSString *)venueId Comments:(NSArray *)commentsArray Likes:(NSArray *)likesArray andMealTags:(NSArray *)mealTagsArray inContext:(NSManagedObjectContext *)context
 {
     FSFoodPost *fsFoodPost;
     
@@ -24,15 +29,15 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"FSFoodPost"];
     request.predicate = filterPostId;
     NSArray *resultsArray = [context executeFetchRequest:request error:nil];
-    if ([resultsArray count] == 0) {
-        fsFoodPost = [NSEntityDescription insertNewObjectForEntityForName:@"FSFoodPost" inManagedObjectContext:context];
+    if ([resultsArray count] == 0) {;
+        fsFoodPost = [[FSFoodPost alloc] initWithEntity:[NSEntityDescription entityForName:@"FSFoodPost" inManagedObjectContext:context] insertIntoManagedObjectContext:nil];
     } else {
         fsFoodPost = (FSFoodPost *)resultsArray[0];
     }
     
     // set new properties
     if (postImage) {
-        fsFoodPost.postImage = UIImagePNGRepresentation(postImage);
+        fsFoodPost.postImage = postImage;
     }
     if (postDate) {
         fsFoodPost.postDate = postDate;
@@ -47,7 +52,7 @@
         fsFoodPost.authorId = authorId;
     }
     if (authorThumb) {
-        fsFoodPost.authorThumb = UIImagePNGRepresentation(authorThumb);
+        fsFoodPost.authorThumb = authorThumb;
     }
     if (venueName) {
         fsFoodPost.venueName = venueName;
@@ -64,6 +69,11 @@
     if ([mealTagsArray count]>0) {
         // insert mealtags entities
     }
+    
+    if ([resultsArray count] == 0) {;
+        [context insertObject:fsFoodPost];
+    }
+    
     return fsFoodPost;
     
 }

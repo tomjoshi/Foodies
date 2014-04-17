@@ -23,12 +23,14 @@
 - (void)addLike:(FSLike *)newLike;
 - (void)addComment:(FSComment *)newComment;
 - (NSSet *)getTags;
-+ (FSFoodPost *)initWithPostImage:(UIImage *)postImage
+
++ (FSFoodPost *)initWithDictionary:(NSDictionary *)foodPostDict inContext:(NSManagedObjectContext *)context;
++ (FSFoodPost *)initWithPostImage:(NSData *)postImage
                          PostDate:(NSDate *)postDate
                            PostId:(NSString *)postId
                        AuthorName:(NSString *)authorName
                          AuthorId:(NSString *)authorId
-                      AuthorThumb:(UIImage *)authorThumb
+                      AuthorThumb:(NSData *)authorThumb
                         VenueName:(NSString *)venueName
                           VenueId:(NSString *)venueId
                          Comments:(NSArray *)commentsArray

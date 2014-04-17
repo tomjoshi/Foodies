@@ -12,7 +12,7 @@
 
 @interface FoodiesAPI : NSObject
 // FoodPost related
-+ (void)postFoodPost:(FoodPost *)newFoodPost;
++ (void)postFoodPost:(FoodPost *)newFoodPost inContext:(NSManagedObjectContext *)context;
 + (void)fetchFoodPostsInManagedObjectContext:(NSManagedObjectContext *)context;
 
 // Foodie related

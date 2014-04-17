@@ -105,7 +105,7 @@
         self.venue = venue;
         [self.tableView reloadData];
         
-        
+        // testing foursquare api for menu
         [Foursquare2 venueGetMenu:venue.foursquareId callback:^(BOOL success, id result) {
             NSLog(@"%@", result);
         }];
@@ -182,14 +182,14 @@
     
     // how i originally created the foodpost class object
     FoodPost *newFoodPost = [[FoodPost alloc] initWithImage:compressedImage Author:[Foodie me] Caption:newComment atVenue:self.venue andMealTags:[NSSet setWithArray:self.mealTags]];
-    [[FoodiesDataStore sharedInstance].tempPosts addObject:newFoodPost];
+//    [[FoodiesDataStore sharedInstance].tempPosts addObject:newFoodPost];
     
     // save in api
-    [FoodiesAPI postFoodPost:newFoodPost];
+    [FoodiesAPI postFoodPost:newFoodPost inContext:[FoodiesDataStore sharedInstance].managedObjectContext];
     
-    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"postDate" ascending:NO];
-    [FoodiesDataStore sharedInstance].tempPosts = [NSMutableArray arrayWithArray:[[FoodiesDataStore sharedInstance].tempPosts sortedArrayUsingDescriptors:@[sortByDate]]];
-    [FoodiesDataStore sharedInstance].newPost = YES;
+//    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"postDate" ascending:NO];
+//    [FoodiesDataStore sharedInstance].tempPosts = [NSMutableArray arrayWithArray:[[FoodiesDataStore sharedInstance].tempPosts sortedArrayUsingDescriptors:@[sortByDate]]];
+//    [FoodiesDataStore sharedInstance].newPost = YES;
     [self.tabBarController setSelectedIndex:0];
     // need some kind of delegate method back to camera view so it resets.
     [self.delegate didSharePost];
