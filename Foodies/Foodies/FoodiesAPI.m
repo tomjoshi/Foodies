@@ -97,6 +97,7 @@
                         }
                         
                         // most likely add a block here
+                        
                     } else {
                         // add failure block
                     }
@@ -131,12 +132,14 @@
                         
                         // get venue info
                         PFRelation *venueRelation = (PFRelation *)pfFoodPost[@"venue"];
-                        NSArray *venueResults = [[venueRelation query] findObjects];
-                        if ([venueResults count] > 0) {
-                            PFObject *venue = venueResults[0];
-                            [foodPostToAdd setObject:[venue objectForKey:@"name"] forKey:@"venueName"];
-                            [foodPostToAdd setObject:venue.objectId forKey:@"venueId"];
-                        }
+                        [[venueRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                            if ([objects count] > 0) {
+                                PFObject *venue = objects[0];
+                                [foodPostToAdd setObject:[venue objectForKey:@"name"] forKey:@"venueName"];
+                                [foodPostToAdd setObject:venue.objectId forKey:@"venueId"];
+                                [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
+                            }
+                        }];
                         
                         // get mealtags
                         if ([pfFoodPost[@"mealTags"] count] > 0) {
@@ -165,9 +168,14 @@
                                 NSMutableDictionary *commentToAdd = [[NSMutableDictionary alloc] init];
                                 
                                 PFRelation *commenterRelation = (PFRelation *)comment[@"commenter"];
-                                PFObject *commenter = [[commenterRelation query] findObjects][0];
-                                [commentToAdd setObject:[commenter objectForKey:@"username"] forKey:@"commenterName"];
-                                [commentToAdd setObject:commenter.objectId forKey:@"commenterId"];
+                                 [[commenterRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                                    if (!error) {
+                                        PFObject *commenter = objects[0];
+                                        [commentToAdd setObject:[commenter objectForKey:@"username"] forKey:@"commenterName"];
+                                        [commentToAdd setObject:commenter.objectId forKey:@"commenterId"];
+                                        [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
+                                    }
+                                }];
                                 
                                 [commentToAdd setObject:comment.createdAt forKey:@"commentDate"];
                                 [commentToAdd setObject:[comment objectForKey:@"comment"] forKey:@"comment"];
@@ -186,9 +194,14 @@
                                 NSMutableDictionary *likeToAdd = [[NSMutableDictionary alloc] init];
                                 
                                 PFRelation *likerRelation = (PFRelation *)like[@"liker"];
-                                PFObject *liker = [[likerRelation query] findObjects][0];
-                                [likeToAdd setObject:[liker objectForKey:@"username"] forKey:@"likerName"];
-                                [likeToAdd setObject:liker.objectId forKey:@"likerId"];
+                                [[likerRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                                    if (!error) {
+                                        PFObject *liker = objects[0];
+                                        [likeToAdd setObject:[liker objectForKey:@"username"] forKey:@"likerName"];
+                                        [likeToAdd setObject:liker.objectId forKey:@"likerId"];
+                                        [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
+                                    }
+                                }];
                                 
                                 [likeToAdd setObject:like.createdAt forKey:@"likeDate"];
                                 
@@ -200,9 +213,12 @@
                         
                         // get author info
                         PFRelation *authorRelation = (PFRelation *)pfFoodPost[@"author"];
-                        PFObject *author = [[authorRelation query] findObjects][0];
-                        [foodPostToAdd setObject:[author objectForKey:@"username"] forKey:@"authorName"];
-                        [foodPostToAdd setObject:author.objectId forKey:@"authorId"];
+                        [[authorRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                            PFObject *author = objects[0];
+                            [foodPostToAdd setObject:[author objectForKey:@"username"] forKey:@"authorName"];
+                            [foodPostToAdd setObject:author.objectId forKey:@"authorId"];
+                            [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
+                        }];
                         
                         // get author thumb. i need to set up author thumbnails first
                         //                        PFFile *authorThumbFile = [author objectForKey:@"thumb"]

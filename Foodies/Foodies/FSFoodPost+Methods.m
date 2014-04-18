@@ -30,7 +30,7 @@
     request.predicate = filterPostId;
     NSArray *resultsArray = [context executeFetchRequest:request error:nil];
     if ([resultsArray count] == 0) {;
-        fsFoodPost = [[FSFoodPost alloc] initWithEntity:[NSEntityDescription entityForName:@"FSFoodPost" inManagedObjectContext:context] insertIntoManagedObjectContext:nil];
+        fsFoodPost = [NSEntityDescription insertNewObjectForEntityForName:@"FSFoodPost" inManagedObjectContext:context];
     } else {
         fsFoodPost = (FSFoodPost *)resultsArray[0];
     }
@@ -70,9 +70,11 @@
         // insert mealtags entities
     }
     
-    if ([resultsArray count] == 0) {;
-        [context insertObject:fsFoodPost];
-    }
+//    if ([resultsArray count] == 0) {;
+//        [context insertObject:fsFoodPost];
+//    }
+    
+    [context save:nil];
     
     return fsFoodPost;
     
@@ -84,10 +86,9 @@
     if ([FoodiesDataStore sharedInstance].cachedPostImages[self.postId]) {
         postImage = [FoodiesDataStore sharedInstance].cachedPostImages[self.postId];
     } else {
-        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-        [queue addOperationWithBlock:^{
+        if (self.postImage) {
             [FoodiesDataStore sharedInstance].cachedPostImages[self.postId] = [UIImage imageWithData:self.postImage];
-        }];
+        }
     }
     return postImage;
 }

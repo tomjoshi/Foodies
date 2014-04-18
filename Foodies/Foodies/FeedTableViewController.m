@@ -16,6 +16,7 @@
 #import "FoodiesAPI.h"
 #import "FSFoodPost+Methods.h"
 #import "MealTag.h"
+#import "FetchOperation.h"
 
 @interface FeedTableViewController () <FeedTableViewCellDelegate, MenuPopOverViewDelegate, NSFetchedResultsControllerDelegate>
 
@@ -123,9 +124,8 @@
 - (IBAction)refreshPulled:(id)sender {
     UIRefreshControl *refreshControl = sender;
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [queue addOperationWithBlock:^{
-        [FoodiesAPI fetchFoodPostsInManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
-    }];
+    FetchOperation *fetchOp = [[FetchOperation alloc] init];
+    [queue addOperation:fetchOp];
     [refreshControl endRefreshing];
 }
 

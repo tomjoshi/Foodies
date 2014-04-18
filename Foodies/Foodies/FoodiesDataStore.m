@@ -13,6 +13,7 @@
 
 @implementation FoodiesDataStore
 @synthesize managedObjectContext = _managedObjectContext;
+@synthesize privateManagedObjectContext = _privateManagedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
@@ -94,12 +95,23 @@
         return _managedObjectContext;
     }
     
+    _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    _managedObjectContext.parentContext = self.privateManagedObjectContext;
+    return _managedObjectContext;
+}
+
+- (NSManagedObjectContext *)privateManagedObjectContext
+{
+    if (_privateManagedObjectContext != nil) {
+        return _privateManagedObjectContext;
+    }
+    
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+        _privateManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [_privateManagedObjectContext setPersistentStoreCoordinator:coordinator];
     }
-    return _managedObjectContext;
+    return _privateManagedObjectContext;
 }
 
 // Returns the managed object model for the application.

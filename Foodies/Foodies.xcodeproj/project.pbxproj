@@ -70,6 +70,7 @@
 		D1D3E84718FC8E2500F7ACC4 /* TagPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E84618FC8E2500F7ACC4 /* TagPickerViewController.m */; };
 		D1D3E89218FF167500F7ACC4 /* FSMealTag+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E89118FF167500F7ACC4 /* FSMealTag+Methods.m */; };
 		D1D3E89D18FF27F200F7ACC4 /* FSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E89C18FF27F200F7ACC4 /* FSComment.m */; };
+		D1D3E8A71900D06400F7ACC4 /* FetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8A61900D06400F7ACC4 /* FetchOperation.m */; };
 		D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */; };
 		D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */; };
 		D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */; };
@@ -194,6 +195,8 @@
 		D1D3E89118FF167500F7ACC4 /* FSMealTag+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSMealTag+Methods.m"; sourceTree = "<group>"; };
 		D1D3E89B18FF27F200F7ACC4 /* FSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComment.h; sourceTree = "<group>"; };
 		D1D3E89C18FF27F200F7ACC4 /* FSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComment.m; sourceTree = "<group>"; };
+		D1D3E8A51900D06400F7ACC4 /* FetchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchOperation.h; sourceTree = "<group>"; };
+		D1D3E8A61900D06400F7ACC4 /* FetchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchOperation.m; sourceTree = "<group>"; };
 		D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlatformSignature.h; sourceTree = "<group>"; };
 		D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlatformSignature.m; sourceTree = "<group>"; };
 		D1FB843E18EF70E100A44DD9 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
@@ -312,6 +315,8 @@
 				D1247F7018E5FAB5009CD32B /* Meal.m */,
 				D1247F6C18E5FA19009CD32B /* MealTag.h */,
 				D1247F6D18E5FA19009CD32B /* MealTag.m */,
+				D1D3E8A51900D06400F7ACC4 /* FetchOperation.h */,
+				D1D3E8A61900D06400F7ACC4 /* FetchOperation.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -648,6 +653,7 @@
 				D110B00D18CA67E30077D25B /* Comment.m in Sources */,
 				D1247F6518E4CFFB009CD32B /* UIColor+colorPallete.m in Sources */,
 				D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */,
+				D1D3E8A71900D06400F7ACC4 /* FetchOperation.m in Sources */,
 				D1D3E89218FF167500F7ACC4 /* FSMealTag+Methods.m in Sources */,
 				D1410A9218F86884002AC1AC /* FSMealTag.m in Sources */,
 				D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */,
