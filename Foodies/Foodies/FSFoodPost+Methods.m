@@ -11,7 +11,7 @@
 #import "FoodiesDataStore.h"
 #import "FSComment.h"
 #import "FSLike.h"
-#import "FSMealTag.h"
+#import "FSMealTag+Methods.h"
 
 @implementation FSFoodPost (Methods)
 
@@ -68,14 +68,13 @@
     }
     if ([mealTagsArray count]>0) {
         // insert mealtags entities
+        for (NSDictionary *mealTag in mealTagsArray) {
+            FSMealTag *fsMealTag = [FSMealTag initWithMealName:mealTag[@"mealName"] mealId:mealTag[@"mealId"] coordinateX:mealTag[@"coordinateX"] coordinateY:mealTag[@"coordinateY"] andArrowUp:mealTag[@"isArrowUp"] inContext:context];
+            [fsFoodPost addMealTagsObject:fsMealTag];
+        }
     }
     
-//    if ([resultsArray count] == 0) {;
-//        [context insertObject:fsFoodPost];
-//    }
-    
     [context save:nil];
-    
     return fsFoodPost;
     
 }

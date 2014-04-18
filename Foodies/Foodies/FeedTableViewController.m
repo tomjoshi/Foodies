@@ -166,9 +166,9 @@
 {
     FeedTableViewCell *cell = (FeedTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     
-    for (MealTag *mealTag in [cell.foodPostInCell getTags]) {
-        [mealTag showTagInView: cell.postImageView];
-        mealTag.popOver.delegate = self;
+    for (FSMealTag *mealTag in [cell.foodPostInCell getTags]) {
+//        [mealTag showTagInView: cell.postImageView];
+//        mealTag.popOver.delegate = self;
     }
     
 }
@@ -177,8 +177,8 @@
 {
     FeedTableViewCell *cell = (FeedTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     
-    for (MealTag *mealTag in [cell.foodPostInCell getTags]) {
-        [mealTag.popOver dismiss:YES];
+    for (FSMealTag *mealTag in [cell.foodPostInCell getTags]) {
+//        [mealTag.popOver dismiss:YES];
     }
     
 }

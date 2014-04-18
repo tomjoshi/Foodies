@@ -10,7 +10,7 @@
 
 @implementation FSMealTag (Methods)
 
-+ (FSMealTag *)initWithMealName:(NSString *)mealName mealId:(NSString *)mealId coordinateX:(NSNumber *)coordinateX coordinateY:(NSNumber *)coordinateY andArrowUp:(BOOL)isArrowUp inContext:(NSManagedObjectContext *)context
++ (FSMealTag *)initWithMealName:(NSString *)mealName mealId:(NSString *)mealId coordinateX:(NSNumber *)coordinateX coordinateY:(NSNumber *)coordinateY andArrowUp:(NSNumber *)isArrowUp inContext:(NSManagedObjectContext *)context
 {
     FSMealTag *fsMealTag = [NSEntityDescription insertNewObjectForEntityForName:@"FSMealTag" inManagedObjectContext:context];
     
@@ -26,12 +26,10 @@
         fsMealTag.coordinateY = coordinateY;
     }
     if (isArrowUp) {
-        fsMealTag.isArrowUp = @(YES);
-    } else {
-        fsMealTag.isArrowUp = @(NO);
+        fsMealTag.isArrowUp = isArrowUp;
     }
     
+    [context save:nil];
     return fsMealTag;
-    
 }
 @end

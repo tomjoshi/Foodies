@@ -217,7 +217,15 @@
                             PFObject *author = objects[0];
                             [foodPostToAdd setObject:[author objectForKey:@"username"] forKey:@"authorName"];
                             [foodPostToAdd setObject:author.objectId forKey:@"authorId"];
-                            [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
+                            
+                            
+                            PFFile *authorThumb = [author objectForKey:@"thumb"];
+                            [authorThumb getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                                if (!error) {
+                                    [foodPostToAdd setObject:data forKey:@"authorThumb"];
+                                    [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
+                                }
+                            }];
                         }];
                         
                         // get author thumb. i need to set up author thumbnails first

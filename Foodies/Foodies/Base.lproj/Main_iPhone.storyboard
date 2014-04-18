@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Profile View Controller - Profile-->
+        <!--Profile View Controller - Edit Profile-->
         <scene sceneID="Um8-HE-lJv">
             <objects>
                 <viewController id="0De-Ro-a18" customClass="ProfileViewController" sceneMemberID="viewController">
@@ -13,23 +13,115 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2N7-p5-E6v">
-                                <rect key="frame" x="132" y="269" width="56" height="30"/>
+                                <rect key="frame" x="134" y="400" width="53" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Log Out">
+                                <state key="normal" title="Log out">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="logOutTapped:" destination="0De-Ro-a18" eventType="touchUpInside" id="cIg-1f-Afm"/>
                                 </connections>
                             </button>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="MEQ-uh-WKD">
+                                <rect key="frame" x="100" y="83" width="120" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XQc-5z-aFq">
+                                <rect key="frame" x="123" y="206" width="74" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Edit Image">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="editImageTapped:" destination="0De-Ro-a18" eventType="touchUpInside" id="OWp-fO-SUm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7cj-Je-Mgw">
+                                <rect key="frame" x="98" y="362" width="125" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Change password">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="474-QJ-fY4" kind="modal" id="2xs-0n-6gT"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Username" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" id="b9r-0L-dQt">
+                                <rect key="frame" x="20" y="246" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" id="9e3-et-4pq">
+                                <rect key="frame" x="20" y="284" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" id="WDp-AV-nrb"/>
+                    <navigationItem key="navigationItem" title="Edit Profile" id="hND-cz-IVk"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="yDX-lE-agj" id="fX4-Zm-bRr"/>
+                        <outlet property="emailField" destination="9e3-et-4pq" id="cEJ-v3-FU4"/>
+                        <outlet property="profileImageView" destination="MEQ-uh-WKD" id="5b5-Yu-ioF"/>
+                        <outlet property="saveButton" destination="tqm-mO-zjb" id="vt1-Rf-mTE"/>
+                        <outlet property="usernameField" destination="b9r-0L-dQt" id="3uZ-li-qfD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r5p-o0-MuC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem title="Save" id="tqm-mO-zjb">
+                    <connections>
+                        <action selector="saveTapped:" destination="0De-Ro-a18" id="mlW-Gn-zO0"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem title="Cancel" id="yDX-lE-agj">
+                    <connections>
+                        <action selector="cancelTapped:" destination="0De-Ro-a18" id="Oad-x8-aRM"/>
+                    </connections>
+                </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="1067" y="1051"/>
+            <point key="canvasLocation" x="1593" y="1051"/>
+        </scene>
+        <!--View Controller - Change Password-->
+        <scene sceneID="yqE-Zg-Png">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VQD-Rb-OBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="edz-oP-nzD" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WXf-wJ-QiW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Current Password" minimumFontSize="17" id="LXm-Cj-pv2">
+                                <rect key="frame" x="20" y="107" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" minimumFontSize="17" id="hTZ-Ij-bFd">
+                                <rect key="frame" x="20" y="170" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm New Password" minimumFontSize="17" id="e10-ap-2zk">
+                                <rect key="frame" x="20" y="208" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Change Password" id="CKv-eG-Knc">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Nga-mg-bDs"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="504-4k-igB"/>
+                    </navigationItem>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2608" y="1051"/>
         </scene>
         <!--Camera View Controller - Take a Photo-->
         <scene sceneID="bip-ul-DJt">
@@ -439,7 +531,7 @@
                     <connections>
                         <segue destination="gZa-3l-4P7" kind="relationship" relationship="viewControllers" id="bqr-Z3-m0y"/>
                         <segue destination="Vu9-dA-1bX" kind="relationship" relationship="viewControllers" id="wid-Qs-2Bw"/>
-                        <segue destination="0De-Ro-a18" kind="relationship" relationship="viewControllers" id="U79-gN-9CK"/>
+                        <segue destination="0wM-ci-pAv" kind="relationship" relationship="viewControllers" id="U79-gN-9CK"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
@@ -669,6 +761,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eZs-Pv-973" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2606" y="-111"/>
+        </scene>
+        <!--Navigation Controller - Profile-->
+        <scene sceneID="x4m-HA-OS4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0wM-ci-pAv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Profile" id="WDp-AV-nrb"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zPO-aK-1ZY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0De-Ro-a18" kind="relationship" relationship="rootViewController" id="Fbo-Dk-7jX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uea-Ea-Rcr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1067" y="1051"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3gW-kL-aLO">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Nc-3S-9NA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="474-QJ-fY4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ktD-uk-G2A">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="edz-oP-nzD" kind="relationship" relationship="rootViewController" id="mO2-OG-PG3"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="2082" y="1051"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
