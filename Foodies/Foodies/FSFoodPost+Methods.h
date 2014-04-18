@@ -20,9 +20,8 @@
 - (NSNumber *)getNumberOfLikes;
 - (NSArray *)getComments;
 - (BOOL)isLiked;
-- (void)addLike:(FSLike *)newLike;
-- (void)addComment:(FSComment *)newComment;
 - (NSSet *)getTags;
+- (void)addFSCommentsObject:(FSComment *)newComment;
 
 + (FSFoodPost *)initWithDictionary:(NSDictionary *)foodPostDict inContext:(NSManagedObjectContext *)context;
 + (FSFoodPost *)initWithPostImage:(NSData *)postImage

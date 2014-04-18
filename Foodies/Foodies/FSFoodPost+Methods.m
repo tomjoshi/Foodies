@@ -9,7 +9,7 @@
 #import "FSFoodPost+Methods.h"
 #import "NSDate+PrettyTimestamp.h"
 #import "FoodiesDataStore.h"
-#import "FSComment.h"
+#import "FSComment+Methods.h"
 #import "FSLike.h"
 #import "FSMealTag+Methods.h"
 
@@ -62,6 +62,13 @@
     }
     if ([commentsArray count]>0) {
         // insert comment entities
+        for (NSDictionary *comment in commentsArray) {
+            if ([[comment allKeys] count] > 0) {
+                FSComment *fsComment = [FSComment initWithComment:comment[@"comment"] commentDate:comment[@"commentDate"] commenterId:comment[@"commenterId"] commenterName:comment[@"commenterName"] isCaption:comment[@"isCaption"] inContext:context];
+//                [fsFoodPost addFSCommentsObject:fsComment];
+                [fsFoodPost addComments:[NSSet setWithObject:fsComment]];
+            }
+        }
     }
     if ([likesArray count]>0) {
         // insert likes entities
@@ -127,20 +134,16 @@
     return [self.postDate prettyTimestampSinceNow];
 }
 
-- (void)addLike:(FSLike *)newLike
-{
-    [self addLikesObject:newLike];
-}
-
-- (void)addComment:(FSComment *)newComment
-{
-    [self addCommentsObject:newComment];
-}
-
 - (NSSet *)getTags
 {
     return self.mealTags;
 }
 
+- (void)addFSCommentsObject:(FSComment *)newComment
+{
+    NSMutableSet *tempSet = [NSMutableSet setWithSet:self.comments];
+    [tempSet addObject:newComment];
+    self.comments = tempSet;
+}
 
 @end

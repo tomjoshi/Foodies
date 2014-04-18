@@ -29,7 +29,6 @@
         fsMealTag.isArrowUp = isArrowUp;
     }
     
-    [context save:nil];
     return fsMealTag;
 }
 @end

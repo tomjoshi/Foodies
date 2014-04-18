@@ -264,7 +264,7 @@
     newLike.likerId = [Foodie getUserId];
     newLike.likerName = [[Foodie me] getName];
     newLike.likeDate = [NSDate date];
-    [self.foodPostInCell addLike:newLike];
+    [self.foodPostInCell addLikesObject:newLike];
     
     if ([[self.foodPostInCell getNumberOfLikes] integerValue]==1) {
         [self.delegate reloadTable];

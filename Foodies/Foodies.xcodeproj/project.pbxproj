@@ -71,6 +71,7 @@
 		D1D3E89218FF167500F7ACC4 /* FSMealTag+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E89118FF167500F7ACC4 /* FSMealTag+Methods.m */; };
 		D1D3E89D18FF27F200F7ACC4 /* FSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E89C18FF27F200F7ACC4 /* FSComment.m */; };
 		D1D3E8A71900D06400F7ACC4 /* FetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8A61900D06400F7ACC4 /* FetchOperation.m */; };
+		D1D3E8AA1901BEA800F7ACC4 /* FSComment+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8A91901BEA800F7ACC4 /* FSComment+Methods.m */; };
 		D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */; };
 		D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */; };
 		D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */; };
@@ -197,6 +198,8 @@
 		D1D3E89C18FF27F200F7ACC4 /* FSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComment.m; sourceTree = "<group>"; };
 		D1D3E8A51900D06400F7ACC4 /* FetchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchOperation.h; sourceTree = "<group>"; };
 		D1D3E8A61900D06400F7ACC4 /* FetchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchOperation.m; sourceTree = "<group>"; };
+		D1D3E8A81901BEA800F7ACC4 /* FSComment+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSComment+Methods.h"; sourceTree = "<group>"; };
+		D1D3E8A91901BEA800F7ACC4 /* FSComment+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSComment+Methods.m"; sourceTree = "<group>"; };
 		D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlatformSignature.h; sourceTree = "<group>"; };
 		D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlatformSignature.m; sourceTree = "<group>"; };
 		D1FB843E18EF70E100A44DD9 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
@@ -337,6 +340,8 @@
 				D1410AE018F881FB002AC1AC /* FSFoodPost+Methods.m */,
 				D1D3E89018FF167500F7ACC4 /* FSMealTag+Methods.h */,
 				D1D3E89118FF167500F7ACC4 /* FSMealTag+Methods.m */,
+				D1D3E8A81901BEA800F7ACC4 /* FSComment+Methods.h */,
+				D1D3E8A91901BEA800F7ACC4 /* FSComment+Methods.m */,
 				D1BD1B1618D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.h */,
 				D1BD1B1718D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m */,
 				D110B00518CA5E070077D25B /* UIView+ResizeToFitSubviews.h */,
@@ -658,6 +663,7 @@
 				D1410A9218F86884002AC1AC /* FSMealTag.m in Sources */,
 				D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */,
 				D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */,
+				D1D3E8AA1901BEA800F7ACC4 /* FSComment+Methods.m in Sources */,
 				D12A5F5D18E37D48000BF74A /* SignUpViewController.m in Sources */,
 				D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */,
 			);
