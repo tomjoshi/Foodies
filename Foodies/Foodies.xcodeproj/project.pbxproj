@@ -35,9 +35,6 @@
 		D13A51A818BBCA3700ADE71D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A718BBCA3700ADE71D /* AVFoundation.framework */; };
 		D13A51AA18BBCA5700ADE71D /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D13A51B518BCEF3200ADE71D /* CameraViewController.m */; };
-		D1410A9218F86884002AC1AC /* FSMealTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D1410A9118F86884002AC1AC /* FSMealTag.m */; };
-		D1410A9818F86884002AC1AC /* FSFoodPost.m in Sources */ = {isa = PBXBuildFile; fileRef = D1410A9718F86884002AC1AC /* FSFoodPost.m */; };
-		D1410A9B18F86884002AC1AC /* FSLike.m in Sources */ = {isa = PBXBuildFile; fileRef = D1410A9A18F86884002AC1AC /* FSLike.m */; };
 		D1410A9D18F86D38002AC1AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1410A9C18F86D38002AC1AC /* CoreData.framework */; };
 		D1410AE118F881FB002AC1AC /* FSFoodPost+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = D1410AE018F881FB002AC1AC /* FSFoodPost+Methods.m */; };
 		D1440E7518F6E8FF0031B568 /* FoodiesAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D1440E7418F6E8FF0031B568 /* FoodiesAPI.m */; };
@@ -69,9 +66,12 @@
 		D1D3E84518FC8D7000F7ACC4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E84418FC8D7000F7ACC4 /* AppDelegate.m */; };
 		D1D3E84718FC8E2500F7ACC4 /* TagPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E84618FC8E2500F7ACC4 /* TagPickerViewController.m */; };
 		D1D3E89218FF167500F7ACC4 /* FSMealTag+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E89118FF167500F7ACC4 /* FSMealTag+Methods.m */; };
-		D1D3E89D18FF27F200F7ACC4 /* FSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E89C18FF27F200F7ACC4 /* FSComment.m */; };
 		D1D3E8A71900D06400F7ACC4 /* FetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8A61900D06400F7ACC4 /* FetchOperation.m */; };
 		D1D3E8AA1901BEA800F7ACC4 /* FSComment+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8A91901BEA800F7ACC4 /* FSComment+Methods.m */; };
+		D1D3E8CB1901CAFA00F7ACC4 /* FSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8CA1901CAFA00F7ACC4 /* FSComment.m */; };
+		D1D3E8CE1901CAFB00F7ACC4 /* FSFoodPost.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8CD1901CAFB00F7ACC4 /* FSFoodPost.m */; };
+		D1D3E8D11901CAFB00F7ACC4 /* FSLike.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8D01901CAFB00F7ACC4 /* FSLike.m */; };
+		D1D3E8D41901CAFB00F7ACC4 /* FSMealTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8D31901CAFB00F7ACC4 /* FSMealTag.m */; };
 		D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */; };
 		D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */; };
 		D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */; };
@@ -136,12 +136,6 @@
 		D13A51A918BBCA5700ADE71D /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		D13A51B418BCEF3200ADE71D /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		D13A51B518BCEF3200ADE71D /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
-		D1410A9018F86884002AC1AC /* FSMealTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMealTag.h; sourceTree = "<group>"; };
-		D1410A9118F86884002AC1AC /* FSMealTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMealTag.m; sourceTree = "<group>"; };
-		D1410A9618F86884002AC1AC /* FSFoodPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSFoodPost.h; sourceTree = "<group>"; };
-		D1410A9718F86884002AC1AC /* FSFoodPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSFoodPost.m; sourceTree = "<group>"; };
-		D1410A9918F86884002AC1AC /* FSLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSLike.h; sourceTree = "<group>"; };
-		D1410A9A18F86884002AC1AC /* FSLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSLike.m; sourceTree = "<group>"; };
 		D1410A9C18F86D38002AC1AC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D1410ADF18F881FB002AC1AC /* FSFoodPost+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSFoodPost+Methods.h"; sourceTree = "<group>"; };
 		D1410AE018F881FB002AC1AC /* FSFoodPost+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSFoodPost+Methods.m"; sourceTree = "<group>"; };
@@ -194,12 +188,18 @@
 		D1D3E84618FC8E2500F7ACC4 /* TagPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagPickerViewController.m; sourceTree = "<group>"; };
 		D1D3E89018FF167500F7ACC4 /* FSMealTag+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSMealTag+Methods.h"; sourceTree = "<group>"; };
 		D1D3E89118FF167500F7ACC4 /* FSMealTag+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSMealTag+Methods.m"; sourceTree = "<group>"; };
-		D1D3E89B18FF27F200F7ACC4 /* FSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComment.h; sourceTree = "<group>"; };
-		D1D3E89C18FF27F200F7ACC4 /* FSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComment.m; sourceTree = "<group>"; };
 		D1D3E8A51900D06400F7ACC4 /* FetchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchOperation.h; sourceTree = "<group>"; };
 		D1D3E8A61900D06400F7ACC4 /* FetchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchOperation.m; sourceTree = "<group>"; };
 		D1D3E8A81901BEA800F7ACC4 /* FSComment+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSComment+Methods.h"; sourceTree = "<group>"; };
 		D1D3E8A91901BEA800F7ACC4 /* FSComment+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSComment+Methods.m"; sourceTree = "<group>"; };
+		D1D3E8C91901CAFA00F7ACC4 /* FSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComment.h; sourceTree = "<group>"; };
+		D1D3E8CA1901CAFA00F7ACC4 /* FSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComment.m; sourceTree = "<group>"; };
+		D1D3E8CC1901CAFB00F7ACC4 /* FSFoodPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSFoodPost.h; sourceTree = "<group>"; };
+		D1D3E8CD1901CAFB00F7ACC4 /* FSFoodPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSFoodPost.m; sourceTree = "<group>"; };
+		D1D3E8CF1901CAFB00F7ACC4 /* FSLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSLike.h; sourceTree = "<group>"; };
+		D1D3E8D01901CAFB00F7ACC4 /* FSLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSLike.m; sourceTree = "<group>"; };
+		D1D3E8D21901CAFB00F7ACC4 /* FSMealTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMealTag.h; sourceTree = "<group>"; };
+		D1D3E8D31901CAFB00F7ACC4 /* FSMealTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMealTag.m; sourceTree = "<group>"; };
 		D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlatformSignature.h; sourceTree = "<group>"; };
 		D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlatformSignature.m; sourceTree = "<group>"; };
 		D1FB843E18EF70E100A44DD9 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
@@ -284,14 +284,14 @@
 			children = (
 				D110B00E18CA76B10077D25B /* Category Methods */,
 				D1A4E99C18F830A100E35D56 /* Model.xcdatamodeld */,
-				D1D3E89B18FF27F200F7ACC4 /* FSComment.h */,
-				D1D3E89C18FF27F200F7ACC4 /* FSComment.m */,
-				D1410A9918F86884002AC1AC /* FSLike.h */,
-				D1410A9A18F86884002AC1AC /* FSLike.m */,
-				D1410A9618F86884002AC1AC /* FSFoodPost.h */,
-				D1410A9718F86884002AC1AC /* FSFoodPost.m */,
-				D1410A9018F86884002AC1AC /* FSMealTag.h */,
-				D1410A9118F86884002AC1AC /* FSMealTag.m */,
+				D1D3E8D21901CAFB00F7ACC4 /* FSMealTag.h */,
+				D1D3E8D31901CAFB00F7ACC4 /* FSMealTag.m */,
+				D1D3E8CF1901CAFB00F7ACC4 /* FSLike.h */,
+				D1D3E8D01901CAFB00F7ACC4 /* FSLike.m */,
+				D1D3E8CC1901CAFB00F7ACC4 /* FSFoodPost.h */,
+				D1D3E8CD1901CAFB00F7ACC4 /* FSFoodPost.m */,
+				D1D3E8C91901CAFA00F7ACC4 /* FSComment.h */,
+				D1D3E8CA1901CAFA00F7ACC4 /* FSComment.m */,
 				D1FB844218F25BBF00A44DD9 /* MenuPopOverView.h */,
 				D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */,
 				D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */,
@@ -626,18 +626,17 @@
 			files = (
 				D1410AE118F881FB002AC1AC /* FSFoodPost+Methods.m in Sources */,
 				D1BD1B1818D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m in Sources */,
-				D1D3E89D18FF27F200F7ACC4 /* FSComment.m in Sources */,
 				D1247F6B18E5F1DB009CD32B /* NSDate+PrettyTimestamp.m in Sources */,
 				D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */,
 				D1BD1B1318D36F3900256BC2 /* PostFormTableViewController.m in Sources */,
+				D1D3E8D11901CAFB00F7ACC4 /* FSLike.m in Sources */,
 				D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */,
-				D1410A9B18F86884002AC1AC /* FSLike.m in Sources */,
 				D12A5F5718E36F1D000BF74A /* ProfileViewController.m in Sources */,
 				D1247F6E18E5FA19009CD32B /* MealTag.m in Sources */,
 				D1BD1A8A18D35E1A00256BC2 /* Location.m in Sources */,
 				D1247F7118E5FAB5009CD32B /* Meal.m in Sources */,
-				D1410A9818F86884002AC1AC /* FSFoodPost.m in Sources */,
 				D1BD1A8518D3575B00256BC2 /* LocationPickerTableViewController.m in Sources */,
+				D1D3E8CE1901CAFB00F7ACC4 /* FSFoodPost.m in Sources */,
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
 				D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */,
 				D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */,
@@ -660,11 +659,12 @@
 				D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */,
 				D1D3E8A71900D06400F7ACC4 /* FetchOperation.m in Sources */,
 				D1D3E89218FF167500F7ACC4 /* FSMealTag+Methods.m in Sources */,
-				D1410A9218F86884002AC1AC /* FSMealTag.m in Sources */,
 				D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */,
+				D1D3E8D41901CAFB00F7ACC4 /* FSMealTag.m in Sources */,
 				D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */,
 				D1D3E8AA1901BEA800F7ACC4 /* FSComment+Methods.m in Sources */,
 				D12A5F5D18E37D48000BF74A /* SignUpViewController.m in Sources */,
+				D1D3E8CB1901CAFA00F7ACC4 /* FSComment.m in Sources */,
 				D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

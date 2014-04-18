@@ -62,11 +62,14 @@
     }
     if ([commentsArray count]>0) {
         // insert comment entities
+//        NSMutableSet *commentSet = [[NSMutableSet alloc] init];
         for (NSDictionary *comment in commentsArray) {
             if ([[comment allKeys] count] > 0) {
                 FSComment *fsComment = [FSComment initWithComment:comment[@"comment"] commentDate:comment[@"commentDate"] commenterId:comment[@"commenterId"] commenterName:comment[@"commenterName"] isCaption:comment[@"isCaption"] inContext:context];
-//                [fsFoodPost addFSCommentsObject:fsComment];
-                [fsFoodPost addComments:[NSSet setWithObject:fsComment]];
+                fsComment.foodPost = fsFoodPost;
+//                [fsFoodPost addCommentsObject:fsComment];
+//                [commentSet addObject:fsComment];
+                
             }
         }
     }

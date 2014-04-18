@@ -2,7 +2,7 @@
 //  FSFoodPost.m
 //  Foodies
 //
-//  Created by Lucas Chwe on 4/11/14.
+//  Created by Lucas Chwe on 4/18/14.
 //  Copyright (c) 2014 Lucas Chwe. All rights reserved.
 //
 
@@ -14,16 +14,16 @@
 
 @implementation FSFoodPost
 
-@dynamic postImage;
+@dynamic authorId;
+@dynamic authorName;
+@dynamic authorThumb;
 @dynamic postDate;
 @dynamic postId;
-@dynamic authorName;
-@dynamic authorId;
-@dynamic authorThumb;
-@dynamic venueName;
+@dynamic postImage;
 @dynamic venueId;
-@dynamic likes;
+@dynamic venueName;
 @dynamic comments;
+@dynamic likes;
 @dynamic mealTags;
 
 @end

@@ -123,9 +123,11 @@
 
 - (IBAction)refreshPulled:(id)sender {
     UIRefreshControl *refreshControl = sender;
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    FetchOperation *fetchOp = [[FetchOperation alloc] init];
-    [queue addOperation:fetchOp];
+//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//    FetchOperation *fetchOp = [[FetchOperation alloc] init];
+//    [queue addOperation:fetchOp];
+    
+    [FoodiesAPI fetchFoodPostsInManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
     [refreshControl endRefreshing];
 }
 

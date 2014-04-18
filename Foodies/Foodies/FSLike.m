@@ -2,7 +2,7 @@
 //  FSLike.m
 //  Foodies
 //
-//  Created by Lucas Chwe on 4/11/14.
+//  Created by Lucas Chwe on 4/18/14.
 //  Copyright (c) 2014 Lucas Chwe. All rights reserved.
 //
 
@@ -12,9 +12,9 @@
 
 @implementation FSLike
 
+@dynamic likeDate;
 @dynamic likerId;
 @dynamic likerName;
-@dynamic likeDate;
 @dynamic foodPost;
 
 @end

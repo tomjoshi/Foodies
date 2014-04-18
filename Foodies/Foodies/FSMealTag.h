@@ -2,7 +2,7 @@
 //  FSMealTag.h
 //  Foodies
 //
-//  Created by Lucas Chwe on 4/11/14.
+//  Created by Lucas Chwe on 4/18/14.
 //  Copyright (c) 2014 Lucas Chwe. All rights reserved.
 //
 
@@ -16,8 +16,8 @@
 @property (nonatomic, retain) NSNumber * coordinateX;
 @property (nonatomic, retain) NSNumber * coordinateY;
 @property (nonatomic, retain) NSNumber * isArrowUp;
-@property (nonatomic, retain) NSString * mealName;
 @property (nonatomic, retain) NSString * mealId;
+@property (nonatomic, retain) NSString * mealName;
 @property (nonatomic, retain) FSFoodPost *foodPost;
 
 @end
