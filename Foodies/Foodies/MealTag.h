@@ -18,7 +18,7 @@
 
 
 - (instancetype)initWithMeal:(Meal *)meal andPoint:(CGPoint)point;
-- (void)showTagInView:(UIView *)view;
+- (MenuPopOverView *)showTagInView:(UIView *)view;
 - (void)makeTagEditable;
 - (void)stopTagEditable;
 - (void)toggleArrow;

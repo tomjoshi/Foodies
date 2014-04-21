@@ -162,7 +162,11 @@
         TTTAttributedLabel *likesLabel = self.likesLabel;
         [likesLabel setFont:self.authorLabel.font];
         likesLabel.linkAttributes = linkAttributes;
-        likesLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
+        if ([numberOfLikes integerValue] == 1) {
+            likesLabel.text = [NSString stringWithFormat:@"%@ like", numberOfLikes];
+        } else {
+            likesLabel.text = [NSString stringWithFormat:@"%@ likes", numberOfLikes];
+        }
         likesLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
         likesLabel.delegate = self;
         [likesLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [likesLabel.text length])];
@@ -262,7 +266,6 @@
 - (void)likePost
 {
     NSLog(@"isliked");
-    
     
     [self.delegate like:self.indexPath completionBlock:^{
         [FoodiesAPI likeFoodPost:self.foodPostInCell withLikerName:[PFUser currentUser].username andLikerId:[Foodie getUserId] inContext:[FoodiesDataStore sharedInstance].managedObjectContext];

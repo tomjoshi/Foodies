@@ -7,6 +7,7 @@
 //
 
 #import "FSMealTag+Methods.h"
+#import <FontAwesomeKit.h>
 
 @implementation FSMealTag (Methods)
 
@@ -46,4 +47,59 @@
     
     return fsMealTag;
 }
+
+
+- (MenuPopOverView *)showTagInView:(UIView *)view
+{
+//    [self.popOver dismiss:YES];
+    MenuPopOverView *menuPopOver = [[MenuPopOverView alloc] init];
+    menuPopOver.isArrowUp = [self.isArrowUp boolValue];
+//    self.viewIn = view;
+    [menuPopOver presentPopoverFromRect:CGRectMake([self.coordinateX floatValue], [self.coordinateY floatValue], 0, 0) inView:view withStrings:@[self.mealName]];
+    return menuPopOver;
+}
+
+- (void)makeTagEditable:(MenuPopOverView *)popOver
+{
+    // make close icon
+    FAKIonIcons *closeIcon = [FAKIonIcons closeCircledIconWithSize:18];
+    [closeIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
+    // make arrow up
+    FAKIonIcons *arrowIcon;
+    UIView *tempViewIn = [popOver superview];
+    
+    if ([self.isArrowUp boolValue]) {
+        arrowIcon = [FAKIonIcons arrowDownBIconWithSize:18];
+    } else {
+        arrowIcon = [FAKIonIcons arrowUpBIconWithSize:18];
+    }
+    [arrowIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor]];
+    
+    [popOver dismiss:NO];
+    popOver = [[MenuPopOverView alloc] init];
+    popOver.isArrowUp = [self.isArrowUp boolValue];
+    [popOver presentPopoverFromRect:CGRectMake([self.coordinateX floatValue], [self.coordinateY floatValue], 0, 0) inView:tempViewIn withStrings:@[[arrowIcon attributedString],self.mealName,[closeIcon attributedString]]];
+}
+
+- (void)stopTagEditable:(MenuPopOverView *)popOver
+{
+    BOOL tempIsArrowUp = popOver.isArrowUp;
+    UIView *tempViewIn = [popOver superview];
+    
+    [popOver dismiss:NO];
+    popOver = [[MenuPopOverView alloc] init];
+    popOver.isArrowUp = tempIsArrowUp;
+    [popOver presentPopoverFromRect:CGRectMake([self.coordinateX floatValue], [self.coordinateY floatValue], 0, 0) inView:tempViewIn withStrings:@[self.mealName]];
+}
+
+- (void)toggleArrow:(MenuPopOverView *)popOver
+{
+    if ([self.isArrowUp boolValue]) {
+        self.isArrowUp = @(NO);
+    } else {
+        self.isArrowUp = @(YES);
+    }
+    [self makeTagEditable:popOver];
+}
+
 @end

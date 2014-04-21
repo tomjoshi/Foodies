@@ -7,6 +7,7 @@
 //
 
 #import "FSMealTag.h"
+#import "MenuPopOverView.h"
 
 @interface FSMealTag (Methods)
 + (FSMealTag *)initWithMealName:(NSString *)mealName
@@ -16,4 +17,10 @@
                       mealTagId:(NSString *)mealTagId
                      andArrowUp:(NSNumber *)isArrowUp
                       inContext:(NSManagedObjectContext *)context;
+
+- (void)makeTagEditable:(MenuPopOverView *)popOver;
+- (void)stopTagEditable:(MenuPopOverView *)popOver;
+- (void)toggleArrow:(MenuPopOverView *)popOver;
+- (MenuPopOverView *)showTagInView:(UIView *)view;
+
 @end
