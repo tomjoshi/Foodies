@@ -53,6 +53,8 @@
             
             // Set the access control list to current user for security purposes
             foodPostToPost.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            [foodPostToPost.ACL setPublicReadAccess:YES];
+            [foodPostToPost.ACL setPublicWriteAccess:YES];
             
             // relate author to post
             PFRelation *userRelation = [foodPostToPost relationForKey:@"author"];

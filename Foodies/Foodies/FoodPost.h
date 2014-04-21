@@ -24,7 +24,7 @@
 - (instancetype)init;
 - (NSNumber *)getNumberOfLikes;
 - (NSArray *)getComments;
-- (BOOL)isLiked;
+//- (BOOL)isLiked;
 - (void)setPostDate:(NSDate *)postDate;
 - (void)addLike:(Like *)newLike;
 - (void)addComment:(Comment *)newComment;

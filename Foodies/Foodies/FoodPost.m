@@ -87,13 +87,13 @@
     return self.comments;
 }
 
-- (BOOL)isLiked
-{
-    if ([self.likes count] > 0) {
-        return YES;
-    }
-    return NO;
-}
+//- (BOOL)isLiked
+//{
+//    if ([self.likes count] > 0) {
+//        return YES;
+//    }
+//    return NO;
+//}
 
 - (NSString *)getFormattedTime
 {

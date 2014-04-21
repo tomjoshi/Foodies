@@ -106,9 +106,9 @@
         [self.tableView reloadData];
         
         // testing foursquare api for menu
-        [Foursquare2 venueGetMenu:venue.foursquareId callback:^(BOOL success, id result) {
-            NSLog(@"%@", result);
-        }];
+//        [Foursquare2 venueGetMenu:venue.foursquareId callback:^(BOOL success, id result) {
+//            NSLog(@"%@", result);
+//        }];
         
         
         
