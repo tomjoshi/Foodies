@@ -2,14 +2,13 @@
 //  FSMealTag.h
 //  Foodies
 //
-//  Created by Lucas Chwe on 4/18/14.
+//  Created by Lucas Chwe on 4/19/14.
 //  Copyright (c) 2014 Lucas Chwe. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class FSFoodPost;
 
 @interface FSMealTag : NSManagedObject
 
@@ -18,6 +17,6 @@
 @property (nonatomic, retain) NSNumber * isArrowUp;
 @property (nonatomic, retain) NSString * mealId;
 @property (nonatomic, retain) NSString * mealName;
-@property (nonatomic, retain) FSFoodPost *foodPost;
+@property (nonatomic, retain) NSString * mealTagId;
 
 @end

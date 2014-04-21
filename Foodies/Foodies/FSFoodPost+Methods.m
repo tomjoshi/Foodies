@@ -10,7 +10,7 @@
 #import "NSDate+PrettyTimestamp.h"
 #import "FoodiesDataStore.h"
 #import "FSComment+Methods.h"
-#import "FSLike.h"
+#import "FSLike+Methods.h"
 #import "FSMealTag+Methods.h"
 
 @implementation FSFoodPost (Methods)
@@ -29,6 +29,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"FSFoodPost"];
     request.predicate = filterPostId;
     NSArray *resultsArray = [context executeFetchRequest:request error:nil];
+    
     if ([resultsArray count] == 0) {;
         fsFoodPost = [NSEntityDescription insertNewObjectForEntityForName:@"FSFoodPost" inManagedObjectContext:context];
     } else {
@@ -62,24 +63,25 @@
     }
     if ([commentsArray count]>0) {
         // insert comment entities
-//        NSMutableSet *commentSet = [[NSMutableSet alloc] init];
         for (NSDictionary *comment in commentsArray) {
             if ([[comment allKeys] count] > 0) {
-                FSComment *fsComment = [FSComment initWithComment:comment[@"comment"] commentDate:comment[@"commentDate"] commenterId:comment[@"commenterId"] commenterName:comment[@"commenterName"] isCaption:comment[@"isCaption"] inContext:context];
-                fsComment.foodPost = fsFoodPost;
-//                [fsFoodPost addCommentsObject:fsComment];
-//                [commentSet addObject:fsComment];
+                FSComment *fsComment = [FSComment initWithComment:comment[@"comment"] commentDate:comment[@"commentDate"] commentId:comment[@"commentId"] commenterId:comment[@"commenterId"] commenterName:comment[@"commenterName"] isCaption:comment[@"isCaption"] inContext:context];
+                [fsFoodPost addCommentsObject:fsComment];
                 
             }
         }
     }
     if ([likesArray count]>0) {
         // insert likes entities
+        for (NSDictionary *like in likesArray) {
+            FSLike *fsLike = [FSLike likeWithLikeId:like[@"likeId"] likeDate:like[@"likeDate"] likerId:like[@"likerId"] likerName:like[@"likerName"] inContext:context];
+            [fsFoodPost addLikesObject:fsLike];
+        }
     }
     if ([mealTagsArray count]>0) {
         // insert mealtags entities
         for (NSDictionary *mealTag in mealTagsArray) {
-            FSMealTag *fsMealTag = [FSMealTag initWithMealName:mealTag[@"mealName"] mealId:mealTag[@"mealId"] coordinateX:mealTag[@"coordinateX"] coordinateY:mealTag[@"coordinateY"] andArrowUp:mealTag[@"isArrowUp"] inContext:context];
+            FSMealTag *fsMealTag = [FSMealTag initWithMealName:mealTag[@"mealName"] mealId:mealTag[@"mealId"] coordinateX:mealTag[@"coordinateX"] coordinateY:mealTag[@"coordinateY"] mealTagId:mealTag[@"mealTagId"] andArrowUp:mealTag[@"isArrowUp"] inContext:context];
             [fsFoodPost addMealTagsObject:fsMealTag];
         }
     }

@@ -13,6 +13,7 @@
                          mealId:(NSString *)mealId
                     coordinateX:(NSNumber *)coordinateX
                     coordinateY:(NSNumber *)coordinateY
+                      mealTagId:(NSString *)mealTagId
                      andArrowUp:(NSNumber *)isArrowUp
                       inContext:(NSManagedObjectContext *)context;
 @end

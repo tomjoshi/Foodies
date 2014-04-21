@@ -196,8 +196,16 @@
         UIImage *image = info[UIImagePickerControllerOriginalImage];
         
         // ghetto hackjob cropping
-        double x = (image.size.width - image.size.width) / 2.0;
-        double y = (image.size.height - image.size.width) / 2.0;
+        
+        double x = 0;
+        double y = 0;
+        if (image.size.height > image.size.width){
+            x = (image.size.width - image.size.width) / 2.0;
+            y = (image.size.height - image.size.width) / 2.0;
+        } else {
+            x = (image.size.width - image.size.height) / 2.0;
+            y = (image.size.height - image.size.height) / 2.0;
+        }
         CGRect cropRect = CGRectMake(x, y, image.size.width, image.size.width);
         CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
         UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];

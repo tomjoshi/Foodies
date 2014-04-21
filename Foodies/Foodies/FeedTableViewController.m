@@ -17,6 +17,7 @@
 #import "FSFoodPost+Methods.h"
 #import "MealTag.h"
 #import "FetchOperation.h"
+#import <TTTAttributedLabel.h>
 
 @interface FeedTableViewController () <FeedTableViewCellDelegate, MenuPopOverViewDelegate, NSFetchedResultsControllerDelegate>
 
@@ -123,11 +124,9 @@
 
 - (IBAction)refreshPulled:(id)sender {
     UIRefreshControl *refreshControl = sender;
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//    FetchOperation *fetchOp = [[FetchOperation alloc] init];
-//    [queue addOperation:fetchOp];
-    
-    [FoodiesAPI fetchFoodPostsInManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    FetchOperation *fetchOp = [[FetchOperation alloc] init];
+    [queue addOperation:fetchOp];
     [refreshControl endRefreshing];
 }
 
@@ -138,7 +137,7 @@
     [self.tableView reloadData];
 }
 
-- (void)like:(NSIndexPath *)indexPath
+- (void)like:(NSIndexPath *)indexPath completionBlock:(void (^)(void))completionBlock
 {
     
     // add like animation
@@ -160,6 +159,7 @@
             [heartImageView setAlpha:0];
         } completion:^(BOOL finished) {
             [heartImageView removeFromSuperview];
+            completionBlock();
         }];
     }];
 }

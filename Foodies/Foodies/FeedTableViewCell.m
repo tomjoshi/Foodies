@@ -19,10 +19,11 @@
 #import "MenuPopOverView.h"
 #import "MealTag.h"
 #import "FoodiesDataStore.h"
-#import "FSLike.h"
+#import "FSLike+Methods.h"
+#import "FSComment.h"
+#import "FoodiesAPI.h"
 
 @interface FeedTableViewCell () <MenuPopOverViewDelegate>
-@property (strong, nonatomic) TTTAttributedLabel *likesLabel;
 @property (strong, nonatomic) UIView *likesAndCommentsView;
 @property (nonatomic) BOOL tagsAreVisible;
 @property (strong, nonatomic) UIImage *image;
@@ -64,6 +65,7 @@
     UIImage *authorThumb = [foodPost getAuthorThumb];
     BOOL isLiked = [foodPost isLiked];
     NSArray *comments = [foodPost getComments];
+//    NSArray *comments = @[];
     
     // setup variables
     CGFloat cellWidth = self.bounds.size.width;
@@ -190,18 +192,18 @@
     while (commentIndex < [comments count]) {
         
         // set one comment
-        Comment *commentForLabel = comments[commentIndex];
+        FSComment *commentForLabel = comments[commentIndex];
         TTTAttributedLabel *commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(iconWidth+sidePadding+iconSidePadding, yPos, cellWidth-(iconWidth+2*sidePadding+iconSidePadding), 0)];
         [commentLabel setFont:self.authorLabel.font];
         commentLabel.numberOfLines = 0;
         commentLabel.lineBreakMode = NSLineBreakByWordWrapping;
         commentLabel.linkAttributes = linkAttributes;
-        commentLabel.text = [NSString stringWithFormat:@"%@ %@", [commentForLabel.commenter getName], commentForLabel.comment];
+        commentLabel.text = [NSString stringWithFormat:@"%@ %@", [commentForLabel commenterName], commentForLabel.comment];
         
         // making the link
         commentLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
         commentLabel.delegate = self;
-        [commentLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [[commentForLabel.commenter getName] length])];
+        [commentLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [[commentForLabel commenterName] length])];
         
         [commentLabel sizeToFit];
         
@@ -260,22 +262,12 @@
 - (void)likePost
 {
     NSLog(@"isliked");
-    FSLike *newLike = [NSEntityDescription insertNewObjectForEntityForName:@"Like" inManagedObjectContext:[FoodiesDataStore sharedInstance].managedObjectContext];
-    newLike.likerId = [Foodie getUserId];
-    newLike.likerName = [[Foodie me] getName];
-    newLike.likeDate = [NSDate date];
-    [self.foodPostInCell addLikesObject:newLike];
     
-    if ([[self.foodPostInCell getNumberOfLikes] integerValue]==1) {
-        [self.delegate reloadTable];
-    } else{
-        // update label
-        self.likesLabel.text = [NSString stringWithFormat:@"%@ likes", [self.foodPostInCell getNumberOfLikes]];
-        [self.likesLabel addLinkToURL:[NSURL URLWithString:@"http://github.com"] withRange:NSMakeRange(0, [self.likesLabel.text length])];
-        [self.likesLabel sizeToFit];
-    }
     
-    [self.delegate like:self.indexPath];
+    [self.delegate like:self.indexPath completionBlock:^{
+        [FoodiesAPI likeFoodPost:self.foodPostInCell withLikerName:[PFUser currentUser].username andLikerId:[Foodie getUserId] inContext:[FoodiesDataStore sharedInstance].managedObjectContext];
+    }];
+    
 }
 
 - (void)commentPost

@@ -8,6 +8,7 @@
 
 #import "FoodiesAPI.h"
 #import "FSFoodPost+Methods.h"
+#import "FSLike+Methods.h"
 
 @implementation FoodiesAPI
 
@@ -149,6 +150,7 @@
                                 [mealTagToAdd setObject:[mealTag objectForKey:@"isArrowUp"] forKey:@"isArrowUp"];
                                 [mealTagToAdd setObject:[mealTag objectForKey:@"coordinates"][0] forKey:@"coordinateX"];
                                 [mealTagToAdd setObject:[mealTag objectForKey:@"coordinates"][1] forKey:@"coordinateY"];
+                                [mealTagToAdd setObject:mealTag.objectId forKey:@"mealTagId"];
                                 PFObject *pfMeal = [mealTag objectForKey:@"meal"];
                                 
                                 [query includeKey:@"mealTags"];
@@ -176,6 +178,7 @@
                                         [commentToAdd setObject:comment.createdAt forKey:@"commentDate"];
                                         [commentToAdd setObject:[comment objectForKey:@"comment"] forKey:@"comment"];
                                         [commentToAdd setObject:[comment objectForKey:@"isCaption"] forKey:@"isCaption"];
+                                        [commentToAdd setObject:comment.objectId forKey:@"commentId"];
                                         [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
                                     }
                                 }];
@@ -199,6 +202,7 @@
                                         PFUser *liker = objects[0];
                                         [likeToAdd setObject:[liker objectForKey:@"username"] forKey:@"likerName"];
                                         [likeToAdd setObject:liker.objectId forKey:@"likerId"];
+                                        [likeToAdd setObject:like.objectId forKey:@"likeId"];
                                         [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
                                     }
                                 }];
@@ -341,4 +345,40 @@
     }
 }
 
++ (void)likeFoodPost:(FSFoodPost *)foodPost withLikerName:(NSString *)likerName andLikerId:(NSString *)likerId inContext:(NSManagedObjectContext *)context
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"FoodPost"];
+    [query whereKey:@"objectId" equalTo:foodPost.postId];
+    [query includeKey:@"likes"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if ([objects count] == 1) {
+            PFObject *foundFoodPost = objects[0];
+            
+            for (PFObject *like in [foundFoodPost objectForKey:@"likes"]) {
+                if ([[like objectForKey:@"likerId"] isEqualToString:likerId]) {
+                    return;
+                }
+            }
+            
+            PFObject *pfLike = [PFObject objectWithClassName:@"Like"];
+            
+            [pfLike setObject:likerName forKey:@"likerName"];
+            [pfLike setObject:likerId forKey:@"likerId"];
+            
+            [pfLike saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    [foundFoodPost addObject:pfLike forKey:@"likes"];
+                    [foundFoodPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                        FSLike *newLike = [FSLike likeWithLikeId:pfLike.objectId likeDate:pfLike.createdAt likerId:likerId likerName:likerName inContext:context];
+                        [foodPost addLikesObject:newLike];
+                    }];
+                }
+            }];
+        } else {
+            // foodpost to like was not found
+            NSLog(@"food post was not found to be liked");
+        }
+    }];
+
+}
 @end

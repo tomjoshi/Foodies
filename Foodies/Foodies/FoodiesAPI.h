@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 #import "FoodPost.h"
+#import "FSFoodPost.h"
 
 @interface FoodiesAPI : NSObject
+
+// Like related
++ (void)likeFoodPost:(FSFoodPost *)foodPost withLikerName:(NSString *)likerName andLikerId:(NSString *)likerId inContext:(NSManagedObjectContext *)context;
+
 // FoodPost related
 + (void)postFoodPost:(FoodPost *)newFoodPost inContext:(NSManagedObjectContext *)context;
 + (void)fetchFoodPostsInManagedObjectContext:(NSManagedObjectContext *)context;

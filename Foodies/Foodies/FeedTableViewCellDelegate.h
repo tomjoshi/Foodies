@@ -10,7 +10,7 @@
 
 @protocol FeedTableViewCellDelegate <NSObject>
 - (void)reloadTable;
-- (void)like:(NSIndexPath *)indexPath;
+- (void)like:(NSIndexPath *)indexPath completionBlock:(void (^)(void))completionBlock;
 - (void)showTags:(NSIndexPath *)indexPath;
 - (void)hideTags:(NSIndexPath *)indexPath;
 @end

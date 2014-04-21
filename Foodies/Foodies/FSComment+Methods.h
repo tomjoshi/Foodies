@@ -11,6 +11,7 @@
 @interface FSComment (Methods)
 + (FSComment *)initWithComment:(NSString *)comment
                    commentDate:(NSDate *)commentDate
+                     commentId:(NSString *)commentId
                    commenterId:(NSString *)commenterId
                  commenterName:(NSString *)commenterName
                      isCaption:(NSNumber *)isCaption

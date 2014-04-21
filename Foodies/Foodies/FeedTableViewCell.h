@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *authorLabel;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *timeLabel;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *venueLabel;
+@property (strong, nonatomic) TTTAttributedLabel *likesLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *moreButton;
