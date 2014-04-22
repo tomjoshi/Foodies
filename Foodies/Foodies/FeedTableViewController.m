@@ -89,9 +89,6 @@
     FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    // i need to pass what goes into the cell. Like a FeedImage object or image id to pull from database.
-    // but for now lets just init the foodpost here
-    
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;

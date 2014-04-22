@@ -88,10 +88,9 @@
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
         self.imageCounter = 0;
         [self.locationManager startUpdatingLocation];
-    } else {
-        [self loadAlbum];
     }
     
+    [self loadAlbum];
 }
 
 #pragma mark - CameraOutputDelegate method
@@ -240,10 +239,6 @@
     ((TabBarController *)self.tabBarController).cameraDelegate = self;
     [self.previewView.layer addSublayer:((TabBarController *)self.tabBarController).previewLayer];
     
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [queue addOperationWithBlock:^{
-        [((TabBarController *)self.tabBarController).captureSession startRunning];
-    }];
 }
 
 - (void)shutterAnimation

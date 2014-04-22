@@ -36,7 +36,7 @@
         fsFoodPost = (FSFoodPost *)resultsArray[0];
     }
     
-    // set new properties
+    // set/update new properties
     if (postImage) {
         fsFoodPost.postImage = postImage;
         if (postId) {
@@ -105,10 +105,8 @@
 
 - (UIImage *)getImage
 {
-    UIImage *postImage;
-    if ([FoodiesDataStore sharedInstance].cachedPostImages[self.postId]) {
-        postImage = [FoodiesDataStore sharedInstance].cachedPostImages[self.postId];
-    } else {
+    UIImage *postImage = [FoodiesDataStore sharedInstance].cachedPostImages[self.postId];
+    if (postImage == nil) {
         postImage = [UIImage imageWithData:self.postImage];
         if (self.postImage && self.postId) {
             NSOperationQueue *queue = [[NSOperationQueue alloc] init];
@@ -122,10 +120,8 @@
 
 - (UIImage *)getAuthorThumb
 {
-    UIImage *authorThumb;
-    if ([FoodiesDataStore sharedInstance].cachedAuthorThumbs[self.authorId]) {
-        authorThumb = [FoodiesDataStore sharedInstance].cachedAuthorThumbs[self.authorId];
-    } else {
+    UIImage *authorThumb = [FoodiesDataStore sharedInstance].cachedAuthorThumbs[self.authorId];
+    if (authorThumb == nil) {
         authorThumb = [UIImage imageWithData:self.authorThumb];
         if (self.authorId && self.authorThumb) {
             NSOperationQueue *queue = [[NSOperationQueue alloc] init];
@@ -157,6 +153,14 @@
 - (BOOL)isLiked
 {
     if ([[self.likes allObjects] count] > 0) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)isTagged
+{
+    if ([[self.mealTags allObjects] count] > 0) {
         return YES;
     }
     return NO;

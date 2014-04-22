@@ -14,6 +14,7 @@
 @property (strong, nonatomic) UIImage *imagePassed;
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
 
+- (void)loadAlbum;
 - (void)clearPreviewImageAsset;
 - (IBAction)cancelTapped:(id)sender;
 @end

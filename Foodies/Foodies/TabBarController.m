@@ -13,6 +13,7 @@
 #import "UIColor+colorPallete.h"
 #import <Parse/Parse.h>
 #import "Foodie.h"
+#import "FetchOperation.h"
 
 @interface TabBarController () <UITabBarControllerDelegate>
 @property (strong, nonatomic) UILongPressGestureRecognizer *touchDownCamera;
@@ -47,7 +48,7 @@
     UIImage *homeIconImage = [homeIcon imageWithSize:CGSizeMake(30, 30)];
     homeVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Foodies" image:homeIconImage tag:0];
     
-    UIViewController *postVC = self.viewControllers[1];
+    UINavigationController *postVC = self.viewControllers[1];
     FAKIonIcons *postIcon = [FAKIonIcons cameraIconWithSize:30];
     [postIcon addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor]];
     UIImage *postIconImage = [postIcon imageWithSize:CGSizeMake(30, 30)];
@@ -70,6 +71,10 @@
     
     // load camera
     [self getCameraStarted];
+    
+    // load album
+    CameraViewController *cameraViewController = postVC.viewControllers[0];
+    [cameraViewController loadAlbum];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -82,6 +87,11 @@
         LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
         modalVC.delegate = self;
         [self presentViewController:modalVC animated:NO completion:nil];
+    } else {
+        // load and fetch data
+        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+        FetchOperation *fetchOp = [[FetchOperation alloc] init];
+        [queue addOperation:fetchOp];
     }
     
 }
@@ -119,9 +129,11 @@
     NSDictionary *stillImageOutputSettings = [[NSDictionary alloc]initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey, nil];
     [self.stillImageOutput setOutputSettings:stillImageOutputSettings];
     [self.captureSession addOutput:self.stillImageOutput];
+    [self.captureSession startRunning];
     
     //make Preview Layer
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
+    
 }
 
 

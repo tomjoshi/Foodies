@@ -63,6 +63,7 @@
     NSNumber *numberOfLikes = [foodPost getNumberOfLikes];
     UIImage *authorThumb = [foodPost getAuthorThumb];
     BOOL isLiked = [foodPost isLiked];
+    BOOL isTagged = [foodPost isTagged];
     NSArray *comments = [foodPost getComments];
     
     // setup variables
@@ -145,8 +146,20 @@
     UIView *likeAndCommentContent = [[UIView alloc] initWithFrame:CGRectMake(0, cellWidth+2*labelHeight+likesAndCommentsViewTopPadding, cellWidth, 0)];
     self.likesAndCommentsView = likeAndCommentContent;
     
-    // set likes
+    // initialize y position
     CGFloat yPos = 0;
+    
+    // set visual cue for available tags
+    if (isTagged) {
+        CGFloat tagSize = 20;
+        FAKFontAwesome *tagIcon = [FAKFontAwesome tagIconWithSize:tagSize];
+        [tagIcon addAttribute:NSForegroundColorAttributeName value:[UIColor semiTransparentWhiteColor]];
+        UILabel *tagIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(cellWidth-sidePadding-tagSize, yPos-tagSize-likesAndCommentsViewTopPadding*2, tagSize, tagSize)];
+        [tagIconLabel setAttributedText:[tagIcon attributedString]];
+        [likeAndCommentContent addSubview:tagIconLabel];
+    }
+    
+    // set likes
     if (isLiked) {
         // set heart icon
         FAKFontAwesome *heartIcon = [FAKFontAwesome heartIconWithSize:iconWidth];
