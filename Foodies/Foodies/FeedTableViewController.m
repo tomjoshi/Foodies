@@ -69,7 +69,7 @@
     }
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -111,8 +111,6 @@
     
     return cell.contentView.bounds.size.height+40;
 }
-
-#pragma mark - Table view helper methods
 
 - (FSFoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath
 {

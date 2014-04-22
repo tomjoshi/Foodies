@@ -64,7 +64,6 @@
     UIImage *authorThumb = [foodPost getAuthorThumb];
     BOOL isLiked = [foodPost isLiked];
     NSArray *comments = [foodPost getComments];
-//    NSArray *comments = @[];
     
     // setup variables
     CGFloat cellWidth = self.bounds.size.width;
@@ -78,9 +77,9 @@
     CGFloat commentsTopPadding = 1;
     CGFloat heartIconTopPadding = 4;
     CGFloat commentIconTopPadding = 4;
-    CGFloat buttonTopPadding = 8;
-    CGFloat buttonSidePadding = 5;
-    CGFloat buttonRadius = 2;
+//    CGFloat buttonTopPadding = 8;
+//    CGFloat buttonSidePadding = 5;
+//    CGFloat buttonRadius = 2;
     CGFloat commentTopPadding = 1;
     NSArray *keys = [[NSArray alloc] initWithObjects:(id)kCTForegroundColorAttributeName,(id)kCTUnderlineStyleAttributeName, nil];
     NSArray *objects = [[NSArray alloc] initWithObjects:[UIColor foodiesColor],[NSNumber numberWithInt:kCTUnderlineStyleNone],nil];
@@ -226,30 +225,30 @@
     yPos -= commentTopPadding;
     
     // set like button
-    [self.likeButton setFrame:CGRectMake(sidePadding, yPos + buttonTopPadding, self.likeButton.frame.size.width, self.likeButton.frame.size.height)];
-    UIButton *likeButton = self.likeButton;
-    [likeButton addTarget:self action:@selector(likePost) forControlEvents:UIControlEventTouchUpInside];
-    likeButton.layer.cornerRadius = buttonRadius;
-    likeButton.clipsToBounds = YES;
-    [likeButton removeFromSuperview];
-    [likeAndCommentContent addSubview:likeButton];
+//    [self.likeButton setFrame:CGRectMake(sidePadding, yPos + buttonTopPadding, self.likeButton.frame.size.width, self.likeButton.frame.size.height)];
+//    UIButton *likeButton = self.likeButton;
+//    [likeButton addTarget:self action:@selector(likePost) forControlEvents:UIControlEventTouchUpInside];
+//    likeButton.layer.cornerRadius = buttonRadius;
+//    likeButton.clipsToBounds = YES;
+//    [likeButton removeFromSuperview];
+//    [likeAndCommentContent addSubview:likeButton];
     
     // set comment button
-    [self.commentButton setFrame:CGRectMake(sidePadding+self.likeButton.frame.size.width+buttonSidePadding, yPos + buttonTopPadding,  self.commentButton.frame.size.width, self.commentButton.frame.size.height)];
-    UIButton *commentButton = self.commentButton;
-    [commentButton addTarget:self action:@selector(commentPost) forControlEvents:UIControlEventTouchUpInside];
-    commentButton.layer.cornerRadius = buttonRadius;
-    commentButton.clipsToBounds = YES;
-    [commentButton removeFromSuperview];
-    [likeAndCommentContent addSubview:commentButton];
+//    [self.commentButton setFrame:CGRectMake(sidePadding+self.likeButton.frame.size.width+buttonSidePadding, yPos + buttonTopPadding,  self.commentButton.frame.size.width, self.commentButton.frame.size.height)];
+//    UIButton *commentButton = self.commentButton;
+//    [commentButton addTarget:self action:@selector(commentPost) forControlEvents:UIControlEventTouchUpInside];
+//    commentButton.layer.cornerRadius = buttonRadius;
+//    commentButton.clipsToBounds = YES;
+//    [commentButton removeFromSuperview];
+//    [likeAndCommentContent addSubview:commentButton];
     
     // set more button
-    [self.moreButton setFrame:CGRectMake(cellWidth-self.moreButton.frame.size.width-sidePadding, yPos + buttonTopPadding, self.moreButton.frame.size.width, self.moreButton.frame.size.height)];
-    UIButton *moreButton = self.moreButton;
-    moreButton.layer.cornerRadius = buttonRadius;
-    moreButton.clipsToBounds = YES;
-    [moreButton removeFromSuperview];
-    [likeAndCommentContent addSubview:moreButton];
+//    [self.moreButton setFrame:CGRectMake(cellWidth-self.moreButton.frame.size.width-sidePadding, yPos + buttonTopPadding, self.moreButton.frame.size.width, self.moreButton.frame.size.height)];
+//    UIButton *moreButton = self.moreButton;
+//    moreButton.layer.cornerRadius = buttonRadius;
+//    moreButton.clipsToBounds = YES;
+//    [moreButton removeFromSuperview];
+//    [likeAndCommentContent addSubview:moreButton];
     
     // add like and comment subview
     [likeAndCommentContent resizeToFitSubviews];
