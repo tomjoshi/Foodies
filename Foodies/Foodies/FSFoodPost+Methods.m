@@ -109,10 +109,11 @@
     if ([FoodiesDataStore sharedInstance].cachedPostImages[self.postId]) {
         postImage = [FoodiesDataStore sharedInstance].cachedPostImages[self.postId];
     } else {
+        postImage = [UIImage imageWithData:self.postImage];
         if (self.postImage && self.postId) {
             NSOperationQueue *queue = [[NSOperationQueue alloc] init];
             [queue addOperationWithBlock:^{
-                [FoodiesDataStore sharedInstance].cachedPostImages[self.postId] = [UIImage imageWithData:self.postImage];
+                [FoodiesDataStore sharedInstance].cachedPostImages[self.postId] = postImage;
             }];
         }
     }
@@ -129,7 +130,7 @@
         if (self.authorId && self.authorThumb) {
             NSOperationQueue *queue = [[NSOperationQueue alloc] init];
             [queue addOperationWithBlock:^{
-                [FoodiesDataStore sharedInstance].cachedAuthorThumbs[self.authorId] = [UIImage imageWithData:self.authorThumb];
+                [FoodiesDataStore sharedInstance].cachedAuthorThumbs[self.authorId] = authorThumb;
             }];
         }
     }
@@ -144,7 +145,7 @@
 
 - (NSNumber *)getNumberOfLikes
 {
-    return @([self.likes count]);
+    return @([[self.likes allObjects] count]);
 }
 
 - (NSArray *)getComments
@@ -155,7 +156,7 @@
 
 - (BOOL)isLiked
 {
-    if ([self.likes count] > 0) {
+    if ([[self.likes allObjects] count] > 0) {
         return YES;
     }
     return NO;

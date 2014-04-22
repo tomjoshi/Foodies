@@ -185,12 +185,12 @@
                                         [commentToAdd setObject:[comment objectForKey:@"isCaption"] forKey:@"isCaption"];
                                         [commentToAdd setObject:comment.objectId forKey:@"commentId"];
                                         [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
+                                        
+                                        // add comment to comments array
+                                        [comments addObject:commentToAdd];
                                     }
                                 }];
-                                
-                                
-                                // add comment to comments array
-                                [comments addObject:commentToAdd];
+                        
                             }
                             [foodPostToAdd setObject:comments forKey:@"comments"];
                         }
@@ -201,17 +201,9 @@
                             for (PFObject *like in pfFoodPost[@"likes"]) {
                                 NSMutableDictionary *likeToAdd = [[NSMutableDictionary alloc] init];
                                 
-                                PFRelation *likerRelation = (PFRelation *)like[@"liker"];
-                                [[likerRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                                    if (!error) {
-                                        PFUser *liker = objects[0];
-                                        [likeToAdd setObject:[liker objectForKey:@"username"] forKey:@"likerName"];
-                                        [likeToAdd setObject:liker.objectId forKey:@"likerId"];
-                                        [likeToAdd setObject:like.objectId forKey:@"likeId"];
-                                        [FSFoodPost initWithDictionary:foodPostToAdd inContext:context];
-                                    }
-                                }];
-                                
+                                [likeToAdd setObject:[like objectForKey:@"likerName"] forKey:@"likerName"];
+                                [likeToAdd setObject:[like objectForKey:@"likerId"] forKey:@"likerId"];
+                                [likeToAdd setObject:like.objectId forKey:@"likeId"];
                                 [likeToAdd setObject:like.createdAt forKey:@"likeDate"];
                                 
                                 // add like to likes array
