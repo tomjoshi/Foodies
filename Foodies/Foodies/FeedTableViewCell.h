@@ -23,6 +23,7 @@
 @property (strong, nonatomic) FSFoodPost *foodPostInCell;
 @property (strong, nonatomic) NSIndexPath *indexPath;
 @property (strong, nonatomic) UIImageView *postImageView;
+@property (nonatomic) BOOL tagsAreVisible;
 
 @property (strong, nonatomic) id <FeedTableViewCellDelegate> delegate;
 

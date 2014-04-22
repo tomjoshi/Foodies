@@ -93,6 +93,7 @@
     // but for now lets just init the foodpost here
     
     [self configureCell:cell atIndexPath:indexPath];
+    cell.tagsAreVisible = NO;
     
     return cell;
 }

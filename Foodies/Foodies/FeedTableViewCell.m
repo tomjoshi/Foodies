@@ -25,7 +25,6 @@
 
 @interface FeedTableViewCell () <MenuPopOverViewDelegate>
 @property (strong, nonatomic) UIView *likesAndCommentsView;
-@property (nonatomic) BOOL tagsAreVisible;
 @property (strong, nonatomic) UIImage *image;
 
 @end
