@@ -144,11 +144,4 @@
     return self.mealTags;
 }
 
-- (void)addFSCommentsObject:(FSComment *)newComment
-{
-    NSMutableSet *tempSet = [NSMutableSet setWithSet:self.comments];
-    [tempSet addObject:newComment];
-    self.comments = tempSet;
-}
-
 @end

@@ -279,15 +279,16 @@
     // push a comment view controller (or tableviewcontroller may be better)
 }
 
+//it should be "toggleTags", rather than "showTags", but oh well.
 - (void)showTags
 {
-    // if tags are already showings, then hide them. it should be "toggleTags", rather than "showTags", but oh well.
-    if (self.tagsAreVisible) {
-        [self.delegate hideTags:self.indexPath];
-        self.tagsAreVisible = NO;
-    } else {
+    // if tags are already showings, then hide them
+    if (!self.tagsAreVisible && [[self.foodPostInCell getTags] count] > 0) {
         [self.delegate showTags:self.indexPath];
         self.tagsAreVisible = YES;
+    } else if (self.tagsAreVisible) {
+        [self.delegate hideTags:self.indexPath];
+        self.tagsAreVisible = NO;
     }
 }
 

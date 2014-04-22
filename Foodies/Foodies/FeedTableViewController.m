@@ -18,9 +18,10 @@
 #import "MealTag.h"
 #import "FetchOperation.h"
 #import <TTTAttributedLabel.h>
+#import "FSMealTag+Methods.h"
 
 @interface FeedTableViewController () <FeedTableViewCellDelegate, MenuPopOverViewDelegate, NSFetchedResultsControllerDelegate>
-
+@property (strong, nonatomic) NSMutableDictionary *popOverDict;
 - (FSFoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
 - (IBAction)refreshPulled:(id)sender;
 @end
@@ -52,6 +53,8 @@
     [label sizeToFit];
     
     [FoodiesDataStore sharedInstance].fetchedResultsController.delegate = self;
+    
+    self.popOverDict = [[NSMutableDictionary alloc] init];
     
 }
 
@@ -167,22 +170,29 @@
 - (void)showTags:(NSIndexPath *)indexPath
 {
     FeedTableViewCell *cell = (FeedTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    NSMutableArray *popOversInCell = [[NSMutableArray alloc] init];
     
     for (FSMealTag *mealTag in [cell.foodPostInCell getTags]) {
-//        [mealTag showTagInView: cell.postImageView];
-//        mealTag.popOver.delegate = self;
+        MenuPopOverView *shownPopOver = [mealTag showTagInView:cell.postImageView];
+        shownPopOver.delegate = self;
+        [popOversInCell addObject:shownPopOver];
     }
+    
+    self.popOverDict[indexPath] = popOversInCell;
     
 }
 
 - (void)hideTags:(NSIndexPath *)indexPath
 {
-    FeedTableViewCell *cell = (FeedTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    
-    for (FSMealTag *mealTag in [cell.foodPostInCell getTags]) {
-//        [mealTag.popOver dismiss:YES];
+    if (self.popOverDict[indexPath]) {
+        NSArray *popOversInCell = self.popOverDict[indexPath];
+        
+        for (MenuPopOverView *popOver in popOversInCell) {
+            [popOver dismiss:YES];
+        }
+        
+//        self.popOverDict[indexPath] = @[];
     }
-    
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate methods
