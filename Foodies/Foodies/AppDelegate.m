@@ -25,8 +25,8 @@
                   clientKey:PARSE_CLIENTKEY];
     
     [[UIButton appearance] setTitleColor:[UIColor foodiesColor] forState:UIControlStateNormal];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor barButtonBlue]];
-    [[UINavigationBar appearance] setTintColor:[UIColor barButtonBlue]];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor grayColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor grayColor]];
     
     return YES;
 }

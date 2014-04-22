@@ -37,16 +37,6 @@
                                     <action selector="editImageTapped:" destination="0De-Ro-a18" eventType="touchUpInside" id="OWp-fO-SUm"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7cj-Je-Mgw">
-                                <rect key="frame" x="98" y="362" width="125" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Change password">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="474-QJ-fY4" kind="modal" id="2xs-0n-6gT"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Username" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" id="b9r-0L-dQt">
                                 <rect key="frame" x="20" y="246" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -84,44 +74,6 @@
                 </barButtonItem>
             </objects>
             <point key="canvasLocation" x="1593" y="1051"/>
-        </scene>
-        <!--View Controller - Change Password-->
-        <scene sceneID="yqE-Zg-Png">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VQD-Rb-OBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="edz-oP-nzD" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="WXf-wJ-QiW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Current Password" minimumFontSize="17" id="LXm-Cj-pv2">
-                                <rect key="frame" x="20" y="107" width="280" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" minimumFontSize="17" id="hTZ-Ij-bFd">
-                                <rect key="frame" x="20" y="170" width="280" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm New Password" minimumFontSize="17" id="e10-ap-2zk">
-                                <rect key="frame" x="20" y="208" width="280" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Change Password" id="CKv-eG-Knc">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Nga-mg-bDs"/>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="504-4k-igB"/>
-                    </navigationItem>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="2608" y="1051"/>
         </scene>
         <!--Camera View Controller - Take a Photo-->
         <scene sceneID="bip-ul-DJt">
@@ -781,24 +733,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uea-Ea-Rcr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1067" y="1051"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="3gW-kL-aLO">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Nc-3S-9NA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="474-QJ-fY4" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ktD-uk-G2A">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="edz-oP-nzD" kind="relationship" relationship="rootViewController" id="mO2-OG-PG3"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="2082" y="1051"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
