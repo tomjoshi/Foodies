@@ -13,7 +13,7 @@
 
 @implementation FoodiesAPI
 
-+ (void)postFoodPost:(FoodPost *)newFoodPost inContext:(NSManagedObjectContext *)context
++ (void)postFoodPost:(FoodPost *)newFoodPost inContext:(NSManagedObjectContext *)context completion:(void (^)(void))completionBlock
 {
     PFObject *foodPostToPost = [PFObject objectWithClassName:@"FoodPost"];
     
@@ -98,15 +98,19 @@
                                     [foodPostToPost addObject:pfMealTag forKey:@"mealTags"];
                                     PFRelation *foodPostRelation = [pfMeal relationForKey:@"foodPosts"];
                                     [foodPostRelation addObject:foodPostToPost];
-                                    [PFObject saveAllInBackground:@[pfMeal, foodPostToPost]];
+                                    [PFObject saveAllInBackground:@[pfMeal, foodPostToPost]block:^(BOOL succeeded, NSError *error) {
+                                        NSArray *postedMealTags = [foodPostToPost objectForKey:@"mealTags"];
+                                        if ([postedMealTags count] == [[[newFoodPost getTags] allObjects] count]) {
+                                            completionBlock();
+                                        }
+                                    }];
                                 }];
                             }
+                        } else {
+                            completionBlock();
                         }
-                        
-                        // most likely add a block here
-                        
                     } else {
-                        // add failure block
+                        // add failure block here if needed
                     }
                 }];
             }];

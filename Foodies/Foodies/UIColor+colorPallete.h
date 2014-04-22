@@ -13,4 +13,5 @@
 + (UIColor *)lighterGrayColor;
 + (UIColor *)semiTransparentWhiteColor;
 + (UIColor *)semiTransparentBlackColor;
++ (UIColor *)barButtonBlue;
 @end

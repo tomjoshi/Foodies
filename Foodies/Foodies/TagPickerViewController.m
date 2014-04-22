@@ -54,6 +54,7 @@
 {
     [super viewDidLoad];
     
+    
     CGFloat screenWidth = self.view.frame.size.width;
     CGFloat screenHeight = self.view.frame.size.height;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -115,7 +116,16 @@
     }];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelTapped:)];
-    self.navigationItem.title = @"Tags";
+    
+    // style navbar title
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor foodiesColor];
+    [titleLabel setText:@"Tags"];
+    [titleLabel setFont:[UIFont fontWithName:@"Avenir Book" size:20.0]];
+    self.navigationItem.titleView = titleLabel;
+    [titleLabel sizeToFit];
     
     // add table view
     self.menuTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64) style:UITableViewStylePlain];

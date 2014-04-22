@@ -28,4 +28,9 @@
 {
     return [UIColor colorWithRed:0 green:0 blue:0 alpha:.5];
 }
+
++ (UIColor *)barButtonBlue
+{
+    return [UIColor colorWithRed:0.329 green:0.624 blue:0.714 alpha:1.0];
+}
 @end

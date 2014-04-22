@@ -10,6 +10,7 @@
 #import <Foursquare2.h>
 #import <Parse/Parse.h>
 #import "Constants.h"
+#import "UIColor+colorPallete.h"
 #import "FoodiesDataStore.h"
 
 @implementation AppDelegate
@@ -22,6 +23,10 @@
     
     [Parse setApplicationId:PARSE_APPID
                   clientKey:PARSE_CLIENTKEY];
+    
+    [[UIButton appearance] setTitleColor:[UIColor foodiesColor] forState:UIControlStateNormal];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor barButtonBlue]];
+    [[UINavigationBar appearance] setTintColor:[UIColor barButtonBlue]];
     
     return YES;
 }

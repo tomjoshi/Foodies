@@ -23,7 +23,6 @@
 @interface FeedTableViewController () <FeedTableViewCellDelegate, MenuPopOverViewDelegate, NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) NSMutableDictionary *popOverDict;
 - (FSFoodPost *)getPostToShowAtIndexPath:(NSIndexPath *)indexPath;
-- (IBAction)refreshPulled:(id)sender;
 @end
 
 @implementation FeedTableViewController
@@ -61,12 +60,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
-    if ([FoodiesDataStore sharedInstance].newPost) {
-        [self.tableView setContentOffset:CGPointZero];
-        [self.tableView reloadData];
-        [FoodiesDataStore sharedInstance].newPost = NO;
-    }
+    GTScrollNavigationBar *navBar = (GTScrollNavigationBar *)self.navigationController.navigationBar;
+    [navBar resetToDefaultPosition:YES];
 }
 
 #pragma mark - Table view methods
@@ -191,8 +186,6 @@
         for (MenuPopOverView *popOver in popOversInCell) {
             [popOver dismiss:YES];
         }
-        
-//        self.popOverDict[indexPath] = @[];
     }
 }
 

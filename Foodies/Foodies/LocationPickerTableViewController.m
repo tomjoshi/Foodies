@@ -13,6 +13,7 @@
 #import "Location.h"
 #import <CoreLocation/CoreLocation.h>
 #import <AFNetworking.h>
+#import "UIColor+colorPallete.h"
 
 @interface LocationPickerTableViewController () <UISearchBarDelegate, UISearchDisplayDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *LocationSearchBar;
@@ -35,6 +36,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // style navbar title
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor foodiesColor];
+    [titleLabel setText:@"Locations"];
+    [titleLabel setFont:[UIFont fontWithName:@"Avenir Book" size:20.0]];
+    self.navigationItem.titleView = titleLabel;
+    [titleLabel sizeToFit];
     
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     

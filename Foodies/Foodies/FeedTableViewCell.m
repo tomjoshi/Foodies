@@ -152,10 +152,15 @@
     // set visual cue for available tags
     if (isTagged) {
         CGFloat tagSize = 20;
+        CGFloat labelSize = 30;
         FAKFontAwesome *tagIcon = [FAKFontAwesome tagIconWithSize:tagSize];
-        [tagIcon addAttribute:NSForegroundColorAttributeName value:[UIColor semiTransparentWhiteColor]];
-        UILabel *tagIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(cellWidth-sidePadding-tagSize, yPos-tagSize-likesAndCommentsViewTopPadding*2, tagSize, tagSize)];
+        [tagIcon addAttribute:NSForegroundColorAttributeName value:[UIColor semiTransparentBlackColor]];
+        UILabel *tagIconLabel = [[UILabel alloc] initWithFrame:CGRectMake(sidePadding, yPos-labelSize-likesAndCommentsViewTopPadding-sidePadding, labelSize, labelSize)];
+        [tagIconLabel setBackgroundColor:[UIColor semiTransparentWhiteColor]];
+        [tagIconLabel setTextAlignment:NSTextAlignmentCenter];
         [tagIconLabel setAttributedText:[tagIcon attributedString]];
+        tagIconLabel.layer.cornerRadius = 5;
+        tagIconLabel.layer.masksToBounds = YES;
         [likeAndCommentContent addSubview:tagIconLabel];
     }
     

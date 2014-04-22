@@ -18,6 +18,7 @@
 #import "TabBarController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PostFormViewControllerDelegate.h"
+#import "UIColor+colorPallete.h"
 
 @interface CameraViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, CameraOutputDelegate, PostFormViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
@@ -34,6 +35,7 @@
 @property (nonatomic) NSInteger amountOfAssets;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 @property (strong, nonatomic) UITapGestureRecognizer *tapOnHandle;
+@property (strong, nonatomic) UILabel *titleLabel;
 
 
 - (void)layoutCameraView;
@@ -68,6 +70,16 @@
     // add tap gesture on handle
     self.tapOnHandle = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapped)];
     [self.scrollHandle addGestureRecognizer:self.tapOnHandle];
+    
+    // style navbar title
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.titleLabel.backgroundColor = [UIColor clearColor];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.textColor = [UIColor foodiesColor];
+    [self.titleLabel setText:@"Take a Photo"];
+    [self.titleLabel setFont:[UIFont fontWithName:@"Avenir Book" size:20.0]];
+    self.navigationItem.titleView = self.titleLabel;
+    [self.titleLabel sizeToFit];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -270,7 +282,7 @@
 
 - (void)cropImage
 {
-    [self.navigationItem setTitle:@"Scale & Crop"];
+    [self.titleLabel setText:@"Food Photo"];
     self.navigationItem.leftBarButtonItem = self.cancelButton;
     self.navigationItem.rightBarButtonItem = self.nextButton;
     
@@ -281,7 +293,7 @@
 
 - (void)cancelCropping
 {
-    [self.navigationItem setTitle:@"Take a Photo"];
+    [self.titleLabel setText:@"Take a Photo"];
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.rightBarButtonItem = nil;
     

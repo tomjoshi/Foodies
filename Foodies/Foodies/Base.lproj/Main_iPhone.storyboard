@@ -339,7 +339,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Food Post" id="sDp-jX-gcQ">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="Kpv-TE-ZSA"/>
                         <barButtonItem key="rightBarButtonItem" title="Share" id="RGU-fa-5TE">
                             <connections>
                                 <action selector="sharePressed:" destination="gwG-if-rh6" id="QPl-cO-B0d"/>

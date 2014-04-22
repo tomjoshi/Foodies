@@ -13,6 +13,7 @@
 #import "Foodie.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "UIColor+colorPallete.h"
 
 
 @interface ProfileViewController () <UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -47,7 +48,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // style navbar title
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor foodiesColor];
+    [titleLabel setText:@"Edit Profile"];
+    [titleLabel setFont:[UIFont fontWithName:@"Avenir Book" size:20.0]];
+    self.navigationItem.titleView = titleLabel;
+    [titleLabel sizeToFit];
     
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2;
     self.profileImageView.layer.masksToBounds = YES;

@@ -10,10 +10,12 @@
 #import <FontAwesomeKit.h>
 #import "CameraViewController.h"
 #import "LandingTableViewController.h"
+#import "FeedTableViewController.h"
 #import "UIColor+colorPallete.h"
 #import <Parse/Parse.h>
 #import "Foodie.h"
 #import "FetchOperation.h"
+#import <GTScrollNavigationBar.h>
 
 @interface TabBarController () <UITabBarControllerDelegate>
 @property (strong, nonatomic) UILongPressGestureRecognizer *touchDownCamera;
@@ -197,7 +199,13 @@
     
     if ([self selectedViewController] == self.viewControllers[1] && index == 1) {
         [self captureStillImage];
-    } else {
+    } else if ([self selectedViewController] == self.viewControllers[0] && index == 0) {
+        UINavigationController *navVC = self.viewControllers[0];
+        FeedTableViewController *feedVC = navVC.viewControllers[0];
+        [feedVC.tableView setContentOffset:CGPointZero animated:YES];
+        GTScrollNavigationBar *navBar = (GTScrollNavigationBar *)feedVC.navigationController.navigationBar;
+        [navBar resetToDefaultPosition:YES];
+    }else {
         [self setSelectedIndex:index];
     }
 }

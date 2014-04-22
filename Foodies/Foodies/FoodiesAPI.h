@@ -17,7 +17,7 @@
 + (void)likeFoodPost:(FSFoodPost *)foodPost withLikerName:(NSString *)likerName andLikerId:(NSString *)likerId inContext:(NSManagedObjectContext *)context;
 
 // FoodPost related
-+ (void)postFoodPost:(FoodPost *)newFoodPost inContext:(NSManagedObjectContext *)context;
++ (void)postFoodPost:(FoodPost *)newFoodPost inContext:(NSManagedObjectContext *)context completion:(void (^)(void))completionBlock;
 + (void)fetchFoodPostsInManagedObjectContext:(NSManagedObjectContext *)context;
 
 // Foodie related

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface FeedTableViewController : UITableViewController
-
+- (IBAction)refreshPulled:(id)sender;
 @end

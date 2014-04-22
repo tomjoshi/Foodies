@@ -20,6 +20,8 @@
 #import <Foursquare2.h>
 #import "FoodiesAPI.h"
 #import "FSFoodPost.h"
+#import "FeedTableViewController.h"
+#import <MBProgressHUD.h>
 
 @interface PostFormTableViewController () <LocationPickerDelegate, UITextViewDelegate, TagPickerDelegate>
 @property (weak, nonatomic) IBOutlet UITableViewCell *locationCell;
@@ -68,6 +70,17 @@
     UIImage *tagIconImage = [tagIcon imageWithSize:CGSizeMake(25, 25)];
     [self.tagCell.imageView setImage:tagIconImage];
     NSLog(@"%f", self.tagCell.textLabel.frame.origin.x);
+    
+    // style navbar title
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor foodiesColor];
+    [titleLabel setText:@"Food Post"];
+    [titleLabel setFont:[UIFont fontWithName:@"Avenir Book" size:20.0]];
+    self.navigationItem.titleView = titleLabel;
+    [titleLabel sizeToFit];
+    
 }
 
 #pragma mark - Navigation method
@@ -156,6 +169,9 @@
 #pragma mark - IBAction Methods
 
 - (IBAction)sharePressed:(id)sender {
+    
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
     UIImage *newImage = [UIImage imageWithCGImage:[[self.assetPassed defaultRepresentation] fullScreenImage] ];
     
     // ghetto hackjob cropping
@@ -182,18 +198,21 @@
     
     // how i originally created the foodpost class object
     FoodPost *newFoodPost = [[FoodPost alloc] initWithImage:compressedImage Author:[Foodie me] Caption:newComment atVenue:self.venue andMealTags:[NSSet setWithArray:self.mealTags]];
-//    [[FoodiesDataStore sharedInstance].tempPosts addObject:newFoodPost];
     
     // save in api
-    [FoodiesAPI postFoodPost:newFoodPost inContext:[FoodiesDataStore sharedInstance].managedObjectContext];
-    
-//    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"postDate" ascending:NO];
-//    [FoodiesDataStore sharedInstance].tempPosts = [NSMutableArray arrayWithArray:[[FoodiesDataStore sharedInstance].tempPosts sortedArrayUsingDescriptors:@[sortByDate]]];
-//    [FoodiesDataStore sharedInstance].newPost = YES;
-    [self.tabBarController setSelectedIndex:0];
-    // need some kind of delegate method back to camera view so it resets.
-    [self.delegate didSharePost];
-    [self.navigationController popViewControllerAnimated:NO];
+    [FoodiesAPI postFoodPost:newFoodPost inContext:[FoodiesDataStore sharedInstance].managedObjectContext completion:^{
+        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        
+        // take to feed
+        [self.tabBarController setSelectedIndex:0];
+        UINavigationController *homeNav = self.tabBarController.viewControllers[0];
+        FeedTableViewController *homeVC = homeNav.viewControllers[0];
+        [homeVC refreshPulled:nil];
+        
+        // reset the current view controller
+        [self.delegate didSharePost];
+        [self.navigationController popViewControllerAnimated:NO];
+    }];
 }
 
 #pragma mark - VC methods
