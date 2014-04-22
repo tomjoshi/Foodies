@@ -39,6 +39,12 @@
     // set new properties
     if (postImage) {
         fsFoodPost.postImage = postImage;
+        if (postId) {
+            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+            [queue addOperationWithBlock:^{
+                [FoodiesDataStore sharedInstance].cachedPostImages[postId] = [UIImage imageWithData:postImage];
+            }];
+        }
     }
     if (postDate) {
         fsFoodPost.postDate = postDate;
@@ -54,6 +60,12 @@
     }
     if (authorThumb) {
         fsFoodPost.authorThumb = authorThumb;
+        if (authorId) {
+            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+            [queue addOperationWithBlock:^{
+                [FoodiesDataStore sharedInstance].cachedAuthorThumbs[authorId] = [UIImage imageWithData:authorThumb];
+            }];
+        }
     }
     if (venueName) {
         fsFoodPost.venueName = venueName;
@@ -97,8 +109,11 @@
     if ([FoodiesDataStore sharedInstance].cachedPostImages[self.postId]) {
         postImage = [FoodiesDataStore sharedInstance].cachedPostImages[self.postId];
     } else {
-        if (self.postImage) {
-            [FoodiesDataStore sharedInstance].cachedPostImages[self.postId] = [UIImage imageWithData:self.postImage];
+        if (self.postImage && self.postId) {
+            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+            [queue addOperationWithBlock:^{
+                [FoodiesDataStore sharedInstance].cachedPostImages[self.postId] = [UIImage imageWithData:self.postImage];
+            }];
         }
     }
     return postImage;
@@ -106,7 +121,19 @@
 
 - (UIImage *)getAuthorThumb
 {
-    return [UIImage imageWithData:self.authorThumb];
+    UIImage *authorThumb;
+    if ([FoodiesDataStore sharedInstance].cachedAuthorThumbs[self.authorId]) {
+        authorThumb = [FoodiesDataStore sharedInstance].cachedAuthorThumbs[self.authorId];
+    } else {
+        authorThumb = [UIImage imageWithData:self.authorThumb];
+        if (self.authorId && self.authorThumb) {
+            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+            [queue addOperationWithBlock:^{
+                [FoodiesDataStore sharedInstance].cachedAuthorThumbs[self.authorId] = [UIImage imageWithData:self.authorThumb];
+            }];
+        }
+    }
+    return authorThumb;
 }
 
 - (NSDate *)getDate

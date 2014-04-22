@@ -93,9 +93,14 @@
     // but for now lets just init the foodpost here
     
     [self configureCell:cell atIndexPath:indexPath];
-    cell.tagsAreVisible = NO;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    FeedTableViewCell *cellToDisplay = (FeedTableViewCell *)cell;
+    cellToDisplay.tagsAreVisible = NO;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -22,6 +22,7 @@
 
 @property (strong, nonatomic) NSMutableArray *tempPosts;
 @property (strong, nonatomic) NSMutableDictionary *cachedPostImages;
+@property (strong, nonatomic) NSMutableDictionary *cachedAuthorThumbs;
 @property (nonatomic) BOOL newPost;
 
 + (instancetype)sharedInstance;

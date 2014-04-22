@@ -24,6 +24,7 @@
     if (self) {
         self.tempPosts = [NSMutableArray arrayWithArray:@[[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init],[[FoodPost alloc] init]]];
         self.cachedPostImages = [[NSMutableDictionary alloc] init];
+        self.cachedAuthorThumbs = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
