@@ -55,7 +55,9 @@
                     <navigationItem key="navigationItem" title="Edit Profile" id="hND-cz-IVk"/>
                     <connections>
                         <outlet property="cancelButton" destination="yDX-lE-agj" id="fX4-Zm-bRr"/>
+                        <outlet property="editImageButton" destination="XQc-5z-aFq" id="dwa-QX-Xyy"/>
                         <outlet property="emailField" destination="9e3-et-4pq" id="cEJ-v3-FU4"/>
+                        <outlet property="logOutButton" destination="2N7-p5-E6v" id="lhx-yy-mce"/>
                         <outlet property="profileImageView" destination="MEQ-uh-WKD" id="5b5-Yu-ioF"/>
                         <outlet property="saveButton" destination="tqm-mO-zjb" id="vt1-Rf-mTE"/>
                         <outlet property="usernameField" destination="b9r-0L-dQt" id="3uZ-li-qfD"/>
@@ -421,6 +423,7 @@
                                         <color key="backgroundColor" red="0.9960784912109375" green="0.9960784912109375" blue="0.9960784912109375" alpha="0.20000000000000001" colorSpace="deviceRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Log In">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -441,10 +444,11 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rv1-XS-xbU">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rv1-XS-xbU">
                                         <rect key="frame" x="20" y="518" width="280" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Sign Up for Foodies">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -689,6 +693,7 @@
                         <color key="backgroundColor" red="0.79607850309999995" green="0.32549020649999999" blue="0.33725491169999999" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <connections>
+                        <outlet property="mainScrollView" destination="Pgq-gt-8d5" id="lnV-EB-52E"/>
                         <outlet property="tableView" destination="pXP-6J-fg9" id="cbN-fx-wni"/>
                     </connections>
                 </viewController>

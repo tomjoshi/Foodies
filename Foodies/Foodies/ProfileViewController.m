@@ -25,6 +25,8 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (nonatomic) BOOL imagePickerDidAppear;
+@property (weak, nonatomic) IBOutlet UIButton *logOutButton;
+@property (weak, nonatomic) IBOutlet UIButton *editImageButton;
 
 
 - (IBAction)logOutTapped:(id)sender;
@@ -58,6 +60,10 @@
     [titleLabel setFont:[UIFont fontWithName:@"Avenir Book" size:20.0]];
     self.navigationItem.titleView = titleLabel;
     [titleLabel sizeToFit];
+    
+    // style buttons
+    [self.editImageButton setTintColor:[UIColor foodiesColor]];
+    [self.logOutButton setTintColor:[UIColor foodiesColor]];
     
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2;
     self.profileImageView.layer.masksToBounds = YES;

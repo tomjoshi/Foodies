@@ -13,6 +13,9 @@
 
 @interface SignUpViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
+@property (strong, nonatomic) UITextField *passwordField;
+@property (strong, nonatomic) UITextField *emailField;
 
 - (IBAction)signUpTapped:(id)sender;
 - (IBAction)cancelTapped:(id)sender;
@@ -35,6 +38,10 @@
     // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
 }
 
 #pragma mark - Table view data source
@@ -59,9 +66,11 @@
     if (indexPath.row == 2) {
         cell.textField.secureTextEntry = YES;
         cell.textField.placeholder = @"Password";
+        self.passwordField = cell.textField;
     } else if(indexPath.row == 1) {
         cell.textField.placeholder = @"Email";
         [cell.textField setKeyboardType:UIKeyboardTypeEmailAddress];
+        self.emailField = cell.textField;
     }
     
     cell.textField.delegate = self;
@@ -90,5 +99,30 @@
 - (IBAction)cancelTapped:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - Keyboard methods
+
+- (void)keyboardWillShow
+{
+    [self.mainScrollView setContentOffset:CGPointMake(0, 80) animated:YES];
+}
+
+- (void)keyboardWillHide
+{
+    [self.mainScrollView setContentOffset:CGPointZero animated:YES];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if ([textField isEqual:self.emailField]) {
+        [self.passwordField becomeFirstResponder];
+    } else if ([textField isEqual:self.passwordField]) {
+        [textField resignFirstResponder];
+    } else {
+        [self.emailField becomeFirstResponder];
+    }
+    return YES;
+}
+
 
 @end
