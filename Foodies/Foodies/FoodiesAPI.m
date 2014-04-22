@@ -155,7 +155,6 @@
                                 [mealTagToAdd setObject:mealTag.objectId forKey:@"mealTagId"];
                                 PFObject *pfMeal = [mealTag objectForKey:@"meal"];
                                 
-                                [query includeKey:@"mealTags"];
                                 [mealTagToAdd setObject:[pfMeal objectForKey:@"name"] forKey:@"mealName"];
                                 [mealTagToAdd setObject:pfMeal.objectId forKey:@"mealId"];
                                 
@@ -373,6 +372,7 @@
                     [foundFoodPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                         FSLike *newLike = [FSLike likeWithLikeId:pfLike.objectId likeDate:pfLike.createdAt likerId:likerId likerName:likerName inContext:context];
                         [foodPost addLikesObject:newLike];
+                        [context save:nil];
                     }];
                 }
             }];
