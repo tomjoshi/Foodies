@@ -21,7 +21,7 @@
     request.predicate = filterId;
     NSArray *resultsArray = [context executeFetchRequest:request error:nil];
     
-    if ([resultsArray count] == 0) {;
+    if ([resultsArray count] == 0 || mealTagId == nil) {;
         fsMealTag = [NSEntityDescription insertNewObjectForEntityForName:@"FSMealTag" inManagedObjectContext:context];
     } else {
         fsMealTag = (FSMealTag *)resultsArray[0];
@@ -59,7 +59,7 @@
     return menuPopOver;
 }
 
-- (void)makeTagEditable:(MenuPopOverView *)popOver
+- (MenuPopOverView *)makeTagEditable:(MenuPopOverView *)popOver
 {
     // make close icon
     FAKIonIcons *closeIcon = [FAKIonIcons closeCircledIconWithSize:18];
@@ -79,9 +79,11 @@
     popOver = [[MenuPopOverView alloc] init];
     popOver.isArrowUp = [self.isArrowUp boolValue];
     [popOver presentPopoverFromRect:CGRectMake([self.coordinateX floatValue], [self.coordinateY floatValue], 0, 0) inView:tempViewIn withStrings:@[[arrowIcon attributedString],self.mealName,[closeIcon attributedString]]];
+    
+    return popOver;
 }
 
-- (void)stopTagEditable:(MenuPopOverView *)popOver
+- (MenuPopOverView *)stopTagEditable:(MenuPopOverView *)popOver
 {
     BOOL tempIsArrowUp = popOver.isArrowUp;
     UIView *tempViewIn = [popOver superview];
@@ -90,16 +92,20 @@
     popOver = [[MenuPopOverView alloc] init];
     popOver.isArrowUp = tempIsArrowUp;
     [popOver presentPopoverFromRect:CGRectMake([self.coordinateX floatValue], [self.coordinateY floatValue], 0, 0) inView:tempViewIn withStrings:@[self.mealName]];
+    
+    return popOver;
 }
 
-- (void)toggleArrow:(MenuPopOverView *)popOver
+- (MenuPopOverView *)toggleArrow:(MenuPopOverView *)popOver
 {
     if ([self.isArrowUp boolValue]) {
         self.isArrowUp = @(NO);
     } else {
         self.isArrowUp = @(YES);
     }
-    [self makeTagEditable:popOver];
+    
+    popOver = [self makeTagEditable:popOver];
+    return popOver;
 }
 
 @end

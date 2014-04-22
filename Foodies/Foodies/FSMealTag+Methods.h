@@ -18,9 +18,9 @@
                      andArrowUp:(NSNumber *)isArrowUp
                       inContext:(NSManagedObjectContext *)context;
 
-- (void)makeTagEditable:(MenuPopOverView *)popOver;
-- (void)stopTagEditable:(MenuPopOverView *)popOver;
-- (void)toggleArrow:(MenuPopOverView *)popOver;
+- (MenuPopOverView *)makeTagEditable:(MenuPopOverView *)popOver;
+- (MenuPopOverView *)stopTagEditable:(MenuPopOverView *)popOver;
+- (MenuPopOverView *)toggleArrow:(MenuPopOverView *)popOver;
 - (MenuPopOverView *)showTagInView:(UIView *)view;
 
 @end

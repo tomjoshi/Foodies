@@ -15,7 +15,7 @@
 #import "FoodiesDataStore.h"
 #import <FontAwesomeKit.h>
 #import "UIColor+colorPallete.h"
-#import "MealTag.h"
+#import "FSMealTag+Methods.h"
 #import "TagPickerViewController.h"
 #import <Foursquare2.h>
 #import "FoodiesAPI.h"
@@ -228,10 +228,10 @@
     if (indexPath.section == 2) {
         if (indexPath.row >= 1) {
             
-            MealTag *mealTag = self.mealTags[indexPath.row-1];
+            FSMealTag *mealTag = self.mealTags[indexPath.row-1];
             
             UILabel *mealNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, cell.bounds.size.width-15, cell.bounds.size.height)];
-            mealNameLabel.text = mealTag.meal.name;
+            mealNameLabel.text = mealTag.mealName;
             [cell addSubview:mealNameLabel];
             
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];

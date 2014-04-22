@@ -9,6 +9,7 @@
 #import "FoodiesAPI.h"
 #import "FSFoodPost+Methods.h"
 #import "FSLike+Methods.h"
+#import "FSMealTag+Methods.h"
 
 @implementation FoodiesAPI
 
@@ -80,17 +81,20 @@
                         
                         // set mealTags for post
                         if ([[newFoodPost getTags] count] > 0) {
-                            for (MealTag *mealTag in [newFoodPost getTags]) {
+                            for (FSMealTag *mealTag in [newFoodPost getTags]) {
                                 PFObject *pfMealTag = [PFObject objectWithClassName:@"MealTag"];
                                 // set the coordinates
-                                [pfMealTag setObject:@[@(mealTag.coordinates.x), @(mealTag.coordinates.y)] forKey:@"coordinates"];
+                                [pfMealTag setObject:@[mealTag.coordinateX, mealTag.coordinateY] forKey:@"coordinates"];
                                 // set if arrow is up
-                                [pfMealTag setObject:@(mealTag.isArrowUp) forKey:@"isArrowUp"];
+                                [pfMealTag setObject:@([mealTag.isArrowUp boolValue]) forKey:@"isArrowUp"];
+                                
+                                Meal *tempMeal = [[Meal alloc] initWithName:mealTag.mealName FoodPost:newFoodPost Score:nil mealId:nil andVenue:newFoodPost.venue];
+                                tempMeal.spMealId = mealTag.mealSPId;
                                 
                                 // set meal
-                                [FoodiesAPI pfObjectForMeal:mealTag.meal atPFVenue:pfVenue completion:^(PFObject *pfMeal) {
+                                [FoodiesAPI pfObjectForMeal:tempMeal atPFVenue:pfVenue completion:^(PFObject *pfMeal) {
                                     [pfMealTag setObject:pfMeal forKey:@"meal"];
-                                    mealTag.meal.mealId = pfMeal.objectId;
+                                    mealTag.mealId = pfMeal.objectId;
                                     [foodPostToPost addObject:pfMealTag forKey:@"mealTags"];
                                     PFRelation *foodPostRelation = [pfMeal relationForKey:@"foodPosts"];
                                     [foodPostRelation addObject:foodPostToPost];

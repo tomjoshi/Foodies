@@ -68,11 +68,11 @@
 		D1D3E89218FF167500F7ACC4 /* FSMealTag+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E89118FF167500F7ACC4 /* FSMealTag+Methods.m */; };
 		D1D3E8A71900D06400F7ACC4 /* FetchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8A61900D06400F7ACC4 /* FetchOperation.m */; };
 		D1D3E8AA1901BEA800F7ACC4 /* FSComment+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8A91901BEA800F7ACC4 /* FSComment+Methods.m */; };
-		D1D3E8E31902CD8D00F7ACC4 /* FSLike.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8E21902CD8D00F7ACC4 /* FSLike.m */; };
-		D1D3E8E61902CD8E00F7ACC4 /* FSMealTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8E51902CD8E00F7ACC4 /* FSMealTag.m */; };
-		D1D3E8E91902CD8E00F7ACC4 /* FSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8E81902CD8E00F7ACC4 /* FSComment.m */; };
-		D1D3E8EC1902CD8E00F7ACC4 /* FSFoodPost.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8EB1902CD8E00F7ACC4 /* FSFoodPost.m */; };
 		D1D3E8EF1903835700F7ACC4 /* FSLike+Methods.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8EE1903835700F7ACC4 /* FSLike+Methods.m */; };
+		D1D3E8F21906B49000F7ACC4 /* FSFoodPost.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8F11906B49000F7ACC4 /* FSFoodPost.m */; };
+		D1D3E8F51906B49000F7ACC4 /* FSLike.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8F41906B49000F7ACC4 /* FSLike.m */; };
+		D1D3E8F81906B49000F7ACC4 /* FSMealTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8F71906B49000F7ACC4 /* FSMealTag.m */; };
+		D1D3E8FB1906B49000F7ACC4 /* FSComment.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D3E8FA1906B49000F7ACC4 /* FSComment.m */; };
 		D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */; };
 		D1FB844018EF70E100A44DD9 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB843F18EF70E100A44DD9 /* MF_Base64Additions.m */; };
 		D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */; };
@@ -193,16 +193,16 @@
 		D1D3E8A61900D06400F7ACC4 /* FetchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchOperation.m; sourceTree = "<group>"; };
 		D1D3E8A81901BEA800F7ACC4 /* FSComment+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSComment+Methods.h"; sourceTree = "<group>"; };
 		D1D3E8A91901BEA800F7ACC4 /* FSComment+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSComment+Methods.m"; sourceTree = "<group>"; };
-		D1D3E8E11902CD8D00F7ACC4 /* FSLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSLike.h; sourceTree = "<group>"; };
-		D1D3E8E21902CD8D00F7ACC4 /* FSLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSLike.m; sourceTree = "<group>"; };
-		D1D3E8E41902CD8E00F7ACC4 /* FSMealTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMealTag.h; sourceTree = "<group>"; };
-		D1D3E8E51902CD8E00F7ACC4 /* FSMealTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMealTag.m; sourceTree = "<group>"; };
-		D1D3E8E71902CD8E00F7ACC4 /* FSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComment.h; sourceTree = "<group>"; };
-		D1D3E8E81902CD8E00F7ACC4 /* FSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComment.m; sourceTree = "<group>"; };
-		D1D3E8EA1902CD8E00F7ACC4 /* FSFoodPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSFoodPost.h; sourceTree = "<group>"; };
-		D1D3E8EB1902CD8E00F7ACC4 /* FSFoodPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSFoodPost.m; sourceTree = "<group>"; };
 		D1D3E8ED1903835700F7ACC4 /* FSLike+Methods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSLike+Methods.h"; sourceTree = "<group>"; };
 		D1D3E8EE1903835700F7ACC4 /* FSLike+Methods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSLike+Methods.m"; sourceTree = "<group>"; };
+		D1D3E8F01906B49000F7ACC4 /* FSFoodPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSFoodPost.h; sourceTree = "<group>"; };
+		D1D3E8F11906B49000F7ACC4 /* FSFoodPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSFoodPost.m; sourceTree = "<group>"; };
+		D1D3E8F31906B49000F7ACC4 /* FSLike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSLike.h; sourceTree = "<group>"; };
+		D1D3E8F41906B49000F7ACC4 /* FSLike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSLike.m; sourceTree = "<group>"; };
+		D1D3E8F61906B49000F7ACC4 /* FSMealTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMealTag.h; sourceTree = "<group>"; };
+		D1D3E8F71906B49000F7ACC4 /* FSMealTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMealTag.m; sourceTree = "<group>"; };
+		D1D3E8F91906B49000F7ACC4 /* FSComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComment.h; sourceTree = "<group>"; };
+		D1D3E8FA1906B49000F7ACC4 /* FSComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComment.m; sourceTree = "<group>"; };
 		D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlatformSignature.h; sourceTree = "<group>"; };
 		D1FB843C18EF700200A44DD9 /* SinglePlatformSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlatformSignature.m; sourceTree = "<group>"; };
 		D1FB843E18EF70E100A44DD9 /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
@@ -286,15 +286,15 @@
 			isa = PBXGroup;
 			children = (
 				D110B00E18CA76B10077D25B /* Category Methods */,
+				D1D3E8F01906B49000F7ACC4 /* FSFoodPost.h */,
+				D1D3E8F91906B49000F7ACC4 /* FSComment.h */,
+				D1D3E8FA1906B49000F7ACC4 /* FSComment.m */,
+				D1D3E8F61906B49000F7ACC4 /* FSMealTag.h */,
+				D1D3E8F71906B49000F7ACC4 /* FSMealTag.m */,
+				D1D3E8F31906B49000F7ACC4 /* FSLike.h */,
+				D1D3E8F41906B49000F7ACC4 /* FSLike.m */,
+				D1D3E8F11906B49000F7ACC4 /* FSFoodPost.m */,
 				D1A4E99C18F830A100E35D56 /* Model.xcdatamodeld */,
-				D1D3E8EA1902CD8E00F7ACC4 /* FSFoodPost.h */,
-				D1D3E8EB1902CD8E00F7ACC4 /* FSFoodPost.m */,
-				D1D3E8E71902CD8E00F7ACC4 /* FSComment.h */,
-				D1D3E8E81902CD8E00F7ACC4 /* FSComment.m */,
-				D1D3E8E41902CD8E00F7ACC4 /* FSMealTag.h */,
-				D1D3E8E51902CD8E00F7ACC4 /* FSMealTag.m */,
-				D1D3E8E11902CD8D00F7ACC4 /* FSLike.h */,
-				D1D3E8E21902CD8D00F7ACC4 /* FSLike.m */,
 				D1FB844218F25BBF00A44DD9 /* MenuPopOverView.h */,
 				D1FB844318F25BBF00A44DD9 /* MenuPopOverView.m */,
 				D1FB843B18EF700200A44DD9 /* SinglePlatformSignature.h */,
@@ -629,19 +629,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1D3E8F21906B49000F7ACC4 /* FSFoodPost.m in Sources */,
+				D1D3E8FB1906B49000F7ACC4 /* FSComment.m in Sources */,
 				D1410AE118F881FB002AC1AC /* FSFoodPost+Methods.m in Sources */,
 				D1BD1B1818D38F1C00256BC2 /* NSMutableDictionary+ImageMetadata.m in Sources */,
 				D1247F6B18E5F1DB009CD32B /* NSDate+PrettyTimestamp.m in Sources */,
 				D13A51B618BCEF3300ADE71D /* CameraViewController.m in Sources */,
 				D1BD1B1318D36F3900256BC2 /* PostFormTableViewController.m in Sources */,
-				D1D3E8E31902CD8D00F7ACC4 /* FSLike.m in Sources */,
 				D1ABE1CB18D22FD300254A84 /* albumThumbCollectionViewCell.m in Sources */,
 				D12A5F5718E36F1D000BF74A /* ProfileViewController.m in Sources */,
 				D1247F6E18E5FA19009CD32B /* MealTag.m in Sources */,
 				D1BD1A8A18D35E1A00256BC2 /* Location.m in Sources */,
 				D1247F7118E5FAB5009CD32B /* Meal.m in Sources */,
 				D1BD1A8518D3575B00256BC2 /* LocationPickerTableViewController.m in Sources */,
-				D1D3E8EC1902CD8E00F7ACC4 /* FSFoodPost.m in Sources */,
 				D1B57DAB18C11D67007B3833 /* TabBarController.m in Sources */,
 				D1BD1B1B18D3A1D600256BC2 /* ALAsset+Date.m in Sources */,
 				D12A5F5418E353DF000BF74A /* LogInTableViewCell.m in Sources */,
@@ -652,7 +652,9 @@
 				D110AFFD18CA4E080077D25B /* FoodPost.m in Sources */,
 				D110AFF218CA43450077D25B /* FeedTableViewCell.m in Sources */,
 				D1247F7418E602ED009CD32B /* FoodiesDataStore.m in Sources */,
+				D1D3E8F51906B49000F7ACC4 /* FSLike.m in Sources */,
 				D110B00718CA5E070077D25B /* UIView+ResizeToFitSubviews.m in Sources */,
+				D1D3E8F81906B49000F7ACC4 /* FSMealTag.m in Sources */,
 				D1D3E84718FC8E2500F7ACC4 /* TagPickerViewController.m in Sources */,
 				D1FB844418F25BBF00A44DD9 /* MenuPopOverView.m in Sources */,
 				D110B00A18CA67210077D25B /* Like.m in Sources */,
@@ -665,11 +667,9 @@
 				D1D3E8A71900D06400F7ACC4 /* FetchOperation.m in Sources */,
 				D1D3E89218FF167500F7ACC4 /* FSMealTag+Methods.m in Sources */,
 				D1FB843D18EF700200A44DD9 /* SinglePlatformSignature.m in Sources */,
-				D1D3E8E61902CD8E00F7ACC4 /* FSMealTag.m in Sources */,
 				D144D6A118C5272D00C6755F /* FeedTableViewController.m in Sources */,
 				D1D3E8AA1901BEA800F7ACC4 /* FSComment+Methods.m in Sources */,
 				D12A5F5D18E37D48000BF74A /* SignUpViewController.m in Sources */,
-				D1D3E8E91902CD8E00F7ACC4 /* FSComment.m in Sources */,
 				D12A5F5118E33135000BF74A /* LandingTableViewController.m in Sources */,
 				D1D3E8EF1903835700F7ACC4 /* FSLike+Methods.m in Sources */,
 			);

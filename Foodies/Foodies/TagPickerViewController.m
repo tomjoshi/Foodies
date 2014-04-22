@@ -7,7 +7,7 @@
 //
 
 #import "TagPickerViewController.h"
-#import "MealTag.h"
+//#import "MealTag.h"
 #import "Meal.h"
 #include <CommonCrypto/CommonDigest.h>
 #include <CommonCrypto/CommonHMAC.h>
@@ -17,6 +17,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <FontAwesomeKit.h>
 #import "Constants.h"
+#import "FSMealTag+Methods.h"
+#import "FoodiesDataStore.h"
 
 @interface TagPickerViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate, MenuPopOverViewDelegate, UIGestureRecognizerDelegate>
 @property (strong, nonatomic) UIImageView *imageView;
@@ -31,7 +33,9 @@
 @property (nonatomic) BOOL isCancelled;
 @property (strong, nonatomic) UIPanGestureRecognizer *panTag;
 @property (strong, nonatomic) UITapGestureRecognizer *tapOnImage;
-@property (strong, nonatomic) MealTag *editableTag;
+@property (strong, nonatomic) FSMealTag *editableTag;
+@property (strong, nonatomic) MenuPopOverView *editablePopOver;
+@property (strong, nonatomic) NSMutableDictionary *popOversDict;
 
 @end
 
@@ -95,7 +99,9 @@
                 }
                 
                 for (Meal *meal in mealNames) {
-                    [self.mealsArray addObject:[[MealTag alloc]initWithMeal:meal andPoint:CGPointZero]];
+                    FSMealTag *menuTag = [FSMealTag initWithMealName:meal.name mealId:nil coordinateX:@0 coordinateY:@0 mealTagId:nil andArrowUp:nil inContext:[FoodiesDataStore sharedInstance].managedObjectContext];
+                    menuTag.mealSPId = meal.spMealId;
+                    [self.mealsArray addObject:menuTag];
                 }
                 [self.menuTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
@@ -149,6 +155,8 @@
     [self.view sendSubviewToBack:self.imageView];
     
     // show tags
+    self.popOversDict = [[NSMutableDictionary alloc] init];
+    [self checkTagCount];
     [self showTags];
     
     // add instructions label
@@ -214,8 +222,9 @@
 {
     [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
     [[tableView cellForRowAtIndexPath:indexPath] setHighlighted:NO];
-    MealTag *tagToAdd = self.mealsArray[indexPath.row];
-    tagToAdd.coordinates = self.newTagCoordinates;
+    FSMealTag *tagToAdd = self.mealsArray[indexPath.row];
+    tagToAdd.coordinateX = @(self.newTagCoordinates.x);
+    tagToAdd.coordinateY = @(self.newTagCoordinates.y);
     if (![self.mealTags containsObject:tagToAdd]) {
         [self.mealTags addObject:tagToAdd];
     }
@@ -226,8 +235,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-    MealTag *newMealTag = (MealTag *)self.mealsArray[indexPath.row];
-    cell.textLabel.text = newMealTag.meal.name;
+    FSMealTag *newMealTag = (FSMealTag *)self.mealsArray[indexPath.row];
+    cell.textLabel.text = newMealTag.mealName;
     cell.backgroundColor = [UIColor clearColor];
     [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
     [cell setUserInteractionEnabled:YES];
@@ -244,6 +253,13 @@
 
 - (void)popoverView:(MenuPopOverView *)popoverView didSelectItemAtIndex:(NSInteger)index
 {
+    FSMealTag *mealTag;
+    for (FSMealTag *tempMealTag in self.mealTags) {
+        if ([self.popOversDict[tempMealTag.mealName] isEqual:popoverView]) {
+            mealTag = tempMealTag;
+        }
+    }
+    
     if ([[popoverView buttons] count]>2) {
         index = (index-1);
         if (index<0) {
@@ -254,45 +270,46 @@
     if (index == 0) {
         NSLog(@"clicked on food");
         
-        for (MealTag *mealTag in self.mealTags) {
-            if ([mealTag.popOver isEqual:popoverView]) {
-                if (![self.editableTag isEqual:mealTag]) {
-                    if (self.editableTag) {
-                        // if something was being edited, stop it
-                        [self.editableTag stopTagEditable];
-                        self.editableTag.popOver.delegate = self;
-                    }
-                    [mealTag makeTagEditable];
-                    self.editableTag = mealTag;
-                    mealTag.popOver.delegate = self;
-                    if (![self.view.gestureRecognizers containsObject:self.panTag]) {
-                        [self.view addGestureRecognizer:self.panTag];
-                    }
-                } else {
-                    // if an editable tag was pressed, stop it
-                    [mealTag stopTagEditable];
-                    mealTag.popOver.delegate = self;
-                    self.editableTag = nil;
-                    [self.view removeGestureRecognizer:self.panTag];
-                }
+        if (![self.editableTag isEqual:mealTag]) {
+            if (self.editableTag) {
+                // if something was being edited, stop it
+                MenuPopOverView *popOver = [self.editableTag stopTagEditable:self.editablePopOver];
+                popOver.delegate = self;
+                self.popOversDict[self.editableTag.mealName] = popOver;
             }
+            MenuPopOverView *popOver =[mealTag makeTagEditable:popoverView];
+            self.editableTag = mealTag;
+            self.editablePopOver = popOver;
+            self.popOversDict[self.editableTag.mealName] = popOver;
+            popOver.delegate = self;
+            if (![self.view.gestureRecognizers containsObject:self.panTag]) {
+                [self.view addGestureRecognizer:self.panTag];
+            }
+        } else {
+            // if an editable tag was pressed, stop it
+            self.editableTag = nil;
+            self.editablePopOver = nil;
+            MenuPopOverView *popOver = [mealTag stopTagEditable:popoverView];
+            self.popOversDict[mealTag.mealName] = popOver;
+            popOver.delegate = self;
+            [self.view removeGestureRecognizer:self.panTag];
         }
+        
     } else if (index == 1) {
         NSLog(@"clicked on close icon");
-        for (MealTag *mealTag in self.mealTags) {
-            if ([mealTag.popOver isEqual:popoverView]) {
-                [self.mealTags removeObject:mealTag];
-                self.editableTag = nil;
-                [self checkTagCount];
-                break;
-            }
-        }
+        [self.mealTags removeObject:mealTag];
+        self.editableTag = nil;
+        self.editablePopOver = nil;
+        [self checkTagCount];
         [popoverView dismiss:YES];
         popoverView = nil;
+        
     } else if (index == 2) {
         NSLog(@"clicked on arrow icon");
-        [self.editableTag toggleArrow];
-        self.editableTag.popOver.delegate = self;
+        MenuPopOverView *popOver = [self.editableTag toggleArrow:popoverView];
+        self.popOversDict[mealTag.mealName] = popOver;
+        self.editablePopOver = popOver;
+        popOver.delegate = self;
         if (![self.view.gestureRecognizers containsObject:self.panTag]) {
             [self.view addGestureRecognizer:self.panTag];
         }
@@ -317,11 +334,11 @@
     CGPoint touchedPoint = [sender locationInView:self.view];
     
     if (self.instructionLabel.alpha == 1) {
-        for (MealTag *mealTag in self.mealTags) {
-            for (UIButton *button in mealTag.popOver.buttons) {
+        for (MenuPopOverView *popOver in [self.popOversDict allValues]) {
+            for (UIButton *button in popOver.buttons) {
                 CGRect buttonFrame = [button.superview convertRect:button.frame toView:self.view];
                 if (CGRectContainsPoint(buttonFrame, touchedPoint)) {
-                    [button sendActionsForControlEvents: UIControlEventTouchUpInside];
+                    [button sendActionsForControlEvents:UIControlEventTouchUpInside];
                     return;
                 }
             }
@@ -337,9 +354,11 @@
         
         // stop editing tag
         if (self.editableTag) {
-            [self.editableTag stopTagEditable];
-            self.editableTag.popOver.delegate = self;
+            MenuPopOverView *popOver = [self.editableTag stopTagEditable:self.editablePopOver];
+            self.popOversDict[self.editableTag.mealName] = popOver;
+            popOver.delegate = self;
             self.editableTag = nil;
+            self.editablePopOver = nil;
             [self.view removeGestureRecognizer:self.panTag];
             return;
         }
@@ -360,9 +379,11 @@
     } else if (self.instructionLabel.alpha == 1) {
         // stop editing tag
         if (self.editableTag) {
-            [self.editableTag stopTagEditable];
-            self.editableTag.popOver.delegate = self;
+            MenuPopOverView *popOver = [self.editableTag stopTagEditable:self.editablePopOver];
+            self.popOversDict[self.editableTag.mealName] = popOver;
+            popOver.delegate = self;
             self.editableTag = nil;
+            self.editablePopOver = nil;
             [self.view removeGestureRecognizer:self.panTag];
         }
     } else if (self.menuTable.alpha == 1){
@@ -401,18 +422,28 @@
 
 - (void)showTags
 {
-    for (MealTag *mealTag in self.mealTags) {
-        [mealTag showTagInView:self.imageView];
-        mealTag.popOver.delegate = self;
+//    for (MenuPopOverView *popOver in [self.popOversDict allValues]) {
+//        [popOver dismiss:NO];
+//    }
+    for (UIView *view in self.imageView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    for (FSMealTag *mealTag in self.mealTags) {
+        MenuPopOverView *popOver = [mealTag showTagInView:self.imageView];
+        self.popOversDict[mealTag.mealName] = popOver;
+        popOver.delegate = self;
     }
 }
 
 - (void)panPopOver:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint translation = [recognizer translationInView:self.imageView];
-    MenuPopOverView *popOver = self.editableTag.popOver;
-    self.editableTag.coordinates = CGPointMake(popOver.pointCoordinates.x + translation.x, popOver.pointCoordinates.y + translation.y);
-    [popOver setupLayout:CGRectMake(self.editableTag.coordinates.x, self.editableTag.coordinates.y, 0, 0) inView:self.imageView];
+    MenuPopOverView *popOver = self.editablePopOver;
+    CGPoint newCoordinates = CGPointMake(popOver.pointCoordinates.x + translation.x, popOver.pointCoordinates.y + translation.y);
+    self.editableTag.coordinateX = @(newCoordinates.x);
+    self.editableTag.coordinateY = @(newCoordinates.y);
+    [popOver setupLayout:CGRectMake(newCoordinates.x, newCoordinates.y, 0, 0) inView:self.imageView];
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.imageView];
 }
 
