@@ -40,10 +40,7 @@
     if (postImage) {
         fsFoodPost.postImage = postImage;
         if (postId) {
-            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-            [queue addOperationWithBlock:^{
-                [FoodiesDataStore sharedInstance].cachedPostImages[postId] = [UIImage imageWithData:postImage];
-            }];
+            [FoodiesDataStore sharedInstance].cachedPostImages[postId] = [UIImage imageWithData:postImage];
         }
     }
     if (postDate) {
@@ -61,10 +58,7 @@
     if (authorThumb) {
         fsFoodPost.authorThumb = authorThumb;
         if (authorId) {
-            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-            [queue addOperationWithBlock:^{
-                [FoodiesDataStore sharedInstance].cachedAuthorThumbs[authorId] = [UIImage imageWithData:authorThumb];
-            }];
+            [FoodiesDataStore sharedInstance].cachedAuthorThumbs[authorId] = [UIImage imageWithData:authorThumb];
         }
     }
     if (venueName) {
@@ -109,10 +103,7 @@
     if (postImage == nil) {
         postImage = [UIImage imageWithData:self.postImage];
         if (self.postImage && self.postId) {
-            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-            [queue addOperationWithBlock:^{
-                [FoodiesDataStore sharedInstance].cachedPostImages[self.postId] = postImage;
-            }];
+            [FoodiesDataStore sharedInstance].cachedPostImages[self.postId] = postImage;
         }
     }
     return postImage;

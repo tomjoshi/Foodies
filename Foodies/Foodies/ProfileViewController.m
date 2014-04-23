@@ -109,6 +109,7 @@
 - (IBAction)logOutTapped:(id)sender {
     [Foodie logOut];
     
+    self.profileImage = nil;
     LandingTableViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"logInController"];
     [self presentViewController:modalVC animated:YES completion:nil];
     modalVC.delegate = (TabBarController *)self.tabBarController;

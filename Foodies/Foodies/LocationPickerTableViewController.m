@@ -113,6 +113,8 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
     [self.locationManager stopUpdatingLocation];
+    self.latPassed = @(newLocation.coordinate.latitude);
+    self.lngPassed = @(newLocation.coordinate.longitude);
     [self loadRestaurantsAtLatitude:@(newLocation.coordinate.latitude) andLongitude:@(newLocation.coordinate.longitude)];
 }
 
@@ -128,7 +130,7 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    [Foursquare2 venueSearchNearByLatitude:self.latPassed longitude:self.lngPassed query:searchBar.text limit:@(20) intent:intentBrowse radius:@500 categoryId:@"4d4b7105d754a06374d81259" callback:^(BOOL success, id result) {
+    [Foursquare2 venueSearchNearByLatitude:self.latPassed longitude:self.lngPassed query:searchBar.text limit:@(20) intent:intentBrowse radius:@10000 categoryId:@"4d4b7105d754a06374d81259" callback:^(BOOL success, id result) {
         [self.LocationSearchBar resignFirstResponder];
         [self getLocationsFromResult:result];
     }];
@@ -160,6 +162,11 @@
 
 - (void)getLocationsFromResult:(id)result
 {
+    if ([result isKindOfClass:[NSError class]]) {
+        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        return;
+    }
+    
     NSArray *venues = result[@"response"][@"venues"];
     NSMutableArray *mutableVenues = [NSMutableArray new];
     for (NSDictionary *venueDict in venues)

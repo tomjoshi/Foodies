@@ -203,11 +203,12 @@
     [FoodiesAPI postFoodPost:newFoodPost inContext:[FoodiesDataStore sharedInstance].managedObjectContext completion:^{
         [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         
-        // take to feed
+        // redirect to feed
         [self.tabBarController setSelectedIndex:0];
         UINavigationController *homeNav = self.tabBarController.viewControllers[0];
         FeedTableViewController *homeVC = homeNav.viewControllers[0];
         [homeVC refreshPulled:nil];
+        [homeVC.tableView setContentOffset:CGPointZero animated:YES];
         
         // reset the current view controller
         [self.delegate didSharePost];
